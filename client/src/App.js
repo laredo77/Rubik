@@ -4,8 +4,8 @@ import ComponentsManager from "./components/ComponentsManager";
 
 function App() {
   return (
-      // <ComponentsManagerConnector/>
-      <ComponentsManager></ComponentsManager>
+    // <ComponentsManagerConnector/>
+    <ComponentsManager></ComponentsManager>
   );
 }
 
