@@ -6,10 +6,10 @@ import Grid from "@mui/material/Grid";
 
 function MainPage() {
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "#d6d6d6", pt: "500px" }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: "#d6d6d6", height: "500px" }}>
       <Grid
-        position={"fixed"}
-        top={120}
+        // position={"fixed"}
+        // top={120}
         width={"90%"}
         bgcolor={"#1976d2"}
         marginLeft={2}

@@ -9,16 +9,14 @@ import "./ComponentsManager.css";
 function ComponentsManager() {
   return (
     <div className="main">
-      <BrowserRouter>
-        <MenuBar />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/tools" element={<ToolsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          {/* <Route path="/" element={<MainPageConnector />} /> */}
-          {/*<Route path="/about" element={<About />} />*/}
-        </Routes>
-      </BrowserRouter>
+      <MenuBar />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/tools" element={<ToolsPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        {/* <Route path="/" element={<MainPageConnector />} /> */}
+        {/*<Route path="/about" element={<About />} />*/}
+      </Routes>
     </div>
   );
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { TabList, Tab } from "monday-ui-react-core";
 import "./MenuBar.css";
-import ToolsPage from "../ToolsPage/ToolsPage";
 
 function MenuBar() {
   const navigate = useNavigate();
