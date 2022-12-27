@@ -1,20 +1,60 @@
 import "./MainPage.css";
 import * as React from "react";
+import { experimentalStyled as styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import SearchBar from "./SearchBar/SearchBar";
+import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
+import { useNavigate } from "react-router-dom";
+import { TabList, Tab } from "monday-ui-react-core";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 function MainPage() {
+  const navigate = useNavigate();
+
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: "#d6d6d6", height: "500px" }}>
+    <Box sx={{ flexGrow: 1 }}>
       <Grid
-        // position={"fixed"}
-        // top={120}
-        width={"90%"}
-        bgcolor={"#1976d2"}
-        marginLeft={2}
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
       >
-        <SearchBar></SearchBar>
+        {/*{Array.from(Array(6)).map((_, index) => (*/}
+        {/*  <Grid item xs={2} sm={4} md={4} key={index}>*/}
+        {/*    <Item sx={{ height: 200 }}>Tool</Item>*/}
+        {/*  </Grid>*/}
+        {/*))}*/}
+        <Grid item xs={2} sm={4} md={4}>
+          <Item sx={{ height: 200 }} onClick={() => navigate("/singlePlayer")}>
+            Single Player
+          </Item>
+        </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <Item sx={{ height: 200 }} onClick={() => navigate("/teamPlay")}>
+            Team Play
+          </Item>
+        </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <Item sx={{ height: 200 }}>
+            Single Player, Competitional Mode
+          </Item>
+        </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <Item sx={{ height: 200 }}>
+          Team Player, Competitional Mode
+          </Item>
+        </Grid>
+        <Grid item xs={2} sm={4} md={4}>
+          <Item sx={{ height: 200 }}>
+            Rubik's Cube Algorithms
+          </Item>
+        </Grid>
       </Grid>
     </Box>
   );
