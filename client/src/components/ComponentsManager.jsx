@@ -2,10 +2,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import MainPage from "./MainPage/MainPage";
 import MenuBar from "./MenuBar/MenuBar";
-import ToolsPage from "./ToolsPage/ToolsPage";
 import AboutPage from "./AboutPage/AboutPage";
-import BscPage from "./ToolsPage/BscPage/BscPage";
 import SinglePlayer from "./SinglePlayerPage/SinglePlayerPage"
+import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage"
 import "./ComponentsManager.css";
 
 function ComponentsManager() {
@@ -15,6 +14,7 @@ function ComponentsManager() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/singlePlayer" element={<SinglePlayer />} />
+        <Route path="/singlePlayerCompPage" element={<SinglePlayerCompPage />} />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
         {/* <Route path="/" element={<MainPageConnector />} /> */}
