@@ -6,6 +6,7 @@ import AboutPage from "./AboutPage/AboutPage";
 import SinglePlayer from "./SinglePlayerPage/SinglePlayerPage"
 import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage"
 import "./ComponentsManager.css";
+import CubeContainer from "./Cube/CubeContainer";
 
 function ComponentsManager() {
   return (
@@ -14,6 +15,7 @@ function ComponentsManager() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/singlePlayer" element={<SinglePlayer />} />
+        <Route path="/singlePlayer/art" element={<CubeContainer />} />
         <Route path="/singlePlayerCompPage" element={<SinglePlayerCompPage />} />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
