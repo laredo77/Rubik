@@ -51,7 +51,7 @@ function MainPage() {
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }}>
+          <Item sx={{ height: 200 }} onClick={() => navigate("/about")}>
             Rubik's Cube Algorithms
           </Item>
         </Grid>

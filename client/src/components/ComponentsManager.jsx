@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import MainPage from "./MainPage/MainPage";
-import MenuBar from "./MenuBar/MenuBar";
 import AboutPage from "./AboutPage/AboutPage";
 import SinglePlayer from "./SinglePlayerPage/SinglePlayerPage"
 import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage"
+import GamePage from "./SinglePlayerCompPage/GamePage/GamePage"
 import "./ComponentsManager.css";
-import CubeContainer from "./Cube/CubeContainer";
+// import CubeContainer from "./Cube/CubeContainer";
 
 function ComponentsManager() {
   return (
@@ -15,8 +15,8 @@ function ComponentsManager() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/singlePlayer" element={<SinglePlayer />} />
-        <Route path="/singlePlayer/art" element={<CubeContainer />} />
         <Route path="/singlePlayerCompPage" element={<SinglePlayerCompPage />} />
+        <Route path="/singlePlayerCompPage/gamePage" element={<GamePage />} />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
         {/* <Route path="/" element={<MainPageConnector />} /> */}
@@ -25,5 +25,7 @@ function ComponentsManager() {
     </div>
   );
 }
+
+
 
 export default ComponentsManager;

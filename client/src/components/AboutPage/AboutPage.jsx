@@ -7,10 +7,13 @@
 //
 // export default AboutPage;
 
-import React from "react";
+// import React from "react";
+// import { Cube } from "../Cube/Cube"
 
-const About = () => {
-  return <div>About page</div>;
-};
+// const About = () => {
+//   return (
+//   <Cube />
+//   );
+// };
 
-export default About;
+// export default About;
