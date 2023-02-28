@@ -29,13 +29,27 @@ function SinglePlayerPage() {
         {/*  </Grid>*/}
         {/*))}*/}
         <Grid item xs={2} sm={4} md={12}>
-          <Item sx={{ height: 100, textAlign: "left"}} onClick={() => navigate("/singlePlayer/art")}>
+          <Item
+            sx={{ height: 100, textAlign: "left" }}
+            onClick={() => navigate("/singlePlayer/freePlay")}
+          >
+            Free Play
+          </Item>
+        </Grid>
+        <Grid item xs={2} sm={4} md={12}>
+          <Item
+            sx={{ height: 100, textAlign: "left" }}
+            onClick={() => navigate("/singlePlayer/art")}
+          >
             Level: Easy
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={12}>
-          <Item sx={{ height: 100, textAlign: "left" }} onClick={() => navigate("/singlePlayer/art")}>
-          Level: Medium
+          <Item
+            sx={{ height: 100, textAlign: "left" }}
+            onClick={() => navigate("/singlePlayer/art")}
+          >
+            Level: Medium
           </Item>
         </Grid>
       </Grid>

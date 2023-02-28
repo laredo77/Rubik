@@ -5,7 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 
 import Button from '@mui/material/Button';
-// import CubeContainer from "../../Cube/CubeContainer"
+import CubeContainer from "../../Cube/CubeContainer"
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import StopWatch from "../../StopWatch/StopWatch";
@@ -18,7 +18,7 @@ function GamePage() {
   return (
     <ThemeProvider theme={theme}>
     <div className="app">
-    {/* <CubeContainer/> */}
+    <CubeContainer/>
     </div>
 <StopWatch />
 <Button variant="contained" onClick={() => navigate("/singlePlayerCompPage/leaderBoard")}>LeaderBoard</Button>
