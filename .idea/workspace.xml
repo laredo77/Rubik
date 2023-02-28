@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="cube" />
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="d">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/GamePage/GamePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/GamePage/GamePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -65,6 +76,8 @@
       <workItem from="1672321219026" duration="213000" />
       <workItem from="1672321870260" duration="40000" />
       <workItem from="1673878135706" duration="86000" />
+      <workItem from="1673987104247" duration="464000" />
+      <workItem from="1677568963149" duration="4941000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -136,7 +149,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673878204854</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="stopwatch">
+      <created>1673987219489</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1673987219489</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,6 +181,8 @@
     <MESSAGE value="init SinglePlayerCompPage, init google-login" />
     <MESSAGE value="init server" />
     <MESSAGE value="cube" />
-    <option name="LAST_COMMIT_MESSAGE" value="cube" />
+    <MESSAGE value="stopwatch" />
+    <MESSAGE value="d" />
+    <option name="LAST_COMMIT_MESSAGE" value="d" />
   </component>
 </project>
