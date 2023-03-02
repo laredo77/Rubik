@@ -39,7 +39,7 @@ function SinglePlayerPage() {
         <Grid item xs={2} sm={4} md={12}>
           <Item
             sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art")}
+            onClick={() => navigate("/singlePlayer/art1")}
           >
             Level: Easy
           </Item>
