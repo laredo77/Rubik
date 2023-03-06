@@ -1,11 +1,15 @@
-// import {connect} from "react-redux";
-// import {bindActionCreators} from "redux";
-// //import { addUser } from "../../actions/add-user-actions";
-// import MainPage from "./MainPage";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getUser } from "../../selectors/userSelector";
+import MainPage from "./MainPage";
 
-// const mapDispatchToProps = (dispatch) => {
-//     //return bindActionCreators({ addUser }, dispatch);
-//     return bindActionCreators({}, dispatch);
+const mapStateToProps = (state) => {
+  const user = getUser(state);
+  return { user };
+};
+
+// const mapDispatchToProps = dispatch => {
+//     return bindActionCreators({ func }, dispatch);
 // };
 
-// export default connect(null, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps, null)(MainPage);

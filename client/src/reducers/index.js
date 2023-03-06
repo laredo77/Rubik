@@ -1,10 +1,10 @@
 import teamPlayGameReducer from "./teamPlayGameReducer";
-import addNewUserReducer from "./addNewUserReducer";
+import user from "./addNewUserReducer";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
   teamPlayGameReducer,
-  addNewUserReducer,
+  user,
 });
 
 export default allReducers;

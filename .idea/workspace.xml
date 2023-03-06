@@ -1,26 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="levels page">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="redux changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/add-user-actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/add-user-actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/dashboard-actions.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LoginPage/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LoginPage/LoginPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/MainPage/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MainPage/MainPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/GamePage/GamePage.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/GamePage/GamePage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/LevelsPage/LeaderBoardPage/LeaderBoardPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/LevelsPage/LevelsPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/SinglePlayerCompPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/SinglePlayerCompPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/Art1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/Art1.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MainPage/MainPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MainPage/MainPageConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/Art1.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/Art1.jsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/getDomainDataReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/addNewUserReducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/addNewUserReducer.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/client.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/GeneralServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GeneralServices.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +83,7 @@
       <workItem from="1673878135706" duration="86000" />
       <workItem from="1673987104247" duration="464000" />
       <workItem from="1677568963149" duration="4941000" />
-      <workItem from="1678094444588" duration="11200000" />
+      <workItem from="1678094444588" duration="20524000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -166,7 +162,14 @@
       <option name="project" value="LOCAL" />
       <updated>1673987219489</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="redux changes">
+      <created>1678107651020</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1678107651020</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -193,6 +196,7 @@
     <MESSAGE value="cube" />
     <MESSAGE value="stopwatch" />
     <MESSAGE value="d" />
-    <option name="LAST_COMMIT_MESSAGE" value="d" />
+    <MESSAGE value="redux changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="redux changes" />
   </component>
 </project>

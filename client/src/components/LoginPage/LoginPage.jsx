@@ -37,6 +37,22 @@ function LoginPage({ addNewUser }) {
     // itamar: TODO handeling failur login to google
   };
 
+  // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
+  const tempButtonHandler = async (response) => {
+    const user = {
+      email: "MyUser@gmail.com",
+      isLoading: false,
+      isError: false,
+    };
+
+    try {
+      await addNewUser(user);
+    } catch (e) {
+      console.log(e);
+    }
+    navigate("./main");
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <Grid
@@ -99,7 +115,7 @@ function LoginPage({ addNewUser }) {
           </Box>
         </Grid>
       </Grid>
-      <Button variant="contained" onClick={() => navigate("./main")}>
+      <Button variant="contained" onClick={tempButtonHandler}>
         TEMP BUTTON
       </Button>
     </ThemeProvider>

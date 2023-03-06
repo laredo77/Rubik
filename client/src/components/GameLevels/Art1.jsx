@@ -39,15 +39,8 @@ function Art1() {
     });
   };
 
-  const levelChooseHandler = (response) => {
-    //dispatch(initNewGame(user, level));
-  };
-
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained" onClick={levelChooseHandler}>
-        Choose Level
-      </Button>
       <ImageList
         sx={{
           marginRight: "auto",

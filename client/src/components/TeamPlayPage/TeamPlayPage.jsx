@@ -1,10 +1,15 @@
 import * as React from "react";
+import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 
-function TeamPlayPage() {
+function TeamPlayPage({ user, modeListener }) {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    modeListener("team");
+  }, []);
 
   const newGameHandler = (response) => {
     // 1.choose level like single player

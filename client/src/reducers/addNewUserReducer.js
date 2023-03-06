@@ -2,6 +2,7 @@ import actionTypes from "../actions/constants";
 
 const initialState = {
   email: "",
+  mode: "",
   isLoading: false,
   isError: false,
 };
@@ -23,6 +24,10 @@ const addNewUserReducer = (state = initialState, { type, payload }) => {
 
     case actionTypes.ADD_USER_FAILURE: {
       return { ...state, isError: true, isLoading: false };
+    }
+
+    case actionTypes.MODE_OF_PLAY: {
+      return { ...state, mode: payload };
     }
 
     default:
