@@ -7,13 +7,10 @@ import "./Art1.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { initNewGame } from "../../actions/teamplay-actions/new-game-action";
 
 const theme = createTheme();
 
 function Art1() {
-  const dispatch = useDispatch();
   const MySwal = withReactContent(Swal);
   //const generateImage = (response) => {};
   const handleImageClick = (response) => {

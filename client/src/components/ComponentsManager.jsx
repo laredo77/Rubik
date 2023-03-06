@@ -19,19 +19,12 @@ function ComponentsManager() {
         <Route path="/main/singlePlayer" element={<SinglePlayer />} />
         <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
         <Route path="/main/gameLevels/art1" element={<Art1 />} />
-        <Route
-          path="/main/singlePlayer/levelsPage"
-          element={<LevelsPageConnector />}
-        />
+        <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route
           path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompPage />}
         />
         <Route path="/main/teamPlay" element={<TeamPlayPageConnector />} />
-        <Route
-          path="/main/teamPlay/levelsPage"
-          element={<LevelsPageConnector />}
-        />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
         {/* <Route path="/" element={<MainPageConnector />} /> */}
