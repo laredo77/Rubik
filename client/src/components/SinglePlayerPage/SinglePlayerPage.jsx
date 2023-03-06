@@ -1,59 +1,33 @@
 import * as React from "react";
-import { experimentalStyled as styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
-import { TabList, Tab } from "monday-ui-react-core";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(2),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
+import Button from "@mui/material/Button";
 
 function SinglePlayerPage() {
   const navigate = useNavigate();
+
+  // const freePlayHandler = (response) => {
+  //   navigate("/singlePlayer/freePlay")
+  // };
+  //
+  // const levelPageHendler = (response) => {
+  // };
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
+    <Grid sx={{ display: "inline-block" }}>
+      <Button
+        variant="contained"
+        onClick={() => navigate("/singlePlayer/freePlay")}
       >
-        {/*{Array.from(Array(6)).map((_, index) => (*/}
-        {/*  <Grid item xs={2} sm={4} md={4} key={index}>*/}
-        {/*    <Item sx={{ height: 200 }}>Tool</Item>*/}
-        {/*  </Grid>*/}
-        {/*))}*/}
-        <Grid item xs={2} sm={4} md={12}>
-          <Item
-            sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/freePlay")}
-          >
-            Free Play
-          </Item>
-        </Grid>
-        <Grid item xs={2} sm={4} md={12}>
-          <Item
-            sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art")}
-          >
-            Level: Easy
-          </Item>
-        </Grid>
-        <Grid item xs={2} sm={4} md={12}>
-          <Item
-            sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art")}
-          >
-            Level: Medium
-          </Item>
-        </Grid>
-      </Grid>
-    </Box>
+        Free Play
+      </Button>
+      <Button
+        variant="contained"
+        onClick={() => navigate("/singlePlayer/levelsPage")}
+      >
+        Levels Page
+      </Button>
+    </Grid>
   );
 }
 
