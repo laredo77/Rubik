@@ -31,27 +31,31 @@ function MainPage() {
         {/*  </Grid>*/}
         {/*))}*/}
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }} onClick={() => navigate("/singlePlayer")}>
+          <Item
+            sx={{ height: 200 }}
+            onClick={() => navigate("/main/singlePlayer")}
+          >
             Single Player
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }} onClick={() => navigate("/teamPlay")}>
+          <Item sx={{ height: 200 }} onClick={() => navigate("/main/teamPlay")}>
             Team Play
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }} onClick={() => navigate("/singlePlayerCompPage")}>
+          <Item
+            sx={{ height: 200 }}
+            onClick={() => navigate("/main/singlePlayerCompPage")}
+          >
             Single Player, Competitional Mode
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }}>
-          Team Player, Competitional Mode
-          </Item>
+          <Item sx={{ height: 200 }}>Team Player, Competitional Mode</Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }} onClick={() => navigate("/about")}>
+          <Item sx={{ height: 200 }} onClick={() => navigate("/main/about")}>
             Rubik's Cube Algorithms
           </Item>
         </Grid>

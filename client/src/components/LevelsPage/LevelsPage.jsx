@@ -30,7 +30,7 @@ function LevelsPage() {
         <Grid item xs={2} sm={4} md={12}>
           <Item
             sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art1")}
+            onClick={() => navigate("/main/singlePlayer/art1")}
           >
             Level: Easy
           </Item>
@@ -38,7 +38,7 @@ function LevelsPage() {
         <Grid item xs={2} sm={4} md={12}>
           <Item
             sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art")}
+            onClick={() => navigate("/main/singlePlayer/art")}
           >
             Level: Medium
           </Item>

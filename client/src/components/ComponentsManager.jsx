@@ -5,11 +5,11 @@ import AboutPage from "./AboutPage/AboutPage";
 import SinglePlayer from "./SinglePlayerPage/SinglePlayerPage";
 import FreePlayPage from "./SinglePlayerPage/FreePlayPage";
 import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage";
-import GamePage from "./SinglePlayerCompPage/GamePage/GamePage";
 import Art1 from "./SinglePlayerPage/Art1";
 import "./ComponentsManager.css";
 import TeamPlayPage from "../components/TeamPlayPage/TeamPlayPage";
 import LevelsPage from "./LevelsPage/LevelsPage";
+import LoginPage from "./LoginPage/LoginPage";
 
 // import CubeContainer from "./Cube/CubeContainer";
 
@@ -18,18 +18,18 @@ function ComponentsManager() {
     <div className="main">
       {/* <MenuBar /> */}
       <Routes>
-        <Route path="/" element={<MainPage />} />
-        <Route path="/singlePlayer" element={<SinglePlayer />} />
-        <Route path="/singlePlayer/freePlay" element={<FreePlayPage />} />
-        <Route path="/singlePlayer/art1" element={<Art1 />} />
-        <Route path="/singlePlayer/levelsPage" element={<LevelsPage />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/main/singlePlayer" element={<SinglePlayer />} />
+        <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
+        <Route path="/main/singlePlayer/art1" element={<Art1 />} />
+        <Route path="/main/singlePlayer/levelsPage" element={<LevelsPage />} />
         <Route
-          path="/singlePlayerCompPage"
+          path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompPage />}
         />
-        <Route path="/singlePlayerCompPage/gamePage" element={<GamePage />} />
-        <Route path="/teamPlay" element={<TeamPlayPage />} />
-        <Route path="/teamPlay/levelsPage" element={<LevelsPage />} />
+        <Route path="/main/teamPlay" element={<TeamPlayPage />} />
+        <Route path="/main/teamPlay/levelsPage" element={<LevelsPage />} />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
         {/* <Route path="/" element={<MainPageConnector />} /> */}

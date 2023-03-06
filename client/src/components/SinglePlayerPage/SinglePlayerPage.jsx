@@ -17,13 +17,13 @@ function SinglePlayerPage() {
     <Grid sx={{ display: "inline-block" }}>
       <Button
         variant="contained"
-        onClick={() => navigate("/singlePlayer/freePlay")}
+        onClick={() => navigate("/main/singlePlayer/freePlay")}
       >
         Free Play
       </Button>
       <Button
         variant="contained"
-        onClick={() => navigate("/singlePlayer/levelsPage")}
+        onClick={() => navigate("/main/singlePlayer/levelsPage")}
       >
         Levels Page
       </Button>

@@ -1,9 +1,10 @@
-import getDomainData from "./getDomainDataReducer";
-
+import teamPlayGameReducer from "./teamPlayGameReducer";
+import addNewUserReducer from "./addNewUserReducer";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
-  getDomainData,
+  teamPlayGameReducer,
+  addNewUserReducer,
 });
 
 export default allReducers;

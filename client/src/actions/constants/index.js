@@ -1,7 +1,11 @@
 const ACTIONS = {
-  GET_DOMAIN_DATA_REQUEST: "get_domain_data_request",
-  GET_DOMAIN_DATA_SUCCESS: "get_domain_data_success",
-  GET_DOMAIN_DATA_FAILURE: "get_domain_data_failure",
+  ADD_USER_REQUEST: "add_user_request",
+  ADD_USER_SUCCESS: "add_user_success",
+  ADD_USER_FAILURE: "add_user_failure",
+
+  NEW_GAME_REQUEST: "new_game_request",
+  NEW_GAME_SUCCESS: "new_game_success",
+  NEW_GAME_FAILURE: "new_game_failure",
 };
 
 export default ACTIONS;
