@@ -8,6 +8,8 @@ import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage";
 import GamePage from "./SinglePlayerCompPage/GamePage/GamePage";
 import Art1 from "./SinglePlayerPage/Art1";
 import "./ComponentsManager.css";
+import TeamPlayPage from "../components/TeamPlayPage/TeamPlayPage";
+import LevelsPage from "./LevelsPage/LevelsPage";
 
 // import CubeContainer from "./Cube/CubeContainer";
 
@@ -20,11 +22,14 @@ function ComponentsManager() {
         <Route path="/singlePlayer" element={<SinglePlayer />} />
         <Route path="/singlePlayer/freePlay" element={<FreePlayPage />} />
         <Route path="/singlePlayer/art1" element={<Art1 />} />
+        <Route path="/singlePlayer/levelsPage" element={<LevelsPage />} />
         <Route
           path="/singlePlayerCompPage"
           element={<SinglePlayerCompPage />}
         />
         <Route path="/singlePlayerCompPage/gamePage" element={<GamePage />} />
+        <Route path="/teamPlay" element={<TeamPlayPage />} />
+        <Route path="/teamPlay/levelsPage" element={<LevelsPage />} />
         {/* <Route path="/about" element={<AboutPage />} />
         <Route path="/tools/bsc" element={<BscPage />} /> */}
         {/* <Route path="/" element={<MainPageConnector />} /> */}
