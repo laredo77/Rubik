@@ -2,6 +2,7 @@
 
 export class TeamPlayService {
   static async initNewGame(gameDetails) {
+    console.log(gameDetails);
     // const response = await axios.post("http://localhost:3001/", user);
     // if (response.status !== 200) return;
     // 1. call server with user details
@@ -10,6 +11,8 @@ export class TeamPlayService {
   }
 
   static async joinGame(gameDetails, player) {
+    console.log(gameDetails);
+    console.log(player);
     // const response = await axios.get(`${BASE_URL}/auth/${id}/twitter`);
     // if (response.status !== 200) return;
     // window.location.replace(response.data); // itamar: redirct to twitter auth

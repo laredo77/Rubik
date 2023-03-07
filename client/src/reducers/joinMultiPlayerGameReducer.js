@@ -1,29 +1,32 @@
 import actionTypes from "../actions/constants";
 
 const initialState = {
-  manager: undefined,
-  level: undefined,
+  id: undefined,
+  password: undefined,
   isLoading: false,
   isError: false,
   errorMsg: "",
 };
 
-const teamPlayGameReducer = (state = initialState, { type, payload }) => {
+const joinMultiPlayerGameReducer = (
+  state = initialState,
+  { type, payload }
+) => {
   switch (type) {
-    case actionTypes.NEW_GAME_REQUEST: {
+    case actionTypes.JOIN_GAME_REQUEST: {
       return { ...state, isLoading: true };
     }
 
-    case actionTypes.NEW_GAME_SUCCESS: {
+    case actionTypes.JOIN_GAME_SUCCESS: {
       return {
         ...state,
-        manager: payload.manager,
-        level: payload.level,
+        id: payload.id,
+        password: payload.password,
         isLoading: false,
       };
     }
 
-    case actionTypes.NEW_GAME_FAILURE: {
+    case actionTypes.JOIN_GAME_FAILURE: {
       return {
         ...state,
         isError: true,
@@ -37,4 +40,4 @@ const teamPlayGameReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default teamPlayGameReducer;
+export default joinMultiPlayerGameReducer;

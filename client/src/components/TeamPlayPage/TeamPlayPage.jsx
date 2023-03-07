@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-function TeamPlayPage({ user, modeListener }) {
+function TeamPlayPage({ user, modeListener, joinGame }) {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
-  const [gameId, setGameId] = useState("");
-  const [gamePwd, setGamePwd] = useState("");
+  let gameId = "";
+  let gamePwd = "";
 
   useEffect(() => {
     modeListener("team");
@@ -37,7 +37,7 @@ function TeamPlayPage({ user, modeListener }) {
             label="Game ID"
             variant="outlined"
             onChange={(e) => {
-              setGameId(e.target.value);
+              gameId = e.target.value;
             }}
           />
           <TextField
@@ -45,7 +45,7 @@ function TeamPlayPage({ user, modeListener }) {
             label="Password"
             variant="outlined"
             onChange={(e) => {
-              setGamePwd(e.target.value);
+              gamePwd = e.target.value;
             }}
           />
         </i>
@@ -55,14 +55,12 @@ function TeamPlayPage({ user, modeListener }) {
       showCancelButton: true,
     }).then((response) => {
       if (response.isConfirmed) {
-        console.log(gameId);
-        console.log(gamePwd);
+        joinGame(gameId, gamePwd, user);
       } else if (response.isDenied) {
-        console.log("nada");
+        // do nothing
       }
     });
   };
-
   return (
     <Grid sx={{ display: "inline-block" }}>
       <Button variant="contained" onClick={newGameHandler}>

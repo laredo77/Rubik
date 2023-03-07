@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="redux changes, selector, teamplay">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="start working on teamplay-&gt;join game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/teamPlayGameReducer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +76,9 @@
       <workItem from="1673878135706" duration="86000" />
       <workItem from="1673987104247" duration="464000" />
       <workItem from="1677568963149" duration="4941000" />
-      <workItem from="1678094444588" duration="24276000" />
+      <workItem from="1678094444588" duration="24578000" />
+      <workItem from="1678172717502" duration="1706000" />
+      <workItem from="1678184083845" duration="4242000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -166,7 +171,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678117974930</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="start working on teamplay-&gt;join game">
+      <created>1678121963477</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1678121963477</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,6 +207,7 @@
     <MESSAGE value="d" />
     <MESSAGE value="redux changes" />
     <MESSAGE value="redux changes, selector, teamplay" />
-    <option name="LAST_COMMIT_MESSAGE" value="redux changes, selector, teamplay" />
+    <MESSAGE value="start working on teamplay-&gt;join game" />
+    <option name="LAST_COMMIT_MESSAGE" value="start working on teamplay-&gt;join game" />
   </component>
 </project>
