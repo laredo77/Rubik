@@ -11,10 +11,21 @@ const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
   textAlign: "center",
   color: theme.palette.text.secondary,
+  id: "",
 }));
 
-function LevelsPage() {
+function LevelsPage({ user, initNewGame }) {
   const navigate = useNavigate();
+
+  const levelChooseHandler = async (response) => {
+    let level = response.target.id;
+    if (user.mode === "team") {
+      // team play
+      await initNewGame(user, level);
+    }
+    navigate(`/main/gameLevels/${level}`);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid
@@ -30,7 +41,8 @@ function LevelsPage() {
         <Grid item xs={2} sm={4} md={12}>
           <Item
             sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art1")}
+            id="art1"
+            onClick={levelChooseHandler}
           >
             Level: Easy
           </Item>
@@ -38,7 +50,7 @@ function LevelsPage() {
         <Grid item xs={2} sm={4} md={12}>
           <Item
             sx={{ height: 100, textAlign: "left" }}
-            onClick={() => navigate("/singlePlayer/art")}
+            onClick={() => navigate("/main/singlePlayer/art")}
           >
             Level: Medium
           </Item>

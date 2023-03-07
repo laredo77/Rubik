@@ -1,87 +1,49 @@
-import GoogleLogin from "react-google-login"; // itamar: do not delete
-import gapi from "gapi-script"; // itamar: do not delete
-
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import Button from '@mui/material/Button';
+
+import Button from "@mui/material/Button";
+import CubeContainer from "../Cube/CubeContainer";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import StopWatch from "../StopWatch/StopWatch";
 
 const theme = createTheme();
 
 function SinglePlayerCompPage() {
-    const navigate = useNavigate();
-    const handleLogin = async (response) => {
-        console.log(response);
-        // itamar: TODO add the user to db ...
-    };
+  const navigate = useNavigate();
 
-    const handleLoginFail = (response) => {
-        console.log(response);
-        // itamar: TODO handeling failur login to google
-    };
+  return (
+    <ThemeProvider theme={theme}>
+      <div className="app">
+        <CubeContainer />
+      </div>
 
-
-    return (
-        <ThemeProvider theme={theme}>
-        <Grid container component="main" sx={{ height: "80vh", display: "flex", alignItems: "center",
-     justifyContent: "center"}}>
-            <Grid
-                item
-                xs={12}
-                sm={8}
-                md={5}
-                component={Paper}
-                elevation={6}
-                square
-                backgroundColor="#e6ecf0"
-                display={"flex"}
-                alignItems={"center"}
-                justifyContent={"center"}
-            >
-                <Box
-                    sx={{
-                        my: 8,
-                        mx: 4,
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        textAlign: "center",
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: "secondary.main", width: 50, height: 50 }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography
-                        component="h1"
-                        variant="h5"
-                        marginBottom={"50px"}
-                        color="black"
-                        fontFamily={"Alef"}
-                    >
-                        Sign in
-                    </Typography>
-                    <GoogleLogin
-                        // clientId should store in .env file
-                        // clientId="390322363347-qb4ec69oeknbbjnnv52gns2n4nmv09od.apps.googleusercontent.com"
-                        clientId="789241549760-hq6o3ovgaq1q4jjjp97pq00984317m0a.apps.googleusercontent.com"
-                        buttonText="Log in with Google"
-                        onSuccess={handleLogin}
-                        onFailure={handleLoginFail}
-                        cookiePolicy={"single_host_origin"}
-                        style={{ fontFamily: "Alef" }}
-                    ></GoogleLogin>
-                </Box>
-            </Grid>
-        </Grid>
-        <Button variant="contained" onClick={() => navigate("./gamePage")}>TEMP BUTTON</Button>
+      <StopWatch />
+      <Button
+        variant="contained"
+        onClick={() => navigate("/main/singlePlayerCompPage/leaderBoard")}
+      >
+        LeaderBoard
+      </Button>
+      <Button
+        variant="contained"
+        sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
+      >
+        Level
+      </Button>
+      <Button
+        variant="contained"
+        sx={{ position: "absolute", bottom: 15, right: "38%" }}
+      >
+        Finish
+      </Button>
+      <Button
+        variant="contained"
+        sx={{ position: "absolute", bottom: 15, right: "52%" }}
+      >
+        Start Over
+      </Button>
     </ThemeProvider>
-    );
-  }
-  
-  export default SinglePlayerCompPage;
+  );
+}
+
+export default SinglePlayerCompPage;

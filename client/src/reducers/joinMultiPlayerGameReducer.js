@@ -1,27 +1,32 @@
 import actionTypes from "../actions/constants";
 
 const initialState = {
-  content: "",
+  id: undefined,
+  password: undefined,
   isLoading: false,
   isError: false,
   errorMsg: "",
 };
 
-const getDomainDataReducer = (state = initialState, { type, payload }) => {
+const joinMultiPlayerGameReducer = (
+  state = initialState,
+  { type, payload }
+) => {
   switch (type) {
-    case actionTypes.GET_DOMAIN_DATA_REQUEST: {
+    case actionTypes.JOIN_GAME_REQUEST: {
       return { ...state, isLoading: true };
     }
 
-    case actionTypes.GET_DOMAIN_DATA_SUCCESS: {
+    case actionTypes.JOIN_GAME_SUCCESS: {
       return {
         ...state,
-        content: payload.content,
+        id: payload.id,
+        password: payload.password,
         isLoading: false,
       };
     }
 
-    case actionTypes.GET_DOMAIN_DATA_FAILURE: {
+    case actionTypes.JOIN_GAME_FAILURE: {
       return {
         ...state,
         isError: true,
@@ -35,4 +40,4 @@ const getDomainDataReducer = (state = initialState, { type, payload }) => {
   }
 };
 
-export default getDomainDataReducer;
+export default joinMultiPlayerGameReducer;

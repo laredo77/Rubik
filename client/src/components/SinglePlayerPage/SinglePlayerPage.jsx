@@ -2,6 +2,7 @@ import * as React from "react";
 import Grid from "@mui/material/Grid";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
+import { useEffect } from "react";
 
 function SinglePlayerPage() {
   const navigate = useNavigate();
@@ -10,21 +11,23 @@ function SinglePlayerPage() {
   //   navigate("/singlePlayer/freePlay")
   // };
   //
-  // const levelPageHendler = (response) => {
+  // const levelPageHandler = (response) => {
   // };
+
+  // TODO
+  // useEffect(() => {
+  //   modeListener("single");
+  // }, []);
 
   return (
     <Grid sx={{ display: "inline-block" }}>
       <Button
         variant="contained"
-        onClick={() => navigate("/singlePlayer/freePlay")}
+        onClick={() => navigate("/main/singlePlayer/freePlay")}
       >
         Free Play
       </Button>
-      <Button
-        variant="contained"
-        onClick={() => navigate("/singlePlayer/levelsPage")}
-      >
+      <Button variant="contained" onClick={() => navigate("/main/levelsPage")}>
         Levels Page
       </Button>
     </Grid>
