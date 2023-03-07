@@ -3,13 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="start working on teamplay-&gt;join game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/teamPlayGameReducer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/SinglePlayerCompPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/FreePlayPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

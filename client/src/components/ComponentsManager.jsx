@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import AboutPage from "./AboutPage/AboutPage";
-import SinglePlayer from "./SinglePlayerPage/SinglePlayerPage";
-import FreePlayPage from "./SinglePlayerPage/FreePlayPage";
-import SinglePlayerCompPage from "./SinglePlayerCompPage/SinglePlayerCompPage";
+import SinglePlayerGameConnector from "./SinglePlayerGame/SinglePlayerGameConnector";
+import FreePlayPage from "./SinglePlayerGame/FreePlayPage";
+import SinglePlayerCompPage from "./SinglePlayerCompMode/SinglePlayerCompMode";
 import Art1 from "./GameLevels/Art1";
 import "./ComponentsManager.css";
-import TeamPlayPageConnector from "../components/TeamPlayPage/TeamPlayPageConnector";
+import TeamPlayPageConnector from "../components/MultiPlayerGame/MultiPlayerGameConnector";
 import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
 
@@ -16,7 +16,10 @@ function ComponentsManager() {
       <Routes>
         <Route path="/" element={<LoginPageConnector />} />
         <Route path="/main" element={<MainPageConnector />} />
-        <Route path="/main/singlePlayer" element={<SinglePlayer />} />
+        <Route
+          path="/main/singlePlayer"
+          element={<SinglePlayerGameConnector />}
+        />
         <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
         <Route path="/main/gameLevels/art1" element={<Art1 />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
