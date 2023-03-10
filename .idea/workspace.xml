@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="start working on teamplay-&gt;join game">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="working on freeplay page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/new-game-action.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompPage/SinglePlayerCompPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/FreePlayPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerPage/SinglePlayerPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPage.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/TeamPlayPage/TeamPlayPageConnector.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,6 +79,8 @@
       <workItem from="1678094444588" duration="24578000" />
       <workItem from="1678172717502" duration="1706000" />
       <workItem from="1678184083845" duration="4242000" />
+      <workItem from="1678353807400" duration="9003000" />
+      <workItem from="1678436927233" duration="224000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -179,7 +180,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678121963477</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="working on freeplay page">
+      <created>1678204992026</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1678204992026</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,6 +217,7 @@
     <MESSAGE value="redux changes" />
     <MESSAGE value="redux changes, selector, teamplay" />
     <MESSAGE value="start working on teamplay-&gt;join game" />
-    <option name="LAST_COMMIT_MESSAGE" value="start working on teamplay-&gt;join game" />
+    <MESSAGE value="working on freeplay page" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on freeplay page" />
   </component>
 </project>

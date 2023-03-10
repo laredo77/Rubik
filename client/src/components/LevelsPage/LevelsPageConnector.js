@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getUser } from "../../selectors/userSelector";
-import { initNewGame } from "../../actions/teamplay-actions/new-game-action";
+import { initNewGame } from "../../actions/multiplayer-actions/new-game-action";
 import LevelsPage from "./LevelsPage";
 
 const mapStateToProps = (state) => {

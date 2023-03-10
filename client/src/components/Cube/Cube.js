@@ -16,7 +16,6 @@ export const facePosition = {
 export default class Cube extends Component {
   constructor(props) {
     super(props);
-
     this.onTouchStart = this.onTouchStart.bind(this);
     let faceColors = {};
     faceColors.top = this.props.translate[1] === -cubeWidth ? "#fff" : "";
@@ -59,12 +58,17 @@ export default class Cube extends Component {
   }
 
   onTouchStart(eve, face, index) {
+    //console.log(props);
     if (this.disableFaceRotation) return true;
     eve.stopPropagation();
     this.props.faceRotationInit(
       { x: getTouchPositions(eve).clientX, y: getTouchPositions(eve).clientY },
       face
     );
+  }
+
+  cubeNotation() {
+    //this.state.faceColors[face]
   }
 
   render() {
