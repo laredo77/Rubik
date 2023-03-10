@@ -85,6 +85,7 @@ export default class CubeContainer extends Component {
 
   /**Touch events */
   onTouchStart(eve) {
+    console.log(this);
     this.setState({
       touchStarted: true,
       mousePoint: {

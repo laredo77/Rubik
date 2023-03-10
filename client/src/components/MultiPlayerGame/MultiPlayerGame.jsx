@@ -56,6 +56,7 @@ function TeamPlayPage({ user, modeListener, joinGame }) {
     }).then((response) => {
       if (response.isConfirmed) {
         joinGame(gameId, gamePwd, user);
+        //now navigate to game page
       } else if (response.isDenied) {
         // do nothing
       }
