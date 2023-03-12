@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="working on freeplay page">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="Stuck with virtual representation to Kociemba string">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/join-game-action.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/teamplay-actions/new-game-action.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/TeamPlayService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,6 +42,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\user\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
     &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
@@ -81,6 +79,7 @@
       <workItem from="1678184083845" duration="4242000" />
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
+      <workItem from="1678635120035" duration="3435000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -218,6 +217,7 @@
     <MESSAGE value="redux changes, selector, teamplay" />
     <MESSAGE value="start working on teamplay-&gt;join game" />
     <MESSAGE value="working on freeplay page" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on freeplay page" />
+    <MESSAGE value="Stuck with virtual representation to Kociemba string" />
+    <option name="LAST_COMMIT_MESSAGE" value="Stuck with virtual representation to Kociemba string" />
   </component>
 </project>
