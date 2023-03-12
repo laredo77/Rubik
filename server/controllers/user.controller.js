@@ -10,6 +10,17 @@ const addUser = async (req, res) => {
   }
 };
 
+const getGameState = async (req, res) => {
+  try {
+    const gameState = await userService.fetchGameState(req.query);
+    res.send(gameState);
+  } catch (error) {
+    console.log(error);
+    res.status(401).send("couldn't fetch game state from DB");
+  }
+};
+
 module.exports = {
   addUser,
+  getGameState,
 };
