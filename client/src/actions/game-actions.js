@@ -1,21 +1,21 @@
 import actionTypes from "./constants";
 import Client from "../services/GeneralServices";
 
-const newGameRequestAction = () => ({
-  type: actionTypes.NEW_GAME_REQUEST,
+const GetGameStateRequestAction = () => ({
+  type: actionTypes.GET_GAME_STATE_REQUEST,
 });
 
-const newGameSuccessAction = (gameDetails) => ({
-  type: actionTypes.NEW_GAME_SUCCESS,
+const GetGameStateSuccessAction = (gameDetails) => ({
+  type: actionTypes.GET_GAME_STATE_SUCCESS,
   payload: gameDetails,
 });
 
-const newGameFailureAction = (gameDetails) => ({
-  type: actionTypes.NEW_GAME_FAILURE,
+const GetGameStateFailureAction = (gameDetails) => ({
+  type: actionTypes.GET_GAME_STATE_FAILURE,
   payload: gameDetails,
 });
 
-export const initNewGame = (user, level) => {
+export const getGameState = (user, level) => {
   const gameDetails = {
     manager: user.email,
     level: level,
@@ -25,13 +25,13 @@ export const initNewGame = (user, level) => {
   };
 
   return async (dispatch) => {
-    dispatch(newGameRequestAction());
+    dispatch(GetGameStateRequestAction());
     try {
       await Client.initNewGame(gameDetails); // should get response code+pwd
-      dispatch(newGameSuccessAction(gameDetails));
+      dispatch(GetGameStateSuccessAction(gameDetails));
     } catch (e) {
       gameDetails.errorMsg = e;
-      dispatch(newGameFailureAction(gameDetails));
+      dispatch(GetGameStateFailureAction(gameDetails));
     }
   };
 };

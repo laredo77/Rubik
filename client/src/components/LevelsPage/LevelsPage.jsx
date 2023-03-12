@@ -14,13 +14,13 @@ const Item = styled(Paper)(({ theme }) => ({
   id: "",
 }));
 
-function LevelsPage({ user, initNewGame }) {
+function LevelsPage({ user, getGameState }) {
   const navigate = useNavigate();
 
   const levelChooseHandler = async (response) => {
     let level = response.target.id;
     // check if this user had this level in db if yes return state if not make new instance
-    await initNewGame(user, level);
+    await getGameState(user, level);
     navigate(`/main/gameLevels/${level}`);
   };
 

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getUser } from "../../selectors/UserSelector";
-import { initNewGame } from "../../actions/game-actions";
+import { getGameState } from "../../actions/game-actions";
 import LevelsPage from "./LevelsPage";
 
 const mapStateToProps = (state) => {
@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ initNewGame }, dispatch);
+  return bindActionCreators({ getGameState }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LevelsPage);

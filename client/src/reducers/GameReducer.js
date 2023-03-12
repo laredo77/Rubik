@@ -10,11 +10,11 @@ const initialState = {
 
 const gameReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.NEW_GAME_REQUEST: {
+    case actionTypes.GET_GAME_STATE_REQUEST: {
       return { ...state, isLoading: true };
     }
 
-    case actionTypes.NEW_GAME_SUCCESS: {
+    case actionTypes.GET_GAME_STATE_SUCCESS: {
       return {
         ...state,
         manager: payload.manager,
@@ -23,7 +23,7 @@ const gameReducer = (state = initialState, { type, payload }) => {
       };
     }
 
-    case actionTypes.NEW_GAME_FAILURE: {
+    case actionTypes.GET_GAME_STATE_FAILURE: {
       return {
         ...state,
         isError: true,
