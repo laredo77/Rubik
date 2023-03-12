@@ -1,10 +1,10 @@
-import initMultiPlayerGameReducer from "./initMultiPlayerGameReducer";
-import joinMultiPlayerGameReducer from "./joinMultiPlayerGameReducer";
-import user from "./addNewUserReducer";
+import gameReducer from "./GameReducer";
+import joinMultiPlayerGameReducer from "./JoinMultiPlayerGameReducer";
+import user from "./AddNewUserReducer";
 import { combineReducers } from "redux";
 
 const allReducers = combineReducers({
-  initMultiPlayerGameReducer,
+  gameReducer,
   user,
   joinMultiPlayerGameReducer,
 });

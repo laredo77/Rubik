@@ -8,16 +8,13 @@ const initialState = {
   errorMsg: "",
 };
 
-const initMultiPlayerGameReducer = (
-  state = initialState,
-  { type, payload }
-) => {
+const gameReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case actionTypes.NEW_GAME_REQUEST: {
+    case actionTypes.GET_GAME_STATE_REQUEST: {
       return { ...state, isLoading: true };
     }
 
-    case actionTypes.NEW_GAME_SUCCESS: {
+    case actionTypes.GET_GAME_STATE_SUCCESS: {
       return {
         ...state,
         manager: payload.manager,
@@ -26,7 +23,7 @@ const initMultiPlayerGameReducer = (
       };
     }
 
-    case actionTypes.NEW_GAME_FAILURE: {
+    case actionTypes.GET_GAME_STATE_FAILURE: {
       return {
         ...state,
         isError: true,
@@ -40,4 +37,4 @@ const initMultiPlayerGameReducer = (
   }
 };
 
-export default initMultiPlayerGameReducer;
+export default gameReducer;
