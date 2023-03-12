@@ -1,5 +1,5 @@
-import actionTypes from "../constants";
-import Client from "../../services/MultiPlayerService";
+import actionTypes from "./constants";
+import Client from "../services/GeneralServices";
 
 const newGameRequestAction = () => ({
   type: actionTypes.NEW_GAME_REQUEST,

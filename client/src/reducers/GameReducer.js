@@ -8,10 +8,7 @@ const initialState = {
   errorMsg: "",
 };
 
-const initMultiPlayerGameReducer = (
-  state = initialState,
-  { type, payload }
-) => {
+const gameReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case actionTypes.NEW_GAME_REQUEST: {
       return { ...state, isLoading: true };
@@ -40,4 +37,4 @@ const initMultiPlayerGameReducer = (
   }
 };
 
-export default initMultiPlayerGameReducer;
+export default gameReducer;

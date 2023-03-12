@@ -19,10 +19,8 @@ function LevelsPage({ user, initNewGame }) {
 
   const levelChooseHandler = async (response) => {
     let level = response.target.id;
-    if (user.mode === "team") {
-      // team play
-      await initNewGame(user, level);
-    }
+    // check if this user had this level in db if yes return state if not make new instance
+    await initNewGame(user, level);
     navigate(`/main/gameLevels/${level}`);
   };
 
