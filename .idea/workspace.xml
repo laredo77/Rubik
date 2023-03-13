@@ -3,16 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="client redux change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/game-actions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/multiplayer-actions/join-game-action.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/GeneralServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GeneralServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/MultiPlayerService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/SinglePlayerService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/user.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/user.service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GameService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="singlePlayer" />
+        <entry key="$PROJECT_DIR$" value="server-routs" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,6 +80,7 @@
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
       <workItem from="1678604653864" duration="18376000" />
+      <workItem from="1678690660474" duration="7603000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>

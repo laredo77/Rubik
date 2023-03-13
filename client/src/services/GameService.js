@@ -29,6 +29,11 @@ export class GameService {
         // 2. add to db the player
     }
 
+    static async setCompGameLevel(gameDetails) {
+        console.log(gameDetails);
+
+    }
+
 }
 
 export default GameService;
