@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="client redux change">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="connect to server in single player comp mode">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GameService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/LeaderBoardPage.jsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +77,7 @@
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
       <workItem from="1678604653864" duration="18376000" />
-      <workItem from="1678690660474" duration="7603000" />
+      <workItem from="1678690660474" duration="9816000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -201,7 +198,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678628813912</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="connect to server in single player comp mode">
+      <created>1678711348969</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1678711348969</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +238,7 @@
     <MESSAGE value="working on freeplay page" />
     <MESSAGE value="network between client-server work" />
     <MESSAGE value="client redux change" />
-    <option name="LAST_COMMIT_MESSAGE" value="client redux change" />
+    <MESSAGE value="connect to server in single player comp mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="connect to server in single player comp mode" />
   </component>
 </project>

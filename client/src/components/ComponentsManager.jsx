@@ -9,7 +9,7 @@ import TeamPlayPageConnector from "../components/MultiPlayerGame/MultiPlayerGame
 import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
 import SinglePlayerCompModeConnector from "./SinglePlayerCompMode/SinglePlayerCompModeConnector";
-import LeaderBoardPage from "./SinglePlayerCompMode/LeaderBoardPage";
+import LeaderBoardPage from "./SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage";
 
 function ComponentsManager() {
   return (
