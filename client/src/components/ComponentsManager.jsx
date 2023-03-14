@@ -3,12 +3,13 @@ import MainPageConnector from "./MainPage/MainPageConnector";
 import AboutPage from "./AboutPage/AboutPage";
 import SinglePlayerGameConnector from "./SinglePlayerGame/SinglePlayerGameConnector";
 import FreePlayPage from "./SinglePlayerGame/FreePlayPage";
-import SinglePlayerCompPage from "./SinglePlayerCompMode/SinglePlayerCompMode";
 import Art1 from "./GameLevels/Art1";
 import "./ComponentsManager.css";
 import TeamPlayPageConnector from "../components/MultiPlayerGame/MultiPlayerGameConnector";
 import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
+import SinglePlayerCompModeConnector from "./SinglePlayerCompMode/SinglePlayerCompModeConnector";
+import LeaderBoardPage from "./SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage";
 
 function ComponentsManager() {
   return (
@@ -25,7 +26,11 @@ function ComponentsManager() {
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route
           path="/main/singlePlayerCompPage"
-          element={<SinglePlayerCompPage />}
+          element={<SinglePlayerCompModeConnector />}
+        />
+        <Route
+          path="/main/singlePlayerCompPage/leaderBoard"
+          element={<LeaderBoardPage />}
         />
         <Route path="/main/teamPlay" element={<TeamPlayPageConnector />} />
         {/* <Route path="/about" element={<AboutPage />} />

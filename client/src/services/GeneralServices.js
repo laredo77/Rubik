@@ -9,6 +9,11 @@ export class GeneralServices {
     const response = await axios.post("http://localhost:3001/user/", user);
     if (response.status !== 200) return;
   }
+
+  static async getLeaderBoard() {
+    // const response = await axios.post("http://localhost:3001/user/", user);
+    // if (response.status !== 200) return;
+  }
 }
 
 export default GeneralServices;
