@@ -3,7 +3,7 @@ import MainPageConnector from "./MainPage/MainPageConnector";
 import AboutPage from "./AboutPage/AboutPage";
 import SinglePlayerGameConnector from "./SinglePlayerGame/SinglePlayerGameConnector";
 import FreePlayPage from "./SinglePlayerGame/FreePlayPage";
-import Art1 from "./GameLevels/Art1";
+import Art1Connector from "./GameLevels/Art1Connector";
 import "./ComponentsManager.css";
 import TeamPlayPageConnector from "../components/MultiPlayerGame/MultiPlayerGameConnector";
 import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
@@ -22,7 +22,7 @@ function ComponentsManager() {
           element={<SinglePlayerGameConnector />}
         />
         <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
-        <Route path="/main/gameLevels/art1" element={<Art1 />} />
+        <Route path="/main/gameLevels/art1" element={<Art1Connector />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route
           path="/main/singlePlayerCompPage"
