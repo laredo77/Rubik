@@ -15,6 +15,10 @@ const ACTIONS = {
   SET_GAME_LEVEL_REQUEST: "set_game_level_request",
   SET_GAME_LEVEL_SUCCESS: "set_game_level_success",
   SET_GAME_LEVEL_FAILURE: "set_game_level_failure",
+
+  UPLOAD_IMAGE_REQUEST: "upload_image_request",
+  UPLOAD_IMAGE_SUCCESS: "upload_image_success",
+  UPLOAD_IMAGE_FAILURE: "upload_image_failure",
 };
 
 export default ACTIONS;

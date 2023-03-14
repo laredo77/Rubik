@@ -1,10 +1,12 @@
 const express = require("express");
 const userRoutes = require("./user.routes");
+const gameRoutes = require("./game.routes");
 const singlePlayerRoutes = require("./singleplayer.routes");
 const multiPlayerRoutes = require("./multiplayer.routes");
 
 const router = express.Router();
 router.use("/user", userRoutes);
+router.use("/game", gameRoutes);
 // router.use("/singleplayer", singlePlayerRoutes);
 // router.use("/multiplayer", multiPlayerRoutes);
 

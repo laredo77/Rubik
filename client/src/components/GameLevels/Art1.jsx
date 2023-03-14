@@ -8,9 +8,10 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
 
+
 const theme = createTheme();
 
-function Art1() {
+function Art1({uploadImagesFunc}) {
     const MySwal = withReactContent(Swal);
     //const generateImage = (response) => {};
     const handleImageClick = (response) => {
@@ -71,52 +72,27 @@ function Art1() {
             showCancelButton: true,
             // Whether to focus on the confirmation button by default
             focusConfirm: false,
-            // Callback function to be called when the confirmation button is clicked
-            preConfirm: () => {
-                // Initialize an empty array to hold the uploaded images
-                const uploadedImages = [];
-                // Loop through all six file input elements to check if any files have been selected
-                for (let i = 0; i < 6; i++) {
-                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
-                    const fileInput = document.getElementById(fileInputId);
-                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
-                    if (fileInput.files[0]) {
-                        uploadedImages.push(fileInput.files[0]);
-                    } else {
-                        uploadedImages.push(null);
-                    }
-                }
-                // Create a new FormData object to hold the uploaded images
-                const formData = new FormData();
-
-                // Loop through all uploaded images and append them to the FormData object
-                for (let i = 0; i < uploadedImages.length; i++) {
-                    const file = uploadedImages[i];
-                    if (file) {
-                        formData.append(`file-${i}`, file);
-                    }
-                }
-
-                // Send a POST request to the server-side script that handles file uploads
-                fetch('/upload-images', {
-                    method: 'POST',
-                    body: formData
-                })
-                    // If the response is successful, log a success message to the console
-                    .then(response => {
-                        if (response.ok) {
-                            console.log('Images uploaded successfully!');
+        }).then((response) => {
+            if (response.isConfirmed) {
+                // Callback function to be called when the confirmation button is clicked
+                    // Initialize an empty array to hold the uploaded images
+                    const uploadedImages = [];
+                    // Loop through all six file input elements to check if any files have been selected
+                    for (let i = 0; i < 6; i++) {
+                        const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
+                        const fileInput = document.getElementById(fileInputId);
+                        // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
+                        if (fileInput.files[0]) {
+                            uploadedImages.push(fileInput.files[0]);
                         } else {
-                            console.error('Failed to upload images.');
+                            uploadedImages.push(null);
                         }
-                    })
-                    // If an error occurs during the file upload process, log an error message to the console
-                    .catch(error => {
-                        console.error('An error occurred while uploading images:', error);
-                    });
-            },
+                    }
 
-        });
+                uploadImagesFunc(uploadedImages);
+
+            }
+        })
     };
 
 
