@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getUser } from "../../selectors/userSelector";
+import { getUser } from "../../selectors/UserSelector";
 import { modeListener } from "../../actions/add-user-actions";
 import SinglePlayerGame from "./SinglePlayerGame";
 

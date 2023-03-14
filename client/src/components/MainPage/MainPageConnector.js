@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getUser } from "../../selectors/userSelector";
+import { getUser } from "../../selectors/UserSelector";
 import MainPage from "./MainPage";
 
 const mapStateToProps = (state) => {

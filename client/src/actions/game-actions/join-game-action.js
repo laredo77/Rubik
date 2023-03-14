@@ -1,5 +1,5 @@
 import actionTypes from "../constants";
-import Client from "../../services/MultiPlayerService";
+import Client from "../../services/GameService";
 
 const joinGameRequestAction = () => ({
   type: actionTypes.JOIN_GAME_REQUEST,

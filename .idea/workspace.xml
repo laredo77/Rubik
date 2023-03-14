@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="Inserted upload image buttons popup when user click on upload cube images">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="client redux change">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/game-actions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/actions/multiplayer-actions/join-game-action.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/GeneralServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GeneralServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/MultiPlayerService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/services/SinglePlayerService.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/user.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/routes/user.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="singlePlayer" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -42,7 +48,6 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\user\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
     &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
@@ -80,7 +85,6 @@
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
       <workItem from="1678604653864" duration="18376000" />
-      <workItem from="1678786194679" duration="2496000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>

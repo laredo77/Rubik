@@ -4,9 +4,9 @@ const ACTIONS = {
   ADD_USER_FAILURE: "add_user_failure",
   MODE_OF_PLAY: "mode_of_play",
 
-  NEW_GAME_REQUEST: "new_game_request",
-  NEW_GAME_SUCCESS: "new_game_success",
-  NEW_GAME_FAILURE: "new_game_failure",
+  GET_GAME_STATE_REQUEST: "get_game_state_request",
+  GET_GAME_STATE_SUCCESS: "get_game_state_success",
+  GET_GAME_STATE_FAILURE: "get_game_state_failure",
 
   JOIN_GAME_REQUEST: "join_game_request",
   JOIN_GAME_SUCCESS: "join_game_success",
