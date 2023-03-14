@@ -34,6 +34,13 @@ export class GameService {
 
     }
 
+    static async uploadImages(images) {
+        console.log(images)
+        const response = await axios.post("http://localhost:3001/game/upload-images", images);
+        if (response.status !== 200)
+            return;
+    }
+
 }
 
 export default GameService;
