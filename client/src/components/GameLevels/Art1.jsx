@@ -36,9 +36,12 @@ function Art1() {
         });
     };
 
+    // Define a function that will handle the upload image button click event
     const handleUploadImageClick = () => {
+        // Show a popup dialog using SweetAlert2 library
         MySwal.fire({
             title: "Upload cube images to solve",
+            // HTML content to be displayed inside the dialog
             html: (
                 <div>
                     <label htmlFor="top">Top:</label>
@@ -60,24 +63,62 @@ function Art1() {
                     <input type="file" id="right" name="right"/><br/>
                 </div>
             ),
+            // Button color for the confirmation button
             confirmButtonColor: "#50b7f5",
+            // Whether to show a close button in the dialog
             showCloseButton: true,
+            // Whether to show a cancel button in the dialog
             showCancelButton: true,
+            // Whether to focus on the confirmation button by default
             focusConfirm: false,
+            // Callback function to be called when the confirmation button is clicked
             preConfirm: () => {
+                // Initialize an empty array to hold the uploaded images
                 const uploadedImages = [];
+                // Loop through all six file input elements to check if any files have been selected
                 for (let i = 0; i < 6; i++) {
-                    const fileInput = document.getElementById(`imageUpload${i}`);
+                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
+                    const fileInput = document.getElementById(fileInputId);
+                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
                     if (fileInput.files[0]) {
                         uploadedImages.push(fileInput.files[0]);
                     } else {
                         uploadedImages.push(null);
                     }
                 }
-                console.log("uploaded images: ", uploadedImages);
+                // Create a new FormData object to hold the uploaded images
+                const formData = new FormData();
+
+                // Loop through all uploaded images and append them to the FormData object
+                for (let i = 0; i < uploadedImages.length; i++) {
+                    const file = uploadedImages[i];
+                    if (file) {
+                        formData.append(`file-${i}`, file);
+                    }
+                }
+
+                // Send a POST request to the server-side script that handles file uploads
+                fetch('/upload-images', {
+                    method: 'POST',
+                    body: formData
+                })
+                    // If the response is successful, log a success message to the console
+                    .then(response => {
+                        if (response.ok) {
+                            console.log('Images uploaded successfully!');
+                        } else {
+                            console.error('Failed to upload images.');
+                        }
+                    })
+                    // If an error occurs during the file upload process, log an error message to the console
+                    .catch(error => {
+                        console.error('An error occurred while uploading images:', error);
+                    });
             },
+
         });
     };
+
 
     return (
         <ThemeProvider theme={theme}>

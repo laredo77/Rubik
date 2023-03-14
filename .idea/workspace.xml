@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="Stuck with virtual representation to Kociemba string">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="Inserted upload image buttons popup when user click on upload cube images">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/GameLevels/Art1.jsx" afterDir="false" />
     </list>
@@ -79,7 +79,8 @@
       <workItem from="1678184083845" duration="4242000" />
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
-      <workItem from="1678635120035" duration="3435000" />
+      <workItem from="1678604653864" duration="18376000" />
+      <workItem from="1678786194679" duration="2496000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -186,7 +187,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678204992026</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="client redux change">
+      <created>1678625087686</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1678625087686</updated>
+    </task>
+    <task id="LOCAL-00017" summary="client redux change">
+      <created>1678628813912</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1678628813912</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +232,8 @@
     <MESSAGE value="redux changes, selector, teamplay" />
     <MESSAGE value="start working on teamplay-&gt;join game" />
     <MESSAGE value="working on freeplay page" />
-    <MESSAGE value="Stuck with virtual representation to Kociemba string" />
-    <option name="LAST_COMMIT_MESSAGE" value="Stuck with virtual representation to Kociemba string" />
+    <MESSAGE value="network between client-server work" />
+    <MESSAGE value="client redux change" />
+    <option name="LAST_COMMIT_MESSAGE" value="client redux change" />
   </component>
 </project>
