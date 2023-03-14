@@ -5,7 +5,7 @@ const multiPlayerRoutes = require("./multiplayer.routes");
 
 const router = express.Router();
 router.use("/user", userRoutes);
-// router.use("/singleplayer", singlePlayerRoutes);
+// router.use("/game", singlePlayerRoutes);
 // router.use("/multiplayer", multiPlayerRoutes);
 
 module.exports = router;

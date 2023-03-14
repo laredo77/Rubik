@@ -58,7 +58,6 @@ export default class Cube extends Component {
   }
 
   onTouchStart(eve, face, index) {
-    //console.log(props);
     if (this.disableFaceRotation) return true;
     eve.stopPropagation();
     this.props.faceRotationInit(
