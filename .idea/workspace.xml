@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="client redux change">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="leaderboard">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/game-actions.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/multiplayer-actions/join-game-action.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/LevelsPage/LevelsPageConnector.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MultiPlayerGame/MultiPlayerGameConnector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/services/GeneralServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GeneralServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/MultiPlayerService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/SinglePlayerService.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/controllers/user.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/controllers/user.controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/routes/user.routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/routes/user.routes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/services/user.service.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/services/user.service.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +17,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="singlePlayer" />
+        <entry key="$PROJECT_DIR$" value="server-routs" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -85,6 +77,9 @@
       <workItem from="1678353807400" duration="9003000" />
       <workItem from="1678436927233" duration="224000" />
       <workItem from="1678604653864" duration="18376000" />
+      <workItem from="1678690660474" duration="13092000" />
+      <workItem from="1678722900738" duration="1189000" />
+      <workItem from="1678786842254" duration="177000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -205,7 +200,21 @@
       <option name="project" value="LOCAL" />
       <updated>1678628813912</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="connect to server in single player comp mode">
+      <created>1678711348969</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1678711348969</updated>
+    </task>
+    <task id="LOCAL-00019" summary="leaderboard">
+      <created>1678715343287</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1678715343287</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -238,6 +247,8 @@
     <MESSAGE value="working on freeplay page" />
     <MESSAGE value="network between client-server work" />
     <MESSAGE value="client redux change" />
-    <option name="LAST_COMMIT_MESSAGE" value="client redux change" />
+    <MESSAGE value="connect to server in single player comp mode" />
+    <MESSAGE value="leaderboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="leaderboard" />
   </component>
 </project>
