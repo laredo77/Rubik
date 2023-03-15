@@ -11,6 +11,7 @@ import LoginPageConnector from "./LoginPage/LoginPageConnector";
 import SinglePlayerCompModeConnector from "./SinglePlayerCompMode/SinglePlayerCompModeConnector";
 import LeaderBoardPage from "./SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage";
 import OneVsOneConnector from "./OneVsOne/OneVsOneConnector";
+import MatchPage from "./OneVsOne/MatchPage";
 
 function ComponentsManager() {
   return (
@@ -26,6 +27,7 @@ function ComponentsManager() {
         <Route path="/main/gameLevels/art1" element={<Art1Connector />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route path="/main/competition" element={<OneVsOneConnector />} />
+        <Route path="/main/competition/match" element={<MatchPage />} />
         <Route
           path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompModeConnector />}

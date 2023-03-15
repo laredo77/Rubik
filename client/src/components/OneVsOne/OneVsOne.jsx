@@ -7,6 +7,7 @@ import withReactContent from "sweetalert2-react-content";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { useNavigate } from "react-router-dom";
 
 const options = [
   "Level-1",
@@ -26,6 +27,7 @@ function OneVsOne({ user, setMatch }) {
   let level = "";
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleLevelButtonClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -88,6 +90,7 @@ function OneVsOne({ user, setMatch }) {
         //now navigate to game page
         level = "level-1"; // temp line should remove after fixing level
         setMatch(user, level);
+        navigate("/main/competition/match");
       } else if (response.isDenied) {
         // do nothing
       }

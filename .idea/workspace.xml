@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="small fix in levelspage, router, quiting c-notation branch">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="onevsone: reducer, actions, front">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/actions/constants/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/actions/constants/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/ComponentsManager.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/MainPage/MainPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/MainPage/MainPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/reducers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/reducers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/services/GameService.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/services/GameService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OneVsOne/OneVsOne.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OneVsOne/OneVsOne.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +81,7 @@
       <workItem from="1678690660474" duration="13092000" />
       <workItem from="1678722900738" duration="1189000" />
       <workItem from="1678786842254" duration="177000" />
-      <workItem from="1678867528738" duration="6748000" />
+      <workItem from="1678867528738" duration="11285000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -218,7 +216,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678715343287</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="onevsone: reducer, actions, front">
+      <created>1678878639896</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1678878639896</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +258,7 @@
     <MESSAGE value="client redux change" />
     <MESSAGE value="connect to server in single player comp mode" />
     <MESSAGE value="leaderboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="leaderboard" />
+    <MESSAGE value="onevsone: reducer, actions, front" />
+    <option name="LAST_COMMIT_MESSAGE" value="onevsone: reducer, actions, front" />
   </component>
 </project>
