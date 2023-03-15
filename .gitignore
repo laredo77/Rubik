@@ -5,6 +5,9 @@ node_modules
 /.pnp
 .pnp.js
 
+# User-specific stuff
+.idea/**/workspace.xml
+
 # testing
 /coverage
 
