@@ -10,6 +10,7 @@ import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
 import SinglePlayerCompModeConnector from "./SinglePlayerCompMode/SinglePlayerCompModeConnector";
 import LeaderBoardPage from "./SinglePlayerCompMode/LeaderBoardPage/LeaderBoardPage";
+import OneVsOneConnector from "./OneVsOne/OneVsOneConnector";
 
 function ComponentsManager() {
   return (
@@ -24,6 +25,7 @@ function ComponentsManager() {
         <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
         <Route path="/main/gameLevels/art1" element={<Art1Connector />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
+        <Route path="/main/competition" element={<OneVsOneConnector />} />
         <Route
           path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompModeConnector />}

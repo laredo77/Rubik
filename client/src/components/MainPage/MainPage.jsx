@@ -51,7 +51,12 @@ function MainPage({ user }) {
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }}>Team Player, Competitional Mode</Item>
+          <Item
+            sx={{ height: 200 }}
+            onClick={() => navigate("/main/competition")}
+          >
+            One vs One
+          </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
           <Item sx={{ height: 200 }} onClick={() => navigate("/main/about")}>
