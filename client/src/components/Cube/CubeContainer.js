@@ -6,6 +6,7 @@ import {
   getCubePositionDiffrence,
   getTouchPositions,
 } from "./utilities";
+import { doc } from "prettier";
 
 export default class CubeContainer extends Component {
   constructor(props) {
@@ -83,8 +84,157 @@ export default class CubeContainer extends Component {
     ];
   }
 
+  vectorDistance(a, b) {
+    return Math.sqrt(
+      Math.pow(a[0] - b[0], 2) +
+        Math.pow(a[1] - b[1], 2) +
+        Math.pow(a[2] - b[2], 2)
+    );
+  }
+
+  getCubeNotation() {
+    console.log(this.elem.children);
+    // var offsets2 = document.getElementById("232").getBoundingClientRect();
+    // console.log(offsets2);
+    let all_values = [];
+    for (const child of this.elem.children) {
+      let obj_style = child.attributes["style"];
+      let string_attr = obj_style.value;
+      //console.log(string_attr);
+      let start_of_pos = string_attr.indexOf("(");
+      let end_of_pos = string_attr.indexOf(")") + 1;
+      let position = string_attr.substring(start_of_pos, end_of_pos); // (0px,0px,0px)
+      //console.log(position);
+      let tokens = position.split("px");
+      let values = [];
+      values.push(parseFloat(tokens[0].split("(")[1]));
+      values.push(parseFloat(tokens[1].split(", ")[1]));
+      values.push(parseFloat(tokens[2].split(", ")[1])); // [0,0,0]
+      all_values.push(values);
+    }
+    let red_cube_face = [
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+      [[], Infinity, 0],
+    ];
+    let middle_faces_index = [1, 2, 3, 4, 9, 18];
+    for (let i = 2; i < all_values.length; i++) {
+      if (middle_faces_index.includes(i)) continue;
+      let distance = this.vectorDistance(all_values[1], all_values[i]);
+      if (distance < red_cube_face[0][1]) {
+        red_cube_face.shift();
+        red_cube_face.push([all_values[i], distance, i]);
+        red_cube_face.sort(function (a, b) {
+          return b[1] - a[1];
+        });
+      }
+    }
+
+    console.log(red_cube_face);
+    let offsets = document.getElementById("14").getBoundingClientRect();
+    for (const c of red_cube_face) {
+      console.log(c);
+      let cube_number = c[2].toString();
+      let cube_faces = [];
+      for (let i = 0; i < 6; i++) {
+        let elm = document.getElementById(`${cube_number}${i}`);
+        if (!elm.attributes["style"]) continue;
+        let z_index = c[0][2];
+        let y_index = c[0][1];
+        let x_index = c[0][0];
+        switch (i) {
+          case 0:
+            z_index += 25;
+            break;
+          case 1:
+            z_index -= 25;
+            break;
+          case 2:
+            y_index -= 25;
+            break;
+          case 3:
+            y_index += 25;
+            break;
+          case 4:
+            x_index -= 25;
+            break;
+          case 5:
+            x_index += 25;
+            break;
+        }
+        //cube_faces.push([elm.getBoundingClientRect(), z_index, elm.id]);
+        cube_faces.push([x_index, y_index, z_index, elm.id]);
+      }
+
+      let mmin = Infinity;
+      let closet_face = cube_faces[0];
+      //console.log(cube_faces);
+      for (const a of cube_faces) {
+        console.log(a);
+        // let dis = Math.sqrt(
+        //   Math.pow(offsets.x - a[0].x, 2) +
+        //     Math.pow(offsets.y - a[0].y, 2) +
+        //     Math.pow(50 - a[1], 2)
+        // );
+        let dis = Math.sqrt(
+          Math.pow(all_values[1][0] - 25 - a[0], 2) +
+            Math.pow(all_values[1][1] - a[1], 2) +
+            Math.pow(all_values[1][2] - a[2], 2)
+        );
+        console.log(dis);
+        if (dis < mmin) {
+          mmin = dis;
+          closet_face = a;
+        }
+      }
+      //break;
+      //console.log(closet_face);
+      let x = document.getElementById(closet_face[3]);
+      console.log(x);
+      //break;
+    }
+    // var offsets2 = document.getElementById("235").getBoundingClientRect();
+    // console.log(offsets2);
+    //console.log(mid_left);
+    // for (const c of red_cube_face) {
+    //   if (c[1] <= 55) {
+    //     // distance <= 55 its {up,down,left,right}
+    //     if (c[0][0] <= mid_left[0][0]) {
+    //       mid_left = c;
+    //     } else if (c[0][0] >= mid_right[0][0]) {
+    //       mid_right = c;
+    //     } else if (c[0][1] <= up_mid[0][1]) {
+    //       up_mid = c;
+    //     } else if (c[0][1] >= down_mid[0][1]) {
+    //       down_mid = c;
+    //     }
+    //   }
+    // }
+    // console.log(mid_left);
+    // console.log(mid_right);
+    // console.log(up_mid);
+    // console.log(down_mid);
+    //console.log(this.facePosition(this.state.touchedFace));
+    // let ret_arr = [];
+    // for (const f of red_cube_face) {
+    //   if (f[0][1] === -cubeWidth) ret_arr.push([f, "white"]);
+    //   else if (f[0][1] === cubeWidth) ret_arr.push([f, "yellow"]);
+    //   else if (f[0][0] === -cubeWidth) ret_arr.push([f, "red"]);
+    //   else if (f[0][0] === cubeWidth) ret_arr.push([f, "orange"]);
+    //   else if (f[0][2] === cubeWidth) ret_arr.push([f, "green"]);
+    //   else if (f[0][2] === -cubeWidth) ret_arr.push([f, "blue"]);
+    // }
+    // console.log(ret_arr);
+  }
+
   /**Touch events */
   onTouchStart(eve) {
+    this.getCubeNotation();
     this.setState({
       touchStarted: true,
       mousePoint: {
@@ -207,6 +357,7 @@ export default class CubeContainer extends Component {
 
   /**Method triggered by child cube on cube movement*/
   rotateCube(xAxisMove, yAxisMove, cubePosition, touchedFace, cubeOrientation) {
+    // console.log(facePosition[touchedFace]);
     //avoid face roation while auto move.
     if (this.state.autoRotation && touchedFace) return;
 
@@ -442,6 +593,7 @@ export default class CubeContainer extends Component {
         {this.state.positions.map((val, index) => {
           return (
             <Cube
+              id={index.toString()}
               key={index}
               faceRotationInit={(mousePoint, face) => {
                 this.faceRotationInit(mousePoint, face, index);

@@ -48,6 +48,28 @@ export default class Cube extends Component {
     this.elem.removeEventListener("touchcancel", this.onTouchEnd);
   }
 
+  dynamicFacePosition() {
+    // return this.props.translate
+    //     ? {
+    //       transform: `translate3d(${this.props.translate[0]}px,${this.props.translate[1]}px,${this.props.translate[2]}px)`
+    //     }
+    //     : {};
+    let arr = [];
+    let left_face_pos = [
+      this.props.translate[0],
+      this.props.translate[1],
+      this.props.translate[2] + 25,
+    ];
+    let top_face_pos = [
+      this.props.translate[0],
+      this.props.translate[1] - 25,
+      this.props.translate[2],
+    ];
+    arr.push(left_face_pos);
+    arr.push(top_face_pos);
+    console.log(arr);
+  }
+
   cubePosition() {
     return this.props.translate
       ? {
@@ -58,6 +80,17 @@ export default class Cube extends Component {
   }
 
   onTouchStart(eve, face, index) {
+    console.log(getTouchPositions(eve));
+    // console.log(this.props.translate);
+    // var offsets = document.getElementById("14").getBoundingClientRect();
+    // var offsets_left = document.getElementById("234").getBoundingClientRect();
+    // var offsets_top = document.getElementById("232").getBoundingClientRect();
+    // var top = offsets.top;
+    // var left = offsets.left;
+    // console.log(offsets);
+    // console.log(offsets_left);
+    // console.log(offsets_top);
+    //this.dynamicFacePosition();
     if (this.disableFaceRotation) return true;
     eve.stopPropagation();
     this.props.faceRotationInit(
@@ -66,13 +99,10 @@ export default class Cube extends Component {
     );
   }
 
-  cubeNotation() {
-    //this.state.faceColors[face]
-  }
-
   render() {
     return (
       <div
+        id={this.props.id}
         ref={(elem) => (this.elem = elem)}
         className="cube"
         style={this.cubePosition()}
@@ -80,6 +110,7 @@ export default class Cube extends Component {
         {faceArray.map((face, index) => {
           return (
             <div
+              id={this.props.id + index.toString()}
               key={index}
               onMouseDown={(evt) => this.onTouchStart(evt, face)}
               onTouchStart={(evt) => this.onTouchStart(evt, face)}
@@ -98,5 +129,3 @@ Cube.propTypes = {
   translate: PropTypes.array,
   orientation: PropTypes.array,
 };
-
-// export default Cube;
