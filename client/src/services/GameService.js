@@ -31,6 +31,9 @@ export class GameService {
 
     static async setCompGameLevel(gameDetails) {
         console.log(gameDetails);
+        const response = await axios.post("http://localhost:3001/singleplayer/choose-level", gameDetails);
+        if (response.status !== 200)
+            return;
 
     }
 
