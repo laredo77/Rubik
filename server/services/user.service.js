@@ -26,7 +26,20 @@ const fetchGameState = async (gameDetails) => {
   // }
 };
 
+const buildLeaderboard = async (data) => {
+  data = {
+    userID: "44e1f164-831d-4732-8e49-0cda24369000",
+    userName: "Picca",
+    picture:
+        "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-blue-version/8/89/Pikachu.jpg",
+    score: 17300,
+  }
+  console.log("should take all users from leaderboard with their score and pic", data);
+  return { picture: data.picture, userName: data.userName, score: data.score };
+};
+
 module.exports = {
   addUser,
   fetchGameState,
+  buildLeaderboard,
 };

@@ -20,7 +20,20 @@ const getGameState = async (req, res) => {
   }
 };
 
+const getLeaderBoard = async (req, res) => {
+  try {
+    console.log("in user.controller getLeaderBoard() ")
+    console.log(req)
+    const leaderboard = await userService.buildLeaderboard();
+    res.send(leaderboard);
+  } catch (error) {
+    console.log(error);
+    res.status(401).send("couldn't fetch leaderboard");
+  }
+};
+
 module.exports = {
   addUser,
   getGameState,
+  getLeaderBoard,
 };
