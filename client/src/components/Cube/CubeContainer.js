@@ -6,7 +6,6 @@ import {
   getCubePositionDiffrence,
   getTouchPositions,
 } from "./utilities";
-import { doc } from "prettier";
 
 export default class CubeContainer extends Component {
   constructor(props) {
@@ -64,7 +63,8 @@ export default class CubeContainer extends Component {
     this.elem.addEventListener("touchcancel", this.onTouchEnd);
 
     //Initial position
-    this.rotateCubeSpace(120, 0);
+    //this.rotateCubeSpace(120, 0);
+    this.rotateCubeSpace(0, 0);
   }
 
   componentWillUnmount() {
@@ -96,6 +96,44 @@ export default class CubeContainer extends Component {
     console.log(this.elem.children);
     // var offsets2 = document.getElementById("232").getBoundingClientRect();
     // console.log(offsets2);
+    // Get the element to be transformed
+    // const element14 = document.getElementById("14");
+    // // Get the computed style of the element
+    // const computedStyle = window.getComputedStyle(element14);
+    // console.log(computedStyle);
+    // // Extract the individual transform values
+    // const transformValues = computedStyle
+    //   .getPropertyValue("transform")
+    //   .split(/\s+/);
+    // // // Extract the translate3d values
+    // const translateX = parseFloat(transformValues[4]);
+    // const translateY = parseFloat(transformValues[5]);
+    // const translateZ = parseFloat(transformValues[6]);
+    // //
+    // // // Extract the rotate3d values
+    // const rotateX = parseFloat(transformValues[9]);
+    // const rotateY = parseFloat(transformValues[10]);
+    // const rotateZ = parseFloat(transformValues[11]);
+    // //
+    // // // Calculate the transformed coordinates
+    // const transformedX = translateX;
+    // const transformedY = translateY;
+    // const transformedZ = translateZ;
+    // //
+    // // // Display the transformed coordinates
+    // console.log(`Transformed X: ${transformedX}`);
+    // console.log(`Transformed Y: ${transformedY}`);
+    // console.log(`Transformed Z: ${transformedZ}`);
+    //
+    // const boundingRect = element14.getBoundingClientRect();
+    //
+    // // Calculate the position of the element
+    // const x = boundingRect.left + transformedX;
+    // const y = boundingRect.top + transformedY;
+    // const z = transformedZ;
+    // console.log(`X: ${x}`);
+    // console.log(`Y: ${y}`);
+    // console.log(`Z: ${z}`);
     let all_values = [];
     for (const child of this.elem.children) {
       let obj_style = child.attributes["style"];
@@ -134,11 +172,15 @@ export default class CubeContainer extends Component {
         });
       }
     }
-
-    console.log(red_cube_face);
-    let offsets = document.getElementById("14").getBoundingClientRect();
+    //transform: rotateY(270deg) translateX(-25px);
+    //console.log(red_cube_face);
+    // var bodyRect = document.body.getBoundingClientRect(),
+    //     elemRect = element.getBoundingClientRect(),
+    //     offset   = elemRect.top - bodyRect.top;
+    //let offsets = document.getElementById("14").getBoundingClientRect();
+    //console.log(offsets);
     for (const c of red_cube_face) {
-      console.log(c);
+      //console.log(c);
       let cube_number = c[2].toString();
       let cube_faces = [];
       for (let i = 0; i < 6; i++) {
@@ -147,12 +189,14 @@ export default class CubeContainer extends Component {
         let z_index = c[0][2];
         let y_index = c[0][1];
         let x_index = c[0][0];
+        //console.log(c[0]);
         switch (i) {
           case 0:
             z_index += 25;
             break;
           case 1:
-            z_index -= 25;
+            //z_index -= 25;
+            x_index += 75;
             break;
           case 2:
             y_index -= 25;
@@ -170,7 +214,8 @@ export default class CubeContainer extends Component {
         //cube_faces.push([elm.getBoundingClientRect(), z_index, elm.id]);
         cube_faces.push([x_index, y_index, z_index, elm.id]);
       }
-
+      //console.log(c);
+      console.log([all_values[1][0] - 25, all_values[1][1], all_values[1][2]]);
       let mmin = Infinity;
       let closet_face = cube_faces[0];
       //console.log(cube_faces);
