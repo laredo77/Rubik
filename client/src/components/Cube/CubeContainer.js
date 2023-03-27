@@ -5,6 +5,8 @@ import {
   calculateResultantAngle,
   getCubePositionDiffrence,
   getTouchPositions,
+  round,
+  roundDegree,
 } from "./utilities";
 
 var matrixMultiplication = require("matrix-multiplication");
@@ -206,16 +208,18 @@ export default class CubeContainer extends Component {
       //   return;
       let cube_number = c[2].toString();
       let cube_faces = [];
-      let alpha = (c[0][5] * c[0][6] * Math.PI) / 180; // rotate3d(z) * rotate3d(deg) : ITS THE YAW
-      let betta = (c[0][4] * c[0][6] * Math.PI) / 180; // rotate3d(y) * rotate3d(deg) : ITS THE PITCH
-      let gamma = (c[0][3] * c[0][6] * Math.PI) / 180; // rotate3d(x) * rotate3d(deg) : ITS THE ROLL
+      let alpha = (roundDegree(c[0][5]) * c[0][6] * Math.PI) / 180; // rotate3d(z) * rotate3d(deg) : ITS THE YAW
+      let betta = (roundDegree(c[0][4]) * c[0][6] * Math.PI) / 180; // rotate3d(y) * rotate3d(deg) : ITS THE PITCH
+      let gamma = (roundDegree(c[0][3]) * c[0][6] * Math.PI) / 180; // rotate3d(x) * rotate3d(deg) : ITS THE ROLL
       let angel_matrix = [
         Math.cos(alpha) * Math.cos(betta),
+
         Math.cos(alpha) * Math.sin(betta) * Math.sin(gamma) -
           Math.sin(alpha) * Math.cos(gamma),
         Math.cos(alpha) * Math.sin(betta) * Math.cos(gamma) +
           Math.sin(alpha) * Math.sin(gamma),
         Math.sin(alpha) * Math.cos(betta),
+
         Math.sin(alpha) * Math.sin(betta) * Math.sin(gamma) +
           Math.cos(alpha) * Math.cos(gamma),
         Math.sin(alpha) * Math.sin(betta) * Math.cos(gamma) -
@@ -224,36 +228,11 @@ export default class CubeContainer extends Component {
         Math.cos(betta) * Math.sin(gamma),
         Math.cos(betta) * Math.cos(gamma),
       ];
+
       let idx = 0;
       for (let i = 0; i < 6; i++) {
         let elm = document.getElementById(`${cube_number}${i}`);
         if (!elm.attributes["style"]) continue;
-        // let z_index = c[0][2];
-        // let y_index = c[0][1];
-        // let x_index = c[0][0];
-        // //console.log(c);
-        // console.log([x_index, y_index, z_index]);
-        // switch (i) {
-        //   case 0:
-        //     z_index += 25;
-        //     break;
-        //   case 1:
-        //     z_index -= 25;
-        //     break;
-        //   case 2:
-        //     y_index -= 25;
-        //     break;
-        //   case 3:
-        //     y_index += 25;
-        //     break;
-        //   case 4:
-        //     x_index -= 25;
-        //     break;
-        //   case 5:
-        //     x_index += 25;
-        //     break;
-        // }
-        // console.log([x_index, y_index, z_index]);
         var mul = matrixMultiplication()(3);
         // console.log(cube_number);
         // console.log(this.cubesPosition[cube_number]);
@@ -264,30 +243,39 @@ export default class CubeContainer extends Component {
           this.cubesPosition[cube_number][idx].pos[2],
         ]);
         //let ret = mul(angel_matrix, [10, 20, 30]);
+
         idx += 1;
         //console.log(ret);
         cube_faces.push([
           // x_index,
           // y_index,
           // z_index,
-          ret[0],
-          ret[1],
-          ret[2],
+          round(ret[0]),
+          round(ret[1]),
+          round(ret[2]),
+          // ret[0],
+          // ret[1],
+          // ret[2],
           elm.id,
-          c[0][3],
-          c[0][4],
-          c[0][5],
+          roundDegree(c[0][3]),
+          roundDegree(c[0][4]),
+          roundDegree(c[0][5]),
           c[0][6],
+          // c[0][3],
+          // c[0][4],
+          // c[0][5],
+          // c[0][6],
         ]);
       }
       let red_face_alpha =
-        (all_values[1][5] * all_values[1][6] * Math.PI) / 180;
+        (roundDegree(all_values[1][5]) * all_values[1][6] * Math.PI) / 180;
       let red_face_betta =
-        (all_values[1][4] * all_values[1][6] * Math.PI) / 180;
+        (roundDegree(all_values[1][4]) * all_values[1][6] * Math.PI) / 180;
       let red_face_gamma =
-        (all_values[1][3] * all_values[1][6] * Math.PI) / 180;
+        (roundDegree(all_values[1][3]) * all_values[1][6] * Math.PI) / 180;
       let middle_red_face_angel_matrix = [
         Math.cos(red_face_alpha) * Math.cos(red_face_betta),
+
         Math.cos(red_face_alpha) *
           Math.sin(red_face_betta) *
           Math.sin(red_face_gamma) -
@@ -297,6 +285,7 @@ export default class CubeContainer extends Component {
           Math.cos(red_face_gamma) +
           Math.sin(red_face_alpha) * Math.sin(red_face_gamma),
         Math.sin(red_face_alpha) * Math.cos(red_face_betta),
+
         Math.sin(red_face_alpha) *
           Math.sin(red_face_betta) *
           Math.sin(red_face_gamma) +
@@ -323,10 +312,11 @@ export default class CubeContainer extends Component {
       for (const a of cube_faces) {
         console.log(a);
         let dis = Math.sqrt(
-          Math.pow(retret[0] - a[0], 2) +
-            Math.pow(retret[1] - a[1], 2) +
-            Math.pow(retret[2] - a[2], 2)
+          Math.pow(round(retret[0] - a[0]), 2) +
+            Math.pow(round(retret[1] - a[1]), 2) +
+            Math.pow(round(retret[2] - a[2]), 2)
         );
+        console.log(dis);
         if (dis < mmin) {
           mmin = dis;
           closet_face = a;

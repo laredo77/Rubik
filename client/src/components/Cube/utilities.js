@@ -124,3 +124,18 @@ export const getYawPitchRollMatrix = (alpha, beta, gamma) => {
   ];
   return rotateMatrix;
 };
+
+export const round = (num) => {
+  if (num >= 62.5) return 75;
+  else if (num < 62.5 && num >= 37.5) return 50;
+  else if (num < 37.5 && num >= 12.5) return 25;
+  else if (num < 12.5 && num >= -12.5) return 0;
+  else if (num < -12.5 && num >= -37.5) return -25;
+  else if (num < -37.5 && num >= -62.5) return -50;
+  else return -75;
+};
+
+export const roundDegree = (deg) => {
+  if (deg > -1 && deg < 1) return 0;
+  return deg;
+};
