@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="working on cube notation">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="working on cube notation#2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +90,10 @@
       <workItem from="1679309418342" duration="1554000" />
       <workItem from="1679385415053" duration="18544000" />
       <workItem from="1679471978270" duration="25562000" />
-      <workItem from="1679556565362" duration="13162000" />
+      <workItem from="1679556565362" duration="13476000" />
+      <workItem from="1679601747996" duration="2494000" />
+      <workItem from="1679642807095" duration="4735000" />
+      <workItem from="1679903243270" duration="17165000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -249,7 +256,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679512106808</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="working on cube notation#2">
+      <created>1679587809118</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1679587809118</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +302,7 @@
     <MESSAGE value="MatchPage: Split the page for two" />
     <MESSAGE value="init match page from onevsone page" />
     <MESSAGE value="working on cube notation" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on cube notation" />
+    <MESSAGE value="working on cube notation#2" />
+    <option name="LAST_COMMIT_MESSAGE" value="working on cube notation#2" />
   </component>
 </project>

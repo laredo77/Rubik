@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getTouchPositions } from "./utilities";
+import { getTouchPositions, getYawPitchRollMatrix } from "./utilities";
 import PropTypes from "prop-types";
 
 export const cubeWidth = 50;
@@ -34,6 +34,39 @@ export default class Cube extends Component {
       this.disableFaceRotation = true;
     }
     this.state = { touchStarted: false, faceColors: faceColors };
+
+    this.position = {
+      front: [
+        this.props.translate[0],
+        this.props.translate[1],
+        this.props.translate[2] + 25,
+      ],
+      back: [
+        this.props.translate[0],
+        this.props.translate[1],
+        this.props.translate[2] - 25,
+      ],
+      top: [
+        this.props.translate[0],
+        this.props.translate[1] - 25,
+        this.props.translate[2],
+      ],
+      bottom: [
+        this.props.translate[0],
+        this.props.translate[1] + 25,
+        this.props.translate[2],
+      ],
+      left: [
+        this.props.translate[0] - 25,
+        this.props.translate[1],
+        this.props.translate[2],
+      ],
+      right: [
+        this.props.translate[0] + 25,
+        this.props.translate[1],
+        this.props.translate[2],
+      ],
+    };
   }
 
   componentDidMount() {
@@ -77,6 +110,18 @@ export default class Cube extends Component {
          rotate3d(${this.props.orientation[0]},${this.props.orientation[1]},${this.props.orientation[2]},${this.props.orientation[3]}deg)`,
         }
       : {};
+  }
+
+  MyGetCubePos() {
+    return [
+      this.props.translate[0],
+      this.props.translate[1],
+      this.props.translate[2],
+      this.props.orientation[0],
+      this.props.orientation[1],
+      this.props.orientation[2],
+      this.props.orientation[3],
+    ];
   }
 
   onTouchStart(eve, face, index) {

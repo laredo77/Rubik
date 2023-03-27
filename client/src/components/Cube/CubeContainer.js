@@ -7,6 +7,8 @@ import {
   getTouchPositions,
 } from "./utilities";
 
+var matrixMultiplication = require("matrix-multiplication");
+
 export default class CubeContainer extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +56,7 @@ export default class CubeContainer extends Component {
     this.reArrangeCubes = this.reArrangeCubes.bind(this);
     this.rotateCubeSpace = this.rotateCubeSpace.bind(this);
     this.faceRotationInit = this.faceRotationInit.bind(this);
+    this.cubesPosition = [];
   }
 
   componentDidMount() {
@@ -65,6 +68,8 @@ export default class CubeContainer extends Component {
     //Initial position
     //this.rotateCubeSpace(120, 0);
     this.rotateCubeSpace(0, 0);
+    this.setFixedInitCubePos();
+    //console.log(this.cubesPosition);
   }
 
   componentWillUnmount() {
@@ -97,7 +102,7 @@ export default class CubeContainer extends Component {
     // var offsets2 = document.getElementById("232").getBoundingClientRect();
     // console.log(offsets2);
     // Get the element to be transformed
-    // const element14 = document.getElementById("14");
+    //const element14 = document.getElementById("14");
     // // Get the computed style of the element
     // const computedStyle = window.getComputedStyle(element14);
     // console.log(computedStyle);
@@ -139,15 +144,31 @@ export default class CubeContainer extends Component {
       let obj_style = child.attributes["style"];
       let string_attr = obj_style.value;
       //console.log(string_attr);
-      let start_of_pos = string_attr.indexOf("(");
-      let end_of_pos = string_attr.indexOf(")") + 1;
-      let position = string_attr.substring(start_of_pos, end_of_pos); // (0px,0px,0px)
+      let rotate_values = string_attr.substring(
+        string_attr.indexOf("rotate3d"),
+        string_attr.length
+      );
+      //console.log(rotate_values);
+      let transformStartPos = string_attr.indexOf("(");
+      let transformEndPos = string_attr.indexOf(")") + 1;
+      let position = string_attr.substring(transformStartPos, transformEndPos); // (0px,0px,0px)
       //console.log(position);
       let tokens = position.split("px");
       let values = [];
       values.push(parseFloat(tokens[0].split("(")[1]));
       values.push(parseFloat(tokens[1].split(", ")[1]));
       values.push(parseFloat(tokens[2].split(", ")[1])); // [0,0,0]
+      let rotateStartPos = rotate_values.indexOf("(");
+      let rotateEndPos = rotate_values.indexOf(")") + 1;
+      let rotatePos = rotate_values.substring(rotateStartPos, rotateEndPos);
+      //console.log(rotatePos);
+      let rotateTokens = rotatePos.split(",");
+      //console.log(rotateTokens);
+      values.push(parseFloat(rotateTokens[0].split("(")[1]));
+      values.push(parseFloat(rotateTokens[1].split(" ")[1]));
+      values.push(parseFloat(rotateTokens[2].split(" ")[1]));
+      values.push(parseFloat(rotateTokens[3].split("deg")[0]));
+      // values: translate3d_x, translate3d_y, translate3d_z, rotate3d_x, rotate3d_y, rotate3d_z, rotate3d_deg
       all_values.push(values);
     }
     let red_cube_face = [
@@ -180,23 +201,157 @@ export default class CubeContainer extends Component {
     //let offsets = document.getElementById("14").getBoundingClientRect();
     //console.log(offsets);
     for (const c of red_cube_face) {
-      //console.log(c);
+      // let cubi = document.getElementById(`${cube_number}`);
+      // console.log(cubi.)
+      //   return;
       let cube_number = c[2].toString();
       let cube_faces = [];
+      let alpha = (c[0][5] * c[0][6] * Math.PI) / 180; // rotate3d(z) * rotate3d(deg) : ITS THE YAW
+      let betta = (c[0][4] * c[0][6] * Math.PI) / 180; // rotate3d(y) * rotate3d(deg) : ITS THE PITCH
+      let gamma = (c[0][3] * c[0][6] * Math.PI) / 180; // rotate3d(x) * rotate3d(deg) : ITS THE ROLL
+      let angel_matrix = [
+        Math.cos(alpha) * Math.cos(betta),
+        Math.cos(alpha) * Math.sin(betta) * Math.sin(gamma) -
+          Math.sin(alpha) * Math.cos(gamma),
+        Math.cos(alpha) * Math.sin(betta) * Math.cos(gamma) +
+          Math.sin(alpha) * Math.sin(gamma),
+        Math.sin(alpha) * Math.cos(betta),
+        Math.sin(alpha) * Math.sin(betta) * Math.sin(gamma) +
+          Math.cos(alpha) * Math.cos(gamma),
+        Math.sin(alpha) * Math.sin(betta) * Math.cos(gamma) -
+          Math.cos(alpha) * Math.sin(gamma),
+        -Math.sin(betta),
+        Math.cos(betta) * Math.sin(gamma),
+        Math.cos(betta) * Math.cos(gamma),
+      ];
+      let idx = 0;
       for (let i = 0; i < 6; i++) {
         let elm = document.getElementById(`${cube_number}${i}`);
         if (!elm.attributes["style"]) continue;
-        let z_index = c[0][2];
-        let y_index = c[0][1];
-        let x_index = c[0][0];
-        //console.log(c[0]);
-        switch (i) {
+        // let z_index = c[0][2];
+        // let y_index = c[0][1];
+        // let x_index = c[0][0];
+        // //console.log(c);
+        // console.log([x_index, y_index, z_index]);
+        // switch (i) {
+        //   case 0:
+        //     z_index += 25;
+        //     break;
+        //   case 1:
+        //     z_index -= 25;
+        //     break;
+        //   case 2:
+        //     y_index -= 25;
+        //     break;
+        //   case 3:
+        //     y_index += 25;
+        //     break;
+        //   case 4:
+        //     x_index -= 25;
+        //     break;
+        //   case 5:
+        //     x_index += 25;
+        //     break;
+        // }
+        // console.log([x_index, y_index, z_index]);
+        var mul = matrixMultiplication()(3);
+        // console.log(cube_number);
+        // console.log(this.cubesPosition[cube_number]);
+        // return;
+        let ret = mul(angel_matrix, [
+          this.cubesPosition[cube_number][idx].pos[0],
+          this.cubesPosition[cube_number][idx].pos[1],
+          this.cubesPosition[cube_number][idx].pos[2],
+        ]);
+        //let ret = mul(angel_matrix, [10, 20, 30]);
+        idx += 1;
+        //console.log(ret);
+        cube_faces.push([
+          // x_index,
+          // y_index,
+          // z_index,
+          ret[0],
+          ret[1],
+          ret[2],
+          elm.id,
+          c[0][3],
+          c[0][4],
+          c[0][5],
+          c[0][6],
+        ]);
+      }
+      let red_face_alpha =
+        (all_values[1][5] * all_values[1][6] * Math.PI) / 180;
+      let red_face_betta =
+        (all_values[1][4] * all_values[1][6] * Math.PI) / 180;
+      let red_face_gamma =
+        (all_values[1][3] * all_values[1][6] * Math.PI) / 180;
+      let middle_red_face_angel_matrix = [
+        Math.cos(red_face_alpha) * Math.cos(red_face_betta),
+        Math.cos(red_face_alpha) *
+          Math.sin(red_face_betta) *
+          Math.sin(red_face_gamma) -
+          Math.sin(red_face_alpha) * Math.cos(red_face_gamma),
+        Math.cos(red_face_alpha) *
+          Math.sin(red_face_betta) *
+          Math.cos(red_face_gamma) +
+          Math.sin(red_face_alpha) * Math.sin(red_face_gamma),
+        Math.sin(red_face_alpha) * Math.cos(red_face_betta),
+        Math.sin(red_face_alpha) *
+          Math.sin(red_face_betta) *
+          Math.sin(red_face_gamma) +
+          Math.cos(red_face_alpha) * Math.cos(red_face_gamma),
+        Math.sin(red_face_alpha) *
+          Math.sin(red_face_betta) *
+          Math.cos(red_face_gamma) -
+          Math.cos(red_face_alpha) * Math.sin(red_face_gamma),
+        -Math.sin(red_face_betta),
+        Math.cos(red_face_betta) * Math.sin(red_face_gamma),
+        Math.cos(red_face_betta) * Math.cos(red_face_gamma),
+      ];
+
+      var muli = matrixMultiplication()(3);
+      let retret = muli(middle_red_face_angel_matrix, [
+        this.cubesPosition[1][0].pos[0],
+        this.cubesPosition[1][0].pos[1],
+        this.cubesPosition[1][0].pos[2],
+      ]);
+
+      let mmin = Infinity;
+      let closet_face = cube_faces[0];
+
+      for (const a of cube_faces) {
+        console.log(a);
+        let dis = Math.sqrt(
+          Math.pow(retret[0] - a[0], 2) +
+            Math.pow(retret[1] - a[1], 2) +
+            Math.pow(retret[2] - a[2], 2)
+        );
+        if (dis < mmin) {
+          mmin = dis;
+          closet_face = a;
+        }
+      }
+      let x = document.getElementById(closet_face[3]);
+      console.log(x);
+    }
+  }
+
+  setFixedInitCubePos() {
+    for (let i = 0; i < 27; i++) {
+      let cubeFacesPosition = [];
+      for (let j = 0; j < 6; j++) {
+        let elm = document.getElementById(`${i}${j}`);
+        if (!elm.attributes["style"]) continue;
+        let z_index = this.state.positions[i][2];
+        let y_index = this.state.positions[i][1];
+        let x_index = this.state.positions[i][0];
+        switch (j) {
           case 0:
             z_index += 25;
             break;
           case 1:
-            //z_index -= 25;
-            x_index += 75;
+            z_index -= 25;
             break;
           case 2:
             y_index -= 25;
@@ -211,70 +366,13 @@ export default class CubeContainer extends Component {
             x_index += 25;
             break;
         }
-        //cube_faces.push([elm.getBoundingClientRect(), z_index, elm.id]);
-        cube_faces.push([x_index, y_index, z_index, elm.id]);
+        cubeFacesPosition.push({
+          id: elm.id,
+          pos: [x_index, y_index, z_index],
+        });
       }
-      //console.log(c);
-      console.log([all_values[1][0] - 25, all_values[1][1], all_values[1][2]]);
-      let mmin = Infinity;
-      let closet_face = cube_faces[0];
-      //console.log(cube_faces);
-      for (const a of cube_faces) {
-        console.log(a);
-        // let dis = Math.sqrt(
-        //   Math.pow(offsets.x - a[0].x, 2) +
-        //     Math.pow(offsets.y - a[0].y, 2) +
-        //     Math.pow(50 - a[1], 2)
-        // );
-        let dis = Math.sqrt(
-          Math.pow(all_values[1][0] - 25 - a[0], 2) +
-            Math.pow(all_values[1][1] - a[1], 2) +
-            Math.pow(all_values[1][2] - a[2], 2)
-        );
-        console.log(dis);
-        if (dis < mmin) {
-          mmin = dis;
-          closet_face = a;
-        }
-      }
-      //break;
-      //console.log(closet_face);
-      let x = document.getElementById(closet_face[3]);
-      console.log(x);
-      //break;
+      this.cubesPosition.push(cubeFacesPosition);
     }
-    // var offsets2 = document.getElementById("235").getBoundingClientRect();
-    // console.log(offsets2);
-    //console.log(mid_left);
-    // for (const c of red_cube_face) {
-    //   if (c[1] <= 55) {
-    //     // distance <= 55 its {up,down,left,right}
-    //     if (c[0][0] <= mid_left[0][0]) {
-    //       mid_left = c;
-    //     } else if (c[0][0] >= mid_right[0][0]) {
-    //       mid_right = c;
-    //     } else if (c[0][1] <= up_mid[0][1]) {
-    //       up_mid = c;
-    //     } else if (c[0][1] >= down_mid[0][1]) {
-    //       down_mid = c;
-    //     }
-    //   }
-    // }
-    // console.log(mid_left);
-    // console.log(mid_right);
-    // console.log(up_mid);
-    // console.log(down_mid);
-    //console.log(this.facePosition(this.state.touchedFace));
-    // let ret_arr = [];
-    // for (const f of red_cube_face) {
-    //   if (f[0][1] === -cubeWidth) ret_arr.push([f, "white"]);
-    //   else if (f[0][1] === cubeWidth) ret_arr.push([f, "yellow"]);
-    //   else if (f[0][0] === -cubeWidth) ret_arr.push([f, "red"]);
-    //   else if (f[0][0] === cubeWidth) ret_arr.push([f, "orange"]);
-    //   else if (f[0][2] === cubeWidth) ret_arr.push([f, "green"]);
-    //   else if (f[0][2] === -cubeWidth) ret_arr.push([f, "blue"]);
-    // }
-    // console.log(ret_arr);
   }
 
   /**Touch events */
