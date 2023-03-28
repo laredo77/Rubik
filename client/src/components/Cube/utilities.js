@@ -136,6 +136,6 @@ export const round = (num) => {
 };
 
 export const roundDegree = (deg) => {
-  if (deg > -1 && deg < 1) return 0;
+  if (deg > -0.01 && deg < 0.01) return 0;
   return deg;
 };

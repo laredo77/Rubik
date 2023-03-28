@@ -5,11 +5,10 @@ import {
   calculateResultantAngle,
   getCubePositionDiffrence,
   getTouchPositions,
-  round,
-  roundDegree,
 } from "./utilities";
 
 var matrixMultiplication = require("matrix-multiplication");
+var Quaternion = require("quaternion");
 
 export default class CubeContainer extends Component {
   constructor(props) {
@@ -101,60 +100,17 @@ export default class CubeContainer extends Component {
 
   getCubeNotation() {
     console.log(this.elem.children);
-    // var offsets2 = document.getElementById("232").getBoundingClientRect();
-    // console.log(offsets2);
-    // Get the element to be transformed
-    //const element14 = document.getElementById("14");
-    // // Get the computed style of the element
-    // const computedStyle = window.getComputedStyle(element14);
-    // console.log(computedStyle);
-    // // Extract the individual transform values
-    // const transformValues = computedStyle
-    //   .getPropertyValue("transform")
-    //   .split(/\s+/);
-    // // // Extract the translate3d values
-    // const translateX = parseFloat(transformValues[4]);
-    // const translateY = parseFloat(transformValues[5]);
-    // const translateZ = parseFloat(transformValues[6]);
-    // //
-    // // // Extract the rotate3d values
-    // const rotateX = parseFloat(transformValues[9]);
-    // const rotateY = parseFloat(transformValues[10]);
-    // const rotateZ = parseFloat(transformValues[11]);
-    // //
-    // // // Calculate the transformed coordinates
-    // const transformedX = translateX;
-    // const transformedY = translateY;
-    // const transformedZ = translateZ;
-    // //
-    // // // Display the transformed coordinates
-    // console.log(`Transformed X: ${transformedX}`);
-    // console.log(`Transformed Y: ${transformedY}`);
-    // console.log(`Transformed Z: ${transformedZ}`);
-    //
-    // const boundingRect = element14.getBoundingClientRect();
-    //
-    // // Calculate the position of the element
-    // const x = boundingRect.left + transformedX;
-    // const y = boundingRect.top + transformedY;
-    // const z = transformedZ;
-    // console.log(`X: ${x}`);
-    // console.log(`Y: ${y}`);
-    // console.log(`Z: ${z}`);
     let all_values = [];
     for (const child of this.elem.children) {
       let obj_style = child.attributes["style"];
       let string_attr = obj_style.value;
-      //console.log(string_attr);
       let rotate_values = string_attr.substring(
         string_attr.indexOf("rotate3d"),
         string_attr.length
       );
-      //console.log(rotate_values);
       let transformStartPos = string_attr.indexOf("(");
       let transformEndPos = string_attr.indexOf(")") + 1;
       let position = string_attr.substring(transformStartPos, transformEndPos); // (0px,0px,0px)
-      //console.log(position);
       let tokens = position.split("px");
       let values = [];
       values.push(parseFloat(tokens[0].split("(")[1]));
@@ -163,9 +119,7 @@ export default class CubeContainer extends Component {
       let rotateStartPos = rotate_values.indexOf("(");
       let rotateEndPos = rotate_values.indexOf(")") + 1;
       let rotatePos = rotate_values.substring(rotateStartPos, rotateEndPos);
-      //console.log(rotatePos);
       let rotateTokens = rotatePos.split(",");
-      //console.log(rotateTokens);
       values.push(parseFloat(rotateTokens[0].split("(")[1]));
       values.push(parseFloat(rotateTokens[1].split(" ")[1]));
       values.push(parseFloat(rotateTokens[2].split(" ")[1]));
@@ -195,126 +149,103 @@ export default class CubeContainer extends Component {
         });
       }
     }
-    //transform: rotateY(270deg) translateX(-25px);
-    //console.log(red_cube_face);
-    // var bodyRect = document.body.getBoundingClientRect(),
-    //     elemRect = element.getBoundingClientRect(),
-    //     offset   = elemRect.top - bodyRect.top;
-    //let offsets = document.getElementById("14").getBoundingClientRect();
-    //console.log(offsets);
+
     for (const c of red_cube_face) {
-      // let cubi = document.getElementById(`${cube_number}`);
-      // console.log(cubi.)
-      //   return;
       let cube_number = c[2].toString();
       let cube_faces = [];
-      let alpha = (roundDegree(c[0][5]) * c[0][6] * Math.PI) / 180; // rotate3d(z) * rotate3d(deg) : ITS THE YAW
-      let betta = (roundDegree(c[0][4]) * c[0][6] * Math.PI) / 180; // rotate3d(y) * rotate3d(deg) : ITS THE PITCH
-      let gamma = (roundDegree(c[0][3]) * c[0][6] * Math.PI) / 180; // rotate3d(x) * rotate3d(deg) : ITS THE ROLL
+      let alpha = (c[0][5] * c[0][6] * Math.PI) / 180; // rotate3d(z) * rotate3d(deg) : ITS THE YAW
+      let beta = (c[0][4] * c[0][6] * Math.PI) / 180; // rotate3d(y) * rotate3d(deg) : ITS THE PITCH
+      let gamma = (c[0][3] * c[0][6] * Math.PI) / 180; // rotate3d(x) * rotate3d(deg) : ITS THE ROLL
+      //console.log(c);
+      // 1: Y,
+      // 2: X,
+      // 3: Z
       let angel_matrix = [
-        Math.cos(alpha) * Math.cos(betta),
-
-        Math.cos(alpha) * Math.sin(betta) * Math.sin(gamma) -
-          Math.sin(alpha) * Math.cos(gamma),
-        Math.cos(alpha) * Math.sin(betta) * Math.cos(gamma) +
-          Math.sin(alpha) * Math.sin(gamma),
-        Math.sin(alpha) * Math.cos(betta),
-
-        Math.sin(alpha) * Math.sin(betta) * Math.sin(gamma) +
-          Math.cos(alpha) * Math.cos(gamma),
-        Math.sin(alpha) * Math.sin(betta) * Math.cos(gamma) -
-          Math.cos(alpha) * Math.sin(gamma),
-        -Math.sin(betta),
-        Math.cos(betta) * Math.sin(gamma),
-        Math.cos(betta) * Math.cos(gamma),
+        Math.cos(beta) * Math.cos(alpha) +
+          Math.sin(beta) * Math.sin(gamma) * Math.sin(alpha),
+        Math.cos(alpha) * Math.sin(beta) * Math.sin(gamma) -
+          Math.cos(beta) * Math.sin(alpha),
+        Math.cos(gamma) * Math.sin(beta),
+        Math.cos(gamma) * Math.sin(alpha),
+        Math.cos(gamma) * Math.cos(alpha),
+        -Math.sin(gamma),
+        Math.cos(beta) * Math.sin(gamma) * Math.sin(alpha) -
+          Math.cos(alpha) * Math.sin(beta),
+        Math.cos(beta) * Math.cos(alpha) * Math.sin(gamma) +
+          Math.sin(beta) * Math.sin(alpha),
+        Math.cos(beta) * Math.cos(gamma),
       ];
-
       let idx = 0;
       for (let i = 0; i < 6; i++) {
         let elm = document.getElementById(`${cube_number}${i}`);
         if (!elm.attributes["style"]) continue;
         var mul = matrixMultiplication()(3);
-        // console.log(cube_number);
-        // console.log(this.cubesPosition[cube_number]);
-        // return;
         let ret = mul(angel_matrix, [
           this.cubesPosition[cube_number][idx].pos[0],
           this.cubesPosition[cube_number][idx].pos[1],
           this.cubesPosition[cube_number][idx].pos[2],
         ]);
-        //let ret = mul(angel_matrix, [10, 20, 30]);
 
         idx += 1;
         //console.log(ret);
         cube_faces.push([
-          // x_index,
-          // y_index,
-          // z_index,
-          round(ret[0]),
-          round(ret[1]),
-          round(ret[2]),
-          // ret[0],
-          // ret[1],
-          // ret[2],
+          ret[0],
+          ret[1],
+          ret[2],
           elm.id,
-          roundDegree(c[0][3]),
-          roundDegree(c[0][4]),
-          roundDegree(c[0][5]),
+          c[0][3],
+          c[0][4],
+          c[0][5],
           c[0][6],
-          // c[0][3],
-          // c[0][4],
-          // c[0][5],
-          // c[0][6],
         ]);
       }
+
       let red_face_alpha =
-        (roundDegree(all_values[1][5]) * all_values[1][6] * Math.PI) / 180;
-      let red_face_betta =
-        (roundDegree(all_values[1][4]) * all_values[1][6] * Math.PI) / 180;
+        (all_values[1][5] * all_values[1][6] * Math.PI) / 180;
+      let red_face_beta = (all_values[1][4] * all_values[1][6] * Math.PI) / 180;
       let red_face_gamma =
-        (roundDegree(all_values[1][3]) * all_values[1][6] * Math.PI) / 180;
+        (all_values[1][3] * all_values[1][6] * Math.PI) / 180;
+
       let middle_red_face_angel_matrix = [
-        Math.cos(red_face_alpha) * Math.cos(red_face_betta),
-
+        Math.cos(red_face_beta) * Math.cos(red_face_alpha) +
+          Math.sin(red_face_beta) *
+            Math.sin(red_face_gamma) *
+            Math.sin(red_face_alpha),
         Math.cos(red_face_alpha) *
-          Math.sin(red_face_betta) *
+          Math.sin(red_face_beta) *
           Math.sin(red_face_gamma) -
-          Math.sin(red_face_alpha) * Math.cos(red_face_gamma),
-        Math.cos(red_face_alpha) *
-          Math.sin(red_face_betta) *
-          Math.cos(red_face_gamma) +
-          Math.sin(red_face_alpha) * Math.sin(red_face_gamma),
-        Math.sin(red_face_alpha) * Math.cos(red_face_betta),
-
-        Math.sin(red_face_alpha) *
-          Math.sin(red_face_betta) *
+          Math.cos(red_face_beta) * Math.sin(red_face_alpha),
+        Math.cos(red_face_gamma) * Math.sin(red_face_beta),
+        Math.cos(red_face_gamma) * Math.sin(red_face_alpha),
+        Math.cos(red_face_gamma) * Math.cos(red_face_alpha),
+        -Math.sin(red_face_gamma),
+        Math.cos(red_face_beta) *
+          Math.sin(red_face_gamma) *
+          Math.sin(red_face_alpha) -
+          Math.cos(red_face_alpha) * Math.sin(red_face_beta),
+        Math.cos(red_face_beta) *
+          Math.cos(red_face_alpha) *
           Math.sin(red_face_gamma) +
-          Math.cos(red_face_alpha) * Math.cos(red_face_gamma),
-        Math.sin(red_face_alpha) *
-          Math.sin(red_face_betta) *
-          Math.cos(red_face_gamma) -
-          Math.cos(red_face_alpha) * Math.sin(red_face_gamma),
-        -Math.sin(red_face_betta),
-        Math.cos(red_face_betta) * Math.sin(red_face_gamma),
-        Math.cos(red_face_betta) * Math.cos(red_face_gamma),
+          Math.sin(red_face_beta) * Math.sin(red_face_alpha),
+        Math.cos(red_face_beta) * Math.cos(red_face_gamma),
       ];
-
       var muli = matrixMultiplication()(3);
       let retret = muli(middle_red_face_angel_matrix, [
         this.cubesPosition[1][0].pos[0],
         this.cubesPosition[1][0].pos[1],
         this.cubesPosition[1][0].pos[2],
       ]);
-
+      console.log(all_values[1]);
+      console.log(retret);
       let mmin = Infinity;
       let closet_face = cube_faces[0];
 
       for (const a of cube_faces) {
         console.log(a);
         let dis = Math.sqrt(
-          Math.pow(round(retret[0] - a[0]), 2) +
-            Math.pow(round(retret[1] - a[1]), 2) +
-            Math.pow(round(retret[2] - a[2]), 2)
+          Math.pow(retret[0] - a[0], 2) +
+            Math.pow(retret[1] - a[1], 2) +
+            Math.pow(retret[2] - a[2], 2)
         );
         console.log(dis);
         if (dis < mmin) {
@@ -446,10 +377,16 @@ export default class CubeContainer extends Component {
   }
 
   onTouchEnd() {
+    console.log(this.state);
+    //this.rotateCubeSpace(-diffX, -diffY);
     this.setState({
       touchStarted: false,
       mousePoint: {},
       touchedFace: undefined,
+      // angleOfRotation: Array(27).fill(0),
+      // positions: this.state.positions,
+      // rotationVector: Array(27).fill([1, 1, 1]),
+      // faceRotationAngle: 0,
     });
     if (this.state.faceRotationIndex) {
       this.reArrangeCubes();
