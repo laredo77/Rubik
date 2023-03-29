@@ -59,8 +59,8 @@ function MainPage({ user }) {
           </Item>
         </Grid>
         <Grid item xs={2} sm={4} md={4}>
-          <Item sx={{ height: 200 }} onClick={() => navigate("/main/about")}>
-            Rubik's Cube Algorithms
+          <Item sx={{ height: 200 }} onClick={() => navigate("/main/learn")}>
+            Learn Rubik's Cube
           </Item>
         </Grid>
       </Grid>
