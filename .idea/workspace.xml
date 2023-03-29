@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="fixation of cube init position, round function, matrix multipication">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="new yawpitchroll matrix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerGame/FreePlayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerGame/FreePlayPage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,20 +41,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\user\\AppData\\Roaming\\npm\\node_modules\\prettier&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\user\\AppData\\Roaming\\npm\\node_modules\\prettier",
+    "rearrange.code.on.save": "true",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -93,7 +100,8 @@
       <workItem from="1679601747996" duration="2494000" />
       <workItem from="1679642807095" duration="4735000" />
       <workItem from="1679903243270" duration="26035000" />
-      <workItem from="1679987217455" duration="19910000" />
+      <workItem from="1679987217455" duration="21281000" />
+      <workItem from="1680072508253" duration="8562000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -277,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1679939192914</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="new yawpitchroll matrix">
+      <created>1680018373909</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1680018373909</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -319,6 +334,7 @@
     <MESSAGE value="working on cube notation#2" />
     <MESSAGE value="working on cube notation#3" />
     <MESSAGE value="fixation of cube init position, round function, matrix multipication" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixation of cube init position, round function, matrix multipication" />
+    <MESSAGE value="new yawpitchroll matrix" />
+    <option name="LAST_COMMIT_MESSAGE" value="new yawpitchroll matrix" />
   </component>
 </project>

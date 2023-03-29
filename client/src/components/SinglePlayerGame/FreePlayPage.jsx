@@ -1,6 +1,7 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CubeContainer from "../Cube/CubeContainer";
+//import CubeContainer from "../Cube/CubeContainer";
+import CubeManager from "../Cube/CubeManager";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
@@ -22,9 +23,10 @@ function FreePlayPage() {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="app">
-        <CubeContainer />
-      </div>
+      {/*<div className="app">*/}
+      {/*  <CubeContainer />*/}
+      {/*</div>*/}
+      <CubeManager></CubeManager>
       <Button
         variant="contained"
         sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
