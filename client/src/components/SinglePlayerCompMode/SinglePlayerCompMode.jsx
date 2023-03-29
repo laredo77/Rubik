@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-import CubeContainer from "../Cube/CubeContainer";
+//import CubeContainer from "../Cube/CubeContainer";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import StopWatch from "../StopWatch/StopWatch";
@@ -54,9 +54,9 @@ function SinglePlayerCompMode({ user, setGameLevel }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="app">
-        <CubeContainer />
-      </div>
+      {/*<div className="app">*/}
+      {/*  <CubeContainer />*/}
+      {/*</div>*/}
 
       <StopWatch />
       <Button

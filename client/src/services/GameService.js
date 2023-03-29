@@ -44,6 +44,10 @@ export class GameService {
             return;
     }
 
+    static async setMatch(matchDetails) {
+        console.log(matchDetails);
+    }
+
 }
 
 export default GameService;

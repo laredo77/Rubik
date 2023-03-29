@@ -19,6 +19,10 @@ const ACTIONS = {
   UPLOAD_IMAGE_REQUEST: "upload_image_request",
   UPLOAD_IMAGE_SUCCESS: "upload_image_success",
   UPLOAD_IMAGE_FAILURE: "upload_image_failure",
+
+  SET_MATCH_REQUEST: "set_match_request",
+  SET_MATCH_SUCCESS: "set_match_success",
+  SET_MATCH_FAILURE: "set_match_failure",
 };
 
 export default ACTIONS;

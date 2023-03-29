@@ -4,6 +4,7 @@ import user from "./AddNewUserReducer";
 import SingleCompetitionReducer from "./SingleCompetitionReducer";
 import { combineReducers } from "redux";
 import imageReducer from "./UploadImagesReducer";
+import matchReducer from "./MatchReducer";
 
 const allReducers = combineReducers({
   gameReducer,
@@ -11,6 +12,7 @@ const allReducers = combineReducers({
   joinMultiPlayerGameReducer,
   SingleCompetitionReducer,
   imageReducer,
+  matchReducer,
 });
 
 export default allReducers;
