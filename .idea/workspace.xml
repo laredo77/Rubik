@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="new yawpitchroll matrix">
+    <list default="true" id="556e17de-575a-4f69-9707-28c4a9ff21ca" name="Changes" comment="new cube">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/Cube.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/CubeContainer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Cube/utilities.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/OneVsOne/MatchPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerCompMode/SinglePlayerCompMode.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/SinglePlayerGame/FreePlayPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/SinglePlayerGame/FreePlayPage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +91,7 @@
       <workItem from="1679642807095" duration="4735000" />
       <workItem from="1679903243270" duration="26035000" />
       <workItem from="1679987217455" duration="21281000" />
-      <workItem from="1680072508253" duration="8562000" />
+      <workItem from="1680072508253" duration="10753000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <created>1667553270873</created>
@@ -292,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680018373909</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="new cube">
+      <created>1680087168290</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1680087168290</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,7 +307,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init" />
     <MESSAGE value="topbar, ui tools, about fix" />
     <MESSAGE value="init redux store, fix first action, reducer" />
     <MESSAGE value="change project to rubik's cube" />
@@ -335,6 +331,7 @@
     <MESSAGE value="working on cube notation#3" />
     <MESSAGE value="fixation of cube init position, round function, matrix multipication" />
     <MESSAGE value="new yawpitchroll matrix" />
-    <option name="LAST_COMMIT_MESSAGE" value="new yawpitchroll matrix" />
+    <MESSAGE value="new cube" />
+    <option name="LAST_COMMIT_MESSAGE" value="new cube" />
   </component>
 </project>
