@@ -5,7 +5,6 @@ import Puzzle from "./Puzzle";
 import { Provider, connect } from "react-redux";
 import reducers from "../../reducers/CubeReducers";
 import actionCreators from "../../actions/cube-actions";
-import mainSaga from "./sagas";
 import { createStore, bindActionCreators, applyMiddleware } from "redux";
 
 import createSagaMiddleware from "redux-saga";
@@ -18,11 +17,6 @@ class CubeManager extends Component {
     this.Connected = connect(reducers, (dispatch) => ({
       actions: bindActionCreators(actionCreators, dispatch),
     }))(Puzzle);
-    this.mainTask = sagaMiddleware.run(mainSaga);
-  }
-
-  componentWillUnmount() {
-    this.mainTask.cancel();
   }
 
   render() {
