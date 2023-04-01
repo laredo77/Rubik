@@ -4,8 +4,6 @@ import {
   ROTATE_CUBE,
   COMMIT_ROTATE,
   COMMIT_SPIN,
-  RANDOMIZE,
-  END_RANDOMIZE,
 } from "../actions/cube-actions";
 import { combineReducers } from "redux";
 
@@ -78,25 +76,12 @@ const spinQueue = (state = null, action = {}) => {
   }
 };
 
-// isRandomizing - True when the cube is playing its randomization animation
-const isRandomizing = (state = false, action = {}) => {
-  switch (action.type) {
-    case RANDOMIZE:
-      return true;
-    case END_RANDOMIZE:
-      return false;
-    default:
-      return state;
-  }
-};
-
 // By default, run simple reducers on each property
 const reduceDefault = combineReducers({
   sideColors,
   rotation,
   rotationQueue,
   spinQueue,
-  isRandomizing,
 });
 
 // ==========

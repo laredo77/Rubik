@@ -68,17 +68,37 @@ function FreePlayPage() {
 
     const shuffleHandler = (response) => {
         let amountOfSteps = 16;
+        let movesArray = []
         let choices = new Array(8).fill(0);
         choices.push(1)
         choices.push(1)
         for (let i = 0; i < amountOfSteps; i++) {
             const randomElement = choices[Math.floor(Math.random() * choices.length)];
+            let random_arrow, random_direction, choice;
             if (randomElement === 0) {
-                let random_arrow = Math.floor(Math.random() * 8);
-                let random_direction = Math.floor(Math.random() * 2);
-                // need to finish!!
+                random_arrow = Math.floor(Math.random() * 8);
+                random_direction = Math.floor(Math.random() * 2);
+                choice = random_arrow.toString() + random_direction.toString()
+            } else {
+                let rotateArrows = ["x", "y", "z"]
+                random_arrow = Math.floor(Math.random() * 3);
+                random_direction = Math.floor(Math.random() * 2);
+                choice = rotateArrows[random_arrow] + random_direction.toString()
             }
+            movesArray.push(choice)
         }
+
+        var intr = setInterval(function() {
+            let move = movesArray.pop()
+            const svgElement = document.getElementById(`${move}`);
+            const event = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            svgElement.dispatchEvent(event);
+            if (movesArray.length == 0) clearInterval(intr)
+        }, 500)
     };
 
   return (
