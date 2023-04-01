@@ -2,6 +2,7 @@ const database = require("../database");
 const {response} = require("express");
 
 const addUser = async (user) => {
+    //todo Take care of checking if user is new/exist
     // Send a query to retrieve the required data
     console.log(user.email)
     const query = `INSERT INTO rubik_cube.users (Email) VALUES ('${user.email}')`;
