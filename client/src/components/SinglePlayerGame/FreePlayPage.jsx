@@ -56,7 +56,6 @@ function FreePlayPage() {
       }
   };
 
-
     const solveButtonHandler = (response) => {
         if (movesStack.length > 0) {
             var intr = setInterval(function() {
@@ -64,6 +63,21 @@ function FreePlayPage() {
                 move[0](move[1], move[2]) // activate spinSlice on slice and forward
                 if (movesStack.length == 0) clearInterval(intr)
             }, 800)
+        }
+    };
+
+    const shuffleHandler = (response) => {
+        let amountOfSteps = 16;
+        let choices = new Array(8).fill(0);
+        choices.push(1)
+        choices.push(1)
+        for (let i = 0; i < amountOfSteps; i++) {
+            const randomElement = choices[Math.floor(Math.random() * choices.length)];
+            if (randomElement === 0) {
+                let random_arrow = Math.floor(Math.random() * 8);
+                let random_direction = Math.floor(Math.random() * 2);
+                // need to finish!!
+            }
         }
     };
 
@@ -90,6 +104,13 @@ function FreePlayPage() {
             onClick={solveButtonHandler}
         >
             Solve!
+        </Button>
+        <Button
+            variant="contained"
+            sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
+            onClick={shuffleHandler}
+        >
+            Shuffle!
         </Button>
     </ThemeProvider>
   );

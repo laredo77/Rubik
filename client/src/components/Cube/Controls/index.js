@@ -11,7 +11,7 @@ export default ({actions, disabled}) => {
     let neg_forward = !forward
     if (movesStack.length > 0) {
       let elm = movesStack[movesStack.length - 1]
-      if (elm[1] == piece && elm[2] == forward) {
+      if (elm[1] === piece && elm[2] === forward) {
         movesStack.pop()
         return
       }
@@ -26,7 +26,7 @@ export default ({actions, disabled}) => {
       'disabled': disabled
     })}>
       {/* Spin Z forward */}
-      <Arrow slice={0} forward={true}
+      <Arrow id={"01"} slice={0} forward={true}
              style={{
         transform: 'translate(680px, 180px) rotate(-10deg)'
       }}
@@ -122,9 +122,9 @@ export default ({actions, disabled}) => {
       <div style={{position: 'absolute', top: '35px', left: '65px', transform: 'scale(1.05)'}}>
         <RotateArrows rotate={actions.rotateCube} recorder={recorder}/>
       </div>
-      <div style={{position: 'absolute', top: '450px', left: '40px'}}>
-        <ShuffleButton onClick={actions.randomize}/>
-      </div>
+      {/*<div style={{position: 'absolute', top: '450px', left: '40px'}}>*/}
+      {/*  <ShuffleButton onClick={actions.randomize}/>*/}
+      {/*</div>*/}
     </section>
   );
 };
