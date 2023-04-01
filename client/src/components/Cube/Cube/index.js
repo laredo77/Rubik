@@ -2,7 +2,12 @@ import React from 'react';
 
 const CUBE_SIZE_PX = 100;
 const CUBE_COLORS = [
-  '#39c', '#927fb9', '#edbe01', '#dedede', '#e55447', '#73bf4c'
+  '#3d81f6',
+  '#ff6c00',
+  '#fdcc09',
+  '#ffffff',
+  '#dc422f',
+  '#009d54'
 ];
 
 export default ({type, dir, depth, colors}) => {
