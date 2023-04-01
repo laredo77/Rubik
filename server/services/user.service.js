@@ -2,16 +2,28 @@ const database = require("../database");
 const {response} = require("express");
 
 const addUser = async (user) => {
-    console.log("should add to db the user: ", user.email);
-    return {email: "user-added"};
-    // const userFromDB = await getUser(user.id);
-    // if (userFromDB.length) {
-    //   return userFromDB;
-    // } else {
-    //   const addedUser = await userDB.addUser(user);
-    //   return addedUser;
-    // }
+    // Send a query to retrieve the required data
+    console.log(user.email)
+    const query = `INSERT INTO rubik_cube.users (Email) VALUES ('${user.email}')`;
+    database.connection.query(query, function (error, results, fields) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log(results);
+        }
+    });
 };
+
+//     console.log("should add to db the user: ", user.email);
+//     return {email: "user-added"};
+//     // const userFromDB = await getUser(user.id);
+//     // if (userFromDB.length) {
+//     //   return userFromDB;
+//     // } else {
+//     //   const addedUser = await userDB.addUser(user);
+//     //   return addedUser;
+//     // }
+// };
 
 const fetchGameState = async (gameDetails) => {
     // 1. check if gameDetails.manager in DB, if no, add him and new level
