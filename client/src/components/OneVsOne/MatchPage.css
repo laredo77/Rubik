@@ -5,16 +5,19 @@
     z-index: 1;
     top: 0;
     overflow-x: hidden;
+    overflow-y: hidden;
     padding-top: 20px;
+    transform: scale(0.75);
 }
 
-.left {
+.lefti {
     left: 0;
     background-color: #e6ecf0;
 }
 
-.right {
+.righti {
     right: 0;
+
 }
 
 .centered {
@@ -23,4 +26,5 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+
 }
