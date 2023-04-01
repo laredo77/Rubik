@@ -35,6 +35,9 @@ function ComponentsManager() {
           path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompModeConnector />}
         />
+        <Route path="/main/learn" element={<LearnPage/>}/>
+        <Route path="/main/learn/basics" element={<BasicsPage/>}/>
+        <Route path="/main/learn/algorithms" element={<AlgorithmsPage/>}/>
         <Route
           path="/main/singlePlayerCompPage/leaderBoard"
           element={<LeaderBoardPage />}

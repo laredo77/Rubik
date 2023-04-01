@@ -14,7 +14,6 @@ export default ({sideColors, rotation, spinQueue, isRandomizing, actions}) => {
         getCubeColors(props, sideColors)
       }/>
     );
-
   const animateCubeRotation =
     Object.values(rotation).some(deg => Math.abs(deg) > 0);
 

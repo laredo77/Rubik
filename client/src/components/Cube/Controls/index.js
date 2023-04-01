@@ -4,8 +4,15 @@ import buildArrow from './buildArrow';
 import RotateArrows from './RotateArrows';
 import ShuffleButton from './ShuffleButton';
 
+export const movesStack = []
 export default ({actions, disabled}) => {
-  const Arrow = buildArrow(actions.spinSlice);
+
+  const recorder = (activationFunc, piece, forward) => {
+    let neg_forward = !forward
+    movesStack.push([activationFunc, piece, +neg_forward])
+  };
+
+  const Arrow = buildArrow(actions.spinSlice, recorder);
 
   return (
     <section className={classNames('Controls', {
@@ -15,7 +22,8 @@ export default ({actions, disabled}) => {
       <Arrow slice={0} forward={true}
              style={{
         transform: 'translate(680px, 180px) rotate(-10deg)'
-      }}/>
+      }}
+      />
       <Arrow slice={1} forward={true}
              style={{
         transform: 'translate(620px, 120px) rotate(-10deg)'
@@ -92,7 +100,7 @@ export default ({actions, disabled}) => {
         transform: 'translate(140px, 260px) rotate(220deg)'
       }}/>
       <div style={{position: 'absolute', top: '35px', left: '65px', transform: 'scale(1.05)'}}>
-        <RotateArrows rotate={actions.rotateCube}/>
+        <RotateArrows rotate={actions.rotateCube} recorder={recorder}/>
       </div>
       <div style={{position: 'absolute', top: '450px', left: '40px'}}>
         <ShuffleButton onClick={actions.randomize}/>

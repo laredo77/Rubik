@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import {useEffect} from "react";
 
-function SinglePlayerGame({user, modeListener}) {
+function SinglePlayerGame({user, modeListener, spinSlice}) {
     const navigate = useNavigate();
 
     // const freePlayHandler = (response) => {
