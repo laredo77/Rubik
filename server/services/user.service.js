@@ -1,4 +1,5 @@
-//const userDB = require("../repository/userDOAService.js");
+const database = require("../database");
+const {response} = require("express");
 
 const addUser = async (user) => {
     console.log("should add to db the user: ", user.email);
@@ -26,17 +27,29 @@ const fetchGameState = async (gameDetails) => {
     // }
 };
 
-const buildLeaderboard = async (data) => {
-    data = {
-        userID: "44e1f164-831d-4732-8e49-0cda24369000",
-        userName: "Picca",
-        picture:
-            "https://oyster.ignimgs.com/mediawiki/apis.ign.com/pokemon-blue-version/8/89/Pikachu.jpg",
-        score: 17500,
-    }
-    // console.log("should take all users from leaderboard with their score and pic", data);
-    return {picture: data.picture, userName: data.userName, score: data.score};
+const buildLeaderboard = async () => {
+    // Send a query to retrieve the required data
+    const query = "SELECT * FROM users";
+
+    // Create a Promise that wraps the database query
+    const results = await new Promise((resolve, reject) => {
+        database.connection.query(query, function (error, results, fields) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+
+    // Return the formatted data
+    return results.map(result => ({
+        User_Picture: Buffer.from(result.User_Picture).toString("base64"),
+        Email: result.Email,
+        Score: result.Score
+    }));
 };
+
 
 module.exports = {
     addUser,

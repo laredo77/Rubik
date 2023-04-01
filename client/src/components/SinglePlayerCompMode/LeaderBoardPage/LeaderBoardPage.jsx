@@ -25,11 +25,12 @@ function LeaderBoardPage() {
         navigate("/");
     }
 
+
     return (
         <ThemeProvider theme={theme}>
             <div className="leader-board-container">
                 <h1>Leader Board</h1>
-                <List data={leaderBoardData}/>
+                {leaderBoardData && <List data={leaderBoardData}/>}
                 <Button variant="contained" onClick={handleClick}>
                     Back to Home
                 </Button>
