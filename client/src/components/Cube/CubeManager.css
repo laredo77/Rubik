@@ -2,6 +2,7 @@
     text-align: center;
     width: 1400px;
     perspective: 2000px;
+    transform: scale(0.75);
 }
 
 .App * {

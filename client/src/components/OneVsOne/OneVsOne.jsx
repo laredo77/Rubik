@@ -17,7 +17,7 @@ function OneVsOne({ user, setMatch }) {
   const navigate = useNavigate();
 
   const handleLevelChoose = (e) => {
-    level = e.target.innerText;
+    level = +e.target.innerText[6];
   };
 
   const newGameHandler = (response) => {
@@ -43,7 +43,7 @@ function OneVsOne({ user, setMatch }) {
       if (response.isConfirmed) {
         //now navigate to game page
         setMatch(user, level);
-        navigate("/main/competition/match", { state: { Level: level } });
+        navigate("/main/competition/match", { state: { Manager: user, Level: level } });
       } else if (response.isDenied) {
         // do nothing
       }

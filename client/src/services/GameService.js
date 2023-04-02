@@ -45,7 +45,11 @@ export class GameService {
     }
 
     static async setMatch(matchDetails) {
-        console.log(matchDetails);
+        //console.log(matchDetails);
+    }
+
+    static async matchStatus(matchDetails) {
+        //console.log(matchDetails);
     }
 
 }
