@@ -23,7 +23,6 @@ const getGameState = async (req, res) => {
 const getLeaderBoard = async (req, res) => {
     try {
         const leaderboard = await userService.buildLeaderboard();
-        console.log(leaderboard)
         res.send(leaderboard);
     } catch (error) {
         console.log(error);

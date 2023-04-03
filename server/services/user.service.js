@@ -2,29 +2,26 @@ const database = require("../database");
 const {response} = require("express");
 
 const addUser = async (user) => {
-    //todo Take care of checking if user is new/exist
-    // Send a query to retrieve the required data
-    console.log(user.email)
-    const query = `INSERT INTO rubik_cube.users (Email) VALUES ('${user.email}')`;
-    database.connection.query(query, function (error, results, fields) {
+    const query1 = `SELECT * FROM USER where Email='${user.email}'`
+    database.connection.query(query1, (error, results) => {
         if (error) {
-            console.log(error);
+            console.error(error);
+            console.log('An error occurred while checking the user')
+        } else if (results.length > 0) {
+            console.log('User already exists')
         } else {
-            console.log(results);
+            const query2 = `INSERT INTO rubik_cube.user (Email) VALUES ('${user.email}')`;
+            database.connection.query(query2, function (error, results, fields) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log("User added successfully:", user);
+                }
+            });
         }
     });
-};
 
-//     console.log("should add to db the user: ", user.email);
-//     return {email: "user-added"};
-//     // const userFromDB = await getUser(user.id);
-//     // if (userFromDB.length) {
-//     //   return userFromDB;
-//     // } else {
-//     //   const addedUser = await userDB.addUser(user);
-//     //   return addedUser;
-//     // }
-// };
+};
 
 const fetchGameState = async (gameDetails) => {
     // 1. check if gameDetails.manager in DB, if no, add him and new level
@@ -42,7 +39,7 @@ const fetchGameState = async (gameDetails) => {
 
 const buildLeaderboard = async () => {
     // Send a query to retrieve the required data
-    const query = "SELECT * FROM users";
+    const query = "SELECT * FROM user";
 
     // Create a Promise that wraps the database query
     const results = await new Promise((resolve, reject) => {
@@ -57,7 +54,8 @@ const buildLeaderboard = async () => {
 
     // Return the formatted data
     return results.map(result => ({
-        User_Picture: Buffer.from(result.User_Picture).toString("base64"),
+        //todo fix picture rendering
+        // User_Picture: Buffer.from(result.User_Picture).toString("base64"),
         Email: result.Email,
         Score: result.Score
     }));
