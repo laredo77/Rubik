@@ -6,6 +6,16 @@ function getLevelNumber(playerLevel) {
     return levelMatch ? parseInt(levelMatch[0]) : null;
 }
 
+function getLevelString(results) {
+    if (results.length > 0) {
+        return results[0].Cube_representation;
+    } else {
+        return null;
+    }
+}
+
+
 module.exports = {
-    getLevelNumber
+    getLevelNumber,
+    getLevelString
 };
