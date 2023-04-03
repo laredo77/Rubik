@@ -8,7 +8,7 @@ function getLevelNumber(playerLevel) {
 
 function getLevelString(results) {
     if (results.length > 0) {
-        return results[0].Cube_representation;
+        return results[0].cube_string;
     } else {
         return null;
     }

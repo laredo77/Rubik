@@ -2,7 +2,7 @@ const database = require("../database");
 const {response} = require("express");
 
 const addUser = async (user) => {
-    const query1 = `SELECT * FROM USER where Email='${user.email}'`
+    const query1 = `SELECT * FROM user where user_email='${user.email}'`
     database.connection.query(query1, (error, results) => {
         if (error) {
             console.error(error);
@@ -10,7 +10,7 @@ const addUser = async (user) => {
         } else if (results.length > 0) {
             console.log('User already exists')
         } else {
-            const query2 = `INSERT INTO rubik_cube.user (Email) VALUES ('${user.email}')`;
+            const query2 = `INSERT INTO rubik_cube2.user (user_email) VALUES ('${user.email}')`;
             database.connection.query(query2, function (error, results, fields) {
                 if (error) {
                     console.log(error);
@@ -39,7 +39,7 @@ const fetchGameState = async (gameDetails) => {
 
 const buildLeaderboard = async () => {
     // Send a query to retrieve the required data
-    const query = "SELECT * FROM user";
+    const query = `SELECT * FROM user`;
 
     // Create a Promise that wraps the database query
     const results = await new Promise((resolve, reject) => {
@@ -51,13 +51,12 @@ const buildLeaderboard = async () => {
             }
         });
     });
-
     // Return the formatted data
     return results.map(result => ({
         //todo fix picture rendering
-        // User_Picture: Buffer.from(result.User_Picture).toString("base64"),
-        Email: result.Email,
-        Score: result.Score
+        // User_Picture: Buffer.from(result.user_picture).toString("base64"),
+        Email: result.user_email,
+        Score: result.user_score
     }));
 };
 
