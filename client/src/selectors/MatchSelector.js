@@ -1,0 +1,1 @@
+export const matchDetails = (state) => state.matchReducer;

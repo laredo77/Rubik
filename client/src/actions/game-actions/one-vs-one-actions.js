@@ -16,7 +16,7 @@ const setMatchFailureAction = (match) => ({
 });
 
 export const setMatch = (user, level) => {
-  const match = {
+  let match = {
     manager: user.email,
     level: level,
     isLoading: true,
@@ -27,7 +27,11 @@ export const setMatch = (user, level) => {
   return async (dispatch) => {
     dispatch(setMatchRequestAction());
     try {
-      await Client.setMatch(match);
+      const response = await Client.setMatch(match);
+      match = {...match,
+        gameId: response.gameId,
+        password: response.password
+      }
       dispatch(setMatchSuccessAction(match));
     } catch (e) {
       match.errorMsg = e;

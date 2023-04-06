@@ -16,21 +16,21 @@ app.use(express.static(path.join(process.env.PWD + "/client/build")));
 app.use("/", router);
 
 const port = process.env.PORT || 3001;
-const connection = mysql.createConnection({
-    host: 'localhost',
-    port: 3306,
-    database: 'rubik_cube',
-    user: 'root',
-    password: 'rubik23'
-});
+// const connection = mysql.createConnection({
+//     host: 'localhost',
+//     port: 3306,
+//     database: 'rubik_cube',
+//     user: 'root',
+//     password: 'rubik23'
+// });
 
-connection.connect(function (error) {
-    if (error) {
-        throw(error)
-    } else {
-        console.log('MySQL Database is connected Successfully');
-    }
-})
+// connection.connect(function (error) {
+//     if (error) {
+//         throw(error)
+//     } else {
+//         console.log('MySQL Database is connected Successfully');
+//     }
+// })
 
 app.listen(port, function () {
     console.log(`Server is up and Running on ${port}`);

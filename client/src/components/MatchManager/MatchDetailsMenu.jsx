@@ -2,18 +2,19 @@ import * as React from "react";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Client from "../../services/GameService"
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 function GameDetailsMenu({user}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const matchDetails = useSelector((state) => state.matchReducer);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -26,8 +27,8 @@ function GameDetailsMenu({user}) {
             title: "Game Details",
             html: (
                 <>
-                    <Typography variant="inherit">Game ID</Typography>
-                    <Typography variant="inherit">Password</Typography>
+                    <Typography variant="inherit">Game ID: {matchDetails.gameId}</Typography>
+                    <Typography variant="inherit">Password: {matchDetails.password}</Typography>
                 </>
             ),
             confirmButtonColor: "#50b7f5",

@@ -9,7 +9,8 @@ import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-function OneVsOne({ user, setMatch }) {
+
+function MatchManager({ user, setMatch }) {
   const MySwal = withReactContent(Swal);
   let gameId = "";
   let gamePwd = "";
@@ -100,4 +101,4 @@ function OneVsOne({ user, setMatch }) {
   );
 }
 
-export default OneVsOne;
+export default MatchManager;

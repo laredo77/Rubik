@@ -45,7 +45,10 @@ export class GameService {
     }
 
     static async setMatch(matchDetails) {
-        //console.log(matchDetails);
+        const response = await axios.post("http://localhost:3001/match/setMatch", matchDetails);
+        if (response.status !== 200)
+            return;
+        return response.data
     }
 
     static async matchStatus(matchDetails) {
@@ -60,6 +63,9 @@ export class GameService {
     }
 
     static async quitMatch(matchDetails) {
+        // in server should check if the quitter is player or manager
+        // if manager, keep the match open
+        // else delete match from db
         //console.log(matchDetails);
     }
 
