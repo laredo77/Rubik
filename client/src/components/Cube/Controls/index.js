@@ -139,7 +139,8 @@ export default ({actions, disabled, controlsStatus, isMatch, user}) => {
                //opacity: 1
 
       }}/>
-      <div style={{position: 'absolute', top: '15px', left: '-140px', transform: 'scale(1.05)'}}>
+      <div style={{position: 'absolute', top: '15px', left: '-140px', transform: 'scale(1.05)',
+          opacity: controlsStatus ? undefined : 0}}>
         <RotateArrows rotate={actions.rotateCube} recorder={recorder}/>
       </div>
     </section>

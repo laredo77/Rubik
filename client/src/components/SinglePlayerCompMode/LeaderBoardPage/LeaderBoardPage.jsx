@@ -22,7 +22,7 @@ function LeaderBoardPage() {
     }, []);
 
     function handleClick() {
-        navigate("/");
+        navigate("/main");
     }
 
     return (

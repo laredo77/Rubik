@@ -81,7 +81,6 @@ function OneVsOne({ user, setMatch }) {
       showCancelButton: true,
     }).then((response) => {
       if (response.isConfirmed) {
-        // <MatchPage></MatchPage>;
         //now navigate to game page
       } else if (response.isDenied) {
         // do nothing

@@ -2,6 +2,7 @@ import * as React from "react";
 import "./MatchPage.css";
 import { useLocation } from "react-router-dom";
 import CubeManager from "../Cube/CubeManager";
+import GameDetailsMenu from "./GameDetailsMenu"
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {useSelector} from "react-redux";
@@ -67,6 +68,7 @@ function MatchPage() {
     return (
         <>
             <div className="split lefti">
+                <GameDetailsMenu user={user}></GameDetailsMenu>
                 <CubeManager controlsStatus={false} isMatch={false} user={user}></CubeManager>
             </div>
 

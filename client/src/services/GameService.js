@@ -59,6 +59,10 @@ export class GameService {
         // server send to the second player the move had perform
     }
 
+    static async quitMatch(matchDetails) {
+        //console.log(matchDetails);
+    }
+
 }
 
 export default GameService;
