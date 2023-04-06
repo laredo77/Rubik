@@ -2,16 +2,18 @@ import * as React from "react";
 import "./MatchPage.css";
 import { useLocation } from "react-router-dom";
 import CubeManager from "../Cube/CubeManager";
-import Client from "../../services/GameService";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import {useSelector} from "react-redux";
 
 function MatchPage() {
+    const user = useSelector((state) => state.user);
     const location = useLocation();
     let level = location.state.Level;
     //console.log(location.state);
     const MySwal = withReactContent(Swal);
     //let isMatchReady = Client.matchStatus(location.state.Manager)
+
     let isMatchReady = true;
     if (isMatchReady) {
         // DB says there is 2 players ready
@@ -28,7 +30,7 @@ function MatchPage() {
             if (randomElement === 0) {
                 random_arrow = Math.floor(Math.random() * 8);
                 random_direction = Math.floor(Math.random() * 2);
-                choice = random_arrow.toString() + random_direction.toString()
+                choice = "a" + random_arrow.toString() + random_direction.toString()
             } else {
                 let rotateArrows = ["x", "y", "z"]
                 random_arrow = Math.floor(Math.random() * 3);
@@ -40,13 +42,15 @@ function MatchPage() {
 
         var intr = setInterval(function() {
             let move = movesArray.pop()
-            const svgElement = document.getElementById(`${move}`);
-            const event = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
+            var elements = document.querySelectorAll(`#${move}`);
+            elements.forEach(function(element) {
+                const event = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
             });
-            svgElement.dispatchEvent(event);
             if (movesArray.length == 0) clearInterval(intr)
         }, 500)
 
@@ -60,15 +64,14 @@ function MatchPage() {
             allowOutsideClick: false,
         })
     }
-
     return (
         <>
             <div className="split lefti">
-                <CubeManager></CubeManager>
+                <CubeManager controlsStatus={false} isMatch={false} user={user}></CubeManager>
             </div>
 
             <div className="split righti">
-                <CubeManager></CubeManager>
+                <CubeManager controlsStatus={true} isMatch={true} user={user}></CubeManager>
             </div>
         </>
     );

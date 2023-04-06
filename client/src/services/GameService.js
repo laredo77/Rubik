@@ -52,6 +52,13 @@ export class GameService {
         //console.log(matchDetails);
     }
 
+    static async applyMoveInMatch(user, moveDetails) {
+        // console.log(user)
+        // console.log(moveDetails)
+        // send to server the user and the move
+        // server send to the second player the move had perform
+    }
+
 }
 
 export default GameService;
