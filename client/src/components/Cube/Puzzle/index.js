@@ -25,7 +25,7 @@ export default ({sideColors, rotation, spinQueue, isRandomizing, actions, contro
              onTransitionEnd={actions.commitRotate}
              style={{
                 transitionDuration: animateCubeRotation ? '0.2s' : '0s',
-                transform: 'translate(320px, 200px)' +
+                transform: 'translate(220px, 200px)' +
                            `rotateX(${rotation.x}deg)` +
                            `rotateY(${rotation.y}deg)` +
                            `rotateZ(${rotation.z}deg)`
