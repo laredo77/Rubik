@@ -2,6 +2,7 @@
     text-align: center;
     width: 1400px;
     perspective: 2000px;
+    transform: scale(0.75);
 }
 
 .App * {
@@ -64,7 +65,7 @@
 
 
 .Puzzle-wrapper {
-    transform: rotateY(45deg) rotateX(-30deg) translate3d(16px, 40px, -20px);
+    transform: rotateY(45deg) rotateX(-30deg) translate3d(-104px, 10px, -20px);
     pointer-events: none;
 }
 
@@ -247,18 +248,5 @@
 }
 
 .RotateArrows g:hover {
-    opacity: 1;
-}
-
-.ShuffleButton {
-    transform: rotate(10deg);
-}
-
-.ShuffleButton-target {
-    opacity: 0.25;
-    cursor: pointer;
-}
-
-.ShuffleButton-target:hover {
     opacity: 1;
 }

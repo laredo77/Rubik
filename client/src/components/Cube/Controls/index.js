@@ -2,9 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import buildArrow from './buildArrow';
 import RotateArrows from './RotateArrows';
+import Client from "../../../services/GameService"
 
 export const movesStack = []
-export default ({actions, disabled}) => {
+export default ({actions, disabled, controlsStatus, isMatch, user}) => {
 
   const recorder = (activationFunc, piece, forward) => {
     let neg_forward = !forward
@@ -16,6 +17,9 @@ export default ({actions, disabled}) => {
       }
     }
     movesStack.push([activationFunc, piece, +neg_forward])
+      if (isMatch) { // record to DB
+          Client.applyMoveInMatch(user.email, [activationFunc, piece, +neg_forward])
+      }
   };
 
   const Arrow = buildArrow(actions.spinSlice, recorder);
@@ -25,100 +29,118 @@ export default ({actions, disabled}) => {
       'disabled': disabled
     })}>
       {/* Spin Z forward */}
-      <Arrow id={"01"} slice={0} forward={true}
+      <Arrow id={"a01"} slice={0} forward={true}
              style={{
-        transform: 'translate(680px, 180px) rotate(-10deg)'
+        transform: 'translate(490px, 145px) rotate(-10deg)',
+               opacity: controlsStatus ? undefined : 0
       }}
       />
-      <Arrow id={"11"} slice={1} forward={true}
+      <Arrow id={"a11"} slice={1} forward={true}
              style={{
-        transform: 'translate(620px, 120px) rotate(-10deg)',
+        transform: 'translate(430px, 90px) rotate(-10deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
-      <Arrow id={"21"} slice={2} forward={true}
+      <Arrow id={"a21"} slice={2} forward={true}
              style={{
-        transform: 'translate(560px, 70px) rotate(-10deg)'
+        transform: 'translate(370px, 40px) rotate(-10deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
       {/* Spin Z backward */}
-      <Arrow id={"00"} slice={0} forward={false}
+      <Arrow id={"a00"} slice={0} forward={false}
              style={{
-        transform: 'translate(240px, 520px) rotate(130deg)'
+        transform: 'translate(10px, 500px) rotate(130deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
-      <Arrow id={"10"} slice={1} forward={false}
+      <Arrow id={"a10"} slice={1} forward={false}
              style={{
-        transform: 'translate(200px, 450px) rotate(130deg)'
+        transform: 'translate(-40px, 420px) rotate(130deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
-      <Arrow id={"20"} slice={2} forward={false}
+      <Arrow id={"a20"} slice={2} forward={false}
              style={{
-        transform: 'translate(160px, 380px) rotate(130deg)'
+        transform: 'translate(-80px, 350px) rotate(130deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
 
       {/* Spin X forward */}
-      <Arrow id={"31"} slice={3} forward={true}
+      <Arrow id={"a31"} slice={3} forward={true}
              style={{
-        transform: 'translate(350px, 540px) rotate(100deg)',
+        transform: 'translate(150px, 545px) rotate(100deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"41"} slice={4} forward={true}
+      <Arrow id={"a41"} slice={4} forward={true}
              style={{
-        transform: 'translate(440px, 520px) rotate(100deg)',
+        transform: 'translate(230px, 535px) rotate(100deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"51"} slice={5} forward={true}
+      <Arrow id={"a51"} slice={5} forward={true}
              style={{
-        transform: 'translate(530px, 500px) rotate(100deg)',
+        transform: 'translate(330px, 515px) rotate(100deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
 
       {/* Spin X backward */}
-      <Arrow id={"30"} slice={3} forward={false}
+      <Arrow id={"a30"} slice={3} forward={false}
              style={{
-        transform: 'translate(270px, 20px) rotate(240deg)',
+        transform: 'translate(50px, -10px) rotate(240deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"40"} slice={4} forward={false}
+      <Arrow id={"a40"} slice={4} forward={false}
              style={{
-        transform: 'translate(360px, 25px) rotate(240deg)',
+        transform: 'translate(140px, -5px) rotate(240deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
 
       }}/>
-      <Arrow id={"50"} slice={5} forward={false}
+      <Arrow id={"a50"} slice={5} forward={false}
              style={{
-        transform: 'translate(450px, 30px) rotate(240deg)',
+        transform: 'translate(230px, 0px) rotate(240deg)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
       {/* Spin Y forward */}
-      <Arrow id={"61"} slice={6} forward={true}
+      <Arrow id={"a61"} slice={6} forward={true}
              style={{
-        transform: 'translate(680px, 270px)',
+        transform: 'translate(500px, 260px)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"71"} slice={7} forward={true}
+      <Arrow id={"a71"} slice={7} forward={true}
              style={{
-        transform: 'translate(640px, 350px)',
+        transform: 'translate(480px, 340px)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"81"} slice={8} forward={true}
+      <Arrow id={"a81"} slice={8} forward={true}
              style={{
-        transform: 'translate(600px, 430px)',
-               //opacity: 1
+        transform: 'translate(460px, 420px)',
+               opacity: controlsStatus ? undefined : 0
       }}/>
       {/* Spin Y backward */}
-      <Arrow id={"60"} slice={6} forward={false}
+      <Arrow id={"a60"} slice={6} forward={false}
              style={{
-        transform: 'translate(180px, 60px) rotate(220deg)',
+        transform: 'translate(-40px, 30px) rotate(220deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"70"} slice={7} forward={false}
+      <Arrow id={"a70"} slice={7} forward={false}
              style={{
-        transform: 'translate(160px, 160px) rotate(220deg)',
+        transform: 'translate(-60px, 130px) rotate(220deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
-      <Arrow id={"80"} slice={8} forward={false}
+      <Arrow id={"a80"} slice={8} forward={false}
              style={{
-        transform: 'translate(140px, 260px) rotate(220deg)',
+        transform: 'translate(-80px, 230px) rotate(220deg)',
+               opacity: controlsStatus ? undefined : 0
                //opacity: 1
 
       }}/>
-      <div style={{position: 'absolute', top: '35px', left: '65px', transform: 'scale(1.05)'}}>
+      <div style={{position: 'absolute', top: '15px', left: '-140px', transform: 'scale(1.05)',
+          opacity: controlsStatus ? undefined : 0}}>
         <RotateArrows rotate={actions.rotateCube} recorder={recorder}/>
       </div>
     </section>

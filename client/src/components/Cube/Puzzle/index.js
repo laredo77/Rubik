@@ -6,7 +6,8 @@ import Controls from '../Controls';
 import cubePosMap from '../util/cubePosMap';
 import renderSlicedCubes from './renderSlicedCubes';
 
-export default ({sideColors, rotation, spinQueue, isRandomizing, actions}) => {
+
+export default ({sideColors, rotation, spinQueue, isRandomizing, actions, controlsStatus, isMatch, user}) => {
   const cubes =
     Object.entries(cubePosMap)
     .map(([key, props]) =>
@@ -24,7 +25,7 @@ export default ({sideColors, rotation, spinQueue, isRandomizing, actions}) => {
              onTransitionEnd={actions.commitRotate}
              style={{
                 transitionDuration: animateCubeRotation ? '0.2s' : '0s',
-                transform: 'translate(320px, 200px)' +
+                transform: 'translate(220px, 200px)' +
                            `rotateX(${rotation.x}deg)` +
                            `rotateY(${rotation.y}deg)` +
                            `rotateZ(${rotation.z}deg)`
@@ -33,7 +34,8 @@ export default ({sideColors, rotation, spinQueue, isRandomizing, actions}) => {
           {spinQueue ? renderSlicedCubes(cubes, spinQueue, {actions}) : cubes}
         </div>
       </div>
-      <Controls actions={actions} disabled={isRandomizing}/>
+        <Controls actions={actions} disabled={isRandomizing} controlsStatus={controlsStatus}
+        isMatch={isMatch} user={user}/>
     </div>
 
   );

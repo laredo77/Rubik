@@ -103,7 +103,7 @@ function FreePlayPage() {
 
   return (
     <ThemeProvider theme={theme}>
-        <CubeManager></CubeManager>
+        <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
       <Button
         variant="contained"
         sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}

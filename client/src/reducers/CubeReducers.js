@@ -4,6 +4,7 @@ import {
   ROTATE_CUBE,
   COMMIT_ROTATE,
   COMMIT_SPIN,
+    CONTROLS_STATUS,
 } from "../actions/cube-actions";
 import { combineReducers } from "redux";
 
@@ -76,12 +77,22 @@ const spinQueue = (state = null, action = {}) => {
   }
 };
 
+const controlsStatus = (state = false, action = {}) => {
+  switch (action.type) {
+    case CONTROLS_STATUS:
+      return true;
+    default:
+      return state;
+  }
+};
+
 // By default, run simple reducers on each property
 const reduceDefault = combineReducers({
   sideColors,
   rotation,
   rotationQueue,
   spinQueue,
+  controlsStatus,
 });
 
 // ==========

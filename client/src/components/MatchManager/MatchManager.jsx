@@ -9,7 +9,8 @@ import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-function OneVsOne({ user, setMatch }) {
+
+function MatchManager({ user, setMatch }) {
   const MySwal = withReactContent(Swal);
   let gameId = "";
   let gamePwd = "";
@@ -17,7 +18,7 @@ function OneVsOne({ user, setMatch }) {
   const navigate = useNavigate();
 
   const handleLevelChoose = (e) => {
-    level = e.target.innerText;
+    level = +e.target.innerText[6];
   };
 
   const newGameHandler = (response) => {
@@ -43,7 +44,7 @@ function OneVsOne({ user, setMatch }) {
       if (response.isConfirmed) {
         //now navigate to game page
         setMatch(user, level);
-        navigate("/main/competition/match", { state: { Level: level } });
+        navigate("/main/competition/match", { state: { Manager: user, Level: level } });
       } else if (response.isDenied) {
         // do nothing
       }
@@ -81,7 +82,6 @@ function OneVsOne({ user, setMatch }) {
       showCancelButton: true,
     }).then((response) => {
       if (response.isConfirmed) {
-        // <MatchPage></MatchPage>;
         //now navigate to game page
       } else if (response.isDenied) {
         // do nothing
@@ -101,4 +101,4 @@ function OneVsOne({ user, setMatch }) {
   );
 }
 
-export default OneVsOne;
+export default MatchManager;

@@ -3,6 +3,8 @@ import actionTypes from "../actions/constants";
 const initialState = {
   manager: undefined,
   level: undefined,
+  gameId: "",
+  password: "",
   isLoading: false,
   isError: false,
   errorMsg: "",
@@ -19,6 +21,8 @@ const matchReducer = (state = initialState, { type, payload }) => {
         ...state,
         manager: payload.manager,
         level: payload.level,
+        gameId: payload.gameId,
+        password: payload.password,
         isLoading: false,
       };
     }
