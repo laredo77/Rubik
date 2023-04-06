@@ -18,8 +18,6 @@ function LevelsPage({user, getGameState}) {
     const navigate = useNavigate();
 
     const levelChooseHandler = async (response) => {
-        console.log(response);
-        console.log("%%%%%")
         let level = response.target.id;
         // check if this user had this level in db if yes return state if not make new instance
         await getGameState(user, level);
@@ -41,7 +39,7 @@ function LevelsPage({user, getGameState}) {
                 <Grid item xs={2} sm={4} md={12}>
                     <Item
                         sx={{height: 100, textAlign: "left"}}
-                        id="art1"
+                        id="3"
                         onClick={levelChooseHandler}
                     >
                         Level: Easy

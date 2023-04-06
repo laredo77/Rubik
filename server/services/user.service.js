@@ -25,49 +25,22 @@ const addUser = async (user) => {
 };
 
 const fetchGameState = async (gameDetails) => {
-    console.log("$$$$$$$$$$$$$$$$$$$$")
-    // 1. check if gameDetails.manager in DB, if no, add him and new level
-    // 2. if yes, check if level is open, if no open level
-    // 3. if yes, send gameState
-    // return {gameState: "gameState"};
+    // get the user's progress for the given level from the database
+    console.log(gameDetails.manager, gameDetails.level);
+    const query = `SELECT lc.* FROM level_cube lc INNER JOIN user_progress up ON lc.cube_id = up.cube_id WHERE lc.level_id = '${gameDetails.level}' AND up.user_email = '${gameDetails.manager}'`;
+    database.connection.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            console.log('An error occurred while getting the user progress');
+        } else {
+            //todo need to return also cube_picture of each cube
+            const is_competition = false;
+            const levelsString = getLevelString(results, is_competition);
+            console.log("List of level cubes:", levelsString)
+        }
+    });
 
-
-    try {
-        // get the user's progress for the given level from the database
-        console.log(gameDetails.manager, gameDetails.level);//todo maybe change from manager to email?
-        //todo define each level unique name?
-        const query = `SELECT * FROM user_progress WHERE user_email = '${gameDetails.manager}' AND level_id = '${gameDetails.level}'`;
-        database.connection.query(query, (error, results) => {
-            if (error) {
-                console.error(error);
-                console.log('An error occurred while getting the user progress');
-            } else {
-                console.log("##############################")
-                console.log("gamedetails:", gameDetails, "results:", results);
-                // if the user's progress for the level exists in the database, update the gameDetails object
-                // gameDetails.progress = {
-                //     cubeId: results.cube_id,
-                //     isFinished: row.is_finished,
-                // };
-            }
-        });
-        //     const params = [user.email, level.level_id];
-        //     const [row] = await executeQuery(query, params);
-        //
-        //
-        //     if (row) {
-        //
-        //     }
-        //
-    } catch (error) {
-        // handle any errors that occur while retrieving the user's progress from the database
-        gameDetails.isError = true;
-        gameDetails.errorMsg = error.message;
-    }
-    //
-    // gameDetails.isLoading = false;
-    // return gameDetails;
-};
+}
 
 const buildLeaderboard = async () => {
     // Send a query to retrieve the required data
