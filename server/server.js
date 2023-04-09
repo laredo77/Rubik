@@ -17,7 +17,7 @@ app.use("/", router);
 
 const port = process.env.PORT || 3001;
 
-database.connectToDatabase();
+//database.connectToDatabase();
 app.listen(port, function () {
     console.log(`Server is up and Running on ${port}`);
 });

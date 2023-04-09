@@ -26,7 +26,7 @@ function ComponentsManager() {
           element={<SinglePlayerGameConnector />}
         />
         <Route path="/main/singlePlayer/freePlay" element={<FreePlayPage />} />
-        <Route path="/main/gameLevels/art1" element={<Art1Connector />} />
+        <Route path="/main/gameLevels/3" element={<Art1Connector />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route path="/main/competition" element={<MatchManagerConnector />} />
         <Route path="/main/competition/match" element={<MatchPage />} />
