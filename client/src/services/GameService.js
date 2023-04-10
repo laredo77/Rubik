@@ -60,9 +60,12 @@ export class GameService {
         return await response.data.status;
     }
 
-    static async applyMoveInMatch(user, moveDetails) {
-        // console.log(user)
-        // console.log(moveDetails)
+    static async applyMoveInMatch(moveDetails) {
+        //console.log(moveDetails)
+        await axios.post("http://localhost:3001/match/applyMove", moveDetails);
+        // if (response.status !== 200)
+        //     return;
+        // return response.data
         // send to server the user and the move
         // server send to the second player the move had perform
     }
@@ -73,7 +76,6 @@ export class GameService {
         // else delete match from db
         //console.log(matchDetails);
     }
-
 }
 
 export default GameService;
