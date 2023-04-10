@@ -10,7 +10,7 @@ const theme = createTheme();
 
 function FreePlayPage() {
     const MySwal = withReactContent(Swal);
-
+    let amountOfSteps = 0;
   const hintButtonHandler = (response) => {
       if (movesStack.length == 0) {
           // fire everything looks good! your done.
@@ -67,8 +67,22 @@ function FreePlayPage() {
         }
     };
 
+    const easyShuffleHandler = (response) => {
+        amountOfSteps = 8;
+        shuffleHandler();
+    };
+
+    const mediumShuffleHandler = (response) => {
+        amountOfSteps = 16;
+        shuffleHandler();
+    };
+
+    const toughShuffleHandler = (response) => {
+        amountOfSteps = 24;
+        shuffleHandler();
+    };
+
     const shuffleHandler = (response) => {
-        let amountOfSteps = 16;
         let movesArray = []
         let choices = new Array(8).fill(0);
         choices.push(1)
@@ -131,9 +145,23 @@ function FreePlayPage() {
         <Button
             variant="contained"
             sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-            onClick={shuffleHandler}
+            onClick={easyShuffleHandler}
         >
-            Shuffle!
+            Easy Shuffle!
+        </Button>
+        <Button
+            variant="contained"
+            sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
+            onClick={mediumShuffleHandler}
+        >
+            Medium Shuffle!
+        </Button>
+        <Button
+            variant="contained"
+            sx={{ marginRight: 20, marginLeft: "auto",marginTop: 1, display: "block" }}
+            onClick={toughShuffleHandler}
+        >
+            Tough Shuffle!
         </Button>
     </ThemeProvider>
   );
