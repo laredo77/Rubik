@@ -1,6 +1,6 @@
-const uploadImages = async (images) => {        //todo check if post or get
+const uploadImages = async (images) => {
     console.log(images);
-    return { images:images};
+    return {images: images};
 };
 
 module.exports = {
