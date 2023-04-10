@@ -1,5 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import CubeManager from "../Cube/CubeManager";
 import {movesStack} from "../Cube/Controls/index";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -10,7 +11,8 @@ const theme = createTheme();
 
 function FreePlayPage() {
     const MySwal = withReactContent(Swal);
-  const hindButtonHandler = (response) => {
+    let amountOfSteps = 0;
+  const hintButtonHandler = (response) => {
       if (movesStack.length == 0) {
           // fire everything looks good! your done.
           MySwal.fire({
@@ -62,12 +64,26 @@ function FreePlayPage() {
                 let move = movesStack.pop()
                 move[0](move[1], move[2]) // activate spinSlice on slice and forward
                 if (movesStack.length == 0) clearInterval(intr)
-            }, 800)
+            }, 1000)
         }
     };
 
+    const easyShuffleHandler = (response) => {
+        amountOfSteps = 8;
+        shuffleHandler();
+    };
+
+    const mediumShuffleHandler = (response) => {
+        amountOfSteps = 16;
+        shuffleHandler();
+    };
+
+    const toughShuffleHandler = (response) => {
+        amountOfSteps = 24;
+        shuffleHandler();
+    };
+
     const shuffleHandler = (response) => {
-        let amountOfSteps = 16;
         let movesArray = []
         let choices = new Array(8).fill(0);
         choices.push(1)
@@ -78,7 +94,7 @@ function FreePlayPage() {
             if (randomElement === 0) {
                 random_arrow = Math.floor(Math.random() * 8);
                 random_direction = Math.floor(Math.random() * 2);
-                choice = random_arrow.toString() + random_direction.toString()
+                choice = "a" + random_arrow.toString() + random_direction.toString()
             } else {
                 let rotateArrows = ["x", "y", "z"]
                 random_arrow = Math.floor(Math.random() * 3);
@@ -90,49 +106,49 @@ function FreePlayPage() {
 
         var intr = setInterval(function() {
             let move = movesArray.pop()
-            const svgElement = document.getElementById(`${move}`);
-            const event = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
+            var elements = document.querySelectorAll(`#${move}`);
+            elements.forEach(function(element) {
+                const event = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
             });
-            svgElement.dispatchEvent(event);
             if (movesArray.length == 0) clearInterval(intr)
         }, 500)
     };
 
   return (
-    <ThemeProvider theme={theme}>
-        <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
-      <Button
-        variant="contained"
-        sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-        onClick={finishButtonHandler}
-      >
-        Finish
-      </Button>
-      <Button
-        variant="contained"
-        sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-        onClick={hindButtonHandler}
-      >
-        Hint
-      </Button>
-        <Button
-            variant="contained"
-            sx={{marginRight: 0, marginLeft: "auto", display: "block"}}
-            onClick={solveButtonHandler}
-        >
-            Solve!
-        </Button>
-        <Button
-            variant="contained"
-            sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-            onClick={shuffleHandler}
-        >
-            Shuffle!
-        </Button>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+          <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: -25 }}>
+              <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", width: 640 }}>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={easyShuffleHandler}>
+                      Easy Shuffle!
+                  </Button>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={mediumShuffleHandler}>
+                      Medium Shuffle!
+                  </Button>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={toughShuffleHandler}>
+                      Tough Shuffle!
+                  </Button>
+              </Box>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" sx={{ marginRight: 1, width: 488, marginTop: 2 }} onClick={hintButtonHandler}>
+                  Hint
+              </Button>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" sx={{ marginRight: 1,width: 240, marginTop: 2 }} onClick={finishButtonHandler}>
+                  Finish
+              </Button>
+              <Button variant="contained" sx={{ marginRight: 1,width: 240, marginTop: 2 }} onClick={solveButtonHandler}>
+                  Solve!
+              </Button>
+          </Box>
+      </ThemeProvider>
   );
 }
 

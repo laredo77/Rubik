@@ -1,6 +1,7 @@
 import * as React from "react";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
+import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
 import {cubesImage} from "../cubesImage";
 import "./Art1.css";
@@ -14,20 +15,39 @@ const theme = createTheme();
 function Art1({uploadImagesFunc}) {
     const MySwal = withReactContent(Swal);
     //const generateImage = (response) => {};
+
+    const handleSolved = (selectedImage) => {
+        if (selectedImage) {
+            selectedImage.classList.add("image-solved");
+        }
+        MySwal.close();
+    };
+
+
     const handleImageClick = (response) => {
+        const clickedImage = response.target;
         MySwal.fire({
             title: "Solver",
             html: (
-                <i>
-                    {/*{`hihihi`}*/}
-                    {/*<br />*/}
-                    <Button
-                        variant="contained" onClick={handleUploadImageClick}
-                        // sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-                    >
-                        Upload cube images to solve
-                    </Button>
-                </i>
+                <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <Box sx={{ display: "inline-block", marginBottom: "10px" }}>
+                        <Button
+                            variant="contained"
+                            onClick={handleUploadImageClick}
+                        >
+                            Upload cube images to solve
+                        </Button>
+                    </Box>
+                    <Box sx={{ display: "inline-block" }}>
+                        <Button
+                            variant="contained"
+                            onClick={handleSolved(clickedImage)}
+                        >
+                            Mark as solved
+                        </Button>
+                    </Box>
+                </Box>
+
             ),
             imageUrl: response.target.src,
             imageHeight: 90,

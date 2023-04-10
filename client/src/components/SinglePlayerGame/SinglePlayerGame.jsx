@@ -7,13 +7,6 @@ import {useEffect} from "react";
 function SinglePlayerGame({user, modeListener, spinSlice}) {
     const navigate = useNavigate();
 
-    // const freePlayHandler = (response) => {
-    //   navigate("/singlePlayer/freePlay")
-    // };
-    //
-    // const levelPageHandler = (response) => {
-    // };
-
     useEffect(() => {
         modeListener("single");
     }, []);
