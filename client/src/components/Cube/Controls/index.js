@@ -9,9 +9,11 @@ export default ({actions, disabled, controlsStatus, isMatch, user}) => {
 
   const recorder = (activationFunc, piece, forward) => {
     let neg_forward = !forward
+      console.log(movesStack)
     if (movesStack.length > 0) {
       let elm = movesStack[movesStack.length - 1]
-      if (elm[1] === piece && elm[2] === forward) {
+        console.log(elm)
+      if (elm[1] == piece && elm[2] == forward) {
         movesStack.pop()
         return
       }

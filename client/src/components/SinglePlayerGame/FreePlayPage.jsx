@@ -10,7 +10,8 @@ const theme = createTheme();
 
 function FreePlayPage() {
     const MySwal = withReactContent(Swal);
-  const hindButtonHandler = (response) => {
+
+  const hintButtonHandler = (response) => {
       if (movesStack.length == 0) {
           // fire everything looks good! your done.
           MySwal.fire({
@@ -62,7 +63,7 @@ function FreePlayPage() {
                 let move = movesStack.pop()
                 move[0](move[1], move[2]) // activate spinSlice on slice and forward
                 if (movesStack.length == 0) clearInterval(intr)
-            }, 800)
+            }, 1000)
         }
     };
 
@@ -78,7 +79,7 @@ function FreePlayPage() {
             if (randomElement === 0) {
                 random_arrow = Math.floor(Math.random() * 8);
                 random_direction = Math.floor(Math.random() * 2);
-                choice = random_arrow.toString() + random_direction.toString()
+                choice = "a" + random_arrow.toString() + random_direction.toString()
             } else {
                 let rotateArrows = ["x", "y", "z"]
                 random_arrow = Math.floor(Math.random() * 3);
@@ -90,13 +91,15 @@ function FreePlayPage() {
 
         var intr = setInterval(function() {
             let move = movesArray.pop()
-            const svgElement = document.getElementById(`${move}`);
-            const event = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
+            var elements = document.querySelectorAll(`#${move}`);
+            elements.forEach(function(element) {
+                const event = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
             });
-            svgElement.dispatchEvent(event);
             if (movesArray.length == 0) clearInterval(intr)
         }, 500)
     };
@@ -114,7 +117,7 @@ function FreePlayPage() {
       <Button
         variant="contained"
         sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-        onClick={hindButtonHandler}
+        onClick={hintButtonHandler}
       >
         Hint
       </Button>
