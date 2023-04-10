@@ -10,6 +10,19 @@ const setMatch = async (req, res) => {
     }
 };
 
+
+const getMatchStatus = async (req, res) => {
+    try {
+        const status = await matchService.getMatchStatus(req.query.manager);
+        //console.log(status)
+        res.send(status);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Failed to set match");
+    }
+};
+
 module.exports = {
     setMatch,
+    getMatchStatus,
 };

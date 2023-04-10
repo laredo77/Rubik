@@ -1,7 +1,8 @@
 const express = require("express");
-const { setMatch } = require("../controllers/match.controller");
+const { setMatch, getMatchStatus } = require("../controllers/match.controller");
 const matchRoutes = express.Router();
 
 matchRoutes.post("/setMatch", setMatch);
+matchRoutes.get("/matchStatus", getMatchStatus);
 
 module.exports = matchRoutes;

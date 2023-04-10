@@ -51,7 +51,13 @@ export class GameService {
     }
 
     static async matchStatus(matchDetails) {
-        //console.log(matchDetails);
+        const response = await axios.get("http://localhost:3001/match/matchStatus", {
+            params: {
+                manager: matchDetails.email,
+            },
+        });
+        if (response.status !== 200) return;
+        return await response.data.status;
     }
 
     static async applyMoveInMatch(user, moveDetails) {

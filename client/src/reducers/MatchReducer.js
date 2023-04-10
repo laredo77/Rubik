@@ -5,6 +5,7 @@ const initialState = {
   level: undefined,
   gameId: "",
   password: "",
+  status: false,
   isLoading: false,
   isError: false,
   errorMsg: "",
@@ -33,6 +34,13 @@ const matchReducer = (state = initialState, { type, payload }) => {
         isError: true,
         isLoading: false,
         errorMsg: payload.errorMsg,
+      };
+    }
+
+    case actionTypes.IS_MATCH_READY: {
+      return {
+        ...state,
+        status: payload.status,
       };
     }
 
