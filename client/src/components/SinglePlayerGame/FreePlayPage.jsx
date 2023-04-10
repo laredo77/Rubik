@@ -1,5 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import CubeManager from "../Cube/CubeManager";
 import {movesStack} from "../Cube/Controls/index";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -119,51 +120,35 @@ function FreePlayPage() {
     };
 
   return (
-    <ThemeProvider theme={theme}>
-        <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
-      <Button
-        variant="contained"
-        sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-        onClick={finishButtonHandler}
-      >
-        Finish
-      </Button>
-      <Button
-        variant="contained"
-        sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-        onClick={hintButtonHandler}
-      >
-        Hint
-      </Button>
-        <Button
-            variant="contained"
-            sx={{marginRight: 0, marginLeft: "auto", display: "block"}}
-            onClick={solveButtonHandler}
-        >
-            Solve!
-        </Button>
-        <Button
-            variant="contained"
-            sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-            onClick={easyShuffleHandler}
-        >
-            Easy Shuffle!
-        </Button>
-        <Button
-            variant="contained"
-            sx={{ marginRight: 0, marginLeft: "auto", display: "block" }}
-            onClick={mediumShuffleHandler}
-        >
-            Medium Shuffle!
-        </Button>
-        <Button
-            variant="contained"
-            sx={{ marginRight: 20, marginLeft: "auto",marginTop: 1, display: "block" }}
-            onClick={toughShuffleHandler}
-        >
-            Tough Shuffle!
-        </Button>
-    </ThemeProvider>
+      <ThemeProvider theme={theme}>
+          <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
+          <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: -25 }}>
+              <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", width: 640 }}>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={easyShuffleHandler}>
+                      Easy Shuffle!
+                  </Button>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={mediumShuffleHandler}>
+                      Medium Shuffle!
+                  </Button>
+                  <Button variant="contained" sx={{ marginRight: 1 }} onClick={toughShuffleHandler}>
+                      Tough Shuffle!
+                  </Button>
+              </Box>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" sx={{ marginRight: 1, width: 488, marginTop: 2 }} onClick={hintButtonHandler}>
+                  Hint
+              </Button>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" sx={{ marginRight: 1,width: 240, marginTop: 2 }} onClick={finishButtonHandler}>
+                  Finish
+              </Button>
+              <Button variant="contained" sx={{ marginRight: 1,width: 240, marginTop: 2 }} onClick={solveButtonHandler}>
+                  Solve!
+              </Button>
+          </Box>
+      </ThemeProvider>
   );
 }
 

@@ -30,27 +30,59 @@ function LevelsPage({user, getGameState}) {
                 container
                 spacing={{xs: 2, md: 3}}
                 columns={{xs: 4, sm: 8, md: 12}}
+                sx={{overflow: "scroll"}}
             >
                 {/*{Array.from(Array(6)).map((_, index) => (*/}
                 {/*  <Grid item xs={2} sm={4} md={4} key={index}>*/}
                 {/*    <Item sx={{ height: 200 }}>Tool</Item>*/}
                 {/*  </Grid>*/}
                 {/*))}*/}
-                <Grid item xs={2} sm={4} md={12}>
+                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
                     <Item
-                        sx={{height: 100, textAlign: "left"}}
+                        sx={{height: 100, textAlign: "left", width: 600, display: "flex", justifyContent: "space-between", alignItems: "center"}}
                         id="3"
                         onClick={levelChooseHandler}
                     >
                         Level: Easy
+                        <img
+                            src="/mosaic/TheRollingStones.png"
+                            alt="The Rolling Stones"
+                            style={{height: "80%", marginLeft: "1rem"}}
+                            id={"3"}
+                        />
                     </Item>
                 </Grid>
-                <Grid item xs={2} sm={4} md={12}>
+
+                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
                     <Item
-                        sx={{height: 100, textAlign: "left"}}
+                        sx={{height: 100, textAlign: "left", width: 600}}
                         onClick={() => navigate("/main/singlePlayer/art")}
                     >
                         Level: Medium
+                    </Item>
+                </Grid>
+                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
+                    <Item
+                        sx={{height: 100, textAlign: "left", width: 600}}
+                        onClick={() => navigate("/main/singlePlayer/art")}
+                    >
+                        Level: Medium
+                    </Item>
+                </Grid>
+                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
+                    <Item
+                        sx={{height: 100, textAlign: "left", width: 600}}
+                        onClick={() => navigate("/main/singlePlayer/art")}
+                    >
+                        Level: Medium
+                    </Item>
+                </Grid>
+                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
+                    <Item
+                        sx={{height: 100, textAlign: "left", width: 600}}
+                        onClick={() => navigate("/main/singlePlayer/art")}
+                    >
+                        Create your own mosaic
                     </Item>
                 </Grid>
             </Grid>
