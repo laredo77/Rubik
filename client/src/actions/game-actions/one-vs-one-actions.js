@@ -15,10 +15,16 @@ const setMatchFailureAction = (match) => ({
   payload: match,
 });
 
+const setMatchStatus = (match) => ({
+  type: actionTypes.IS_MATCH_READY,
+  payload: match,
+});
+
 export const setMatch = (user, level) => {
   let match = {
     manager: user.email,
     level: level,
+    isReady: false,
     isLoading: true,
     isError: false,
     errorMsg: "",
@@ -36,6 +42,35 @@ export const setMatch = (user, level) => {
     } catch (e) {
       match.errorMsg = e;
       dispatch(setMatchFailureAction(match));
+    }
+  };
+};
+
+
+export const getMatchStatus = (user) => {
+  let matchStat = {
+    manager: user.email,
+    status: false,
+    errorMsg: "",
+  };
+
+  return async (dispatch) => {
+    //console.log(matchStatus)
+    dispatch(setMatchRequestAction());
+    try {
+      const response = await Client.matchStatus(matchStat);
+      if (response == 200) {
+        matchStat = {...matchStat,
+          status: true,
+        }
+      } else {
+        matchStat = {...matchStat,
+          status: false,
+        }
+      }
+      dispatch(setMatchStatus(matchStat));
+    } catch (e) {
+      matchStat.errorMsg = e;
     }
   };
 };

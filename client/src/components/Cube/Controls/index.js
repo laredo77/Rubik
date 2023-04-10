@@ -18,7 +18,11 @@ export default ({actions, disabled, controlsStatus, isMatch, user}) => {
     }
     movesStack.push([activationFunc, piece, +neg_forward])
       if (isMatch) { // record to DB
-          Client.applyMoveInMatch(user.email, [activationFunc, piece, +neg_forward])
+          Client.applyMoveInMatch({
+              user: user.email,
+              func: activationFunc,
+              piece: piece,
+              direction: +neg_forward})
       }
   };
 

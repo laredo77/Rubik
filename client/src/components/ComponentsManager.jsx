@@ -13,7 +13,7 @@ import LearnPage from "./LearnPage/LearnPage";
 import BasicsPage from "./LearnPage/BasicsPage";
 import AlgorithmsPage from "./LearnPage/AlgorithmsPage";
 import MatchManagerConnector from "./MatchManager/MatchManagerConnector";
-import MatchPage from "./MatchManager/MatchPage";
+import MatchPageConnector from "./MatchManager/MatchPageConnector";
 
 function ComponentsManager() {
   return (
@@ -29,7 +29,7 @@ function ComponentsManager() {
         <Route path="/main/gameLevels/3" element={<Art1Connector />} />
         <Route path="/main/levelsPage" element={<LevelsPageConnector />} />
         <Route path="/main/competition" element={<MatchManagerConnector />} />
-        <Route path="/main/competition/match" element={<MatchPage />} />
+        <Route path="/main/competition/match" element={<MatchPageConnector />} />
         <Route
           path="/main/singlePlayerCompPage"
           element={<SinglePlayerCompModeConnector />}
