@@ -7,6 +7,7 @@ import StopWatch from "../StopWatch/StopWatch";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import CubeManager from "../Cube/CubeManager";
 
 const theme = createTheme();
 
@@ -54,10 +55,7 @@ function SinglePlayerCompMode({ user, setGameLevel }) {
 
   return (
     <ThemeProvider theme={theme}>
-      {/*<div className="app">*/}
-      {/*  <CubeContainer />*/}
-      {/*</div>*/}
-
+        <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
       <StopWatch />
       <Button
         variant="contained"
