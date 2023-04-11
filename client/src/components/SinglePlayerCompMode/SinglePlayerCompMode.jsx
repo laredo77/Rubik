@@ -1,6 +1,5 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-//import CubeContainer from "../Cube/CubeContainer";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import StopWatch from "../StopWatch/StopWatch";
@@ -8,7 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CubeManager from "../Cube/CubeManager";
-
+import Box from "@mui/material/Box";
+import {StopWatchAnimation} from "../StopWatch/StopWatchAnimation";
+import {CubeShuffle} from "../components-utils"
 const theme = createTheme();
 
 const options = [
@@ -32,13 +33,12 @@ function SinglePlayerCompMode({ user, setGameLevel }) {
   };
 
   const handleLevelChoose = (e) => {
-    // should render the cube as level choose
-    // 1. send to server level choose
-    // 2. get the steps
-    // 3. mix the cube
     setAnchorEl(null);
     let level = e.target.innerText;
-    setGameLevel({ player: user.email, level: level });
+    let digit_level = level.replace(/^\D+/g, ''); // Replace all leading non-digits with nothing
+      CubeShuffle(digit_level)
+
+    //setGameLevel({ player: user.email, level: level });
   };
 
   const handleStartOverClick = (event) => {
@@ -53,69 +53,86 @@ function SinglePlayerCompMode({ user, setGameLevel }) {
     // if no pop-up and say it's not finished yet are you sure you want to quit?
   };
 
-  return (
-    <ThemeProvider theme={theme}>
-        <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
-      <StopWatch />
-      <Button
-        variant="contained"
-        onClick={() => navigate("/main/singlePlayerCompPage/leaderBoard")}
-      >
-        LeaderBoard
-      </Button>
-      <div>
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={handleLevelButtonClick}
-        >
-          Level
-        </IconButton>
-        <Menu
-          id="long-menu"
-          MenuListProps={{
-            "aria-labelledby": "long-button",
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleLevelChoose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
-            },
-          }}
-        >
-          {options.map((option) => (
-            <MenuItem
-              key={option}
-              selected={option === "Level-1"}
-              onClick={handleLevelChoose}
-            >
-              {option}
-            </MenuItem>
-          ))}
-        </Menu>
-      </div>
-      <Button
-        variant="contained"
-        sx={{ position: "absolute", bottom: 15, right: "38%" }}
-        onClick={handleFinishButtonClick}
-      >
-        Finish
-      </Button>
-      <Button
-        variant="contained"
-        sx={{ position: "absolute", bottom: 15, right: "52%" }}
-        onClick={handleStartOverClick}
-      >
-        Start Over
-      </Button>
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider theme={theme}>
+            <Box display="flex">
+                <CubeManager controlsStatus={true} isMatch={false} />
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ marginLeft: "-25rem", marginRight: "15rem", marginTop: "3rem", justifyContent: "flex-end" }}
+                >
+                    <Box>
+                        <StopWatchAnimation></StopWatchAnimation>
+                        {/*<StopWatch />*/}
+                    </Box>
+                    <Box m={2} display="flex">
+                        <Box mr={2}>
+                            <Button sx={{width: 130}} variant="contained" onClick={handleStartOverClick}>
+                                Start Over
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Button variant="contained" onClick={handleFinishButtonClick}>
+                                Finish
+                            </Button>
+                        </Box>
+                    </Box>
+                    <Box m={2}>
+                        <Button
+                            variant="contained"
+                            onClick={() =>
+                                navigate("/main/singlePlayerCompPage/leaderBoard")
+                            }
+                            sx={{width: 230}}
+                        >
+                            LeaderBoard
+                        </Button>
+                    </Box>
+                    <Box m={2}>
+                        <IconButton
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={open ? "long-menu" : undefined}
+                            aria-expanded={open ? "true" : undefined}
+                            aria-haspopup="true"
+                            onClick={handleLevelButtonClick}
+                        >
+                            Choose Level
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                                "aria-labelledby": "long-button",
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleLevelChoose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: "20ch",
+                                },
+                            }}
+                        >
+                            {options.map((option) => (
+                                <MenuItem
+                                    key={option}
+                                    selected={option === "Level-1"}
+                                    onClick={handleLevelChoose}
+                                >
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
+
 }
 
 export default SinglePlayerCompMode;

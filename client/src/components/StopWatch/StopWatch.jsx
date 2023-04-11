@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStopwatch } from 'react-timer-hook';
+import {StopWatchAnimation} from "./StopWatchAnimation";
 
 function StopWatch() {
   const {
@@ -23,6 +24,7 @@ function StopWatch() {
       {/* <button onClick={start}>Start</button>
       <button onClick={pause}>Pause</button>
       <button onClick={reset}>Reset</button> */}
+      <StopWatchAnimation></StopWatchAnimation>
     </div>
   );
 }
