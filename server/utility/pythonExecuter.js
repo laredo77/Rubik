@@ -1,7 +1,7 @@
 const {PythonShell} = require('python-shell');      // Required for executing python script async from JS
 const path = require('path');                       // Required to construct file paths
 const pythonPath = path.join('C:', 'Users', 'yahav', 'AppData', 'Local', 'Programs', 'Python', 'Python39', 'python.exe');    // Definition of python.exe path
-const scriptPath = path.join('D:', 'Projects', 'RubikCube', 'server');          // Definition of the script.py path
+const scriptPath = path.join('D:', 'Projects', 'RubikCube', 'server', 'utility');          // Definition of the script.py path
 
 /**
  * Helper function, used to call a specific function from python script and return its result/prints
@@ -20,12 +20,13 @@ function callPythonFunction(functionName, params) {
 
     // Invokes the python async script using the options object, throws an error if there is an error
     return new Promise((resolve, reject) => {
-        PythonShell.run('my_function.py', options, function (err, results) {
+        PythonShell.run(functionName, options, function (err, results) {
             if (err) reject(err);
             resolve(results);
-            // console.log(results);
-        })
-    })
+        }).then((r) => {
+            console.log(r);
+        });
+    });
 }
 
 /**
@@ -45,17 +46,19 @@ function parseTerminalParameters() {
     return [functionName, params]
 }
 
-parsedInput = parseTerminalParameters()
-functionName = parsedInput[0]
-params = parsedInput[1]
+function executePython() {
+    let [functionName, params] = parseTerminalParameters();
+    console.log(pythonPath)
+    console.log(scriptPath)
+    callPythonFunction(functionName, params)
+        .then((result) => {
+            console.log(result);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
 
-callPythonFunction(functionName, params)
-    // Returns the "caught" value from the function into results and prints it, if there is an error prints it
-    .then((results) => {
-        console.log(results);
-    })
-    .catch((err) => {
-        console.log(err);
-    })
 
-// test in terminal: node utility.js my_function 'hey' 'world'
+executePython()
+// test in terminal: node .\pythonExecuter.js [python_file_name.py] [params], for example node pythonExecuter.js my_function.py param1 param2

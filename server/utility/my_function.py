@@ -1,6 +1,6 @@
 import sys
 
-def my_function(params):
+def python_func(params):
     print("this is the params:", params)
     return 12
 
@@ -8,4 +8,5 @@ def my_function(params):
 if __name__ == "__main__":
 # Retrieves the command line arguments passed to the script by the JS function
     params = sys.argv[2:]
-    my_function(params)
+    result = python_func(params)
+    print(result)
