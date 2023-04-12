@@ -91,20 +91,20 @@ export default ({actions, disabled, controlsStatus, isMatch, user}) => {
       {/* Spin X backward */}
       <Arrow id={"a30"} slice={3} forward={false}
              style={{
-        transform: 'translate(50px, -10px) rotate(240deg)',
+        transform: 'translate(50px, -20px) rotate(240deg)',
                opacity: controlsStatus ? undefined : 0
                //opacity: 1
       }}/>
       <Arrow id={"a40"} slice={4} forward={false}
              style={{
-        transform: 'translate(140px, -5px) rotate(240deg)',
+        transform: 'translate(140px, -15px) rotate(240deg)',
                opacity: controlsStatus ? undefined : 0
                //opacity: 1
 
       }}/>
       <Arrow id={"a50"} slice={5} forward={false}
              style={{
-        transform: 'translate(230px, 0px) rotate(240deg)',
+        transform: 'translate(230px, -10px) rotate(240deg)',
                opacity: controlsStatus ? undefined : 0
       }}/>
       {/* Spin Y forward */}

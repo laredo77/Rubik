@@ -9,7 +9,7 @@ import CubeManager from "../Cube/CubeManager";
 import Box from "@mui/material/Box";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {StopWatchAnimation} from "../StopWatch/StopWatchAnimation";
+import {StopWatchAnimation} from "./StopWatch/StopWatchAnimation";
 import {CubeShuffle} from "../components-utils"
 import {movesStack} from "../Cube/Controls";
 import {useEffect} from "react"
