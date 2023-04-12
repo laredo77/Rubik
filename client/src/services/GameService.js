@@ -30,7 +30,7 @@ export class GameService {
     }
 
     static async setCompGameLevel(gameDetails) {
-        const response = await axios.post("http://localhost:3001/singleplayer/choose-level", gameDetails);
+        const response = await axios.post("http://localhost:3001/game/choose-level", gameDetails);
         if (response.status !== 200)
             return;
 
@@ -75,6 +75,11 @@ export class GameService {
         // if manager, keep the match open
         // else delete match from db
         //console.log(matchDetails);
+    }
+
+    static async postCompScore(scoreDetails) {
+        //console.log(scoreDetails)
+        await axios.post("http://localhost:3001/game/compScore", scoreDetails);
     }
 }
 

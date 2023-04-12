@@ -13,6 +13,7 @@ import {StopWatchAnimation} from "../StopWatch/StopWatchAnimation";
 import {CubeShuffle} from "../components-utils"
 import {movesStack} from "../Cube/Controls";
 import {useEffect} from "react"
+import Client from "../../services/GameService";
 
 const theme = createTheme();
 
@@ -33,13 +34,15 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const MySwal = withReactContent(Swal);
+    const [startTiming, setStartTiming] = React.useState(0);
+    const [level, setLevel] = React.useState(0);
 
     useEffect(() => {
         let startCheckbox = document.querySelector('#start');
-        let pauseCheckbox = document.querySelector('#pause');
-        let resetCheckbox = document.querySelector('#reset');
         startCheckbox.disabled = true;
+        let pauseCheckbox = document.querySelector('#pause');
         pauseCheckbox.disabled = true;
+        let resetCheckbox = document.querySelector('#reset');
         resetCheckbox.disabled = true;
     }, []);
 
@@ -49,21 +52,20 @@ function SinglePlayerCompMode({user, setGameLevel}) {
 
     const handleLevelChoose = (e) => {
         setAnchorEl(null);
-        let level = e.target.innerText;
-        let digit_level = level.replace(/^\D+/g, ''); // Replace all leading non-digits with nothing
-        CubeShuffle(digit_level);
-
+        let str_level = e.target.innerText;
+        let d_level = parseInt(str_level.replace(/^\D+/g, '')); // Replace all leading non-digits with nothing
+        setLevel(d_level)
+        CubeShuffle(d_level);
+        //CubeShuffle(0.25);
         let startCheckbox = document.querySelector('#start');
-        startCheckbox.disabled = true;
 
         // Delay the execution of the code by 8 * 500 * digit_level milliseconds
         setTimeout(() => {
             startCheckbox.disabled = false;
             startCheckbox.click();
             startCheckbox.disabled = true;
-        }, 8 * 500 * digit_level);
-
-        //setGameLevel({ player: user.email, level: level });
+            setStartTiming(new Date().getTime())
+        }, 8 * 500 * d_level);
     };
 
 
@@ -78,6 +80,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.click();
         pauseCheckbox.disabled = true;
         if (movesStack.length == 0) {
+            let end_time = new Date().getTime();
             // fire everything looks good! you are done.
             MySwal.fire({
                 title: "Congratulations! You have successfully solved the cube",
@@ -88,10 +91,16 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                 showCloseButton: false,
                 showCancelButton: false,
                 allowOutsideClick: false,
+
             }).then((response) => {
                 if (response.isConfirmed) {
-                   // send to server the user details & time
+                    // send to server the user details & time
                     // update the db and the leaderboard
+                    Client.postCompScore({
+                        user: user.email,
+                        level: level,
+                        time: (end_time - startTiming) / 1000,
+                    })
                 }
             });
         } else {
@@ -125,7 +134,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                 >
                     <Box>
                         <StopWatchAnimation></StopWatchAnimation>
-                        {/*<StopWatch />*/}
                     </Box>
                     <Box m={2} display="flex">
                         <Box mr={2}>
