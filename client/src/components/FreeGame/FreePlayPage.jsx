@@ -70,15 +70,15 @@ function FreePlayPage() {
     };
 
     const easyShuffleHandler = () => {
-        CubeShuffle(8)
+        CubeShuffle(1)
     };
 
     const mediumShuffleHandler = () => {
-        CubeShuffle(16)
+        CubeShuffle(2)
     };
 
     const toughShuffleHandler = () => {
-        CubeShuffle(24)
+        CubeShuffle(3)
     };
 
   return (

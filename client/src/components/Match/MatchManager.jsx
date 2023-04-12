@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 
 function MatchManager({ user, setMatch }) {
@@ -90,14 +91,51 @@ function MatchManager({ user, setMatch }) {
   };
 
   return (
-    <Grid sx={{ display: "inline-block" }}>
-      <Button variant="contained" onClick={newGameHandler}>
-        New Game
-      </Button>
-      <Button variant="contained" onClick={joinGameHandler}>
-        Join Game
-      </Button>
-    </Grid>
+      <Box
+          sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+          }}
+      >
+          <Grid container spacing={3} justifyContent="center">
+              <Grid item>
+                  <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                          color: "#fff",
+                          "&:hover": {
+                              backgroundColor: "#023e8a",
+                          },
+                          height: 125,
+                          width: 180,
+                      }}
+                      onClick={newGameHandler}
+                  >
+                      New Game
+                  </Button>
+              </Grid>
+              <Grid item>
+                  <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                          color: "#fff",
+                          "&:hover": {
+                              backgroundColor: "#023e8a",
+                          },
+                          height: 125,
+                          width: 180,
+                      }}
+                      onClick={joinGameHandler}
+                  >
+                      Join Game
+                  </Button>
+              </Grid>
+          </Grid>
+      </Box>
   );
 }
 

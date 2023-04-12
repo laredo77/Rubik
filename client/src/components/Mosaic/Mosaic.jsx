@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -63,14 +64,51 @@ function TeamPlayPage({ user, modeListener, joinGame }) {
     });
   };
   return (
-    <Grid sx={{ display: "inline-block" }}>
-      <Button variant="contained" onClick={newGameHandler}>
-        New Game
-      </Button>
-      <Button variant="contained" onClick={joinGameHandler}>
-        Join Game
-      </Button>
-    </Grid>
+      <Box
+          sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+          }}
+      >
+          <Grid container spacing={3} justifyContent="center">
+              <Grid item>
+                  <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                          color: "#fff",
+                          "&:hover": {
+                              backgroundColor: "#023e8a",
+                          },
+                          height: 125,
+                          width: 180,
+                      }}
+                      onClick={newGameHandler}
+                  >
+                      New Game
+                  </Button>
+              </Grid>
+              <Grid item>
+                  <Button
+                      variant="contained"
+                      size="large"
+                      sx={{
+                          color: "#fff",
+                          "&:hover": {
+                              backgroundColor: "#023e8a",
+                          },
+                          height: 125,
+                          width: 180,
+                      }}
+                      onClick={joinGameHandler}
+                  >
+                      Join Game
+                  </Button>
+              </Grid>
+          </Grid>
+      </Box>
   );
 }
 
