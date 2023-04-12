@@ -1,123 +1,204 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
-//import CubeContainer from "../Cube/CubeContainer";
-import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import StopWatch from "../StopWatch/StopWatch";
+import {useNavigate} from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import CubeManager from "../Cube/CubeManager";
+import Box from "@mui/material/Box";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import {StopWatchAnimation} from "../StopWatch/StopWatchAnimation";
+import {CubeShuffle} from "../components-utils"
+import {movesStack} from "../Cube/Controls";
+import {useEffect} from "react"
+import Client from "../../services/GameService";
 
 const theme = createTheme();
 
+
 const options = [
-  "Level-1",
-  "Level-2",
-  "Level-3",
-  "Level-4",
-  "Level-5",
-  "Level-6",
-  "Level-7",
+    "Level-1",
+    "Level-2",
+    "Level-3",
+    "Level-4",
+    "Level-5",
+    "Level-6",
+    "Level-7",
 ];
 const ITEM_HEIGHT = 48;
 
-function SinglePlayerCompMode({ user, setGameLevel }) {
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+function SinglePlayerCompMode({user, setGameLevel}) {
+    const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const MySwal = withReactContent(Swal);
+    const [startTiming, setStartTiming] = React.useState(0);
+    const [level, setLevel] = React.useState(0);
 
-  const handleLevelButtonClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    useEffect(() => {
+        let startCheckbox = document.querySelector('#start');
+        startCheckbox.disabled = true;
+        let pauseCheckbox = document.querySelector('#pause');
+        pauseCheckbox.disabled = true;
+        let resetCheckbox = document.querySelector('#reset');
+        resetCheckbox.disabled = true;
+    }, []);
 
-  const handleLevelChoose = (e) => {
-    // should render the cube as level choose
-    // 1. send to server level choose
-    // 2. get the steps
-    // 3. mix the cube
-    setAnchorEl(null);
-    let level = e.target.innerText;
-    setGameLevel({ player: user.email, level: level });
-  };
+    const handleLevelButtonClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
-  const handleStartOverClick = (event) => {
-    // maybe better not refresh?
-    window.location.reload(true);
-  };
+    const handleLevelChoose = (e) => {
+        setAnchorEl(null);
+        let str_level = e.target.innerText;
+        let d_level = parseInt(str_level.replace(/^\D+/g, '')); // Replace all leading non-digits with nothing
+        setLevel(d_level)
+        CubeShuffle(d_level);
+        //CubeShuffle(0.25);
+        let startCheckbox = document.querySelector('#start');
 
-  const handleFinishButtonClick = (event) => {
-    // send to server cube string
-    // server check if its equal to finish state
-    // if yes congrats
-    // if no pop-up and say it's not finished yet are you sure you want to quit?
-  };
+        // Delay the execution of the code by 8 * 500 * digit_level milliseconds
+        setTimeout(() => {
+            startCheckbox.disabled = false;
+            startCheckbox.click();
+            startCheckbox.disabled = true;
+            setStartTiming(new Date().getTime())
+        }, 8 * 500 * d_level);
+    };
 
-  return (
-    <ThemeProvider theme={theme}>
-      {/*<div className="app">*/}
-      {/*  <CubeContainer />*/}
-      {/*</div>*/}
 
-      <StopWatch />
-      <Button
-        variant="contained"
-        onClick={() => navigate("/main/singlePlayerCompPage/leaderBoard")}
-      >
-        LeaderBoard
-      </Button>
-      <div>
-        <IconButton
-          aria-label="more"
-          id="long-button"
-          aria-controls={open ? "long-menu" : undefined}
-          aria-expanded={open ? "true" : undefined}
-          aria-haspopup="true"
-          onClick={handleLevelButtonClick}
-        >
-          Level
-        </IconButton>
-        <Menu
-          id="long-menu"
-          MenuListProps={{
-            "aria-labelledby": "long-button",
-          }}
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleLevelChoose}
-          PaperProps={{
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
-            },
-          }}
-        >
-          {options.map((option) => (
-            <MenuItem
-              key={option}
-              selected={option === "Level-1"}
-              onClick={handleLevelChoose}
-            >
-              {option}
-            </MenuItem>
-          ))}
-        </Menu>
-      </div>
-      <Button
-        variant="contained"
-        sx={{ position: "absolute", bottom: 15, right: "38%" }}
-        onClick={handleFinishButtonClick}
-      >
-        Finish
-      </Button>
-      <Button
-        variant="contained"
-        sx={{ position: "absolute", bottom: 15, right: "52%" }}
-        onClick={handleStartOverClick}
-      >
-        Start Over
-      </Button>
-    </ThemeProvider>
-  );
+    const handleStartOverClick = (event) => {
+        // maybe better not refresh?
+        window.location.reload(true);
+    };
+
+    const handleFinishButtonClick = (event) => {
+        let pauseCheckbox = document.querySelector('#pause');
+        pauseCheckbox.disabled = false;
+        pauseCheckbox.click();
+        pauseCheckbox.disabled = true;
+        if (movesStack.length == 0) {
+            let end_time = new Date().getTime();
+            // fire everything looks good! you are done.
+            MySwal.fire({
+                title: "Congratulations! You have successfully solved the cube",
+                imageUrl: "https://media1.giphy.com/media/lPoOHG39XAlV4it61H/giphy.gif",
+                imageHeight: 150,
+                imageWidth: 350,
+                confirmButtonColor: "#50b7f5",
+                showCloseButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+
+            }).then((response) => {
+                if (response.isConfirmed) {
+                    // send to server the user details & time
+                    // update the db and the leaderboard
+                    Client.postCompScore({
+                        user: user.email,
+                        level: level,
+                        time: (end_time - startTiming) / 1000,
+                    })
+                }
+            });
+        } else {
+            MySwal.fire({
+                title: "The cube is still unsolved! Return to the game!",
+                confirmButtonColor: "#50b7f5",
+                showCloseButton: false,
+                showCancelButton: false,
+                allowOutsideClick: false,
+            }).then((response) => {
+                if (response.isConfirmed) {
+                    pauseCheckbox.disabled = false;
+                    pauseCheckbox.click();
+                    pauseCheckbox.disabled = true;
+                }
+            });
+
+        }
+    };
+
+    return (
+        <ThemeProvider theme={theme}>
+            <Box display="flex">
+                <CubeManager controlsStatus={true} isMatch={false}/>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{marginLeft: "-25rem", marginRight: "15rem", marginTop: "3rem", justifyContent: "flex-end"}}
+                >
+                    <Box>
+                        <StopWatchAnimation></StopWatchAnimation>
+                    </Box>
+                    <Box m={2} display="flex">
+                        <Box mr={2}>
+                            <Button sx={{width: 130}} variant="contained" onClick={handleStartOverClick}>
+                                Start Over
+                            </Button>
+                        </Box>
+                        <Box>
+                            <Button variant="contained" onClick={handleFinishButtonClick}>
+                                Finish
+                            </Button>
+                        </Box>
+                    </Box>
+                    <Box m={2}>
+                        <Button
+                            variant="contained"
+                            onClick={() =>
+                                navigate("/main/singlePlayerCompPage/leaderBoard")
+                            }
+                            sx={{width: 230}}
+                        >
+                            LeaderBoard
+                        </Button>
+                    </Box>
+                    <Box m={2}>
+                        <IconButton
+                            aria-label="more"
+                            id="long-button"
+                            aria-controls={open ? "long-menu" : undefined}
+                            aria-expanded={open ? "true" : undefined}
+                            aria-haspopup="true"
+                            onClick={handleLevelButtonClick}
+                        >
+                            Choose Level
+                        </IconButton>
+                        <Menu
+                            id="long-menu"
+                            MenuListProps={{
+                                "aria-labelledby": "long-button",
+                            }}
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleLevelChoose}
+                            PaperProps={{
+                                style: {
+                                    maxHeight: ITEM_HEIGHT * 4.5,
+                                    width: "20ch",
+                                },
+                            }}
+                        >
+                            {options.map((option) => (
+                                <MenuItem
+                                    key={option}
+                                    selected={option === "Level-1"}
+                                    onClick={handleLevelChoose}
+                                >
+                                    {option}
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                </Box>
+            </Box>
+        </ThemeProvider>
+    );
 }
 
 export default SinglePlayerCompMode;
