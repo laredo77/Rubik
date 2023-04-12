@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {cubesImage} from "../cubesImage";
+import {cubesImage} from "../../../cubesImage";
 import "./Art1.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";

@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import FreePlayPage from "./FreeGame/FreePlayPage";
-import Art1Connector from "./GameLevels/Art1Connector";
+import Art1Connector from "./Mosaic/LevelsPage/GameLevels/Art1Connector";
 import MosaicConnector from "../components/Mosaic/MosaicConnector";
-import LevelsPageConnector from "./LevelsPage/LevelsPageConnector";
+import LevelsPageConnector from "./Mosaic/LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
 import CompetitionModeConnector from "./CompetitionMode/CompetitionModeConnector";
 import LeaderBoardPage from "./CompetitionMode/LeaderBoardPage/LeaderBoardPage";
