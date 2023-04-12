@@ -19,7 +19,7 @@ function MainPage({ user }) {
   const navigate = useNavigate();
 
   return (
-      <Box sx={{ flexGrow: 1, position: "relative" }}>
+      <Box sx={{ flexGrow: 1, position: "relative", marginTop: 1}}>
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
@@ -35,7 +35,12 @@ function MainPage({ user }) {
                 textAlign: "center",
                 fontWeight: "bold",
                 fontSize: "24px",
-                fontFamily: "Arial, sans-serif",}}
+                fontFamily: "Arial, sans-serif",
+                  transition: "transform 0.2s",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                  ":hover": {
+                      transform: "scale(1.05)",
+                  },}}
               onClick={() => navigate("/main/game/freePlay")}
           >
             <Box fontWeight="bold">Free Game</Box>
@@ -60,7 +65,12 @@ function MainPage({ user }) {
                       textAlign: "center",
                       fontWeight: "bold",
                       fontSize: "24px",
-                      fontFamily: "Arial, sans-serif",}}
+                      fontFamily: "Arial, sans-serif",
+                      transition: "transform 0.2s",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                      ":hover": {
+                          transform: "scale(1.05)",
+                      },}}
                   onClick={() => navigate("/main/game/mosaic")}
               >
                   <Box fontWeight="bold">Cube Mosaics</Box>
@@ -83,7 +93,12 @@ function MainPage({ user }) {
                       textAlign: "center",
                       fontWeight: "bold",
                       fontSize: "24px",
-                      fontFamily: "Arial, sans-serif",}}
+                      fontFamily: "Arial, sans-serif",
+                      transition: "transform 0.2s",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                      ":hover": {
+                          transform: "scale(1.05)",
+                      },}}
                   onClick={() => navigate("/main/learn")}
               >
                   <Box fontWeight="bold">Rubik Cube Algorithms</Box>
@@ -106,7 +121,12 @@ function MainPage({ user }) {
                       textAlign: "center",
                       fontWeight: "bold",
                       fontSize: "24px",
-                      fontFamily: "Arial, sans-serif",}}
+                      fontFamily: "Arial, sans-serif",
+                      transition: "transform 0.2s",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                      ":hover": {
+                          transform: "scale(1.05)",
+                      },}}
                   onClick={() => navigate("/main/singlePlayerCompPage")}
               >
                   <Box fontWeight="bold">Competition Mode</Box>
@@ -130,7 +150,12 @@ function MainPage({ user }) {
                       textAlign: "center",
                       fontWeight: "bold",
                       fontSize: "24px",
-                      fontFamily: "Arial, sans-serif",}}
+                      fontFamily: "Arial, sans-serif",
+                      transition: "transform 0.2s",
+                      boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
+                      ":hover": {
+                          transform: "scale(1.05)",
+                      },}}
                   onClick={() => navigate("/main/matchManager")}
               >
                   <Box fontWeight="bold">Match Game</Box>
