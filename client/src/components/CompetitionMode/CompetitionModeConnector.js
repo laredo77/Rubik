@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { getUser } from "../../selectors/UserSelector";
 import { modeListener } from "../../actions/add-user-actions";
 import { setGameLevel } from "../../actions/single-competiton-actions/comp-actions";
-import SinglePlayerCompMode from "./SinglePlayerCompMode";
+import CompetitionMode from "./CompetitionMode";
 
 const mapStateToProps = (state) => {
   const user = getUser(state);
@@ -17,4 +17,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SinglePlayerCompMode);
+)(CompetitionMode);

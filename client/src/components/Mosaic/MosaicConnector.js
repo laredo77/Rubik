@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import { getUser } from "../../selectors/UserSelector";
 import { modeListener } from "../../actions/add-user-actions";
 import { joinGame } from "../../actions/game-actions/join-game-action";
-import MultiPlayerGame from "./MultiPlayerGame";
+import Mosaic from "./Mosaic";
 
 const mapStateToProps = (state) => {
   const user = getUser(state);
@@ -14,4 +14,4 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ modeListener, joinGame }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MultiPlayerGame);
+export default connect(mapStateToProps, mapDispatchToProps)(Mosaic);
