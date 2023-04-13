@@ -48,8 +48,6 @@ function parseTerminalParameters() {
 
 function executePython() {
     let [functionName, params] = parseTerminalParameters();
-    console.log(pythonPath)
-    console.log(scriptPath)
     callPythonFunction(functionName, params)
         .then((result) => {
             console.log(result);
