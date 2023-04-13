@@ -83,7 +83,7 @@ function FreePlayPage() {
 
   return (
       <ThemeProvider theme={theme}>
-          <CubeManager controlsStatus={true} isMatch={false}></CubeManager>
+          <CubeManager controlsStatus={true} isMatch={false} id={""}></CubeManager>
           <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: -25 }}>
               <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "flex-end", alignItems: "center", width: 640 }}>
                   <Button variant="contained" sx={{ marginRight: 1 }} onClick={easyShuffleHandler}>

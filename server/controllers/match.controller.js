@@ -33,8 +33,20 @@ const applyMove = async (req, res) => {
     // }
 };
 
+const getMatchState = async (req, res) => {
+    console.log("bbb")
+    //res.send("a201")
+    // try {
+    //     const matchState = await matchService.matchState(req.query.manager);
+    //     res.send(matchState);
+    // } catch (error) {
+    //     res.status(401).send("Failed");
+    // }
+};
+
 module.exports = {
     setMatch,
     getMatchStatus,
     applyMove,
+    getMatchState,
 };

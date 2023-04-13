@@ -1,22 +1,23 @@
 import * as React from "react";
 import "./MatchPage.css";
-import { useLocation } from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import CubeManager from "../Cube/CubeManager";
 import MatchDetailsMenu from "./MatchDetailsMenu";
 import Swal from "sweetalert2";
 import Client from "../../services/GameService"
 import withReactContent from "sweetalert2-react-content";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 import {CubeShuffle} from "../components-utils"
 
-function MatchPage({ user2, getMatchStatus }) {
+function MatchPage({user2, getMatchStatus}) {
     const user = useSelector((state) => state.user);
     const location = useLocation();
     let level = location.state.Level;
     const MySwal = withReactContent(Swal);
     const matchStatus = useSelector((state) => state.matchReducer);
     const [showWaitAlert, setShowWaitAlert] = useState(true);
+    let opponentMovesArray = []
 
     useEffect(() => {
         getMatchStatus(user.email);
@@ -44,15 +45,31 @@ function MatchPage({ user2, getMatchStatus }) {
         }
     }, [showWaitAlert]);
 
-    const reRenderOppCube = () => {
+    const reRenderOppCube = async () => {
         // re render
-        Client.getMatchState()
+        console.log("rerender")
+        let oppMoves = await Client.getMatchState(user.email)
+        console.log("oppMoves: " + oppMoves)
+        //opponentMovesArray = [...opponentMovesArray, ...oppMoves]
+        // var intr = setInterval(function () {
+        //     let move = opponentMovesArray.pop()
+        //     var elements = document.querySelectorAll(`#${move}`);
+        //     elements.forEach(function (element) {
+        //         const event = new MouseEvent('click', {
+        //             view: window,
+        //             bubbles: true,
+        //             cancelable: true
+        //         });
+        //         element.dispatchEvent(event);
+        //     });
+        //     if (opponentMovesArray.length == 0) clearInterval(intr)
+        // }, 500)
     }
 
     useEffect(() => {
-        const interval = setInterval(() => {
+        const interval = setInterval(async () => {
             reRenderOppCube();
-        }, 3000);
+        }, 10000);
         return () => clearInterval(interval);
     }, []);
 

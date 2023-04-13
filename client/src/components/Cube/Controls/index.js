@@ -145,7 +145,7 @@ export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
       }}/>
       <div style={{position: 'absolute', top: '15px', left: '-140px', transform: 'scale(1.05)',
           opacity: controlsStatus ? undefined : 0}}>
-        <RotateArrows rotate={actions.rotateCube} recorder={recorder}/>
+        <RotateArrows rotate={actions.rotateCube} recorder={recorder} id={id}/>
       </div>
     </section>
   );

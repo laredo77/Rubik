@@ -87,21 +87,16 @@ export class GameService {
         // server send to the second player the move had perform
     }
 
-    static async getMatchState(matchDetails) {
-        // let choice = "a201"
-        // var intr = setInterval(function() {
-        //     let move = choice
-        //     var elements = document.querySelectorAll(`#${move}`);
-        //     elements.forEach(function(element) {
-        //         const event = new MouseEvent('click', {
-        //             view: window,
-        //             bubbles: true,
-        //             cancelable: true
-        //         });
-        //         element.dispatchEvent(event);
-        //     });
-        //     //if (movesArray.length == 0) clearInterval(intr)
-        // }, 500)
+    static async getMatchState(manager) {
+        console.log("AA");
+        const response = await axios.get("http://localhost:3001/match/getMatchState", {
+            params: {
+                manager: manager,
+            },
+        });
+        console.log("response")
+        if (response.status !== 200) return;
+        return response.data;
     }
 
     static async quitMatch(matchDetails) {
