@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import CubeManager from "../Cube/CubeManager";
 import MatchDetailsMenu from "./MatchDetailsMenu";
 import Swal from "sweetalert2";
+import Client from "../../services/GameService"
 import withReactContent from "sweetalert2-react-content";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -43,6 +44,18 @@ function MatchPage({ user2, getMatchStatus }) {
         }
     }, [showWaitAlert]);
 
+    const reRenderOppCube = () => {
+        // re render
+        Client.getMatchState()
+    }
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            reRenderOppCube();
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <>
             {matchStatus.status ? (
@@ -52,6 +65,7 @@ function MatchPage({ user2, getMatchStatus }) {
                         controlsStatus={false}
                         isMatch={false}
                         user={user}
+                        id={"1"}
                     ></CubeManager>
                 </div>
             ) : null}
@@ -62,6 +76,7 @@ function MatchPage({ user2, getMatchStatus }) {
                         controlsStatus={true}
                         isMatch={true}
                         user={user}
+                        id={""}
                     ></CubeManager>
                 </div>
             )}

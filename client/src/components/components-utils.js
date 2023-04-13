@@ -23,7 +23,7 @@ export const CubeShuffle = (level) => {
     var intr = setInterval(function() {
         let move = movesArray.pop()
         var elements = document.querySelectorAll(`#${move}`);
-        console.log(elements)
+        //console.log(elements)
         elements.forEach(function(element) {
             const event = new MouseEvent('click', {
                 view: window,

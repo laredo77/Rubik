@@ -3,6 +3,9 @@
 import axios from "axios";
 
 export class GameService {
+    /*
+        GAME (FREE-PLAY, MOSAIC) SECTION
+    */
     static async getGameState(gameDetails) {
         // const response = await axios.get("http://localhost:3001/user/gameState", {
         //     params: {
@@ -22,8 +25,8 @@ export class GameService {
     }
 
     static async joinGame(gameDetails, player) {
-        console.log(gameDetails);
-        console.log(player);
+        //console.log(gameDetails);
+        //console.log(player);
         // const response = await axios.get(`${BASE_URL}/auth/${id}/twitter`);
         // if (response.status !== 200) return;
         // window.location.replace(response.data); // itamar: redirct to twitter auth
@@ -32,6 +35,16 @@ export class GameService {
         // 2. add to db the player
     }
 
+    static async uploadImages(images) {
+        //console.log(images)
+        const response = await axios.post("http://localhost:3001/game/upload-images", images);
+        if (response.status !== 200)
+            return;
+    }
+
+    /*
+    COMPETITION MODE SECTION
+    */
     static async setCompGameLevel(gameDetails) {
         const response = await axios.post("http://localhost:3001/game/choose-level", gameDetails);
         if (response.status !== 200)
@@ -39,13 +52,14 @@ export class GameService {
 
     }
 
-    static async uploadImages(images) {
-        console.log(images)
-        const response = await axios.post("http://localhost:3001/game/upload-images", images);
-        if (response.status !== 200)
-            return;
+    static async postCompScore(scoreDetails) {
+        //console.log(scoreDetails)
+        await axios.post("http://localhost:3001/game/compScore", scoreDetails);
     }
 
+    /*
+    MATCH SECTION
+    */
     static async setMatch(matchDetails) {
         const response = await axios.post("http://localhost:3001/match/setMatch", matchDetails);
         if (response.status !== 200)
@@ -73,6 +87,23 @@ export class GameService {
         // server send to the second player the move had perform
     }
 
+    static async getMatchState(matchDetails) {
+        // let choice = "a201"
+        // var intr = setInterval(function() {
+        //     let move = choice
+        //     var elements = document.querySelectorAll(`#${move}`);
+        //     elements.forEach(function(element) {
+        //         const event = new MouseEvent('click', {
+        //             view: window,
+        //             bubbles: true,
+        //             cancelable: true
+        //         });
+        //         element.dispatchEvent(event);
+        //     });
+        //     //if (movesArray.length == 0) clearInterval(intr)
+        // }, 500)
+    }
+
     static async quitMatch(matchDetails) {
         // in server should check if the quitter is player or manager
         // if manager, keep the match open
@@ -80,10 +111,6 @@ export class GameService {
         //console.log(matchDetails);
     }
 
-    static async postCompScore(scoreDetails) {
-        //console.log(scoreDetails)
-        await axios.post("http://localhost:3001/game/compScore", scoreDetails);
-    }
 }
 
 export default GameService;

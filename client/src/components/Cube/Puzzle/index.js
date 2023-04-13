@@ -7,7 +7,7 @@ import cubePosMap from '../util/cubePosMap';
 import renderSlicedCubes from './renderSlicedCubes';
 
 
-export default ({sideColors, rotation, spinQueue, isRandomizing, actions, controlsStatus, isMatch, user}) => {
+export default ({sideColors, rotation, spinQueue, isRandomizing, actions, controlsStatus, isMatch, user, id}) => {
   const cubes =
     Object.entries(cubePosMap)
     .map(([key, props]) =>
@@ -35,7 +35,7 @@ export default ({sideColors, rotation, spinQueue, isRandomizing, actions, contro
         </div>
       </div>
         <Controls actions={actions} disabled={isRandomizing} controlsStatus={controlsStatus}
-        isMatch={isMatch} user={user}/>
+        isMatch={isMatch} user={user} id={id}/>
     </div>
 
   );

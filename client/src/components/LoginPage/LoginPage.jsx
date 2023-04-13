@@ -27,13 +27,13 @@ function LoginPage({ addNewUser }) {
     try {
       await addNewUser(user);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
     navigate("./main");
   };
 
   const handleLoginFail = (response) => {
-    console.log(response);
+    //console.log(response);
     // itamar: TODO handeling failur login to google
   };
 
@@ -48,7 +48,7 @@ function LoginPage({ addNewUser }) {
     try {
       await addNewUser(user);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
     navigate("./main");
   };
