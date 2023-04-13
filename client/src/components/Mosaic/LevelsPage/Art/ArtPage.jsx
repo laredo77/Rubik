@@ -4,17 +4,16 @@ import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
 import {cubesImage} from "../../../cubesImage";
-import "./Art1.css";
+import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
-
+import MenuDetails from "./MenuDetails";
 
 const theme = createTheme();
 
-function Art1({uploadImagesFunc}) {
+function ArtPage({user, uploadImagesFunc}) {
     const MySwal = withReactContent(Swal);
-    //const generateImage = (response) => {};
 
     const handleSolved = (selectedImage) => {
         if (selectedImage) {
@@ -115,36 +114,37 @@ function Art1({uploadImagesFunc}) {
         })
     };
 
-
     return (
         <ThemeProvider theme={theme}>
-            <ImageList
-                sx={{
-                    marginRight: "auto",
-                    marginLeft: "auto",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                    width: 693, // 990 * 0.7
-                    height: 567, // 810 * 0.7
-                }}
-                cols={30}
-                //rowHeight={0}
-                gap={0.5}
-            >
-                {cubesImage.map((item) => (
-                    <ImageListItem key={item.img}>
-                        <img
-                            src={item.img}
-                            alt={item.title}
-                            loading="lazy"
-                            className={"zoom"}
-                            onClick={handleImageClick}
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
+            <Box display="flex" flexDirection="row" sx={{marginTop: 1}}>
+                <MenuDetails user={user} />
+                <ImageList
+                    sx={{
+                        marginRight: 'auto',
+                        marginLeft: 'auto',
+                        marginTop: 'auto',
+                        marginBottom: 'auto',
+                        width: 693, // 990 * 0.7
+                        height: 567, // 810 * 0.7
+                    }}
+                    cols={30}
+                    gap={0.5}
+                >
+                    {cubesImage.map((item) => (
+                        <ImageListItem key={item.img}>
+                            <img
+                                src={item.img}
+                                alt={item.title}
+                                loading="lazy"
+                                className={'zoom'}
+                                onClick={handleImageClick}
+                            />
+                        </ImageListItem>
+                    ))}
+                </ImageList>
+            </Box>
         </ThemeProvider>
     );
 }
 
-export default Art1;
+export default ArtPage;

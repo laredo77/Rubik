@@ -1,7 +1,7 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import FreePlayPage from "./FreeGame/FreePlayPage";
-import Art1Connector from "./Mosaic/LevelsPage/GameLevels/Art1Connector";
+import ArtPageConnector from "./Mosaic/LevelsPage/Art/ArtPageConnector";
 import MosaicConnector from "../components/Mosaic/MosaicConnector";
 import LevelsPageConnector from "./Mosaic/LevelsPage/LevelsPageConnector";
 import LoginPageConnector from "./LoginPage/LoginPageConnector";
@@ -20,7 +20,7 @@ function ComponentsManager() {
                 <Route path="/" element={<LoginPageConnector/>}/>
                 <Route path="/main" element={<MainPageConnector/>}/>
                 <Route path="/main/game/freePlay" element={<FreePlayPage/>}/>
-                <Route path="/main/gameLevels/3" element={<Art1Connector/>}/>
+                <Route path="/main/gameLevels/3" element={<ArtPageConnector/>}/>
                 <Route path="/main/game/mosaic/levels" element={<LevelsPageConnector/>}/>
                 <Route path="/main/matchManager" element={<MatchManagerConnector/>}/>
                 <Route path="/main/matchManager/match" element={<MatchPageConnector/>}/>
