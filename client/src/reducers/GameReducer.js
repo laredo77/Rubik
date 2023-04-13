@@ -3,6 +3,9 @@ import actionTypes from "../actions/constants";
 const initialState = {
   manager: undefined,
   level: undefined,
+  gameId: undefined,
+  password: undefined,
+  gameState: undefined,
   isLoading: false,
   isError: false,
   errorMsg: "",
@@ -19,6 +22,9 @@ const gameReducer = (state = initialState, { type, payload }) => {
         ...state,
         manager: payload.manager,
         level: payload.level,
+        gameId: payload.gameId,
+        password: payload.password,
+        gameState: payload.gameState,
         isLoading: false,
       };
     }

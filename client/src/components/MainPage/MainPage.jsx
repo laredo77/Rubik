@@ -127,7 +127,7 @@ function MainPage({ user }) {
                       ":hover": {
                           transform: "scale(1.05)",
                       },}}
-                  onClick={() => navigate("/main/singlePlayerCompPage")}
+                  onClick={() => navigate("/main/game/competition")}
               >
                   <Box fontWeight="bold">Competition Mode</Box>
                   <Box display="block">

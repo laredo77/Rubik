@@ -16,7 +16,7 @@ const GetGameStateFailureAction = (gameDetails) => ({
 });
 
 export const getGameState = (user, level) => {
-    const gameDetails = {
+    let gameDetails = {
         manager: user.email,
         level: level,
         isLoading: true,
@@ -27,7 +27,12 @@ export const getGameState = (user, level) => {
     return async (dispatch) => {
         dispatch(GetGameStateRequestAction());
         try {
-            await Client.getGameState(gameDetails); // should get response code+pwd
+            const response = await Client.getGameState(gameDetails); // should get response code+pwd+state of cubes
+            gameDetails = {...gameDetails,
+                gameId: response.gameId,
+                password: response.password,
+                gameState: response.gameState,
+            }
             dispatch(GetGameStateSuccessAction(gameDetails));
         } catch (e) {
             gameDetails.errorMsg = e;

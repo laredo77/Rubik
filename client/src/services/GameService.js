@@ -4,18 +4,21 @@ import axios from "axios";
 
 export class GameService {
     static async getGameState(gameDetails) {
-        const response = await axios.get("http://localhost:3001/user/gameState", {
-            params: {
-                manager: gameDetails.manager,
-                level: gameDetails.level,
-            },
-        });
-        if (response.status !== 200) return;
-        //console.log(await response.data); //{gameState: 'gameState'}
-        return await response.data;
-        // 1. call server with user details
-        // 2. init in db new line with user details + desire level
-        // 3. send back to user special code + password to join the game
+        // const response = await axios.get("http://localhost:3001/user/gameState", {
+        //     params: {
+        //         manager: gameDetails.manager,
+        //         level: gameDetails.level,
+        //     },
+        // });
+        // if (response.status !== 200) return;
+        // return await response.data;
+
+        let should_return = {
+            gameId: "gameId123",
+            password: "psw",
+            gameState: "GS",
+        }
+        return should_return
     }
 
     static async joinGame(gameDetails, player) {
