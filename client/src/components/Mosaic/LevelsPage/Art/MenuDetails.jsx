@@ -9,12 +9,11 @@ import Client from "../../../../services/GameService"
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-function MenuDetails({user}) {
+function MenuDetails({gameState}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    //const matchDetails = useSelector((state) => state.matchReducer);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -28,10 +27,8 @@ function MenuDetails({user}) {
             title: "Game Details",
             html: (
                 <>
-                    {/*<Typography variant="inherit">Game ID: {matchDetails.gameId}</Typography>*/}
-                    {/*<Typography variant="inherit">Password: {matchDetails.password}</Typography>*/}
-                    <Typography variant="inherit">Game ID: </Typography>
-                    <Typography variant="inherit">Password: </Typography>
+                    <Typography variant="inherit">Game ID: {gameState.gameId}</Typography>
+                    <Typography variant="inherit">Password: {gameState.password}</Typography>
                 </>
             ),
             confirmButtonColor: "#50b7f5",
@@ -42,7 +39,6 @@ function MenuDetails({user}) {
     };
 
     const handleQuit = async () => {
-        await Client.quitMatch(user)
         navigate("/main");
         setAnchorEl(null);
     };

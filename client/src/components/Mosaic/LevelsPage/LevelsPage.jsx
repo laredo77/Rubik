@@ -21,7 +21,7 @@ function LevelsPage({user, getGameState}) {
         let level = response.target.id;
         // check if this user had this level in db if yes return state if not make new instance
         await getGameState(user, level);
-        navigate(`/main/gameLevels/${level}`);
+        navigate(`/main/game/mosaic/levels/${level}`);
     };
 
     return (

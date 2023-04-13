@@ -3,17 +3,19 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {cubesImage} from "../../../cubesImage";
+import {cubesImage} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
+import {useSelector} from "react-redux";
 
 const theme = createTheme();
 
 function ArtPage({user, uploadImagesFunc}) {
     const MySwal = withReactContent(Swal);
+    const gameState = useSelector((state) => state.gameReducer);
 
     const handleSolved = (selectedImage) => {
         if (selectedImage) {
@@ -28,8 +30,8 @@ function ArtPage({user, uploadImagesFunc}) {
         MySwal.fire({
             title: "Solver",
             html: (
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <Box sx={{ display: "inline-block", marginBottom: "10px" }}>
+                <Box sx={{display: "flex", flexDirection: "column"}}>
+                    <Box sx={{display: "inline-block", marginBottom: "10px"}}>
                         <Button
                             variant="contained"
                             onClick={handleUploadImageClick}
@@ -37,7 +39,7 @@ function ArtPage({user, uploadImagesFunc}) {
                             Upload cube images to solve
                         </Button>
                     </Box>
-                    <Box sx={{ display: "inline-block" }}>
+                    <Box sx={{display: "inline-block"}}>
                         <Button
                             variant="contained"
                             onClick={handleSolved(clickedImage)}
@@ -94,19 +96,19 @@ function ArtPage({user, uploadImagesFunc}) {
         }).then((response) => {
             if (response.isConfirmed) {
                 // Callback function to be called when the confirmation button is clicked
-                    // Initialize an empty array to hold the uploaded images
-                    const uploadedImages = [];
-                    // Loop through all six file input elements to check if any files have been selected
-                    for (let i = 0; i < 6; i++) {
-                        const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
-                        const fileInput = document.getElementById(fileInputId);
-                        // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
-                        if (fileInput.files[0]) {
-                            uploadedImages.push(fileInput.files[0]);
-                        } else {
-                            uploadedImages.push(null);
-                        }
+                // Initialize an empty array to hold the uploaded images
+                const uploadedImages = [];
+                // Loop through all six file input elements to check if any files have been selected
+                for (let i = 0; i < 6; i++) {
+                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
+                    const fileInput = document.getElementById(fileInputId);
+                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
+                    if (fileInput.files[0]) {
+                        uploadedImages.push(fileInput.files[0]);
+                    } else {
+                        uploadedImages.push(null);
                     }
+                }
 
                 uploadImagesFunc(uploadedImages);
 
@@ -117,7 +119,7 @@ function ArtPage({user, uploadImagesFunc}) {
     return (
         <ThemeProvider theme={theme}>
             <Box display="flex" flexDirection="row" sx={{marginTop: 1}}>
-                <MenuDetails user={user} />
+                <MenuDetails gameState={gameState}/>
                 <ImageList
                     sx={{
                         marginRight: 'auto',

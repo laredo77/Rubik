@@ -20,7 +20,7 @@ function ComponentsManager() {
                 <Route path="/" element={<LoginPageConnector/>}/>
                 <Route path="/main" element={<MainPageConnector/>}/>
                 <Route path="/main/game/freePlay" element={<FreePlayPage/>}/>
-                <Route path="/main/gameLevels/3" element={<ArtPageConnector/>}/>
+                <Route path="/main/game/mosaic/levels/3" element={<ArtPageConnector/>}/>
                 <Route path="/main/game/mosaic/levels" element={<LevelsPageConnector/>}/>
                 <Route path="/main/matchManager" element={<MatchManagerConnector/>}/>
                 <Route path="/main/matchManager/match" element={<MatchPageConnector/>}/>
