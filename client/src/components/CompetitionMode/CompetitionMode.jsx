@@ -12,30 +12,21 @@ import withReactContent from "sweetalert2-react-content";
 import {StopWatchAnimation} from "./StopWatch/StopWatchAnimation";
 import {CubeShuffle} from "../components-utils"
 import {movesStack} from "../Cube/Controls";
-import {useEffect} from "react"
+import {useEffect, useState} from "react"
 import Client from "../../services/GameService";
+import MenuList from "@mui/material/MenuList";
+import Typography from "@mui/material/Typography";
 
 const theme = createTheme();
 
-
-const options = [
-    "Level-1",
-    "Level-2",
-    "Level-3",
-    "Level-4",
-    "Level-5",
-    "Level-6",
-    "Level-7",
-];
-const ITEM_HEIGHT = 48;
-
 function SinglePlayerCompMode({user, setGameLevel}) {
     const navigate = useNavigate();
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
+    // const [anchorEl, setAnchorEl] = React.useState(null);
+    // const open = Boolean(anchorEl);
     const MySwal = withReactContent(Swal);
     const [startTiming, setStartTiming] = React.useState(0);
     const [level, setLevel] = React.useState(0);
+    let digit_level = 0;
 
     useEffect(() => {
         let startCheckbox = document.querySelector('#start');
@@ -44,18 +35,54 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.disabled = true;
         let resetCheckbox = document.querySelector('#reset');
         resetCheckbox.disabled = true;
+        MySwal.fire({
+            title: "Choose Level",
+            confirmButtonColor: "#50b7f5",
+            showCloseButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false,
+            html: (
+                <MenuList>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-1</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-2</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-3</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-4</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-5</Typography>
+                    </MenuItem>
+                    <MenuItem onClick={parseLevel}>
+                        <Typography variant="inherit">Level-6</Typography>
+                    </MenuItem>
+                </MenuList>),
+        }).then((response) => {
+            if (response.isConfirmed) {
+                if (digit_level != 0) {
+                    handleLevelChoose(digit_level)
+                } else {
+                    window.location.reload(true);
+                }
+            }
+        });
     }, []);
 
-    const handleLevelButtonClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
 
-    const handleLevelChoose = (e) => {
-        setAnchorEl(null);
+    const parseLevel = (e) => {
         let str_level = e.target.innerText;
         let d_level = parseInt(str_level.replace(/^\D+/g, '')); // Replace all leading non-digits with nothing
         setLevel(d_level)
-        CubeShuffle(d_level);
+        digit_level = d_level;
+    };
+
+    const handleLevelChoose = (argLevel) => {
+        CubeShuffle(argLevel);
         //CubeShuffle(0.25);
         let startCheckbox = document.querySelector('#start');
 
@@ -65,7 +92,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
             startCheckbox.click();
             startCheckbox.disabled = true;
             setStartTiming(new Date().getTime())
-        }, 8 * 500 * d_level);
+        }, 8 * 500 * argLevel);
     };
 
 
@@ -117,7 +144,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                     pauseCheckbox.disabled = true;
                 }
             });
-
         }
     };
 
@@ -157,43 +183,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                         >
                             LeaderBoard
                         </Button>
-                    </Box>
-                    <Box m={2}>
-                        <IconButton
-                            aria-label="more"
-                            id="long-button"
-                            aria-controls={open ? "long-menu" : undefined}
-                            aria-expanded={open ? "true" : undefined}
-                            aria-haspopup="true"
-                            onClick={handleLevelButtonClick}
-                        >
-                            Choose Level
-                        </IconButton>
-                        <Menu
-                            id="long-menu"
-                            MenuListProps={{
-                                "aria-labelledby": "long-button",
-                            }}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={handleLevelChoose}
-                            PaperProps={{
-                                style: {
-                                    maxHeight: ITEM_HEIGHT * 4.5,
-                                    width: "20ch",
-                                },
-                            }}
-                        >
-                            {options.map((option) => (
-                                <MenuItem
-                                    key={option}
-                                    selected={option === "Level-1"}
-                                    onClick={handleLevelChoose}
-                                >
-                                    {option}
-                                </MenuItem>
-                            ))}
-                        </Menu>
                     </Box>
                 </Box>
             </Box>
