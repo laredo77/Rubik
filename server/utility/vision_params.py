@@ -33,3 +33,5 @@ face_hsv = []  # the colors (as hsv-values) of a cube face
 # These dictionaries define the colors of all 6 faces and are filled by the client_gui2.transfer routine
 cube_col = {}  # the colors (as text) of the 6 faces
 cube_hsv = {}  # the colors (as hsv-values) of the 6 faces
+
+stop_flag = False

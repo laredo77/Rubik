@@ -46,7 +46,8 @@ function Art1({uploadImagesFunc}) {
             html: (
                 <div>
                     <label htmlFor="top">Top:</label>
-                    <input type="file" id="top" name="top"/><br/>
+                    <button id="top" onClick={console.log("hey")}>Capture</button>
+                    <br/>
 
                     <label htmlFor="bottom">Bottom:</label>
                     <input type="file" id="bottom" name="bottom"/><br/>
@@ -75,19 +76,19 @@ function Art1({uploadImagesFunc}) {
         }).then((response) => {
             if (response.isConfirmed) {
                 // Callback function to be called when the confirmation button is clicked
-                    // Initialize an empty array to hold the uploaded images
-                    const uploadedImages = [];
-                    // Loop through all six file input elements to check if any files have been selected
-                    for (let i = 0; i < 6; i++) {
-                        const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
-                        const fileInput = document.getElementById(fileInputId);
-                        // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
-                        if (fileInput.files[0]) {
-                            uploadedImages.push(fileInput.files[0]);
-                        } else {
-                            uploadedImages.push(null);
-                        }
+                // Initialize an empty array to hold the uploaded images
+                const uploadedImages = [];
+                // Loop through all six file input elements to check if any files have been selected
+                for (let i = 0; i < 6; i++) {
+                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
+                    const fileInput = document.getElementById(fileInputId);
+                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
+                    if (fileInput.files[0]) {
+                        uploadedImages.push(fileInput.files[0]);
+                    } else {
+                        uploadedImages.push(null);
                     }
+                }
 
                 uploadImagesFunc(uploadedImages);
 

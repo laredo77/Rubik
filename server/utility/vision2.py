@@ -6,7 +6,6 @@
 import cv2
 import numpy as np
 import vision_params
-from PIL import Image
 
 grid_N = 25  # number of grid-squares in vertical direction
 
@@ -294,23 +293,76 @@ def find_squares(bgrcap, n):
             cent.append(middle)
 
 
-def grab_colors(image_path, num_colors=5):
-    with Image.open(image_path) as img:
-        # Resize image to reduce processing time
-        img = img.resize((200, 200))
-        # Convert image to RGB mode if necessary
-        img = img.convert('RGB')
-        # Get colors from image
-        colors = img.getcolors(img.size[0] * img.size[1])
-        # Sort colors by count (most common first)
-        sorted_colors = sorted(colors, key=lambda x: x[0], reverse=True)
-        # Get the top `num_colors` colors
-        top_colors = sorted_colors[:num_colors]
-        # Extract the RGB values from each color tuple
-        rgb_colors = [color[1] for color in top_colors]
-        # Convert RGB values to hexadecimal values
-        hex_colors = [f"#{r:02x}{g:02x}{b:02x}" for r, g, b in rgb_colors]
-        return hex_colors
+def grab_colors():
+    """Find the cube in the webcam picture and grab the colors of the facelets."""
+    global cent, width, height, hsv, color_mask, white_mask
+    stop_flag = False
+    cap = cv2.VideoCapture(0)
+    _, bgrcap = cap.read()
+    if bgrcap is None:
+        print('Cannot connect to webcam!')
+        print('If you use a Raspberry Pi and no USB-webcam you have to run "sudo modprobe bvm2835-v4l2" first!')
+        return
+    height, width = bgrcap.shape[:2]
+    while not vision_params.stop_flag:
+        # Take each frame
+        _, bgrcap = cap.read()  #
+        bgrcap = cv2.blur(bgrcap, (5, 5))
 
+        # now set all hue values >160 to 0. This is important since the color red often contains hue values
+        # in this range *and* also hue values >0 and else we get a mess when we compute mean and variance
+        hsv = cv2.cvtColor(bgrcap, cv2.COLOR_BGR2HSV)
+        h, s, v = cv2.split(hsv)
+        h_mask = cv2.inRange(h, 0, 160)
+        h = cv2.bitwise_and(h, h, mask=h_mask)
+        hsv = cv2.merge((h, s, v)).astype(float)
+
+        # define two empty masks for the white-filter and the color-filter
+        color_mask = cv2.inRange(bgrcap, np.array([1, 1, 1]), np.array([0, 0, 0]))  # mask for colors
+        white_mask = cv2.inRange(bgrcap, np.array([1, 1, 1]), np.array([0, 0, 0]))  # special mask for white
+
+        cent = []  # the centers of the facelet-square candidates are stored in this global variable
+        find_squares(bgrcap, grid_N)  # find the candidates
+        del_duplicates(cent)  # delete candidates which are too close together
+
+        # the medoid is the center which has the closest summed distances to the other centers
+        # It should be the center facelet of the cube
+        m = medoid(cent)
+
+        cf, ef = facelets(cent, m)  # identify the centers of the corner and edge facelets
+
+        # compute the alternate corner and edges facelet centers. These are the point reflections of an already
+        # known facelet center at the medoid center. Should some facelet center not be detected by itself it usually
+        # still is detected in this way.
+        acf, aef = mirr_facelet(cf, ef, m)
+
+        display_colorname(bgrcap, m)
+        for i in ef:
+            display_colorname(bgrcap, i)
+        for i in cf:
+            display_colorname(bgrcap, i)
+        for i in aef:
+            display_colorname(bgrcap, i)
+        for i in acf:
+            display_colorname(bgrcap, i)
+
+        # the results supplied by getcolors are used in client_gui2.py for the "Webcam import"
+        vision_params.face_hsv, vision_params.face_col = getcolors(cf, ef, acf, aef, m)
+
+        #######print(vision_params.face_col)
+
+        # drawgrid(bgrcap, grid_N)
+
+        # show the windows
+        #cv2.imshow('color_filter mask', cv2.resize(color_mask, (width // 2, height // 2)))
+        #cv2.imshow('white_filter mask', cv2.resize(white_mask, (width // 2, height // 2)))
+        #cv2.imshow('black_filter mask', cv2.resize(black_mask, (width // 2, height // 2)))
+        cv2.imshow('Webcam - type "x" to quit.', bgrcap)
+
+        k = cv2.waitKey(5) & 0xFF
+        if k == 120:  # type x to exit
+            break
+
+    print(vision_params.face_col)
 
 cv2.destroyAllWindows()
