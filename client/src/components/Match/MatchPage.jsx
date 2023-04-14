@@ -45,11 +45,11 @@ function MatchPage({user2, getMatchStatus}) {
         }
     }, [showWaitAlert]);
 
-    const reRenderOppCube = async () => {
-        // re render
-        console.log("rerender")
-        let oppMoves = await Client.getMatchState(user.email)
-        console.log("oppMoves: " + oppMoves)
+    // const reRenderOppCube = async () => {
+    //     // re render
+    //     console.log("rerender")
+    //     let oppMoves = await Client.getMatchState(user.email)
+    //     console.log("oppMoves: " + oppMoves)
         //opponentMovesArray = [...opponentMovesArray, ...oppMoves]
         // var intr = setInterval(function () {
         //     let move = opponentMovesArray.pop()
@@ -64,14 +64,33 @@ function MatchPage({user2, getMatchStatus}) {
         //     });
         //     if (opponentMovesArray.length == 0) clearInterval(intr)
         // }, 500)
-    }
+    // }
 
-    useEffect(() => {
-        const interval = setInterval(async () => {
-            reRenderOppCube();
-        }, 10000);
-        return () => clearInterval(interval);
-    }, []);
+    // useEffect(() => {
+    //     const interval = setInterval(async () => {
+    //         reRenderOppCube();
+    //     }, 5000);
+    //     return () => clearInterval(interval);
+    // }, []);
+
+    // const reRenderOppCube = async () => {
+    //     console.log("rerender");
+    //     const response = await axios.get("http://localhost:3001/match/getMatchState");
+    //     console.log(response.data);
+    //     return response.data;
+    // };
+    //
+    // useEffect(() => {
+    //     const intervalId = setInterval(async () => {
+    //         try {
+    //             const moves = await reRenderOppCube();
+    //             // handle the new moves here
+    //         } catch (error) {
+    //             console.error(error);
+    //         }
+    //     }, 5000);
+    //     return () => clearInterval(intervalId);
+    // }, []);
 
     return (
         <>

@@ -1,5 +1,5 @@
 const setMatch = async (matchDetails) => {
-    //should generate match id and password
+    // should generate match id and password and record it in DB
     return { gameId: "g67s", password: "a6"};
 };
 
