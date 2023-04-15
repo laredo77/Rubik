@@ -363,6 +363,6 @@ def grab_colors():
         if k == 120:  # type x to exit
             break
 
-    print(vision_params.face_col)
+#     print(vision_params.face_col)
 
 cv2.destroyAllWindows()
