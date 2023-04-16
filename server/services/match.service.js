@@ -1,6 +1,6 @@
 const setMatch = async (matchDetails) => {
     // should generate match id and password and record it in DB
-    return { gameId: "g67s", password: "a6"};
+    return {gameId: "g67s", password: "a6"};
 };
 
 
@@ -9,7 +9,7 @@ const getMatchStatus = async (manager) => {
     // only when its find in DB 2 players
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve({ status: 200 });
+            resolve({status: 200});
         }, 5000);
     });
 };
@@ -46,9 +46,17 @@ const applyMove = async (move) => {
     return "200OK"
 };
 
+const quit = async (user) => {
+    // check in DB if the user is the manager if yes, close the game.
+    // otherwise send the keep the manager waiting to new player and
+    // the one who quit go back to home page..
+    return "200OK"
+};
+
 module.exports = {
     setMatch,
     getMatchStatus,
     matchState,
     applyMove,
+    quit,
 };

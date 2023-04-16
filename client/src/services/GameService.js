@@ -106,7 +106,13 @@ export class GameService {
         // in server should check if the quitter is player or manager
         // if manager, keep the match open
         // else delete match from db
-        //console.log(matchDetails);
+        const response = await axios.post("http://localhost:3001/match/quit", {},
+            {
+                headers: {
+                    user: JSON.stringify(user.email),
+                },
+            });
+        if (response.status !== 200) return;
     }
 
 }

@@ -41,12 +41,22 @@ const getMatchState = async (req, res) => {
             res.status(401).send("Failed");
         }
     }
-;
 
+
+const quitMatch = async (req, res) => {
+    try {
+        const response = await matchService.quit(req.headers.user);
+        res.send(response);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send(error.message);
+    }
+};
 
 module.exports = {
     setMatch,
     getMatchStatus,
     applyMove,
     getMatchState,
+    quitMatch,
 };
