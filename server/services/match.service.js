@@ -5,6 +5,8 @@ const setMatch = async (matchDetails) => {
 
 
 const getMatchStatus = async (manager) => {
+    // need to fix it such that its send status:200
+    // only when its find in DB 2 players
     return new Promise(resolve => {
         setTimeout(() => {
             resolve({ status: 200 });
@@ -13,7 +15,9 @@ const getMatchStatus = async (manager) => {
 };
 
 const matchState = async (manager) => {
-    let amountOfSteps = 2; // should be depended on level
+    // the function should return from DB the moves the opponent did.
+    // for now its just shuffle steps and send
+    let amountOfSteps = 2;
     let movesArray = []
     let choices = new Array(8).fill(0);
     choices.push(1)
@@ -36,8 +40,15 @@ const matchState = async (manager) => {
     return movesArray
 };
 
+const applyMove = async (move) => {
+    // add to DB the move
+    // return OK
+    return "200OK"
+};
+
 module.exports = {
     setMatch,
     getMatchStatus,
     matchState,
+    applyMove,
 };

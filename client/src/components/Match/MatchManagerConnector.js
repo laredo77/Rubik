@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
   return { user };
 };
 
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ setMatch }, dispatch);
 };

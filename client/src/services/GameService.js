@@ -78,28 +78,31 @@ export class GameService {
     }
 
     static async applyMoveInMatch(moveDetails) {
-        //console.log(moveDetails)
-        await axios.post("http://localhost:3001/match/applyMove", moveDetails);
-        // if (response.status !== 200)
-        //     return;
-        // return response.data
         // send to server the user and the move
         // server send to the second player the move had perform
+        const response = await axios.post("http://localhost:3001/match/applyMove", {},
+            {
+                headers: {
+                    move: JSON.stringify(moveDetails),
+                },
+            });
+        if (response.status !== 200) return;
     }
 
+
     static async getMatchState(manager) {
-        console.log("AA");
         const response = await axios.get("http://localhost:3001/match/getMatchState", {
             params: {
                 manager: manager,
             },
         });
-        console.log("response")
         if (response.status !== 200) return;
         return response.data;
     }
 
-    static async quitMatch(matchDetails) {
+
+    static async quitMatch(user) {
+        console.log("in quit " + user)
         // in server should check if the quitter is player or manager
         // if manager, keep the match open
         // else delete match from db

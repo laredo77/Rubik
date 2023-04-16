@@ -7,22 +7,23 @@ import Client from "../../../services/GameService"
 export const movesStack = []
 export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
 
-  const recorder = (activationFunc, piece, forward) => {
-    let neg_forward = !forward
-    if (movesStack.length > 0) {
-      let elm = movesStack[movesStack.length - 1]
-      if (elm[1] == piece && elm[2] == forward) {
-        movesStack.pop()
-        return
+  const recorder = async (activationFunc, piece, forward) => {
+      let neg_forward = !forward
+      if (movesStack.length > 0) {
+          let elm = movesStack[movesStack.length - 1]
+          if (elm[1] == piece && elm[2] == forward) {
+              movesStack.pop()
+              return
+          }
       }
-    }
-    movesStack.push([activationFunc, piece, +neg_forward])
+      movesStack.push([activationFunc, piece, +neg_forward])
       if (isMatch) { // record to DB
-          Client.applyMoveInMatch({
+          await Client.applyMoveInMatch({
               user: user.email,
               func: activationFunc,
               piece: piece,
-              direction: +neg_forward})
+              direction: +neg_forward
+          })
       }
   };
 

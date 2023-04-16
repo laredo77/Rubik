@@ -23,32 +23,25 @@ const getMatchStatus = async (req, res) => {
 };
 
 const applyMove = async (req, res) => {
-    //console.log(req.body)
-    // try {
-    //     const matchDetails = await matchService.setMatch(req.body);
-    //     res.send(matchDetails);
-    // } catch (error) {
-    //     console.log(error);
-    //     res.status(401).send("Failed to set match");
-    // }
+    try {
+        const move = await matchService.applyMove(req.headers.move);
+        res.send(move);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send(error.message);
+    }
 };
 
 const getMatchState = async (req, res) => {
-    console.log("bbb")
-    try {
-        let result = '';
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        const charactersLength = characters.length;
-        let counter = 0;
-        while (counter < 3) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
-            counter += 1;
+        try {
+            const moves = await matchService.matchState(req.query);
+            res.send(moves);
+        } catch
+            (error) {
+            res.status(401).send("Failed");
         }
-        res.send(result)
-    } catch (error) {
-        res.status(401).send("Failed");
     }
-};
+;
 
 
 module.exports = {

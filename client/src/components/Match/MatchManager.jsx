@@ -17,7 +17,6 @@ function MatchManager({ user, setMatch }) {
   let gamePwd = "";
   let level = "";
   const navigate = useNavigate();
-
   const handleLevelChoose = (e) => {
     level = +e.target.innerText[6];
   };
@@ -41,14 +40,14 @@ function MatchManager({ user, setMatch }) {
       confirmButtonColor: "#50b7f5",
       showCloseButton: true,
       showCancelButton: true,
-    }).then((response) => {
-      if (response.isConfirmed) {
-        //now navigate to game page
-        setMatch(user, level);
-        navigate("/main/matchManager/match", { state: { Manager: user, Level: level } });
-      } else if (response.isDenied) {
-        // do nothing
-      }
+    }).then(async (response) => {
+        if (response.isConfirmed) {
+            //now navigate to game page
+            await setMatch(user, level);
+            navigate("/main/matchManager/match", {state: {Manager: user, Level: level}});
+        } else if (response.isDenied) {
+            // do nothing
+        }
     });
   };
 

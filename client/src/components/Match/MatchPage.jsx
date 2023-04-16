@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import Client from "../../services/GameService"
 import withReactContent from "sweetalert2-react-content";
 import {useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {CubeShuffle} from "../components-utils"
 
 function MatchPage({user2, getMatchStatus}) {
@@ -15,8 +15,7 @@ function MatchPage({user2, getMatchStatus}) {
     const location = useLocation();
     let level = location.state.Level;
     const MySwal = withReactContent(Swal);
-    const matchStatus = useSelector((state) => state.matchReducer);
-    const [showWaitAlert, setShowWaitAlert] = useState(true);
+    const matchStatus = useSelector((state) => state.matchReducer.status);
     let opponentMovesArray = []
 
     useEffect(() => {
@@ -24,17 +23,11 @@ function MatchPage({user2, getMatchStatus}) {
     }, []);
 
     useEffect(() => {
-        if (matchStatus.status) {
-            CubeShuffle(level)
-            setShowWaitAlert(false);
+        if (matchStatus) {
             MySwal.close();
+            CubeShuffle(level)
+            setInterval(reRenderOppCube, 5000);
         } else {
-            setShowWaitAlert(true);
-        }
-    }, [matchStatus]);
-
-    useEffect(() => {
-        if (showWaitAlert) {
             MySwal.fire({
                 title: "Please Wait until player join the game",
                 showCloseButton: false,
@@ -43,58 +36,32 @@ function MatchPage({user2, getMatchStatus}) {
                 allowOutsideClick: false,
             });
         }
-    }, [showWaitAlert]);
+    }, [matchStatus]);
 
-    // const reRenderOppCube = async () => {
-    //     // re render
-    //     console.log("rerender")
-    //     let oppMoves = await Client.getMatchState(user.email)
-    //     console.log("oppMoves: " + oppMoves)
-        //opponentMovesArray = [...opponentMovesArray, ...oppMoves]
-        // var intr = setInterval(function () {
-        //     let move = opponentMovesArray.pop()
-        //     var elements = document.querySelectorAll(`#${move}`);
-        //     elements.forEach(function (element) {
-        //         const event = new MouseEvent('click', {
-        //             view: window,
-        //             bubbles: true,
-        //             cancelable: true
-        //         });
-        //         element.dispatchEvent(event);
-        //     });
-        //     if (opponentMovesArray.length == 0) clearInterval(intr)
-        // }, 500)
-    // }
 
-    // useEffect(() => {
-    //     const interval = setInterval(async () => {
-    //         reRenderOppCube();
-    //     }, 5000);
-    //     return () => clearInterval(interval);
-    // }, []);
-
-    // const reRenderOppCube = async () => {
-    //     console.log("rerender");
-    //     const response = await axios.get("http://localhost:3001/match/getMatchState");
-    //     console.log(response.data);
-    //     return response.data;
-    // };
-    //
-    // useEffect(() => {
-    //     const intervalId = setInterval(async () => {
-    //         try {
-    //             const moves = await reRenderOppCube();
-    //             // handle the new moves here
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }, 5000);
-    //     return () => clearInterval(intervalId);
-    // }, []);
+    const reRenderOppCube = async () => {
+        //re render
+        let oppMoves = await Client.getMatchState(user.email)
+        console.log(oppMoves)
+        opponentMovesArray = [...opponentMovesArray, ...oppMoves]
+        var intr = setInterval(function () {
+            let move = opponentMovesArray.pop()
+            var elements = document.querySelectorAll(`#${move}`);
+            elements.forEach(function (element) {
+                const event = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
+            });
+            if (opponentMovesArray.length == 0) clearInterval(intr)
+        }, 500)
+    }
 
     return (
         <>
-            {matchStatus.status ? (
+            {matchStatus ? (
                 <div className="split lefti">
                     <MatchDetailsMenu user={user}></MatchDetailsMenu>
                     <CubeManager
@@ -106,7 +73,7 @@ function MatchPage({user2, getMatchStatus}) {
                 </div>
             ) : null}
 
-            {matchStatus.status && (
+            {matchStatus && (
                 <div className="split righti">
                     <CubeManager
                         controlsStatus={true}

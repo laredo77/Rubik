@@ -33,7 +33,7 @@ export const CubeShuffle = (level) => {
             element.dispatchEvent(event);
         });
         if (movesArray.length == 0) clearInterval(intr)
-    }, 500)
+    }, 1000)
 }
 
 
