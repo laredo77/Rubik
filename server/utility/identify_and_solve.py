@@ -75,7 +75,7 @@ def modify_and_confirm_file(action, kociemba_string):
 
     if action == "top":
         start_index, end_index = 0, 8
-    elif action == "down":
+    elif action == "bottom":
         start_index, end_index = 9, 17
     elif action == "front":
         start_index, end_index = 18, 26
@@ -136,7 +136,6 @@ def capture_solve_print(action):
             a string, or modifying the file.
     """
     kociemba_string = ""
-
     if action not in ["confirm", "clear"]:
         # Capture a picture of the Rubik's cube face
         capture_rubik_face()

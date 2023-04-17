@@ -46,8 +46,8 @@ function parseTerminalParameters() {
     return [pythonFileName, params]
 }
 
-function executePython() {
-    let [pythonFileName, params] = parseTerminalParameters();
+function executePython(pythonFileName, params) {
+    // let [pythonFileName, params] = parseTerminalParameters();          //used for debuging from terminal
     callPythonFunction(pythonFileName, params)
         .then((result) => {
             console.log(result);
@@ -57,6 +57,7 @@ function executePython() {
         });
 }
 
-
-executePython()
+module.exports = {
+    executePython
+};
 // test in terminal: node .\pythonExecuter.js [python_file_name.py] [params], for example node pythonExecuter.js identify_and_solve.py functionName param_1...param_n

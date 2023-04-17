@@ -10,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
+import Client from "../../../../services/GameService"
 
 const theme = createTheme();
 
@@ -23,6 +24,10 @@ function ArtPage({user, uploadImagesFunc}) {
         }
         MySwal.close();
     };
+
+    const actionCaptureHandler = async (response) => {
+        await Client.uploadImages({action: response.target.id})
+    }
 
 
     const handleImageClick = (response) => {
@@ -67,22 +72,34 @@ function ArtPage({user, uploadImagesFunc}) {
             html: (
                 <div>
                     <label htmlFor="top">Top:</label>
-                    <input type="file" id="top" name="top"/><br/>
+                    <button id="top" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
 
                     <label htmlFor="bottom">Bottom:</label>
-                    <input type="file" id="bottom" name="bottom"/><br/>
+                    <button id="bottom" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
 
                     <label htmlFor="front">Front:</label>
-                    <input type="file" id="front" name="front"/><br/>
+                    <button id="front" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
 
                     <label htmlFor="back">Back:</label>
-                    <input type="file" id="back" name="back"/><br/>
+                    <button id="back" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
 
                     <label htmlFor="left">Left:</label>
-                    <input type="file" id="left" name="left"/><br/>
+                    <button id="left" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
 
                     <label htmlFor="right">Right:</label>
-                    <input type="file" id="right" name="right"/><br/>
+                    <button id="right" onClick={actionCaptureHandler}>Capture</button>
+                    <br/>
+
+                    <button id="clear" onClick={actionCaptureHandler}>Clear</button>
+                    <br/>
+
+                    <button id="confirm" onClick={actionCaptureHandler}>Confirm</button>
+                    <br/>
                 </div>
             ),
             // Button color for the confirmation button
@@ -93,27 +110,7 @@ function ArtPage({user, uploadImagesFunc}) {
             showCancelButton: true,
             // Whether to focus on the confirmation button by default
             focusConfirm: false,
-        }).then((response) => {
-            if (response.isConfirmed) {
-                // Callback function to be called when the confirmation button is clicked
-                // Initialize an empty array to hold the uploaded images
-                const uploadedImages = [];
-                // Loop through all six file input elements to check if any files have been selected
-                for (let i = 0; i < 6; i++) {
-                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
-                    const fileInput = document.getElementById(fileInputId);
-                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
-                    if (fileInput.files[0]) {
-                        uploadedImages.push(fileInput.files[0]);
-                    } else {
-                        uploadedImages.push(null);
-                    }
-                }
-
-                uploadImagesFunc(uploadedImages);
-
-            }
-        })
+        });
     };
 
     return (

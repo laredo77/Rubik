@@ -1,11 +1,14 @@
 const database = require("../database");
 const {getLevelNumber, getLevelString} = require("../utility/levelUtils");
 const {response} = require("express");
+const {executePython} = require("../utility/pythonExecuter");
 
 
-const uploadImages = async (images) => {        //todo check if post or get
-    console.log(images);
-    return {images: images};
+const getUserAction = async (action) => {
+    const scriptFileName = "identify_and_solve.py"
+    const result = await executePython(scriptFileName, [action.action]);
+    console.log("this is result:", await result)
+    return {action: action};
 };
 
 const fetchGameState = async (gameDetails) => {
@@ -45,7 +48,7 @@ const chooseLevel = async (playerLevel) => {
 
 
 module.exports = {
-    uploadImages,
+    getUserAction,
     chooseLevel,
     fetchGameState,
 };
