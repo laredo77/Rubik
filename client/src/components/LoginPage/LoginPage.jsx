@@ -11,6 +11,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import LoginPageAnimation from "./LoginPageAnimation";
 
 const theme = createTheme();
 
@@ -49,77 +50,112 @@ function LoginPage({ addNewUser }) {
     try {
       await addNewUser(user);
     } catch (e) {
-      //console.log(e);
+
     }
     navigate("./main");
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Grid
-        container
-        component="main"
-        sx={{
-          height: "80vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Grid
-          item
-          xs={12}
-          sm={8}
-          md={5}
-          component={Paper}
-          elevation={6}
-          square
-          backgroundColor="#e6ecf0"
-          display={"flex"}
-          alignItems={"center"}
-          justifyContent={"center"}
-        >
-          <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-            }}
+      <ThemeProvider theme={theme}>
+          <Grid
+              container
+              component="main"
+              sx={{
+                  height: "100vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  paddingTop: "80px",
+              }}
           >
-            <Avatar
-              sx={{ m: 1, bgcolor: "secondary.main", width: 50, height: 50 }}
-            >
-              <LockOutlinedIcon />
-            </Avatar>
-            <Typography
-              component="h1"
-              variant="h5"
-              marginBottom={"50px"}
-              color="black"
-              fontFamily={"Alef"}
-            >
-              Sign in
-            </Typography>
-            <GoogleLogin
-              // clientId should store in .env file
-              // clientId="390322363347-qb4ec69oeknbbjnnv52gns2n4nmv09od.apps.googleusercontent.com"
-              clientId="789241549760-hq6o3ovgaq1q4jjjp97pq00984317m0a.apps.googleusercontent.com"
-              buttonText="Log in with Google"
-              onSuccess={handleLogin}
-              onFailure={handleLoginFail}
-              cookiePolicy={"single_host_origin"}
-              style={{ fontFamily: "Alef" }}
-            ></GoogleLogin>
+              <Box
+                  sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      position: "absolute",
+                      top: 130,
+                      left: 0,
+                      right: 0,
+                      bottom: "80vh",
+                  }}
+              >
+                  <LoginPageAnimation />
+              </Box>
+              <Grid
+                  item
+                  xs={12}
+                  sm={8}
+                  md={5}
+                  component={Paper}
+                  elevation={6}
+                  square
+                  sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#e6ecf0",
+                      paddingBottom: "50px",
+                      top: 120,
+                      width: 550,
+                      height: 60,
+                  }}
+              >
+                  <Box
+                      sx={{
+                          my: 4,
+                          mx: 4,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textAlign: "center",
+                          top: 15,
+                      }}
+                  >
+                      <Avatar
+                          sx={{ m: 0.5, bgcolor: "secondary.main", width: 50, height: 50 }}
+                      >
+                          <LockOutlinedIcon />
+                      </Avatar>
+                      <Typography
+                          component="h1"
+                          variant="h5"
+                          marginBottom={"50px"}
+                          color="black"
+                          fontFamily={"Alef"}
+                      >
+                          Sign in
+                      </Typography>
+                      <GoogleLogin
+                          // clientId should store in .env file
+                          clientId="789241549760-hq6o3ovgaq1q4jjjp97pq00984317m0a.apps.googleusercontent.com"
+                          buttonText="Log in with Google"
+                          onSuccess={handleLogin}
+                          onFailure={handleLoginFail}
+                          cookiePolicy={"single_host_origin"}
+                          style={{
+                              fontFamily: "Alef",
+                              width: "100%",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                          }}
+                          iconStyle={{ display: "flex", alignItems: "center", justifyContent: "center", }}
+                          sx={{ mt: 2 }}
+                      />
+                  </Box>
+              </Grid>
+          </Grid>
+          <Box sx={{ position: "absolute", top: 0, left: 0, m: 2 }}>
+              <Button variant="contained" onClick={tempButtonHandler}>
+                  TEMP BUTTON
+              </Button>
           </Box>
-        </Grid>
-      </Grid>
-      <Button variant="contained" onClick={tempButtonHandler}>
-        TEMP BUTTON
-      </Button>
-    </ThemeProvider>
+
+      </ThemeProvider>
+
   );
 }
 
