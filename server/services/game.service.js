@@ -1,12 +1,11 @@
 const database = require("../database");
 const {getLevelNumber, getLevelString} = require("../utility/levelUtils");
 const {response} = require("express");
-const {getLevelString} = require("../utility/levelUtils");
 
 
 const uploadImages = async (images) => {        //todo check if post or get
     console.log(images);
-    return { images:images};
+    return {images: images};
 };
 
 const fetchGameState = async (gameDetails) => {
