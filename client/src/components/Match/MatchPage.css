@@ -27,3 +27,7 @@
     text-align: center;
 
 }
+
+.disabledclick {
+    pointer-events: none;
+}

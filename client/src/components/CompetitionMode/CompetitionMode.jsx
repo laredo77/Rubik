@@ -150,7 +150,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     return (
         <ThemeProvider theme={theme}>
             <Box display="flex">
-                <CubeManager controlsStatus={true} isMatch={false}/>
+                <CubeManager controlsStatus={true} isMatch={false} id={""}/>
                 <Box
                     display="flex"
                     flexDirection="column"

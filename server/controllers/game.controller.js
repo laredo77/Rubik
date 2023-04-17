@@ -12,6 +12,18 @@ const uploadImages = async (req, res) => {  //todo change to save
     }
 };
 
+const getGameState = async (req, res) => {
+    try {
+        const gameState = await gameService.fetchGameState(req.query);
+        res.send(gameState);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("couldn't fetch game state from DB");
+    }
+};
+
+
+
 // old singleplayer function
 const chooseLevel = async (req, res) => {
     // console.log(req)
@@ -37,5 +49,6 @@ module.exports = {
     uploadImages,
     postCompScore,
     chooseLevel,
+    getGameState,
 };
 
