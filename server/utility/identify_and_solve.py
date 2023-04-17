@@ -163,6 +163,10 @@ def capture_solve_print(action):
 
 # When this python file invoked, it starts main
 if __name__ == "__main__":
+
+    # change the current working directory
+    os.chdir('D:\\Projects\\RubikCube\\server\\utility')
+
 # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[2]
 #     params = sys.argv[3:]
