@@ -20,6 +20,7 @@ function LoginPage({ addNewUser }) {
   const handleLogin = async (response) => {
     const user = {
       email: response.profileObj.email,
+        img: response.profileObj.imageUrl,
       isLoading: false,
       isError: false,
     };
@@ -27,13 +28,13 @@ function LoginPage({ addNewUser }) {
     try {
       await addNewUser(user);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
     navigate("./main");
   };
 
   const handleLoginFail = (response) => {
-    console.log(response);
+    //console.log(response);
     // itamar: TODO handeling failur login to google
   };
 
@@ -48,7 +49,7 @@ function LoginPage({ addNewUser }) {
     try {
       await addNewUser(user);
     } catch (e) {
-      console.log(e);
+      //console.log(e);
     }
     navigate("./main");
   };

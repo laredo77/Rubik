@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+.zoom {
+    transition: transform .2s;
+    margin: 0 auto;
+}
+
+.zoom:hover {
+    -ms-transform: scale(8); /* IE 9 */
+    -webkit-transform: scale(8); /* Safari 3-8 */
+    transform: scale(8);
+    z-index: 6;
+}
+
+.image-solved {
+    filter: blur(5px) grayscale(1) brightness(0.5) hue-rotate(90deg);
+}

@@ -16,7 +16,7 @@ class CubeManager extends Component {
     this.CubeStore = createStore(reducers, applyMiddleware(sagaMiddleware));
     this.Connected = connect(reducers, (dispatch) => ({
       actions: bindActionCreators(actionCreators, dispatch), controlsStatus: this.props.controlsStatus,
-      isMatch: this.props.isMatch, user: this.props.user
+      isMatch: this.props.isMatch, user: this.props.user, id: this.props.id
     }))(Puzzle);
   }
 

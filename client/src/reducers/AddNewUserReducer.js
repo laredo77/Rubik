@@ -2,7 +2,7 @@ import actionTypes from "../actions/constants";
 
 const initialState = {
   email: "",
-  mode: "",
+  img: undefined,
   isLoading: false,
   isError: false,
 };
@@ -17,6 +17,7 @@ const addNewUserReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         email: payload.email,
+        img: payload.img,
         isLoading: payload.isLoading,
         isError: payload.isError,
       };
@@ -26,9 +27,6 @@ const addNewUserReducer = (state = initialState, { type, payload }) => {
       return { ...state, isError: true, isLoading: false };
     }
 
-    case actionTypes.MODE_OF_PLAY: {
-      return { ...state, mode: payload };
-    }
 
     default:
       return state;

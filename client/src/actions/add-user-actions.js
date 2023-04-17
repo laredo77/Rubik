@@ -14,14 +14,10 @@ const addNewUserFailureAction = () => ({
   type: actionTypes.ADD_USER_FAILURE,
 });
 
-const changePlayMode = (mode) => ({
-  type: actionTypes.MODE_OF_PLAY,
-  payload: mode,
-});
-
 export const addNewUser = (user) => {
   const userDetails = {
     email: user.email,
+    img: user.img,
     isLoading: true,
     isError: false,
   };
@@ -37,8 +33,3 @@ export const addNewUser = (user) => {
   };
 };
 
-export const modeListener = (mode) => {
-  return async (dispatch) => {
-    dispatch(changePlayMode(mode));
-  };
-};

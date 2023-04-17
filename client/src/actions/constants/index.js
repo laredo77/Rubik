@@ -2,7 +2,6 @@ const ACTIONS = {
   ADD_USER_REQUEST: "add_user_request",
   ADD_USER_SUCCESS: "add_user_success",
   ADD_USER_FAILURE: "add_user_failure",
-  MODE_OF_PLAY: "mode_of_play",
 
   GET_GAME_STATE_REQUEST: "get_game_state_request",
   GET_GAME_STATE_SUCCESS: "get_game_state_success",
@@ -23,6 +22,7 @@ const ACTIONS = {
   SET_MATCH_REQUEST: "set_match_request",
   SET_MATCH_SUCCESS: "set_match_success",
   SET_MATCH_FAILURE: "set_match_failure",
+  IS_MATCH_READY: "is_match_ready",
 };
 
 export default ACTIONS;
