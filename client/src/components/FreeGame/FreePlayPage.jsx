@@ -12,7 +12,8 @@ const theme = createTheme();
 
 function FreePlayPage() {
     const MySwal = withReactContent(Swal);
-    let amountOfSteps = 0;
+
+
   const hintButtonHandler = (response) => {
       if (movesStack.length == 0) {
           // fire everything looks good! your done.

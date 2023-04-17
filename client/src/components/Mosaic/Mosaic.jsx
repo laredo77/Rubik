@@ -8,15 +8,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
-function TeamPlayPage({ user, modeListener, joinGame }) {
+function TeamPlayPage({ user, joinGame }) {
   const navigate = useNavigate();
   const MySwal = withReactContent(Swal);
   let gameId = "";
   let gamePwd = "";
-
-  useEffect(() => {
-    modeListener("team");
-  }, []);
 
   const newGameHandler = (response) => {
     // 1.choose level like single player

@@ -20,6 +20,7 @@ function LoginPage({ addNewUser }) {
   const handleLogin = async (response) => {
     const user = {
       email: response.profileObj.email,
+        img: response.profileObj.imageUrl,
       isLoading: false,
       isError: false,
     };

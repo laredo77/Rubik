@@ -1,11 +1,31 @@
 const database = require("../database");
 const {getLevelNumber, getLevelString} = require("../utility/levelUtils");
+const {response} = require("express");
+const {getLevelString} = require("../utility/levelUtils");
 
 
 const uploadImages = async (images) => {        //todo check if post or get
     console.log(images);
     return { images:images};
 };
+
+const fetchGameState = async (gameDetails) => {
+    // get the user's progress for the given level from the database
+    console.log(gameDetails.manager, gameDetails.level);
+    const query = `SELECT lc.* FROM level_cube lc INNER JOIN user_progress up ON lc.cube_id = up.cube_id WHERE lc.level_id = '${gameDetails.level}' AND up.user_email = '${gameDetails.manager}'`;
+    database.connection.query(query, (error, results) => {
+        if (error) {
+            console.error(error);
+            console.log('An error occurred while getting the user progress');
+        } else {
+            //todo need to return also cube_picture of each cube
+            const is_competition = false;
+            const levelsString = getLevelString(results, is_competition);
+            console.log("List of level cubes:", levelsString)
+        }
+    });
+
+}
 
 
 const chooseLevel = async (playerLevel) => {
@@ -28,6 +48,7 @@ const chooseLevel = async (playerLevel) => {
 module.exports = {
     uploadImages,
     chooseLevel,
+    fetchGameState,
 };
 
 
