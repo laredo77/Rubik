@@ -71,37 +71,49 @@ function ArtPage({user, uploadImagesFunc}) {
             // HTML content to be displayed inside the dialog
             html: (
                 <div>
-                    <label htmlFor="top">Top:</label>
-                    <button id="top" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="top" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Top
+                    </Button>
                     <br/>
-
-                    <label htmlFor="bottom">Bottom:</label>
-                    <button id="bottom" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="bottom" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Bottom
+                    </Button>
                     <br/>
-
-                    <label htmlFor="front">Front:</label>
-                    <button id="front" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="front" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Front
+                    </Button>
                     <br/>
-
-                    <label htmlFor="back">Back:</label>
-                    <button id="back" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="back" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Back
+                    </Button>
                     <br/>
-
-                    <label htmlFor="left">Left:</label>
-                    <button id="left" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="left" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Left
+                    </Button>
                     <br/>
-
-                    <label htmlFor="right">Right:</label>
-                    <button id="right" onClick={actionCaptureHandler}>Capture</button>
+                    <Button id="right" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Right
+                    </Button>
                     <br/>
-
-                    <button id="clear" onClick={actionCaptureHandler}>Clear</button>
-                    <br/>
-
-                    <button id="confirm" onClick={actionCaptureHandler}>Confirm</button>
+                    <div style={{display: "flex", justifyContent: "center", marginBottom: '5px'}}>
+                        <Button id="clear" variant="contained" onClick={actionCaptureHandler}>
+                            Clear
+                        </Button>
+                        <span style={{width: '5px'}}></span>
+                        <Button id="confirm" variant="contained" onClick={actionCaptureHandler}>
+                            Confirm
+                        </Button>
+                    </div>
                     <br/>
                 </div>
             ),
+
             // Button color for the confirmation button
             confirmButtonColor: "#50b7f5",
             // Whether to show a close button in the dialog

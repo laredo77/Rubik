@@ -50,8 +50,10 @@ def capture_rubik_face():
     t.start()
     # Create a GUI button to stop the loop.
     root = tk.Tk()
+    root.geometry('200x50')
+    root.title("Capture Rubik's Cube Face")
     stop_button = tk.Button(root, text="Capture!", command=stop_loop)
-    stop_button.pack()
+    stop_button.pack(side=tk.BOTTOM)
     root.mainloop()
     # The loop in `grab_colors` function will stop when the stop_button is clicked.
 
@@ -96,7 +98,7 @@ def modify_and_confirm_file(action, kociemba_string):
                 # Clear the entire file if the action is 'clear'
                 f.seek(0)
                 f.write(" " * VALID_STRING_LENGTH)
-                print("File cleared!")
+                result = "File cleared!"
             elif action == "confirm":
                 if len(contents) == VALID_STRING_LENGTH:
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
@@ -108,9 +110,11 @@ def modify_and_confirm_file(action, kociemba_string):
                     new_contents = contents[:start_index] + kociemba_string + contents[end_index+1:]
                     f.seek(0)
                     f.write(new_contents)
-                    print(f"Characters {start_index}-{end_index} modified!")
+                    result = "Characters " + start_index + "-"+ end_index + "modified!"
+#                     print(f"Characters {start_index}-{end_index} modified!")
                 else:
-                    print(f"Error: Invalid string length for action '{action}'.")
+                    result = "Error: Invalid string length for action " + action
+#                     print(f"Error: Invalid string length for action '{action}'.")
 
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -172,8 +176,10 @@ if __name__ == "__main__":
 #     params = sys.argv[3:]
 
     result = capture_solve_print(action)
+    print("result:",result)
     if result is not None:
         print(result)
+
 
 # test in terminal: node .\pythonExecuter.js [python_file_name.py] [action], for example node pythonExecuter.js identify_and_solve.py top
 

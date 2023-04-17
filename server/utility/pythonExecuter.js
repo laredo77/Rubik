@@ -51,6 +51,7 @@ function executePython(pythonFileName, params) {
     callPythonFunction(pythonFileName, params)
         .then((result) => {
             console.log(result);
+            return result;
         })
         .catch((err) => {
             console.log(err);

@@ -7,7 +7,7 @@ const {executePython} = require("../utility/pythonExecuter");
 const getUserAction = async (action) => {
     const scriptFileName = "identify_and_solve.py"
     const result = await executePython(scriptFileName, [action.action]);
-    console.log("this is result:", await result)
+    console.log("this is result:", await result)        //todo catch py print
     return {action: action};
 };
 
