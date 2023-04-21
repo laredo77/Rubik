@@ -58,6 +58,13 @@ def capture_rubik_face():
     # The loop in `grab_colors` function will stop when the stop_button is clicked.
 
 
+def write_error(message):
+    with open("error.txt", "w") as f:
+        f.write(" " * VALID_STRING_LENGTH)
+        f.seek(0)
+        f.write(message)
+
+
 def modify_and_confirm_file(action, kociemba_string):
     """
     This function takes an action and a string, modifies the Rubik's cube state file accordingly, and returns the
@@ -98,7 +105,7 @@ def modify_and_confirm_file(action, kociemba_string):
                 # Clear the entire file if the action is 'clear'
                 f.seek(0)
                 f.write(" " * VALID_STRING_LENGTH)
-                result = "File cleared!"
+                write_error("File cleared!")
             elif action == "confirm":
                 if len(contents) == VALID_STRING_LENGTH:
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
@@ -110,14 +117,12 @@ def modify_and_confirm_file(action, kociemba_string):
                     new_contents = contents[:start_index] + kociemba_string + contents[end_index+1:]
                     f.seek(0)
                     f.write(new_contents)
-                    result = "Characters " + start_index + "-"+ end_index + "modified!"
-#                     print(f"Characters {start_index}-{end_index} modified!")
+                    write_error("Characters modified!")
                 else:
-                    result = "Error: Invalid string length for action " + action
-#                     print(f"Error: Invalid string length for action '{action}'.")
+                    write_error("Error: Invalid string length for action")
 
     except Exception as e:
-        print(f"An error occurred: {e}")
+        write_error("An error occurred" + e)
 
     return result
 
