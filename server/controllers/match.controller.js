@@ -10,6 +10,16 @@ const setMatch = async (req, res) => {
     }
 };
 
+const joinMatch = async (req, res) => {
+    try {
+        const matchDetails = await matchService.joinMatch(req.body);
+        res.send(matchDetails);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Failed to set match");
+    }
+};
+
 
 const getMatchStatus = async (req, res) => {
     try {
@@ -55,6 +65,7 @@ const quitMatch = async (req, res) => {
 
 module.exports = {
     setMatch,
+    joinMatch,
     getMatchStatus,
     applyMove,
     getMatchState,

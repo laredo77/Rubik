@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 
 
-function MatchManager({ user, setMatch }) {
+function MatchManager({ user, setMatch, joinMatch }) {
   const MySwal = withReactContent(Swal);
   let gameId = "";
   let gamePwd = "";
@@ -83,6 +83,7 @@ function MatchManager({ user, setMatch }) {
     }).then((response) => {
       if (response.isConfirmed) {
         //now navigate to game page
+          joinMatch({user: user.email, gameId: gameId, password: gamePwd})
       } else if (response.isDenied) {
         // do nothing
       }

@@ -155,7 +155,6 @@ function LoginPage({ addNewUser }) {
           </Box>
 
       </ThemeProvider>
-
   );
 }
 
