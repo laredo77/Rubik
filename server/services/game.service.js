@@ -6,9 +6,20 @@ const {executePython} = require("../utility/pythonExecuter");
 
 const getUserAction = async (action) => {
     const scriptFileName = "identify_and_solve.py"
-    const result = await executePython(scriptFileName, [action.action]);
-    console.log("this is result:", await result)        //todo catch py print
-    return {action: action};
+    await executePython(scriptFileName, [action.action]);
+
+    // Open and read the error file
+    const fs = require('fs');
+    const path = require('path');
+    const errorFilePath = path.join('utility', 'messages_to_user.txt');
+    fs.readFile(errorFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log(data)
+        return data;
+    });
 };
 
 const fetchGameState = async (gameDetails) => {

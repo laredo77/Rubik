@@ -26,9 +26,19 @@ function ArtPage({user, uploadImagesFunc}) {
     };
 
     const actionCaptureHandler = async (response) => {
-        await Client.uploadImages({action: response.target.id})
+        const result = await Client.uploadImages({action: response.target.id});
+        showMessage(result)
     }
 
+
+    const showMessage = (result) => {   //todo: take care to show alert window
+        // show the result message in a popup window using SweetAlert2
+        MySwal.fire({
+            title: "Upload Images Result",
+            text: result.message,
+            icon: result.success ? "success" : "error"
+        });
+    }
 
     const handleImageClick = (response) => {
         const clickedImage = response.target;

@@ -21,10 +21,15 @@ function callPythonFunction(pythonFileName, params) {
     // Invokes the python async script using the options object, throws an error if there is an error
     return new Promise((resolve, reject) => {
         PythonShell.run(pythonFileName, options, function (err, results) {
-            if (err) reject(err);
+            if (err) {
+                // Check if the error is caused by the file being used by another process
+                if (err.traceback.includes("PermissionError: [WinError 32] The process cannot access the file because it is being used by another process")) {
+                    reject("Error: The file is being used by another process.");
+                } else {
+                    reject(err);
+                }
+            }
             resolve(results);
-        }).then((r) => {
-            console.log(r);
         });
     });
 }
@@ -51,7 +56,6 @@ function executePython(pythonFileName, params) {
     callPythonFunction(pythonFileName, params)
         .then((result) => {
             console.log(result);
-            return result;
         })
         .catch((err) => {
             console.log(err);

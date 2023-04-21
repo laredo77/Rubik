@@ -10,6 +10,7 @@ import os
 
 VALID_STRING_LENGTH = 54
 FILE_NAME = 'current_state_string.txt'
+CLEAR_STRING_LENGTH = 80
 
 
 def color_to_letter(colors):
@@ -58,9 +59,9 @@ def capture_rubik_face():
     # The loop in `grab_colors` function will stop when the stop_button is clicked.
 
 
-def write_error(message):
-    with open("error.txt", "w") as f:
-        f.write(" " * VALID_STRING_LENGTH)
+def write_message(message):
+    with open("messages_to_user.txt", "w") as f:
+        f.write(" " * CLEAR_STRING_LENGTH)
         f.seek(0)
         f.write(message)
 
@@ -105,24 +106,24 @@ def modify_and_confirm_file(action, kociemba_string):
                 # Clear the entire file if the action is 'clear'
                 f.seek(0)
                 f.write(" " * VALID_STRING_LENGTH)
-                write_error("File cleared!")
+                write_message("File cleared!")
             elif action == "confirm":
                 if len(contents) == VALID_STRING_LENGTH:
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-                    result = kociemba.solve(contents)
-                os.remove(FILE_NAME)
+                    write_message(kociemba.solve(contents))
+#                 os.remove(FILE_NAME)
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
                     new_contents = contents[:start_index] + kociemba_string + contents[end_index+1:]
                     f.seek(0)
                     f.write(new_contents)
-                    write_error("Characters modified!")
+                    write_message("Characters modified!")
                 else:
-                    write_error("Error: Invalid string length for action")
+                    write_message("Error: Invalid string length for action")
 
     except Exception as e:
-        write_error("An error occurred" + e)
+        write_message("An error occurred" + e)
 
     return result
 
@@ -152,14 +153,6 @@ def capture_solve_print(action):
         colors = vision_params.face_col
         # Convert the colors to a string of letters using the color_to_letter function
         kociemba_string = color_to_letter(colors)
-        # Create a file if doesn't exist
-#         try:
-#             with open(FILE_NAME, 'w') as f:
-#                 f.write(" ")
-#                 f.seek(0)
-#         except:
-#             print(f"Created file{FILE_NAME} if doesnt exist")
-# todo: make sure to create file of doesnt exist
 
     # Modify the file and confirm the Rubik's cube state if the action is not "clear"
     result = modify_and_confirm_file(action, kociemba_string)
@@ -179,11 +172,7 @@ if __name__ == "__main__":
 # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[2]
 #     params = sys.argv[3:]
-
-    result = capture_solve_print(action)
-    print("result:",result)
-    if result is not None:
-        print(result)
+    capture_solve_print(action)
 
 
 # test in terminal: node .\pythonExecuter.js [python_file_name.py] [action], for example node pythonExecuter.js identify_and_solve.py top
