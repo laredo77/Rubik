@@ -42,7 +42,7 @@ const setMatch = async (matchDetails) => {
 
 const joinMatch = async (matchDetails) => {
     //console.log(matchDetails) // { gameId: 'abc', password: 'aaa', user: 'MyUser@gmail.com' }
-    // check if matchId and password correct and if not pop it to the player
+    // TODO: check if matchId and password correct and if not pop it to the player
 
     // lock for reading
     // const AsyncLock = require('async-lock');
@@ -90,8 +90,8 @@ const getMatchStatus = async (manager) => {
             })
             .on('end', () => {
                 console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
-                // if second player return {status: 200}
-                // and if ok also shuffle the cube for both of the players
+                // TODO: if second player return {status: 200}
+                // TODO: and if ok also shuffle the cube for both of the players
             });
     });
 
@@ -130,6 +130,7 @@ const getMatchStatus = async (manager) => {
 // };
 
 const matchState = async (manager) => {
+    // TODO: check who is the manager and then take the column belong to him
     return new Promise((resolve, reject) => {
         lock.acquire('myLock', async function() {
             const rows = [];
@@ -179,11 +180,68 @@ const matchState = async (manager) => {
 };
 
 
+// const applyMove = async (move) => {
+//     // add to DB the move
+//     // return OK
+//     return "200OK"
+// };
+
 const applyMove = async (move) => {
-    // add to DB the move
-    // return OK
-    return "200OK"
+    // TODO: check who is the player and add to its column
+    return new Promise((resolve, reject) => {
+        lock.acquire('myLock', async function() {
+            const rows = [];
+
+            // Read the CSV file and store the data in the rows array
+            fs.createReadStream(filePath)
+                .pipe(csv())
+                .on('data', (row) => {
+                    rows.push(row);
+                })
+                .on('end', () => {
+                    let blankRowIndex = -1;
+
+                    // Find the first blank row in the second column
+                    for (let i = 0; i < rows.length; i++) {
+                        if (rows[i]['P1_Moves'] === '') {
+                            blankRowIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (blankRowIndex === -1) {
+                        // If no blank row was found, add a new row to the end of the CSV file
+                        rows.push({ MatchDetails: '', P1_Moves: '', P2_Moves: move });
+                    } else {
+                        // If a blank row was found, update the second column in that row
+                        rows[blankRowIndex]['P1_Moves'] = move;
+                    }
+
+                    // Write the updated CSV file back to disk
+                    const csvWriter = createCsvWriter({
+                        path: filePath,
+                        header: [
+                            { id: 'MatchDetails', title: 'MatchDetails' },
+                            { id: 'P1_Moves', title: 'P1_Moves' },
+                            { id: 'P2_Moves', title: 'P2_Moves' }
+                        ]
+                    });
+
+                    csvWriter.writeRecords(rows)
+                        .then(() => {
+                            console.log('CSV file has been updated');
+                            resolve();
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            reject(error);
+                        });
+                });
+        });
+    });
 };
+
+
 
 const quit = async (user) => {
     // check in DB if the user is the manager if yes, close the game.
