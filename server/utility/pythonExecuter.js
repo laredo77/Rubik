@@ -21,10 +21,15 @@ function callPythonFunction(pythonFileName, params) {
     // Invokes the python async script using the options object, throws an error if there is an error
     return new Promise((resolve, reject) => {
         PythonShell.run(pythonFileName, options, function (err, results) {
-            if (err) reject(err);
+            if (err) {
+                // Check if the error is caused by the file being used by another process
+                if (err.traceback.includes("PermissionError: [WinError 32] The process cannot access the file because it is being used by another process")) {
+                    reject("Error: The file is being used by another process.");
+                } else {
+                    reject(err);
+                }
+            }
             resolve(results);
-        }).then((r) => {
-            console.log(r);
         });
     });
 }
@@ -46,8 +51,8 @@ function parseTerminalParameters() {
     return [pythonFileName, params]
 }
 
-function executePython() {
-    let [pythonFileName, params] = parseTerminalParameters();
+function executePython(pythonFileName, params) {
+    // let [pythonFileName, params] = parseTerminalParameters();          //used for debuging from terminal
     callPythonFunction(pythonFileName, params)
         .then((result) => {
             console.log(result);
@@ -57,6 +62,7 @@ function executePython() {
         });
 }
 
-
-executePython()
+module.exports = {
+    executePython
+};
 // test in terminal: node .\pythonExecuter.js [python_file_name.py] [params], for example node pythonExecuter.js identify_and_solve.py functionName param_1...param_n

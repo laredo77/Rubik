@@ -1,11 +1,25 @@
 const database = require("../database");
 const {getLevelNumber, getLevelString} = require("../utility/levelUtils");
 const {response} = require("express");
+const {executePython} = require("../utility/pythonExecuter");
 
 
-const uploadImages = async (images) => {        //todo check if post or get
-    console.log(images);
-    return {images: images};
+const getUserAction = async (action) => {
+    const scriptFileName = "identify_and_solve.py"
+    await executePython(scriptFileName, [action.action]);
+
+    // Open and read the error file
+    const fs = require('fs');
+    const path = require('path');
+    const errorFilePath = path.join('utility', 'messages_to_user.txt');
+    fs.readFile(errorFilePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        console.log(data)
+        return data;
+    });
 };
 
 const fetchGameState = async (gameDetails) => {
@@ -45,7 +59,7 @@ const chooseLevel = async (playerLevel) => {
 
 
 module.exports = {
-    uploadImages,
+    getUserAction,
     chooseLevel,
     fetchGameState,
 };
