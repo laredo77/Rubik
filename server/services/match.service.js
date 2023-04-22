@@ -1,4 +1,4 @@
-const {generateStr} = require("../utility/generalUtils");
+const {generateStr, findStringInCSV, isSecondPlayerInMatch} = require("../utility/generalUtils");
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const AsyncLock = require('async-lock');
 const lock = new AsyncLock();
@@ -13,19 +13,19 @@ const setMatch = async (matchDetails) => {
     matchID = generateStr(3)
     matchPWD = generateStr(3)
 
-    lock.acquire('myLock', async function() {
+    lock.acquire('myLock', async function () {
         const data = [
-            { matchDetails: matchID, p1moves: "", p2moves: "" },
-            { matchDetails: matchPWD, p1moves: "", p2moves: "" },
-            { matchDetails: matchDetails.manager, p1moves: "", p2moves: "" }
+            {matchDetails: matchID, p1moves: "", p2moves: ""},
+            {matchDetails: matchPWD, p1moves: "", p2moves: ""},
+            {matchDetails: matchDetails.manager, p1moves: "", p2moves: ""}
         ];
 
         const csvWriter = createCsvWriter({
             path: filePath,
             header: [
-                { id: 'matchDetails', title: 'MatchDetails' },
-                { id: 'p1moves', title: 'P1_Moves' },
-                { id: 'p2moves', title: 'P2_Moves' }
+                {id: 'matchDetails', title: 'MatchDetails'},
+                {id: 'p1moves', title: 'P1_Moves'},
+                {id: 'p2moves', title: 'P2_Moves'}
             ]
         });
 
@@ -50,19 +50,19 @@ const joinMatch = async (matchDetails) => {
     // lock.acquire('myLock', async function() {
     // });
 
-    lock.acquire('myLock', async function() {
+    lock.acquire('myLock', async function () {
         const csvWriter = createCsvWriter({
             path: filePath,
             header: [
-                { id: 'matchDetails', title: 'MatchDetails' },
-                { id: 'p1moves', title: 'P1_Moves' },
-                { id: 'p2moves', title: 'P2_Moves' }
+                {id: 'matchDetails', title: 'MatchDetails'},
+                {id: 'p1moves', title: 'P1_Moves'},
+                {id: 'p2moves', title: 'P2_Moves'}
             ],
             append: true
         });
 
         const newData = [
-            { matchDetails: matchDetails.user, p1moves: "", p2moves: "" }
+            {matchDetails: matchDetails.user, p1moves: "", p2moves: ""}
         ];
 
         csvWriter.writeRecords(newData)
@@ -76,9 +76,10 @@ const joinMatch = async (matchDetails) => {
     });
 };
 
+
 const getMatchStatus = async (manager) => {
 
-    lock.acquire('myLock', async function() {
+    lock.acquire('myLock', async function () {
         const lineNumber = 4; // read the 4th line of the CSV file (second player)
 
         const lines = [];
@@ -88,19 +89,24 @@ const getMatchStatus = async (manager) => {
             .on('data', (data) => {
                 lines.push(data);
             })
-            .on('end', () => {
+            .on('end', async () => {
                 console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
+                // const response = await isSecondPlayerInMatch(filePath)
                 // TODO: if second player return {status: 200}
                 // TODO: and if ok also shuffle the cube for both of the players
+                if (lines[lineNumber - 1]) {
+                    console.log("there is second player");
+                    return {status: 200} // found the second player, return true
+                } else {
+                    console.log("there is not second player");
+                    // second player not found, wait 7 seconds and try again
+                    setTimeout(() => {
+                        getMatchStatus(manager);
+                    }, 7000);
+                }
             });
     });
 
-    // should be removed
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve({status: 200});
-        }, 5000);
-    });
 };
 
 // const matchState = async (manager) => {
@@ -132,7 +138,7 @@ const getMatchStatus = async (manager) => {
 const matchState = async (manager) => {
     // TODO: check who is the manager and then take the column belong to him
     return new Promise((resolve, reject) => {
-        lock.acquire('myLock', async function() {
+        lock.acquire('myLock', async function () {
             const rows = [];
 
             // Read the CSV file and store the data from the second column in the rows array
@@ -161,9 +167,9 @@ const matchState = async (manager) => {
                     const csvWriter = createCsvWriter({
                         path: filePath,
                         header: [
-                            { id: 'MatchDetails', title: 'MatchDetails' },
-                            { id: 'P1_Moves', title: 'P1_Moves' },
-                            { id: 'P2_Moves', title: 'P2_Moves' }
+                            {id: 'MatchDetails', title: 'MatchDetails'},
+                            {id: 'P1_Moves', title: 'P1_Moves'},
+                            {id: 'P2_Moves', title: 'P2_Moves'}
                         ]
                     });
 
@@ -180,16 +186,23 @@ const matchState = async (manager) => {
 };
 
 
-// const applyMove = async (move) => {
-//     // add to DB the move
-//     // return OK
-//     return "200OK"
-// };
-
 const applyMove = async (move) => {
-    // TODO: check who is the player and add to its column
+    const {user, piece, direction} = JSON.parse(move);
+    const line = await findStringInCSV(filePath, user)
+    let player = ""
+    switch (line) {
+        case 2:
+            player = "P1_Moves"
+            break
+        case 3:
+            player = "P2_Moves"
+            break
+        default:
+            return
+    }
+
     return new Promise((resolve, reject) => {
-        lock.acquire('myLock', async function() {
+        lock.acquire('myLock', async function () {
             const rows = [];
 
             // Read the CSV file and store the data in the rows array
@@ -203,7 +216,7 @@ const applyMove = async (move) => {
 
                     // Find the first blank row in the second column
                     for (let i = 0; i < rows.length; i++) {
-                        if (rows[i]['P1_Moves'] === '') {
+                        if (rows[i][player] === '') {
                             blankRowIndex = i;
                             break;
                         }
@@ -211,19 +224,30 @@ const applyMove = async (move) => {
 
                     if (blankRowIndex === -1) {
                         // If no blank row was found, add a new row to the end of the CSV file
-                        rows.push({ MatchDetails: '', P1_Moves: '', P2_Moves: move });
+                        if (player == "P1_Moves") {
+                            rows.push({
+                                MatchDetails: '',
+                                P1_Moves: (piece.toString() + direction.toString()),
+                                P2_Moves: ''
+                            });
+                        } else {
+                            rows.push({
+                                MatchDetails: '',
+                                P1_Moves: '',
+                                P2_Moves: (piece.toString() + direction.toString())
+                            });
+                        }
                     } else {
                         // If a blank row was found, update the second column in that row
-                        rows[blankRowIndex]['P1_Moves'] = move;
+                        rows[blankRowIndex][player] = (piece.toString() + direction.toString());
                     }
-
                     // Write the updated CSV file back to disk
                     const csvWriter = createCsvWriter({
                         path: filePath,
                         header: [
-                            { id: 'MatchDetails', title: 'MatchDetails' },
-                            { id: 'P1_Moves', title: 'P1_Moves' },
-                            { id: 'P2_Moves', title: 'P2_Moves' }
+                            {id: 'MatchDetails', title: 'MatchDetails'},
+                            {id: 'P1_Moves', title: 'P1_Moves'},
+                            {id: 'P2_Moves', title: 'P2_Moves'}
                         ]
                     });
 
@@ -240,7 +264,6 @@ const applyMove = async (move) => {
         });
     });
 };
-
 
 
 const quit = async (user) => {

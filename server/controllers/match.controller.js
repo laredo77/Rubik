@@ -24,7 +24,7 @@ const joinMatch = async (req, res) => {
 const getMatchStatus = async (req, res) => {
     try {
         const status = await matchService.getMatchStatus(req.query.manager);
-        //console.log(status)
+        console.log(status)
         res.send(status);
     } catch (error) {
         console.log(error);
