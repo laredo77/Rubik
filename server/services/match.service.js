@@ -1,4 +1,4 @@
-const {generateStr, findStringInCSV, isSecondPlayerInMatch} = require("../utility/generalUtils");
+const {generateStr, findStringInCSV, getRowFromCsvFile} = require("../utility/generalUtils");
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const AsyncLock = require('async-lock');
 const lock = new AsyncLock();
@@ -49,6 +49,12 @@ const joinMatch = async (matchDetails) => {
     // const lock = new AsyncLock();
     // lock.acquire('myLock', async function() {
     // });
+    // const matchId = getRowFromCsvFile(filePath, 1)
+    // const matchPwd = getRowFromCsvFile(filePath, 2)
+
+    if (matchId != matchDetails.gameId || matchPwd != matchDetails.password) {
+        return "failed"
+    }
 
     lock.acquire('myLock', async function () {
         const csvWriter = createCsvWriter({

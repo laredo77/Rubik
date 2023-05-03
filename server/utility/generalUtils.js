@@ -43,7 +43,7 @@ const findStringInCSV = async (fileName, str) => {
     });
 };
 
-const isSecondPlayerInMatch = (filePath) => {
+const getRowFromCsvFile = (filePath, r) => {
     return new Promise((resolve, reject) => {
         const rows = [];
 
@@ -56,10 +56,10 @@ const isSecondPlayerInMatch = (filePath) => {
                 if (rows.length < 4) {
                     reject("File doesn't have enough rows");
                 } else {
-                    resolve(rows[3]['MatchDetails']);
+                    resolve(rows[r]['MatchDetails']);
                 }
             });
     });
 };
 
-module.exports = {generateStr, findStringInCSV, isSecondPlayerInMatch};
+module.exports = {generateStr, findStringInCSV, getRowFromCsvFile};
