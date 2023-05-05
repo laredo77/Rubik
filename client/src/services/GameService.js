@@ -67,7 +67,7 @@ export class GameService {
         const response = await axios.post("http://localhost:3001/match/joinMatch", matchDetails);
         if (response.status !== 200)
             return;
-        return response.data
+        return response.status
     }
 
     static async matchStatus(matchDetails) {

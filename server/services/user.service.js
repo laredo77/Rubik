@@ -1,6 +1,7 @@
 const database = require("../database");
 
 const addUser = async (user) => {
+    return // should remove it
     const query1 = `SELECT * FROM user where user_email='${user.email}'`
     database.connection.query(query1, (error, results) => {
         if (error) {

@@ -55,6 +55,22 @@ function LoginPage({ addNewUser }) {
     navigate("./main");
   };
 
+    // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
+    const tempButtonHandler2 = async (response) => {
+        const user = {
+            email: "TempUser2@gmail.com",
+            isLoading: false,
+            isError: false,
+        };
+
+        try {
+            await addNewUser(user);
+        } catch (e) {
+
+        }
+        navigate("./main");
+    };
+
   return (
       <ThemeProvider theme={theme}>
           <Grid
@@ -151,6 +167,11 @@ function LoginPage({ addNewUser }) {
           <Box sx={{ position: "absolute", top: 0, left: 0, m: 2 }}>
               <Button variant="contained" onClick={tempButtonHandler}>
                   TEMP BUTTON
+              </Button>
+          </Box>
+          <Box sx={{ position: "absolute", top: 0, left: 150, m: 2 }}>
+              <Button variant="contained" onClick={tempButtonHandler2}>
+                  TEMP BUTTON 2
               </Button>
           </Box>
 

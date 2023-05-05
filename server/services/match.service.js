@@ -12,7 +12,7 @@ let matchPWD = ""
 const setMatch = async (matchDetails) => {
     matchID = generateStr(3)
     matchPWD = generateStr(3)
-
+    console.log(matchID, matchPWD)
     lock.acquire('myLock', async function () {
         const data = [
             {matchDetails: matchID, p1moves: "", p2moves: ""},
@@ -52,7 +52,7 @@ const joinMatch = async (matchDetails) => {
     // const matchId = getRowFromCsvFile(filePath, 1)
     // const matchPwd = getRowFromCsvFile(filePath, 2)
 
-    if (matchId != matchDetails.gameId || matchPwd != matchDetails.password) {
+    if (matchID != matchDetails.gameId || matchPWD != matchDetails.password) {
         return "failed"
     }
 
@@ -83,36 +83,60 @@ const joinMatch = async (matchDetails) => {
 };
 
 
+// const getMatchStatus = async (manager) => {
+//
+//     lock.acquire('myLock', async function () {
+//         const lineNumber = 4; // read the 4th line of the CSV file (second player)
+//
+//         const lines = [];
+//
+//         fs.createReadStream(filePath)
+//             .pipe(csv())
+//             .on('data', (data) => {
+//                 lines.push(data);
+//             })
+//             .on('end', async () => {
+//                 console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
+//                 // const response = await isSecondPlayerInMatch(filePath)
+//                 // TODO: if second player return {status: 200}
+//                 // TODO: and if ok also shuffle the cube for both of the players
+//                 if (lines[lineNumber - 1]) {
+//                     console.log("there is second player");
+//                     return {status: 200} // found the second player, return true
+//                 } else {
+//                     console.log("there is not second player");
+//                     // second player not found, wait 7 seconds and try again
+//                     setTimeout(() => {
+//                         getMatchStatus(manager);
+//                     }, 7000);
+//                 }
+//             });
+//     });
+//
+// };
 const getMatchStatus = async (manager) => {
-
-    lock.acquire('myLock', async function () {
-        const lineNumber = 4; // read the 4th line of the CSV file (second player)
-
-        const lines = [];
-
-        fs.createReadStream(filePath)
-            .pipe(csv())
-            .on('data', (data) => {
-                lines.push(data);
-            })
-            .on('end', async () => {
-                console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
-                // const response = await isSecondPlayerInMatch(filePath)
-                // TODO: if second player return {status: 200}
-                // TODO: and if ok also shuffle the cube for both of the players
-                if (lines[lineNumber - 1]) {
-                    console.log("there is second player");
-                    return {status: 200} // found the second player, return true
-                } else {
-                    console.log("there is not second player");
-                    // second player not found, wait 7 seconds and try again
-                    setTimeout(() => {
-                        getMatchStatus(manager);
-                    }, 7000);
-                }
-            });
+    return new Promise((resolve, reject) => {
+        lock.acquire('myLock', () => {
+            const lineNumber = 4; // read the 4th line of the CSV file (second player)
+            const lines = [];
+            fs.createReadStream(filePath)
+                .pipe(csv())
+                .on('data', (data) => {
+                    lines.push(data);
+                })
+                .on('end', () => {
+                    console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
+                    if (lines[lineNumber - 1]) {
+                        console.log("there is second player");
+                        resolve({ status: 200 }); // found the second player, resolve with the status object
+                    } else {
+                        console.log("there is not second player");
+                        // second player not found, reject the promise
+                        reject(new Error("Second player not found"));
+                    }
+                });
+        });
     });
-
 };
 
 // const matchState = async (manager) => {

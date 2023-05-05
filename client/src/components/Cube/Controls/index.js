@@ -8,7 +8,6 @@ export const movesStack = []
 export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
 
   const recorder = async (activationFunc, piece, forward, id) => {
-      console.log(id)
       piece = id[1]
       forward = id[2]
       let neg_forward = !forward

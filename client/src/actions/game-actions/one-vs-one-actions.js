@@ -101,8 +101,12 @@ export const joinMatch = (matchDetails) => {
   return async (dispatch) => {
     dispatch(joinMatchRequestAction());
     try {
-      await Client.joinMatch(match);
+      const response = await Client.joinMatch(match);
+      if (response == 200) {
+        match = {...match, status: true}
+      }
       dispatch(joinMatchSuccessAction(match));
+      dispatch(setMatchStatus(match));
     } catch (e) {
       match.errorMsg = e;
       dispatch(joinMatchFailureAction(match));

@@ -21,16 +21,35 @@ const joinMatch = async (req, res) => {
 };
 
 
+// const getMatchStatus = async (req, res) => {
+//     try {
+//         const status23 = await matchService.getMatchStatus(req.query.manager);
+//         console.log("status23: ", status23)
+//         res.send(status23);
+//     } catch (error) {
+//         console.log(error);
+//         console.log("error: ", error)
+//         res.status(401).send("Failed to set match");
+//     }
+// };
+
 const getMatchStatus = async (req, res) => {
-    try {
-        const status = await matchService.getMatchStatus(req.query.manager);
-        console.log(status)
-        res.send(status);
-    } catch (error) {
-        console.log(error);
-        res.status(401).send("Failed to set match");
-    }
+    const manager = req.query.manager;
+
+    const checkMatchStatus = async () => {
+        try {
+            const status = await matchService.getMatchStatus(manager);
+            res.send(status);
+        } catch (error) {
+            console.log("error: ", error);
+            setTimeout(checkMatchStatus, 7000);
+        }
+    };
+
+    checkMatchStatus();
 };
+
+
 
 const applyMove = async (req, res) => {
     try {

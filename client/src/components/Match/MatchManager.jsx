@@ -9,10 +9,9 @@ import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
-const AsyncLock = require('async-lock');
-const lock = new AsyncLock();
-const fs = require('fs');
-const csv = require('csv-parser');
+import {useSelector} from "react-redux";
+import {useEffect} from "react";
+import {CubeShuffle} from "../components-utils";
 
 function MatchManager({ user, setMatch, joinMatch }) {
   const MySwal = withReactContent(Swal);
@@ -20,9 +19,18 @@ function MatchManager({ user, setMatch, joinMatch }) {
   let gamePwd = "";
   let level = "";
   const navigate = useNavigate();
+    const matchStatus = useSelector((state) => state.matchReducer.status);
   const handleLevelChoose = (e) => {
     level = +e.target.innerText[6];
   };
+
+
+    useEffect(() => {
+        if (matchStatus) {
+            navigate("/main/matchManager/match", {state: {Manager: "", Level: level}});
+        }
+    }, [matchStatus]);
+
 
   const newGameHandler = (response) => {
     MySwal.fire({
@@ -84,13 +92,13 @@ function MatchManager({ user, setMatch, joinMatch }) {
       confirmButtonColor: "#50b7f5",
       showCloseButton: true,
       showCancelButton: true,
-    }).then((response) => {
-      if (response.isConfirmed) {
-        //now navigate to game page
-          joinMatch({user: user.email, gameId: gameId, password: gamePwd})
-      } else if (response.isDenied) {
-        // do nothing
-      }
+    }).then(async (response) => {
+        if (response.isConfirmed) {
+            //now navigate to game page
+            await joinMatch({user: user.email, gameId: gameId, password: gamePwd})
+        } else if (response.isDenied) {
+            // do nothing
+        }
     });
   };
 
