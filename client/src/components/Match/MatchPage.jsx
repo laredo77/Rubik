@@ -25,8 +25,9 @@ function MatchPage({user2, getMatchStatus}) {
     useEffect(() => {
         if (matchStatus) {
             MySwal.close();
+            if (!level) level = 1;
             CubeShuffle(level)
-            setInterval(reRenderOppCube, 5000);
+            setInterval(reRenderOppCube, 15000);
         } else {
             MySwal.fire({
                 title: "Please Wait until player join the game",

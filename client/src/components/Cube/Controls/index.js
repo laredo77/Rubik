@@ -20,7 +20,7 @@ export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
           }
       }
       movesStack.push([activationFunc, piece, +neg_forward])
-      console.log([activationFunc, piece, +neg_forward])
+      //console.log([activationFunc, piece, +neg_forward])
       if (isMatch) { // record to DB
           await Client.applyMoveInMatch({
               user: user.email,

@@ -82,38 +82,6 @@ const joinMatch = async (matchDetails) => {
     });
 };
 
-
-// const getMatchStatus = async (manager) => {
-//
-//     lock.acquire('myLock', async function () {
-//         const lineNumber = 4; // read the 4th line of the CSV file (second player)
-//
-//         const lines = [];
-//
-//         fs.createReadStream(filePath)
-//             .pipe(csv())
-//             .on('data', (data) => {
-//                 lines.push(data);
-//             })
-//             .on('end', async () => {
-//                 console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
-//                 // const response = await isSecondPlayerInMatch(filePath)
-//                 // TODO: if second player return {status: 200}
-//                 // TODO: and if ok also shuffle the cube for both of the players
-//                 if (lines[lineNumber - 1]) {
-//                     console.log("there is second player");
-//                     return {status: 200} // found the second player, return true
-//                 } else {
-//                     console.log("there is not second player");
-//                     // second player not found, wait 7 seconds and try again
-//                     setTimeout(() => {
-//                         getMatchStatus(manager);
-//                     }, 7000);
-//                 }
-//             });
-//     });
-//
-// };
 const getMatchStatus = async (manager) => {
     return new Promise((resolve, reject) => {
         lock.acquire('myLock', () => {
@@ -139,31 +107,6 @@ const getMatchStatus = async (manager) => {
     });
 };
 
-// const matchState = async (manager) => {
-//     // the function should return from DB the moves the opponent did.
-//     // for now its just shuffle steps and send
-//     let amountOfSteps = 2;
-//     let movesArray = []
-//     let choices = new Array(8).fill(0);
-//     choices.push(1)
-//     choices.push(1)
-//     for (let i = 0; i < amountOfSteps; i++) {
-//         const randomElement = choices[Math.floor(Math.random() * choices.length)];
-//         let random_arrow, random_direction, choice;
-//         if (randomElement === 0) {
-//             random_arrow = Math.floor(Math.random() * 8);
-//             random_direction = Math.floor(Math.random() * 2);
-//             choice = "a" + random_arrow.toString() + random_direction.toString() + "1"
-//         } else {
-//             let rotateArrows = ["x", "y", "z"]
-//             random_arrow = Math.floor(Math.random() * 3);
-//             random_direction = Math.floor(Math.random() * 2);
-//             choice = rotateArrows[random_arrow] + random_direction.toString() + "1"
-//         }
-//         movesArray.push(choice)
-//     }
-//     return movesArray
-// };
 
 const matchState = async (manager) => {
     // TODO: check who is the manager and then take the column belong to him
@@ -218,17 +161,17 @@ const matchState = async (manager) => {
 
 const applyMove = async (move) => {
     const {user, piece, direction} = JSON.parse(move);
-    const line = await findStringInCSV(filePath, user)
-    let player = ""
+    const line = await findStringInCSV(filePath, user);
+    let player = "";
     switch (line) {
         case 2:
-            player = "P1_Moves"
-            break
+            player = "P1_Moves";
+            break;
         case 3:
-            player = "P2_Moves"
-            break
+            player = "P2_Moves";
+            break;
         default:
-            return
+            return;
     }
 
     return new Promise((resolve, reject) => {
@@ -244,7 +187,7 @@ const applyMove = async (move) => {
                 .on('end', () => {
                     let blankRowIndex = -1;
 
-                    // Find the first blank row in the second column
+                    // Find the first blank row in the player column
                     for (let i = 0; i < rows.length; i++) {
                         if (rows[i][player] === '') {
                             blankRowIndex = i;
@@ -256,21 +199,18 @@ const applyMove = async (move) => {
                         // If no blank row was found, add a new row to the end of the CSV file
                         if (player == "P1_Moves") {
                             rows.push({
-                                MatchDetails: '',
                                 P1_Moves: (piece.toString() + direction.toString()),
-                                P2_Moves: ''
                             });
-                        } else {
+                        } else if (player == "P2_Moves") {
                             rows.push({
-                                MatchDetails: '',
-                                P1_Moves: '',
                                 P2_Moves: (piece.toString() + direction.toString())
                             });
                         }
                     } else {
-                        // If a blank row was found, update the second column in that row
+                        // If a blank row was found, update the player's column in that row
                         rows[blankRowIndex][player] = (piece.toString() + direction.toString());
                     }
+
                     // Write the updated CSV file back to disk
                     const csvWriter = createCsvWriter({
                         path: filePath,
