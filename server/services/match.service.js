@@ -108,35 +108,48 @@ const getMatchStatus = async (manager) => {
 };
 
 
-const matchState = async (manager) => {
-    // TODO: check who is the manager and then take the column belong to him
+const matchState = async (user) => {
+    const line = await findStringInCSV(filePath, user.manager);
+    let opponentPlayer = "";
+    let currentPlayer = "";
+    switch (line) {
+        case 2:
+            opponentPlayer = "P2_Moves";
+            currentPlayer = "P1_Moves";
+            break;
+        case 3:
+            opponentPlayer = "P1_Moves";
+            currentPlayer = "P2_Moves";
+            break;
+        default:
+            return;
+    }
+
     return new Promise((resolve, reject) => {
         lock.acquire('myLock', async function () {
             const rows = [];
-
-            // Read the CSV file and store the data from the second column in the rows array
+            const opponentMoves = []
+            // Read the CSV file and store the data from the opponent player column in the rows array
             fs.createReadStream(filePath)
                 .pipe(csv())
                 .on('data', (row) => {
-                    if (row['P2_Moves'] !== undefined) {
-                        // Keep the first row of data in the second column
+                    if (row[opponentPlayer] !== undefined) {
+                        // Keep the first row of data in the opponent player column
                         if (rows.length === 0) {
                             rows.push(row);
                         } else {
-                            // Replace all other rows of data in the second column with an empty value
-                            row['P2_Moves'] = '';
+                            // Replace all other rows of data in the opponent player column with an empty value
+                            opponentMoves.push(row[opponentPlayer])
+                            row[opponentPlayer] = '';
                             rows.push(row);
                         }
                     }
                 })
                 .on('end', () => {
-                    // Extract the data from the second column into an array
-                    const column2Data = rows.slice(1).map(row => row['P2_Moves']);
+                    // Extract the data from the opponent player column into an array
+                    const opponentPlayerData = rows.slice(1).map(row => row[opponentPlayer]);
 
-                    // Resolve the promise with the column2Data array
-                    resolve(column2Data);
-
-                    // Write the updated CSV file back to disk
+                    // Write the updated CSV file back to disk, with the opponent player column cleared
                     const csvWriter = createCsvWriter({
                         path: filePath,
                         header: [
@@ -149,9 +162,17 @@ const matchState = async (manager) => {
                     csvWriter.writeRecords(rows)
                         .then(() => {
                             console.log('CSV file has been updated');
+                            //console.log(opponentMoves)
+                            resolve(opponentMoves)
+                            // if (user.manager === currentPlayer) {
+                            //     // Resolve the promise with the opponent player data if the current user is the other player
+                            //     console.log(opponentPlayerData)
+                            //     resolve(opponentPlayerData);
+                            // }
                         })
                         .catch((error) => {
                             console.error(error);
+                            reject(error);
                         });
                 });
         });

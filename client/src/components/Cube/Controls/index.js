@@ -26,7 +26,7 @@ export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
               user: user.email,
               func: activationFunc,
               piece: piece,
-              direction: +neg_forward
+              direction: +forward
           })
       }
   };

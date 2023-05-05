@@ -46,8 +46,8 @@ function MatchPage({user2, getMatchStatus}) {
         console.log(oppMoves)
         opponentMovesArray = [...opponentMovesArray, ...oppMoves]
         var intr = setInterval(function () {
-            let move = opponentMovesArray.pop()
-            var elements = document.querySelectorAll(`#${move}`);
+            let move = opponentMovesArray.shift()
+            var elements = document.querySelectorAll(`#a${move}1`);
             elements.forEach(function (element) {
                 const event = new MouseEvent('click', {
                     view: window,
