@@ -34,6 +34,18 @@ const chooseLevel = async (req, res) => {
     }
 };
 
+const createGame = async (req, res) => {
+    try {
+        console.log("in game controller:", req.body.gameLevel);
+        const details = await gameService.createGame(req.body.gameLevel)
+        console.log("game controller:", details)
+        res.send(details);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Game not created");
+    }
+}
+
 
 // competition-mode controller functions
 const postCompScore = async (req, res) => {
@@ -48,5 +60,6 @@ module.exports = {
     postCompScore,
     chooseLevel,
     getGameState,
+    createGame,
 };
 

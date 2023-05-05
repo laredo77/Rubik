@@ -1,3 +1,3 @@
-import gameReducer from "../reducers/GameReducer";
+import createMultiplayerGameReducer from "../reducers/CreateMultiplayerGameReducer";
 
-export const mosaicDetails = (state) => state.gameReducer;
+export const mosaicDetails = (state) => state.createMultiplayerGameReducer;
