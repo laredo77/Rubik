@@ -14,15 +14,15 @@ const createMultiplayerGameReducer = (
     state = initialState,
     {type, payload}
 ) => {
-    console.log("Reducer called with action: ", type, payload);
+    // console.log("Reducer called with action: ", type, payload);
     switch (type) {
         case actionTypes.START_NEW_GAME_REQUEST: {
-            console.log("START_NEW_GAME_REQUEST: ", state);
+            // console.log("START_NEW_GAME_REQUEST: ", state);
             return {...state, isLoading: true};
         }
 
         case actionTypes.START_NEW_GAME_SUCCESS: {
-            console.log("START_NEW_GAME_SUCCESS: ", state);
+            // console.log("START_NEW_GAME_SUCCESS: ", state);
             return {
                 ...state,
                 gameId: payload.gameId,
@@ -34,7 +34,7 @@ const createMultiplayerGameReducer = (
         }
 
         case actionTypes.START_NEW_GAME_FAILURE: {
-            console.log("START_NEW_GAME_FAILURE: ", state);
+            // console.log("START_NEW_GAME_FAILURE: ", state);
             return {
                 ...state,
                 isError: true,
@@ -44,7 +44,7 @@ const createMultiplayerGameReducer = (
         }
 
         default:
-            console.log("DEFAULT: ", state);
+            // console.log("DEFAULT: ", state);
             return state;
     }
 };

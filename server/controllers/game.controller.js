@@ -46,6 +46,19 @@ const createGame = async (req, res) => {
     }
 }
 
+const joinGame = async (req, res) => {
+    try {
+        const details = JSON.parse(req.headers.details);
+        const id = details.gameDetails.id;
+        const password = details.gameDetails.password;
+        const result = await gameService.joinGame({id: id, password: password})
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Error joining to game");
+    }
+}
+
 
 // competition-mode controller functions
 const postCompScore = async (req, res) => {
@@ -61,5 +74,6 @@ module.exports = {
     chooseLevel,
     getGameState,
     createGame,
+    joinGame,
 };
 

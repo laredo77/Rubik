@@ -199,12 +199,32 @@ const createGame = async (gameDetails) => {
     });
 }
 
+const joinGame = async (gameDetails) => {
+    const selectQuery = `SELECT * FROM multiplayer_games WHERE game_id = ? AND password = ?`;
+    const params = [gameDetails.id, gameDetails.password];
+    try {
+        const results = await executeQuery(selectQuery, params);
+        if (results.length > 0) {
+            console.log('Found game, joining...');
+            return results[0];
+        } else {
+            console.log('Did not find game requested or wrong password');
+            throw new Error('Game not found or wrong password');
+        }
+    } catch (error) {
+        console.error(error);
+        console.log('Error while joining game');
+        throw error;
+    }
+};
+
 
 module.exports = {
     getUserAction,
     chooseLevel,
     fetchGameState,
     createGame,
+    joinGame,
 };
 
 

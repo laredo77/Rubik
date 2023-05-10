@@ -29,6 +29,14 @@ export class GameService {
         //console.log(player);
         // 1. call server with gameDetails, user nickname(player)
         // 2. add to db the player
+        const details = {gameDetails: gameDetails, player: player};
+        const response = await axios.post("http://localhost:3001/game/join-game", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
     }
 
     static async uploadImages(action) {

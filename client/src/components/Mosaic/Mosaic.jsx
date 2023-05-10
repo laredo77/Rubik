@@ -7,10 +7,13 @@ import TextField from "@mui/material/TextField";
 import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import {useSelector} from "react-redux";
+import joinMultiPlayerGameReducer from "../../reducers/JoinMultiPlayerGameReducer";
 
 function TeamPlayPage({user, joinGame}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
+    const gameData = useSelector((state) => state.joinMultiPlayerGameReducer);
     let gameId = "";
     let gamePwd = "";
 
@@ -51,12 +54,18 @@ function TeamPlayPage({user, joinGame}) {
             confirmButtonColor: "#50b7f5",
             showCloseButton: true,
             showCancelButton: true,
-        }).then((response) => {
+        }).then(async (response) => {
             if (response.isConfirmed) {
-                joinGame(gameId, gamePwd, user);
-                //now navigate to game page
+                try {
+                    await joinGame(gameId, gamePwd, user);
+                    navigate(`/main/game/mosaic/levels/${gameData.id}`);//todo Do we want to return to level id or game id?
+                    // Now navigate to the game page
+                } catch (error) {
+                    console.error(error);
+                    // Handle the error
+                }
             } else if (response.isDenied) {
-                // do nothing
+                // Do nothing
             }
         });
     };
