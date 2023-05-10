@@ -206,6 +206,19 @@ const joinGame = async (gameDetails) => {
         const results = await executeQuery(selectQuery, params);
         if (results.length > 0) {
             console.log('Found game, joining...');
+
+            // Insert user to game
+            const insertQuery = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
+            const insertParams = [gameDetails.id, gameDetails.user_email];
+
+            try {
+                await executeQuery(insertQuery, insertParams);
+            } catch (error) {
+                console.log("Error joining game");
+                console.error(error);
+                throw error;
+            }
+            console.log('Success joining game');    //todo take care of duplicated rows
             return results[0];
         } else {
             console.log('Did not find game requested or wrong password');
