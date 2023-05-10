@@ -218,7 +218,7 @@ const joinGame = async (gameDetails) => {
                 console.error(error);
                 throw error;
             }
-            console.log('Success joining game');    //todo take care of duplicated rows
+            console.log('Success joining game');    //todo take care of duplicated rows - delete user when he leaves game?
             return results[0];
         } else {
             console.log('Did not find game requested or wrong password');
