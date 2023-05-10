@@ -20,11 +20,11 @@ export const CubeShuffle = (level) => {
         movesArray.push(choice)
     }
 
-    var intr = setInterval(function() {
+    var intr = setInterval(function () {
         let move = movesArray.pop()
         var elements = document.querySelectorAll(`#${move}`);
         //console.log(elements)
-        elements.forEach(function(element) {
+        elements.forEach(function (element) {
             const event = new MouseEvent('click', {
                 view: window,
                 bubbles: true,
@@ -44,4 +44,10 @@ for (let i = 0; i < 900; i++) {
         img: "/final-cubes/" + i.toString() + ".png",
     };
     cubesImage.push(new_im);
+}
+
+export function getCubeIdFromImg(img) {
+    const src = img.getAttribute("src");
+    const cube_Id = src.split("/").pop();
+    return cube_Id.split('.')[0];
 }

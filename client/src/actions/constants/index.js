@@ -27,6 +27,10 @@ const ACTIONS = {
     START_NEW_GAME_REQUEST: "start_new_game_request",
     START_NEW_GAME_SUCCESS: "start_new_game_success",
     START_NEW_GAME_FAILURE: "start_new_game_failure",
+
+    MARK_SOLVED_REQUEST: "mark_solved_request",
+    MARK_SOLVED_SUCCESS: "mark_solved_success",
+    MARK_SOLVED_FAILURE: "mark_solved_failure",
 };
 
 export default ACTIONS;

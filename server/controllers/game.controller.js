@@ -60,6 +60,24 @@ const joinGame = async (req, res) => {
     }
 }
 
+const markSolved = async (req, res) => {
+    try {
+        const details = JSON.parse(req.headers.details);
+        const user_email = details.cubeGameDetails.user_email;
+        const level_id = details.cubeGameDetails.level_id;
+        const cube_id = details.cubeGameDetails.cube_id;
+        const game_id = details.cubeGameDetails.game_id;
+        const result = await gameService.markSolved({
+            user_email: user_email, level_id: level_id,
+            cube_id: cube_id, game_id: game_id
+        })
+        res.send(result);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Error marking solved");
+    }
+}
+
 
 // competition-mode controller functions
 const postCompScore = async (req, res) => {
@@ -76,5 +94,6 @@ module.exports = {
     getGameState,
     createGame,
     joinGame,
+    markSolved,
 };
 

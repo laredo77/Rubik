@@ -39,6 +39,18 @@ export class GameService {
         return response.data;
     }
 
+    static async markSolved(cubeGameDetails) {
+        //console.log(gameDetails);
+        const details = {cubeGameDetails: cubeGameDetails};
+        const response = await axios.post("http://localhost:3001/game/mark-solved", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
+    }
+
     static async uploadImages(action) {
         await axios.post("http://localhost:3001/game/upload-images", action);
     }

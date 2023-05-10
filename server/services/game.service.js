@@ -231,6 +231,21 @@ const joinGame = async (gameDetails) => {
     }
 };
 
+const markSolved = async (cubeGameDetails) => {
+    const updateQuery = `UPDATE user_progress
+                                SET is_finished = 1
+                                WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
+    const params = [cubeGameDetails.user_email.email, cubeGameDetails.level_id, cubeGameDetails.cube_id, cubeGameDetails.game_id];
+    try {
+        const results = await executeQuery(updateQuery, params);
+        console.log(`Update query executed successfully`);
+        console.log(results);
+    } catch (error) {
+        console.error(error);
+        console.log('Error finishing cube')
+    }
+}
+
 
 module.exports = {
     getUserAction,
@@ -238,6 +253,7 @@ module.exports = {
     fetchGameState,
     createGame,
     joinGame,
+    markSolved,
 };
 
 

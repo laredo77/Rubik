@@ -11,16 +11,28 @@ import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
+import {getCubeIdFromImg} from "../../../components-utils";
 
 const theme = createTheme();
 
-function ArtPage({user, uploadImagesFunc}) {
+function ArtPage({user, uploadImagesFunc, markSolved}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
 
-    const handleSolved = (selectedImage) => {
+    const handleSolved = async (selectedImage) => {
         if (selectedImage) {
+            // let cube_id = getCubeIdFromImg(selectedImage);
+            try {
+                let cube_id = 3;    //todo get cube,level,game id's for this func
+                let level_id = 3;
+                let game_id = 78;
+                await markSolved(user, level_id, cube_id, game_id);
+            } catch (error) {
+                console.log(error);
+                console.log("Error marking cube as solved");
+            }
             selectedImage.classList.add("image-solved");
+            //todo refresh page
         }
         MySwal.close();
     };
@@ -57,7 +69,7 @@ function ArtPage({user, uploadImagesFunc}) {
                     <Box sx={{display: "inline-block"}}>
                         <Button
                             variant="contained"
-                            onClick={handleSolved(clickedImage)}
+                            onClick={() => handleSolved(clickedImage)}
                         >
                             Mark as solved
                         </Button>

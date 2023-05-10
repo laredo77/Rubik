@@ -5,7 +5,8 @@ const {
     getGameState,
     postCompScore,
     createGame,
-    joinGame
+    joinGame,
+    markSolved,
 } = require("../controllers/game.controller");
 const gameRoutes = express.Router();
 
@@ -16,7 +17,7 @@ gameRoutes.get("/gameState", getGameState);
 gameRoutes.post("/choose-level", chooseLevel);
 gameRoutes.post("/create-game", createGame);
 gameRoutes.post("/join-game", joinGame);
-
+gameRoutes.post("/mark-solved", markSolved);
 // competition routes
 gameRoutes.post("/compScore", postCompScore);
 
