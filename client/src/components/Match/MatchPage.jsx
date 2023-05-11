@@ -26,8 +26,8 @@ function MatchPage({user2, getMatchStatus}) {
         if (matchStatus) {
             MySwal.close();
             if (!level) level = 1;
-            CubeShuffle(level)
-            setInterval(reRenderOppCube, 15000);
+            initShuffle()
+            setInterval(reRenderOppCube, 7000);
         } else {
             MySwal.fire({
                 title: "Please Wait until player join the game",
@@ -40,10 +40,27 @@ function MatchPage({user2, getMatchStatus}) {
     }, [matchStatus]);
 
 
+    const initShuffle = () => {
+        console.log("inside init shuffle")
+        let initMoves = ["20", "51", "71", "x0", "31", "10", "y1", "81"]
+        var intr = setInterval(function () {
+            let move = initMoves.shift()
+            var elements = document.querySelectorAll(`#a${move}`);
+            elements.forEach(function (element) {
+                const event = new MouseEvent('click', {
+                    view: window,
+                    bubbles: true,
+                    cancelable: true
+                });
+                element.dispatchEvent(event);
+            });
+            if (initMoves.length == 0) clearInterval(intr)
+        }, 500)
+    }
+
     const reRenderOppCube = async () => {
         //re render
         let oppMoves = await Client.getMatchState(user.email)
-        console.log(oppMoves)
         opponentMovesArray = [...opponentMovesArray, ...oppMoves]
         var intr = setInterval(function () {
             let move = opponentMovesArray.shift()

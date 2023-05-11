@@ -41,16 +41,6 @@ const setMatch = async (matchDetails) => {
 };
 
 const joinMatch = async (matchDetails) => {
-    //console.log(matchDetails) // { gameId: 'abc', password: 'aaa', user: 'MyUser@gmail.com' }
-    // TODO: check if matchId and password correct and if not pop it to the player
-
-    // lock for reading
-    // const AsyncLock = require('async-lock');
-    // const lock = new AsyncLock();
-    // lock.acquire('myLock', async function() {
-    // });
-    // const matchId = getRowFromCsvFile(filePath, 1)
-    // const matchPwd = getRowFromCsvFile(filePath, 2)
 
     if (matchID != matchDetails.gameId || matchPWD != matchDetails.password) {
         return "failed"
@@ -129,13 +119,15 @@ const matchState = async (user) => {
         lock.acquire('myLock', async function () {
             const rows = [];
             const opponentMoves = []
+            const allData = []
             // Read the CSV file and store the data from the opponent player column in the rows array
             fs.createReadStream(filePath)
                 .pipe(csv())
                 .on('data', (row) => {
                     if (row[opponentPlayer] !== undefined) {
+                        allData.push(row)
                         // Keep the first row of data in the opponent player column
-                        if (rows.length === 0) {
+                        if (rows.length === -1) {
                             rows.push(row);
                         } else {
                             // Replace all other rows of data in the opponent player column with an empty value
@@ -162,13 +154,7 @@ const matchState = async (user) => {
                     csvWriter.writeRecords(rows)
                         .then(() => {
                             console.log('CSV file has been updated');
-                            //console.log(opponentMoves)
                             resolve(opponentMoves)
-                            // if (user.manager === currentPlayer) {
-                            //     // Resolve the promise with the opponent player data if the current user is the other player
-                            //     console.log(opponentPlayerData)
-                            //     resolve(opponentPlayerData);
-                            // }
                         })
                         .catch((error) => {
                             console.error(error);
@@ -178,7 +164,6 @@ const matchState = async (user) => {
         });
     });
 };
-
 
 const applyMove = async (move) => {
     const {user, piece, direction} = JSON.parse(move);
