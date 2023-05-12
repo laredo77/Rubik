@@ -17,7 +17,22 @@ const connectToDatabase = () => {
     });
 }
 
+const executeQuery = (query, params) => {
+    return new Promise((resolve, reject) => {
+        connection.query(query, params, (error, results) => {
+            if (error) {
+                console.error(error);
+                console.log(`An error occurred while executing query: ${query}`);
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        });
+    });
+};
+
 module.exports = {
     connection,
-    connectToDatabase
+    connectToDatabase,
+    executeQuery,
 };

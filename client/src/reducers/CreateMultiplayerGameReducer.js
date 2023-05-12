@@ -1,32 +1,38 @@
 import actionTypes from "../actions/constants";
 
 const initialState = {
-    id: undefined,
+    game_id: undefined,
+    user: undefined,
     password: undefined,
+    level: undefined,
+    cubes: [],
     isLoading: false,
     isError: false,
     errorMsg: "",
 };
 
-const joinMultiPlayerGameReducer = (
+const createMultiplayerGameReducer = (
     state = initialState,
     {type, payload}
 ) => {
     switch (type) {
-        case actionTypes.JOIN_GAME_REQUEST: {
+        case actionTypes.START_NEW_GAME_REQUEST: {
             return {...state, isLoading: true};
         }
 
-        case actionTypes.JOIN_GAME_SUCCESS: {
+        case actionTypes.START_NEW_GAME_SUCCESS: {
             return {
                 ...state,
-                id: payload.id,
+                game_id: payload.game_id,
+                user: payload.user,
                 password: payload.password,
+                level: payload.level,
+                cubes: payload.cubes,
                 isLoading: false,
             };
         }
 
-        case actionTypes.JOIN_GAME_FAILURE: {
+        case actionTypes.START_NEW_GAME_FAILURE: {
             return {
                 ...state,
                 isError: true,
@@ -40,4 +46,4 @@ const joinMultiPlayerGameReducer = (
     }
 };
 
-export default joinMultiPlayerGameReducer;
+export default createMultiplayerGameReducer;

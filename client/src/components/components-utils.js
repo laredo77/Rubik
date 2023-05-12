@@ -39,8 +39,16 @@ export const CubeShuffle = (level) => {
 export const cubesImage = [];
 for (let i = 0; i < 900; i++) {
     let new_im = {
+        id: i,
+        solved: false,
         label: i.toString(),
         img: "/final-cubes/" + i.toString() + ".png",
     };
     cubesImage.push(new_im);
+}
+
+export function getCubeIdFromImg(img) {
+    const src = img.getAttribute("src");
+    const cube_Id = src.split("/").pop();
+    return cube_Id.split('.')[0];
 }

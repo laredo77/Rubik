@@ -24,6 +24,14 @@ const ACTIONS = {
   SET_MATCH_FAILURE: "set_match_failure",
   IS_MATCH_READY: "is_match_ready",
 
+  START_NEW_GAME_REQUEST: "start_new_game_request",
+  START_NEW_GAME_SUCCESS: "start_new_game_success",
+  START_NEW_GAME_FAILURE: "start_new_game_failure",
+
+  MARK_SOLVED_REQUEST: "mark_solved_request",
+  MARK_SOLVED_SUCCESS: "mark_solved_success",
+  MARK_SOLVED_FAILURE: "mark_solved_failure",
+
   JOIN_MATCH_REQUEST: "join_match_request",
   JOIN_MATCH_SUCCESS: "join_match_success",
   JOIN_MATCH_FAILURE: "join_match_failure",
