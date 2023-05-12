@@ -40,15 +40,10 @@ function GameDetailsMenu({user}) {
 
     const handleQuit = async () => {
         const response = await Client.quitMatch(user)
-        if (response == "close") {
-            navigate("/main");
-        } else {
-            navigate("/main/matchManager/match");
-        }
-        navigate("/main");
         setAnchorEl(null);
+        navigate("/main");
+        window.location.reload(true);
     };
-
 
     return (
         <div>

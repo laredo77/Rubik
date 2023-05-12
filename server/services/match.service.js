@@ -8,6 +8,7 @@ const csv = require('csv-parser');
 const filePath = './matchData/data.csv';
 let matchID = ""
 let matchPWD = ""
+let quitStatus
 
 const setMatch = async (matchDetails) => {
     matchID = generateStr(3)
@@ -115,6 +116,8 @@ const matchState = async (user) => {
             return;
     }
 
+    quitStatus = await findStringInCSV(filePath, "quit");
+
     return new Promise((resolve, reject) => {
         lock.acquire('myLock', async function () {
             const rows = [];
@@ -154,7 +157,7 @@ const matchState = async (user) => {
                     csvWriter.writeRecords(rows)
                         .then(() => {
                             console.log('CSV file has been updated');
-                            resolve(opponentMoves)
+                            resolve({moves: opponentMoves, quitStatus: quitStatus})
                         })
                         .catch((error) => {
                             console.error(error);
@@ -246,16 +249,41 @@ const quit = async (user) => {
     // check in DB if the user is the manager if yes, close the game.
     // otherwise send the keep the manager waiting to new player and
     // the one who quit go back to home page..
-    const line = await findStringInCSV(filePath, user.replace(/['"]+/g, ''));
-    console.log(line)
-    switch (line) {
-        case 2:
-            return {status: "close"}
-        case 3:
-            return {status: "keep-alive"}
-        default:
-            return;
-    }
+    lock.acquire('myLock', async function () {
+        const csvWriter = createCsvWriter({
+            path: filePath,
+            header: [
+                {id: 'matchDetails', title: 'MatchDetails'},
+                {id: 'p1moves', title: 'P1_Moves'},
+                {id: 'p2moves', title: 'P2_Moves'}
+            ],
+            append: true
+        });
+
+        const newData = [
+            {matchDetails: "quit", p1moves: "", p2moves: ""}
+        ];
+
+        csvWriter.writeRecords(newData)
+            .then(() => {
+                console.log('New data added to the CSV file successfully. Player Quit the match');
+                quitStatus = true
+                return {status: "close"}
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+    // quitStatus = true
+    // const line = await findStringInCSV(filePath, user.replace(/['"]+/g, ''));
+    // switch (line) {
+    //     case 2:
+    //         return {status: "close"}
+    //     case 3:
+    //         return {status: "keep-alive"}
+    //     default:
+    //         return;
+    // }
 };
 
 module.exports = {
