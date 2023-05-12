@@ -20,6 +20,22 @@ const setMatchStatus = (match) => ({
   payload: match,
 });
 
+
+const joinMatchRequestAction = () => ({
+  type: actionTypes.JOIN_MATCH_REQUEST,
+});
+
+const joinMatchSuccessAction = (match) => ({
+  type: actionTypes.JOIN_MATCH_SUCCESS,
+  payload: match,
+});
+
+const joinMatchFailureAction = (match) => ({
+  type: actionTypes.JOIN_MATCH_FAILURE,
+  payload: match,
+});
+
+
 export const setMatch = (user, level) => {
   let match = {
     manager: user.email,
@@ -71,6 +87,29 @@ export const getMatchStatus = (user) => {
       dispatch(setMatchStatus(matchStat));
     } catch (e) {
       matchStat.errorMsg = e;
+    }
+  };
+};
+
+export const joinMatch = (matchDetails) => {
+  let match = {
+    gameId: matchDetails.gameId,
+    password: matchDetails.password,
+    user: matchDetails.user,
+  };
+
+  return async (dispatch) => {
+    dispatch(joinMatchRequestAction());
+    try {
+      const response = await Client.joinMatch(match);
+      if (response == 200) {
+        match = {...match, status: true}
+      }
+      dispatch(joinMatchSuccessAction(match));
+      dispatch(setMatchStatus(match));
+    } catch (e) {
+      match.errorMsg = e;
+      dispatch(joinMatchFailureAction(match));
     }
   };
 };

@@ -19,6 +19,7 @@
     "babel-polyfill": "^6.26.0",
     "babylonjs": "^5.52.0",
     "canvas": "^2.11.0",
+    "fs": "^0.0.1-security",
     "gapi-script": "^1.2.0",
     "matrix-multiplication": "^0.5.2",
     "merge-images": "^2.0.0",
@@ -36,6 +37,7 @@
     "redux": "^4.2.0",
     "redux-saga": "^1.2.3",
     "redux-thunk": "^2.4.2",
+    "stream": "^0.0.2",
     "sweetalert2": "^11.7.3",
     "sweetalert2-react-content": "^5.0.7",
     "web-vitals": "^2.1.4"

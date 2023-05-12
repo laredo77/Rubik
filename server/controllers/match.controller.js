@@ -10,16 +10,30 @@ const setMatch = async (req, res) => {
     }
 };
 
-
-const getMatchStatus = async (req, res) => {
+const joinMatch = async (req, res) => {
     try {
-        const status = await matchService.getMatchStatus(req.query.manager);
-        //console.log(status)
-        res.send(status);
+        const matchDetails = await matchService.joinMatch(req.body);
+        res.send(matchDetails);
     } catch (error) {
         console.log(error);
         res.status(401).send("Failed to set match");
     }
+};
+
+const getMatchStatus = async (req, res) => {
+    const manager = req.query.manager;
+
+    const checkMatchStatus = async () => {
+        try {
+            const status = await matchService.getMatchStatus(manager);
+            res.send(status);
+        } catch (error) {
+            console.log("error: ", error);
+            setTimeout(checkMatchStatus, 7000);
+        }
+    };
+
+    await checkMatchStatus();
 };
 
 const applyMove = async (req, res) => {
@@ -33,15 +47,14 @@ const applyMove = async (req, res) => {
 };
 
 const getMatchState = async (req, res) => {
-        try {
-            const moves = await matchService.matchState(req.query);
-            res.send(moves);
-        } catch
-            (error) {
-            res.status(401).send("Failed");
-        }
+    try {
+        const moves = await matchService.matchState(req.query);
+        res.send(moves);
+    } catch
+        (error) {
+        res.status(401).send("Failed");
     }
-
+}
 
 const quitMatch = async (req, res) => {
     try {
@@ -55,6 +68,7 @@ const quitMatch = async (req, res) => {
 
 module.exports = {
     setMatch,
+    joinMatch,
     getMatchStatus,
     applyMove,
     getMatchState,
