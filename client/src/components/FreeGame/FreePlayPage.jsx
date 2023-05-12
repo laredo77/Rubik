@@ -29,7 +29,6 @@ function FreePlayPage() {
             let move = movesStack[movesStack.length - 1]
             move[2] == 1 ? move[2] = 0 : move[2] = 1
             let moveString = move[1].toString() + move[2].toString()
-            console.log(moveString)
             MySwal.fire({
                 title: "Here's a hint for the next step",
                 imageUrl: `${response.view.origin}/cube-hints/${moveString}.png`,

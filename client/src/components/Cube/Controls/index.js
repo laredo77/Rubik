@@ -10,11 +10,11 @@ export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
     const recorder = async (activationFunc, piece, forward, id) => {
         piece = id[1]
         forward = id[2]
-        //let neg_forward = !forward removed neg_forward 12/5
-        // need to fix this: itamar 22/4
         if (movesStack.length > 0) {
             let elm = movesStack[movesStack.length - 1]
-            if (elm[1] == piece && elm[2] == forward) {
+            let tempForward
+            forward == 1 ? tempForward = 0 : tempForward = 1
+            if (elm[1] == piece && elm[2] == tempForward) {
                 movesStack.pop()
                 return
             }

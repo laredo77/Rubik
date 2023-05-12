@@ -2,8 +2,6 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import CubeManager from "../Cube/CubeManager";
 import Box from "@mui/material/Box";
@@ -21,8 +19,6 @@ const theme = createTheme();
 
 function SinglePlayerCompMode({user, setGameLevel}) {
     const navigate = useNavigate();
-    // const [anchorEl, setAnchorEl] = React.useState(null);
-    // const open = Boolean(anchorEl);
     const MySwal = withReactContent(Swal);
     const [startTiming, setStartTiming] = React.useState(0);
     const [level, setLevel] = React.useState(0);
@@ -82,8 +78,8 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     };
 
     const handleLevelChoose = (argLevel) => {
+        argLevel = 0.25 //***********************
         CubeShuffle(argLevel);
-        //CubeShuffle(0.25);
         let startCheckbox = document.querySelector('#start');
 
         // Delay the execution of the code by 8 * 500 * digit_level milliseconds
@@ -106,6 +102,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.disabled = false;
         pauseCheckbox.click();
         pauseCheckbox.disabled = true;
+        console.log(movesStack)
         if (movesStack.length == 0) {
             let end_time = new Date().getTime();
             // fire everything looks good! you are done.
@@ -128,6 +125,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                         level: level,
                         time: (end_time - startTiming) / 1000,
                     })
+                    navigate("/main/singlePlayerCompPage/leaderBoard")
                 }
             });
         } else {
