@@ -22,7 +22,7 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
     const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
 
-    useEffect(() => {
+    useEffect(() => {   //todo take care of useEffect do not call on first render
         // On page load, update all finished cubes images
         const cubes = levelDetails.cubes;
         if (cubes) {
