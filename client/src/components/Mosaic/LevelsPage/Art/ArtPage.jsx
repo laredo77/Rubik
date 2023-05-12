@@ -11,16 +11,51 @@ import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
+import {getCubeIdFromImg} from "../../../components-utils";
+import createMultiplayerGameReducer from "../../../../reducers/CreateMultiplayerGameReducer";
+import {useEffect} from "react";
 
 const theme = createTheme();
 
-function ArtPage({user, uploadImagesFunc}) {
+function ArtPage({user, uploadImagesFunc, markSolved}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
+    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
 
-    const handleSolved = (selectedImage) => {
+    useEffect(() => {   //todo take care of useEffect do not call on first render
+        // On page load, update all finished cubes images
+        const cubes = levelDetails.cubes;
+        if (cubes) {
+            // console.log(levelDetails);
+            cubes.forEach((cube) => {
+                if (cube.is_finished === 1) {
+                    const cubeImage = cubesImage.at(cube.cube_id);
+                    if (cubeImage) {
+                        cubeImage.solved = true;
+                    }
+                }
+            });
+        }
+
+    }, [levelDetails]);
+
+
+    const handleSolved = async (selectedImage) => {
         if (selectedImage) {
+            // let cube_id = getCubeIdFromImg(selectedImage);
+            try {
+                let cube_id = 3;    //todo get cube,level,game id's for this func
+                let level_id = 3;
+                let game_id = 78;
+
+                await markSolved(user, level_id, cube_id, game_id);
+                //todo update the page to all players in gamecli
+            } catch (error) {
+                console.log(error);
+                console.log("Error marking cube as solved");
+            }
             selectedImage.classList.add("image-solved");
+            //todo refresh page
         }
         MySwal.close();
     };
@@ -57,7 +92,7 @@ function ArtPage({user, uploadImagesFunc}) {
                     <Box sx={{display: "inline-block"}}>
                         <Button
                             variant="contained"
-                            onClick={handleSolved(clickedImage)}
+                            onClick={() => handleSolved(clickedImage)}
                         >
                             Mark as solved
                         </Button>
@@ -151,21 +186,32 @@ function ArtPage({user, uploadImagesFunc}) {
                     cols={30}
                     gap={0.5}
                 >
-                    {cubesImage.map((item) => (
-                        <ImageListItem key={item.img}>
+                    {cubesImage.map((item) =>
+                        item.solved ? (
+                            <ImageListItem key={item.img}>
+                                <img
+                                    src={item.img}
+                                    alt={item.title}
+                                    loading="lazy"
+                                    className={'image-solved'}
+                                    onClick={handleImageClick}
+                                />
+                            </ImageListItem>
+                        ) : (
                             <img
+                                key={item.img}
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 className={'zoom'}
                                 onClick={handleImageClick}
                             />
-                        </ImageListItem>
-                    ))}
+                        )
+                    )}
                 </ImageList>
             </Box>
         </ThemeProvider>
-    );
+    )
 }
 
 export default ArtPage;

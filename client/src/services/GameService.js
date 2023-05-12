@@ -29,10 +29,40 @@ export class GameService {
         //console.log(player);
         // 1. call server with gameDetails, user nickname(player)
         // 2. add to db the player
+        const details = {gameDetails: gameDetails, player: player};
+        const response = await axios.post("http://localhost:3001/game/join-game", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
+    }
+
+    static async markSolved(cubeGameDetails) {
+        //console.log(gameDetails);
+        const details = {cubeGameDetails: cubeGameDetails};
+        const response = await axios.post("http://localhost:3001/game/mark-solved", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
     }
 
     static async uploadImages(action) {
         await axios.post("http://localhost:3001/game/upload-images", action);
+    }
+
+    static async newGame(gameLevel) {
+        const response = await axios.post("http://localhost:3001/game/create-game", {gameLevel},
+            {
+                headers: {
+                    details: gameLevel,
+                },
+            });
+        return response.data;
     }
 
     /*
