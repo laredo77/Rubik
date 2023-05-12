@@ -10,6 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
+import Client from "../../../../services/GameService"
 
 const theme = createTheme();
 
@@ -24,6 +25,20 @@ function ArtPage({user, uploadImagesFunc}) {
         MySwal.close();
     };
 
+    const actionCaptureHandler = async (response) => {
+        const result = await Client.uploadImages({action: response.target.id});
+        showMessage(result)
+    }
+
+
+    const showMessage = (result) => {   //todo: take care to show alert window
+        // show the result message in a popup window using SweetAlert2
+        MySwal.fire({
+            title: "Upload Images Result",
+            text: result.message,
+            icon: result.success ? "success" : "error"
+        });
+    }
 
     const handleImageClick = (response) => {
         const clickedImage = response.target;
@@ -66,25 +81,49 @@ function ArtPage({user, uploadImagesFunc}) {
             // HTML content to be displayed inside the dialog
             html: (
                 <div>
-                    <label htmlFor="top">Top:</label>
-                    <input type="file" id="top" name="top"/><br/>
-
-                    <label htmlFor="bottom">Bottom:</label>
-                    <input type="file" id="bottom" name="bottom"/><br/>
-
-                    <label htmlFor="front">Front:</label>
-                    <input type="file" id="front" name="front"/><br/>
-
-                    <label htmlFor="back">Back:</label>
-                    <input type="file" id="back" name="back"/><br/>
-
-                    <label htmlFor="left">Left:</label>
-                    <input type="file" id="left" name="left"/><br/>
-
-                    <label htmlFor="right">Right:</label>
-                    <input type="file" id="right" name="right"/><br/>
+                    <Button id="top" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Top
+                    </Button>
+                    <br/>
+                    <Button id="bottom" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Bottom
+                    </Button>
+                    <br/>
+                    <Button id="front" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Front
+                    </Button>
+                    <br/>
+                    <Button id="back" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Back
+                    </Button>
+                    <br/>
+                    <Button id="left" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Left
+                    </Button>
+                    <br/>
+                    <Button id="right" variant="contained" size="small" onClick={actionCaptureHandler}
+                            style={{marginBottom: '5px'}}>
+                        Right
+                    </Button>
+                    <br/>
+                    <div style={{display: "flex", justifyContent: "center", marginBottom: '5px'}}>
+                        <Button id="clear" variant="contained" onClick={actionCaptureHandler}>
+                            Clear
+                        </Button>
+                        <span style={{width: '5px'}}></span>
+                        <Button id="confirm" variant="contained" onClick={actionCaptureHandler}>
+                            Confirm
+                        </Button>
+                    </div>
+                    <br/>
                 </div>
             ),
+
             // Button color for the confirmation button
             confirmButtonColor: "#50b7f5",
             // Whether to show a close button in the dialog
@@ -93,27 +132,7 @@ function ArtPage({user, uploadImagesFunc}) {
             showCancelButton: true,
             // Whether to focus on the confirmation button by default
             focusConfirm: false,
-        }).then((response) => {
-            if (response.isConfirmed) {
-                // Callback function to be called when the confirmation button is clicked
-                // Initialize an empty array to hold the uploaded images
-                const uploadedImages = [];
-                // Loop through all six file input elements to check if any files have been selected
-                for (let i = 0; i < 6; i++) {
-                    const fileInputId = ["top", "bottom", "front", "back", "left", "right"][i];
-                    const fileInput = document.getElementById(fileInputId);
-                    // If a file has been selected, add it to the array of uploaded images, otherwise add a null value
-                    if (fileInput.files[0]) {
-                        uploadedImages.push(fileInput.files[0]);
-                    } else {
-                        uploadedImages.push(null);
-                    }
-                }
-
-                uploadImagesFunc(uploadedImages);
-
-            }
-        })
+        });
     };
 
     return (

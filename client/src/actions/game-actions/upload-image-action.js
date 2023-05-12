@@ -5,18 +5,18 @@ const UploadImageRequestAction = () => ({
     type: actionTypes.UPLOAD_IMAGE_REQUEST,
 });
 
-const UploadImageSuccessAction = (images) => ({
+const UploadImageSuccessAction = (action) => ({
     type: actionTypes.UPLOAD_IMAGE_SUCCESS,
-    payload: images,
+    payload: action,
 });
 
 const UploadImageFailureAction = () => ({
     type: actionTypes.UPLOAD_IMAGE_FAILURE,
 });
 
-export const uploadImagesFunc = (images) => {
-    const imagesUploaded = {
-        images: images,
+export const uploadImagesFunc = (action) => {
+    const actionRequested = {
+        action: action,
         isLoading: true,
         isError: false,
         errorMsg: "",
@@ -25,11 +25,11 @@ export const uploadImagesFunc = (images) => {
     return async (dispatch) => {
         dispatch(UploadImageRequestAction());
         try {
-            await Client.uploadImages(images);
-            dispatch(UploadImageSuccessAction(imagesUploaded));
+            await Client.uploadImages(action);
+            dispatch(UploadImageSuccessAction(actionRequested));
         } catch (e) {
-            imagesUploaded.errorMsg = e;
-            dispatch(UploadImageFailureAction(imagesUploaded));
+            actionRequested.errorMsg = e;
+            dispatch(UploadImageFailureAction(actionRequested));
         }
     };
 };

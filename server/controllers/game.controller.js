@@ -1,11 +1,10 @@
 const gameService = require("../services/game.service.js");
 
 // game functions
-const uploadImages = async (req, res) => {  //todo change to save
-    console.log(req)
+const uploadImages = async (req, res) => {
     try {
-        const images = await gameService.uploadImages(req.body);    //todo check where images saved
-        res.send(images);
+        const action = await gameService.getUserAction(req.body);
+        res.send(action);
     } catch (error) {
         console.log(error);
         res.status(401).send("images not uploaded");
@@ -21,7 +20,6 @@ const getGameState = async (req, res) => {
         res.status(401).send("couldn't fetch game state from DB");
     }
 };
-
 
 
 // old singleplayer function

@@ -31,11 +31,8 @@ export class GameService {
         // 2. add to db the player
     }
 
-    static async uploadImages(images) {
-        //console.log(images)
-        const response = await axios.post("http://localhost:3001/game/upload-images", images);
-        if (response.status !== 200)
-            return;
+    static async uploadImages(action) {
+        await axios.post("http://localhost:3001/game/upload-images", action);
     }
 
     /*
