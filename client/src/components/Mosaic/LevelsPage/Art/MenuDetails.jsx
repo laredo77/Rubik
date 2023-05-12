@@ -14,6 +14,7 @@ function MenuDetails({gameState}) {
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,8 +28,8 @@ function MenuDetails({gameState}) {
             title: "Game Details",
             html: (
                 <>
-                    <Typography variant="inherit">Game ID: {gameState.gameId}</Typography>
-                    <Typography variant="inherit">Password: {gameState.password}</Typography>
+                    <Typography variant="inherit">Game ID: {levelDetails.game_id}</Typography>
+                    <Typography variant="inherit">Password: {levelDetails.password}</Typography>
                 </>
             ),
             confirmButtonColor: "#50b7f5",

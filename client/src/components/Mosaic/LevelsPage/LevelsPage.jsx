@@ -17,16 +17,12 @@ const Item = styled(Paper)(({theme}) => ({
 
 function LevelsPage({user, getGameState, startNewGameFunc}) {
     const navigate = useNavigate();
-    const gameStatus = useSelector((state) => state.createMultiplayerGameReducer);
 
     const levelChooseHandler = async (response) => {
         let level = response.target.id;
-        console.log("in level handler")
         // check if this user had this level in db if yes return state if not make new instance
         // await getGameState(user, level);
-        let result = await startNewGameFunc(user.email, level)
-        console.log(result);
-        console.log("result:", gameStatus);
+        await startNewGameFunc(user.email, level);
         navigate(`/main/game/mosaic/levels/${level}`);
     };
 

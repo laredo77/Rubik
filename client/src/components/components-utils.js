@@ -40,6 +40,8 @@ export const CubeShuffle = (level) => {
 export const cubesImage = [];
 for (let i = 0; i < 900; i++) {
     let new_im = {
+        id: i,
+        solved: false,
         label: i.toString(),
         img: "/final-cubes/" + i.toString() + ".png",
     };

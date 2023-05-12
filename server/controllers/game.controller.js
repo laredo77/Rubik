@@ -36,9 +36,7 @@ const chooseLevel = async (req, res) => {
 
 const createGame = async (req, res) => {
     try {
-        console.log("in game controller:", req.body.gameLevel);
         const details = await gameService.createGame(req.body.gameLevel)
-        console.log("game controller:", details)
         res.send(details);
     } catch (error) {
         console.log(error);

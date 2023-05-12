@@ -56,14 +56,12 @@ export class GameService {
     }
 
     static async newGame(gameLevel) {
-        // console.log("details:", details);
         const response = await axios.post("http://localhost:3001/game/create-game", {gameLevel},
             {
                 headers: {
                     details: gameLevel,
                 },
             });
-        console.log("response:", response);
         return response.data;
     }
 

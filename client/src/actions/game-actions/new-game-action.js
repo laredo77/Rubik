@@ -30,7 +30,9 @@ export const startNewGameFunc = (user, level) => {
             const response = await Client.newGame(gameLevel);
             gameLevel = {
                 ...gameLevel,
-                level: response.level
+                game_id: response.game_id,
+                password: response.password,
+                cubes: response.cubes
             }
             dispatch(startNewGameSuccessAction(gameLevel));
         } catch (e) {

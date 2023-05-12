@@ -12,12 +12,29 @@ import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
 import {getCubeIdFromImg} from "../../../components-utils";
+import createMultiplayerGameReducer from "../../../../reducers/CreateMultiplayerGameReducer";
+import {useEffect} from "react";
 
 const theme = createTheme();
 
 function ArtPage({user, uploadImagesFunc, markSolved}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
+    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
+
+    useEffect(() => {
+        // On page load, update all finished cubes images
+        const cubes = levelDetails.cubes;
+        cubes.forEach((cube) => {
+            if (cube.is_finished === 1) {
+                const cubeImage = cubesImage.at(cube.cube_id);
+                if (cubeImage) {
+                    cubeImage.solved = true;
+                }
+            }
+        });
+    }, []);
+
 
     const handleSolved = async (selectedImage) => {
         if (selectedImage) {
@@ -165,21 +182,32 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
                     cols={30}
                     gap={0.5}
                 >
-                    {cubesImage.map((item) => (
-                        <ImageListItem key={item.img}>
+                    {cubesImage.map((item) =>
+                        item.solved ? (
+                            <ImageListItem key={item.img}>
+                                <img
+                                    src={item.img}
+                                    alt={item.title}
+                                    loading="lazy"
+                                    className={'image-solved'}
+                                    onClick={handleImageClick}
+                                />
+                            </ImageListItem>
+                        ) : (
                             <img
+                                key={item.img}
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
                                 className={'zoom'}
                                 onClick={handleImageClick}
                             />
-                        </ImageListItem>
-                    ))}
+                        )
+                    )}
                 </ImageList>
             </Box>
         </ThemeProvider>
-    );
+    )
 }
 
 export default ArtPage;

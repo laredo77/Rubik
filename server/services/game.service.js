@@ -194,7 +194,8 @@ const createGame = async (gameDetails) => {
             }
 
             console.log("Last game loaded successfully");
-            resolve(selectResult2);
+            resolve({game_id: game_id, password: password, cubes: selectResult2})
+            // resolve(selectResult2);
         }
     });
 }
