@@ -28,7 +28,7 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
                 let game_id = 78;
 
                 await markSolved(user, level_id, cube_id, game_id);
-                //todo update the page to all players in game
+                //todo update the page to all players in gamecli
             } catch (error) {
                 console.log(error);
                 console.log("Error marking cube as solved");
