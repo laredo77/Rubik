@@ -12,14 +12,14 @@ export const CubeShuffle = (level) => {
             random_direction = Math.floor(Math.random() * 2);
             choice = "a" + random_arrow.toString() + random_direction.toString()
         } else {
-            let rotateArrows = ["x", "y", "z"]
+            let rotateArrows = ["ax", "ay", "az"]
             random_arrow = Math.floor(Math.random() * 3);
             random_direction = Math.floor(Math.random() * 2);
             choice = rotateArrows[random_arrow] + random_direction.toString()
         }
         movesArray.push(choice)
     }
-
+    console.log(movesArray)
     var intr = setInterval(function() {
         let move = movesArray.shift()
         var elements = document.querySelectorAll(`#${move}`);
@@ -32,7 +32,7 @@ export const CubeShuffle = (level) => {
             element.dispatchEvent(event);
         });
         if (movesArray.length == 0) clearInterval(intr)
-    }, 1000)
+    }, 500)
 }
 
 
