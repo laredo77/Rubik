@@ -8,7 +8,7 @@ export const CubeShuffle = (level) => {
         const randomElement = choices[Math.floor(Math.random() * choices.length)];
         let random_arrow, random_direction, choice;
         if (randomElement === 0) {
-            random_arrow = Math.floor(Math.random() * 8);
+            random_arrow = Math.floor(Math.random() * 9) + 1;
             random_direction = Math.floor(Math.random() * 2);
             choice = "a" + random_arrow.toString() + random_direction.toString()
         } else {
@@ -21,9 +21,8 @@ export const CubeShuffle = (level) => {
     }
 
     var intr = setInterval(function() {
-        let move = movesArray.pop()
+        let move = movesArray.shift()
         var elements = document.querySelectorAll(`#${move}`);
-        //console.log(elements)
         elements.forEach(function(element) {
             const event = new MouseEvent('click', {
                 view: window,

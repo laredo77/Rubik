@@ -27,7 +27,7 @@ function GameDetailsMenu({user}) {
             title: "Game Details",
             html: (
                 <>
-                    <Typography variant="inherit">Game ID: {matchDetails.gameId}</Typography>
+                    <Typography variant="inherit">Game ID: {matchDetails.matchId}</Typography>
                     <Typography variant="inherit">Password: {matchDetails.password}</Typography>
                 </>
             ),
@@ -39,11 +39,11 @@ function GameDetailsMenu({user}) {
     };
 
     const handleQuit = async () => {
-        await Client.quitMatch(user)
-        navigate("/main");
+        const response = await Client.quitMatch(user)
         setAnchorEl(null);
+        navigate("/main");
+        window.location.reload(true);
     };
-
 
     return (
         <div>

@@ -23,6 +23,10 @@ const ACTIONS = {
   SET_MATCH_SUCCESS: "set_match_success",
   SET_MATCH_FAILURE: "set_match_failure",
   IS_MATCH_READY: "is_match_ready",
+
+  JOIN_MATCH_REQUEST: "join_match_request",
+  JOIN_MATCH_SUCCESS: "join_match_success",
+  JOIN_MATCH_FAILURE: "join_match_failure",
 };
 
 export default ACTIONS;

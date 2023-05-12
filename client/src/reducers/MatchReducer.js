@@ -38,6 +38,7 @@ const matchReducer = (state = initialState, { type, payload }) => {
     }
 
     case actionTypes.IS_MATCH_READY: {
+      console.log("payload: ", payload)
       return {
         ...state,
         status: payload.status,

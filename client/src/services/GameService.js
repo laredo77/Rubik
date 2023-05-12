@@ -60,6 +60,13 @@ export class GameService {
         return response.data
     }
 
+    static async joinMatch(matchDetails) {
+        const response = await axios.post("http://localhost:3001/match/joinMatch", matchDetails);
+        if (response.status !== 200)
+            return;
+        return response.status
+    }
+
     static async matchStatus(matchDetails) {
         const response = await axios.get("http://localhost:3001/match/matchStatus", {
             params: {
@@ -104,9 +111,8 @@ export class GameService {
                     user: JSON.stringify(user.email),
                 },
             });
-        if (response.status !== 200) return;
+        return response.data.status
     }
-
 }
 
 export default GameService;
