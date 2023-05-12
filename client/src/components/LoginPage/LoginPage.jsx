@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LoginPageAnimation from "./LoginPageAnimation";
+import MainPageAnimation from "../MainPage/MainPageAnimation";
 
 const theme = createTheme();
 
@@ -77,12 +77,12 @@ function LoginPage({ addNewUser }) {
               container
               component="main"
               sx={{
-                  height: "100vh",
+                  height: "110vh",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   flexDirection: "column",
-                  paddingTop: "80px",
+                  paddingTop: "120px",
               }}
           >
               <Box
@@ -97,7 +97,7 @@ function LoginPage({ addNewUser }) {
                       bottom: "80vh",
                   }}
               >
-                  <LoginPageAnimation />
+                  <MainPageAnimation/>
               </Box>
               <Grid
                   item

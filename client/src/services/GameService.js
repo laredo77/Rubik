@@ -114,7 +114,7 @@ export class GameService {
                     user: JSON.stringify(user.email),
                 },
             });
-        if (response.status !== 200) return;
+        return response.data.status
     }
 }
 

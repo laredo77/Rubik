@@ -8,7 +8,6 @@ import Client from "../../services/GameService"
 import withReactContent from "sweetalert2-react-content";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
-import {CubeShuffle} from "../components-utils"
 
 function MatchPage({user2, getMatchStatus}) {
     const user = useSelector((state) => state.user);
@@ -41,7 +40,6 @@ function MatchPage({user2, getMatchStatus}) {
 
 
     const initShuffle = () => {
-        console.log("inside init shuffle")
         let initMoves = ["20", "51", "71", "x0", "31", "10", "y1", "81"]
         var intr = setInterval(function () {
             let move = initMoves.shift()

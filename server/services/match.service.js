@@ -86,7 +86,7 @@ const getMatchStatus = async (manager) => {
                     console.log(`Line ${lineNumber}:`, lines[lineNumber - 1]);
                     if (lines[lineNumber - 1]) {
                         console.log("there is second player");
-                        resolve({ status: 200 }); // found the second player, resolve with the status object
+                        resolve({status: 200}); // found the second player, resolve with the status object
                     } else {
                         console.log("there is not second player");
                         // second player not found, reject the promise
@@ -246,7 +246,16 @@ const quit = async (user) => {
     // check in DB if the user is the manager if yes, close the game.
     // otherwise send the keep the manager waiting to new player and
     // the one who quit go back to home page..
-    return "200OK"
+    const line = await findStringInCSV(filePath, user.replace(/['"]+/g, ''));
+    console.log(line)
+    switch (line) {
+        case 2:
+            return {status: "close"}
+        case 3:
+            return {status: "keep-alive"}
+        default:
+            return;
+    }
 };
 
 module.exports = {

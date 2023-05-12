@@ -39,7 +39,12 @@ function GameDetailsMenu({user}) {
     };
 
     const handleQuit = async () => {
-        await Client.quitMatch(user)
+        const response = await Client.quitMatch(user)
+        if (response == "close") {
+            navigate("/main");
+        } else {
+            navigate("/main/matchManager/match");
+        }
         navigate("/main");
         setAnchorEl(null);
     };
