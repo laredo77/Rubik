@@ -18,10 +18,6 @@ function TeamPlayPage({user, joinGame}) {
     let gamePwd = "";
 
     const newGameHandler = (response) => {
-        // 1.choose level like single player
-        // 2.send to DB and get in response Code+Password
-        // 3.start to play (like in single player)
-        console.log("in newgame handler")
         navigate("/main/game/mosaic/levels");
     };
 

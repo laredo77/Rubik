@@ -61,7 +61,6 @@ const chooseLevel = async (playerLevel) => {
 
 const createGame = async (gameDetails) => {
     return new Promise(async (resolve, reject) => {
-        console.log("in create game:", gameDetails)
         const selectQuery = `SELECT * FROM multiplayer_games WHERE user_email = ? AND level_id = ?`;
         const selectParams = [gameDetails.user, gameDetails.level];
 
@@ -170,7 +169,6 @@ const createGame = async (gameDetails) => {
             let selectResult1;
             try {
                 selectResult1 = await executeQuery(selectQuery1, selectParams1);
-                console.log(selectResult1);
             } catch (error) {
                 console.log("Please check game id or password");
                 console.error(error);
@@ -186,7 +184,6 @@ const createGame = async (gameDetails) => {
             let selectResult2;
             try {
                 selectResult2 = await executeQuery(selectQuery2, selectParams2);
-                console.log(selectResult2)
             } catch (error) {
                 console.log("Error fetching game progress");
                 console.error(error);
@@ -195,7 +192,6 @@ const createGame = async (gameDetails) => {
 
             console.log("Last game loaded successfully");
             resolve({game_id: game_id, password: password, cubes: selectResult2})
-            // resolve(selectResult2);
         }
     });
 }

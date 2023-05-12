@@ -25,15 +25,19 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
     useEffect(() => {
         // On page load, update all finished cubes images
         const cubes = levelDetails.cubes;
-        cubes.forEach((cube) => {
-            if (cube.is_finished === 1) {
-                const cubeImage = cubesImage.at(cube.cube_id);
-                if (cubeImage) {
-                    cubeImage.solved = true;
+        if (cubes) {
+            // console.log(levelDetails);
+            cubes.forEach((cube) => {
+                if (cube.is_finished === 1) {
+                    const cubeImage = cubesImage.at(cube.cube_id);
+                    if (cubeImage) {
+                        cubeImage.solved = true;
+                    }
                 }
-            }
-        });
-    }, []);
+            });
+        }
+
+    }, [levelDetails]);
 
 
     const handleSolved = async (selectedImage) => {
