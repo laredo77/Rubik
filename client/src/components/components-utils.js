@@ -19,7 +19,7 @@ export const CubeShuffle = (level) => {
         }
         movesArray.push(choice)
     }
-    console.log(movesArray)
+
     var intr = setInterval(function() {
         let move = movesArray.shift()
         var elements = document.querySelectorAll(`#${move}`);

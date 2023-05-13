@@ -5,6 +5,11 @@ import RotateArrows from './RotateArrows';
 import Client from "../../../services/GameService"
 
 export const movesStack = []
+
+export const getMoveStack = () => {
+    return movesStack
+}
+
 export default ({actions, disabled, controlsStatus, isMatch, user, id}) => {
 
     const recorder = async (activationFunc, piece, forward, id) => {
