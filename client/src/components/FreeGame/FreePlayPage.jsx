@@ -29,14 +29,8 @@ function FreePlayPage() {
         } else {
             let move = movesStack[movesStack.length-1]
             if (movesStack.length > 0) {
-                // secondMove[2] == 1 ? tempForward = 0 : tempForward = 1
-                console.log(move)
-                console.log(lastHint)
                 if (move[1] == lastHint[1] && move[2] == lastHint[2]) {
                     if (movesStack.length > 1) move = movesStack[movesStack.length -2]
-                    //else return
-                    // movesStack.pop()
-                    // if (!movesStack.length) return
                 }
             }
             lastHint = move

@@ -10,7 +10,7 @@ import withReactContent from "sweetalert2-react-content";
 import {StopWatchAnimation} from "./StopWatch/StopWatchAnimation";
 import {CubeShuffle} from "../components-utils"
 import {movesStack} from "../Cube/Controls";
-import {useEffect, useState} from "react"
+import {useEffect} from "react"
 import Client from "../../services/GameService";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
@@ -78,7 +78,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     };
 
     const handleLevelChoose = (argLevel) => {
-        argLevel = 0.25 //***********************
+        argLevel = 0.25 //*************************************
         CubeShuffle(argLevel);
         let startCheckbox = document.querySelector('#start');
 
@@ -93,7 +93,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
 
 
     const handleStartOverClick = (event) => {
-        // maybe better not refresh?
         window.location.reload(true);
     };
 
@@ -102,7 +101,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.disabled = false;
         pauseCheckbox.click();
         pauseCheckbox.disabled = true;
-        console.log(movesStack)
         if (movesStack.length == 0) {
             let end_time = new Date().getTime();
             // fire everything looks good! you are done.
@@ -129,17 +127,46 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                 }
             });
         } else {
+            console.log(movesStack)
+            for (const move of movesStack) {
+                if (move[1] != 'x' && move[1] != 'y' && move[1] != 'z') {
+                    MySwal.fire({
+                        title: "The cube is still unsolved! Return to the game!",
+                        confirmButtonColor: "#50b7f5",
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        allowOutsideClick: false,
+                    }).then((response) => {
+                        if (response.isConfirmed) {
+                            pauseCheckbox.disabled = false;
+                            pauseCheckbox.click();
+                            pauseCheckbox.disabled = true;
+                        }
+                    });
+                    return
+                }
+            }
+            let end_time = new Date().getTime();
             MySwal.fire({
-                title: "The cube is still unsolved! Return to the game!",
+                title: "Congratulations! You have successfully solved the cube",
+                imageUrl: "https://media1.giphy.com/media/lPoOHG39XAlV4it61H/giphy.gif",
+                imageHeight: 150,
+                imageWidth: 350,
                 confirmButtonColor: "#50b7f5",
                 showCloseButton: false,
                 showCancelButton: false,
                 allowOutsideClick: false,
+
             }).then((response) => {
                 if (response.isConfirmed) {
-                    pauseCheckbox.disabled = false;
-                    pauseCheckbox.click();
-                    pauseCheckbox.disabled = true;
+                    // send to server the user details & time
+                    // update the db and the leaderboard
+                    Client.postCompScore({
+                        user: user.email,
+                        level: level,
+                        time: (end_time - startTiming) / 1000,
+                    })
+                    navigate("/main/singlePlayerCompPage/leaderBoard")
                 }
             });
         }
