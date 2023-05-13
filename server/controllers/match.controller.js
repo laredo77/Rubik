@@ -2,7 +2,7 @@ const matchService = require("../services/match.service.js");
 
 const setMatch = async (req, res) => {
     try {
-        const matchDetails = await matchService.setMatch(req.body);
+        const matchDetails = await matchService.setMatch(req.headers.matchdetails);
         res.send(matchDetails);
     } catch (error) {
         console.log(error);

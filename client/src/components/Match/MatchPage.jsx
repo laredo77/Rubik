@@ -14,8 +14,11 @@ function MatchPage({user2, getMatchStatus}) {
     const navigate = useNavigate();
     const location = useLocation();
     let level = location.state.Level;
+    let gameId = location.state.gameId;
+    let gamePwd = location.state.password;
     const MySwal = withReactContent(Swal);
     const matchStatus = useSelector((state) => state.matchReducer.status);
+    const matchDetails = useSelector((state) => state.matchReducer);
     let opponentMovesArray = []
     let quitStatus = false
 
@@ -31,7 +34,7 @@ function MatchPage({user2, getMatchStatus}) {
             setInterval(reRenderOppCube, 7000);
         } else {
             MySwal.fire({
-                title: "Please Wait until player join the game",
+                title: `Please Wait until second player join the game\n GameID: ${matchDetails.gameId}\n Password: ${matchDetails.password}`,
                 showCloseButton: false,
                 showCancelButton: false,
                 showConfirmButton: false,

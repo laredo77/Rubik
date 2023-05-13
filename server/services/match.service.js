@@ -10,34 +10,37 @@ let matchID = ""
 let matchPWD = ""
 let quitStatus
 
-const setMatch = async (matchDetails) => {
-    matchID = generateStr(3)
-    matchPWD = generateStr(3)
-    console.log(matchID, matchPWD)
-    lock.acquire('myLock', async function () {
-        const data = [
-            {matchDetails: matchID, p1moves: "", p2moves: ""},
-            {matchDetails: matchPWD, p1moves: "", p2moves: ""},
-            {matchDetails: matchDetails.manager, p1moves: "", p2moves: ""}
-        ];
+const setMatch = (matchDetails) => {
+    return new Promise((resolve, reject) => {
+        let md = JSON.parse(matchDetails)
+        matchID = generateStr(3)
+        matchPWD = generateStr(3)
+        lock.acquire('myLock', async function () {
+            const data = [
+                {matchDetails: matchID, p1moves: "", p2moves: ""},
+                {matchDetails: matchPWD, p1moves: "", p2moves: ""},
+                {matchDetails: md.manager, p1moves: "", p2moves: ""}
+            ];
 
-        const csvWriter = createCsvWriter({
-            path: filePath,
-            header: [
-                {id: 'matchDetails', title: 'MatchDetails'},
-                {id: 'p1moves', title: 'P1_Moves'},
-                {id: 'p2moves', title: 'P2_Moves'}
-            ]
-        });
-
-        csvWriter.writeRecords(data)
-            .then(() => {
-                console.log('CSV file created successfully');
-                return {matchId: matchID, password: matchPWD};
-            })
-            .catch((error) => {
-                console.error(error);
+            const csvWriter = createCsvWriter({
+                path: filePath,
+                header: [
+                    {id: 'matchDetails', title: 'MatchDetails'},
+                    {id: 'p1moves', title: 'P1_Moves'},
+                    {id: 'p2moves', title: 'P2_Moves'}
+                ]
             });
+
+            csvWriter.writeRecords(data)
+                .then(() => {
+                    console.log('CSV file created successfully');
+                    resolve({matchId: matchID, password: matchPWD});
+                })
+                .catch((error) => {
+                    console.error(error);
+                    reject(error)
+                });
+        });
     });
 };
 

@@ -2,18 +2,20 @@ import * as React from "react";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CubeManager from "../Cube/CubeManager";
-import {movesStack} from "../Cube/Controls/index";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {CubeShuffle} from "../components-utils"
+import {getMoveStack} from "../Cube/Controls/index"
 
 const theme = createTheme();
 
 function FreePlayPage() {
     const MySwal = withReactContent(Swal);
+    let lastHint = [undefined, undefined, undefined]
 
     const hintButtonHandler = (response) => {
+        let movesStack = getMoveStack()
         if (movesStack.length == 0) {
             // fire everything looks good! your done.
             MySwal.fire({
@@ -25,11 +27,16 @@ function FreePlayPage() {
                 showCloseButton: true,
             });
         } else {
-            // fire movestack.pop()
-            let move = movesStack[movesStack.length - 1]
-            move[2] == 1 ? move[2] = 0 : move[2] = 1
-            let moveString = move[1].toString() + move[2].toString()
-            console.log(moveString)
+            let move = movesStack[movesStack.length-1]
+            if (movesStack.length > 0) {
+                if (move[1] == lastHint[1] && move[2] == lastHint[2]) {
+                    if (movesStack.length > 1) move = movesStack[movesStack.length -2]
+                }
+            }
+            lastHint = move
+            let direction
+            move[2] == 1 ? direction = 0 : direction = 1
+            let moveString = move[1].toString() + direction.toString()
             MySwal.fire({
                 title: "Here's a hint for the next step",
                 imageUrl: `${response.view.origin}/cube-hints/${moveString}.png`,
@@ -42,6 +49,7 @@ function FreePlayPage() {
     };
 
     const finishButtonHandler = (response) => {
+        let movesStack = getMoveStack()
         if (movesStack.length == 0) {
             // fire everything looks good! your done.
             MySwal.fire({
@@ -62,16 +70,14 @@ function FreePlayPage() {
     };
 
     const solveButtonHandler = (response) => {
+        let movesStack = getMoveStack()
         if (movesStack.length > 0) {
-            console.log(movesStack)
             var intr = setInterval(function () {
                 let move = movesStack.pop()
-                console.log(move)
                 if (move[1] != "x" && move[1] != "y" && move[1] != "z") {
                     move[1] = parseInt(move[1]) - 1
                 }
                 move[2] == 1 ? move[2] = 0 : move[2] = 1
-                console.log(move[1], move[2])
                 move[0](move[1], move[2]) // activate spinSlice on slice and forward
                 if (movesStack.length == 0) clearInterval(intr)
             }, 1000)

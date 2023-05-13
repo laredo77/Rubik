@@ -51,7 +51,7 @@ export const setMatch = (user, level) => {
     try {
       const response = await Client.setMatch(match);
       match = {...match,
-        gameId: response.gameId,
+        gameId: response.matchId,
         password: response.password
       }
       dispatch(setMatchSuccessAction(match));

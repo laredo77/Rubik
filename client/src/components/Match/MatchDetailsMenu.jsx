@@ -27,7 +27,7 @@ function GameDetailsMenu({user}) {
             title: "Game Details",
             html: (
                 <>
-                    <Typography variant="inherit">Game ID: {matchDetails.matchId}</Typography>
+                    <Typography variant="inherit">Game ID: {matchDetails.gameId}</Typography>
                     <Typography variant="inherit">Password: {matchDetails.password}</Typography>
                 </>
             ),
