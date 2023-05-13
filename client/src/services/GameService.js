@@ -84,9 +84,13 @@ export class GameService {
     MATCH SECTION
     */
     static async setMatch(matchDetails) {
-        const response = await axios.post("http://localhost:3001/match/setMatch", matchDetails);
-        if (response.status !== 200)
-            return;
+        const response = await axios.post("http://localhost:3001/match/setMatch", {},
+            {
+                headers: {
+                    matchDetails: JSON.stringify(matchDetails),
+                },
+            });
+        if (response.status !== 200) return;
         return response.data
     }
 

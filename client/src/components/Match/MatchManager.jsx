@@ -19,6 +19,8 @@ function MatchManager({user, setMatch, joinMatch}) {
     let level = "";
     const navigate = useNavigate();
     const matchStatus = useSelector((state) => state.matchReducer.status);
+    const matchDetails = useSelector((state) => state.matchReducer);
+
     const handleLevelChoose = (e) => {
         level = +e.target.innerText[6];
     };
@@ -28,6 +30,7 @@ function MatchManager({user, setMatch, joinMatch}) {
             navigate("/main/matchManager/match", {state: {Manager: "", Level: level}});
         }
     }, [matchStatus]);
+
 
     const newGameHandler = (response) => {
         MySwal.fire({
@@ -52,7 +55,14 @@ function MatchManager({user, setMatch, joinMatch}) {
             if (response.isConfirmed) {
                 //now navigate to game page
                 await setMatch(user, level);
-                navigate("/main/matchManager/match", {state: {Manager: user, Level: level}});
+                navigate("/main/matchManager/match", {
+                    state: {
+                        Manager: user,
+                        Level: level,
+                        gameId: matchDetails.gameId,
+                        password: matchDetails.password
+                    }
+                });
             } else if (response.isDenied) {
                 // do nothing
             }
