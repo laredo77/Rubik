@@ -50,6 +50,7 @@ function FreePlayPage() {
     };
 
     const finishButtonHandler = (response) => {
+        console.log(isCubeStringCorrect())
         let movesStack = getMoveStack()
         if (movesStack.length == 0 || isCubeStringCorrect()) {
             // fire everything looks good! your done.

@@ -2,6 +2,8 @@ let initializeCubeString = "YYYYYYYYYWWWWWWWWWGGGGGGGGGOOOOOOOOORRRRRRRRRBBBBBBB
 let currentCubeState = initializeCubeString;
 
 export const changeCubeStringDefinition = (id) => {
+    if (id.length === 4) id = id.slice(0, -1)
+    console.log(id)
     switch (id) {
         case "a10":
             arrow10();
@@ -57,6 +59,24 @@ export const changeCubeStringDefinition = (id) => {
         case "a91":
             arrow91();
             break;
+        case "ax0":
+            arrowX0();
+            break;
+        case "ax1":
+            arrowX1();
+            break;
+        case "ay0":
+            arrowY0();
+            break;
+        case "ay1":
+            arrowY1();
+            break;
+        case "az0":
+            arrowZ0();
+            break;
+        case "az1":
+            arrowZ1();
+            break;
         default:
             console.log(`Arrow function with ID ${id} not found.`);
     }
@@ -81,12 +101,18 @@ const arrow10 = () => {
     swapCubeCell(6, 33, 24, 15);
     swapCubeCell(7, 34, 25, 16);
     swapCubeCell(8, 35, 26, 17);
+
+    swapCubeCell(45, 51, 53, 47);
+    swapCubeCell(46, 48, 52, 50);
 };
 
 const arrow11 = () => {
     swapCubeCell(6, 15, 24, 33);
     swapCubeCell(7, 16, 25, 34);
     swapCubeCell(8, 17, 26, 35);
+
+    swapCubeCell(45, 47, 53, 51);
+    swapCubeCell(46, 50, 52, 48);
 };
 
 const arrow20 = () => {
@@ -105,24 +131,36 @@ const arrow30 = () => {
     swapCubeCell(0, 27, 18, 9);
     swapCubeCell(1, 28, 19, 10);
     swapCubeCell(2, 29, 20, 11);
+
+    swapCubeCell(44, 42, 36, 38);
+    swapCubeCell(43, 39, 37, 41);
 };
 
 const arrow31 = () => {
     swapCubeCell(0, 9, 18, 27);
     swapCubeCell(1, 10, 19, 28);
     swapCubeCell(2, 11, 20, 29);
+
+    swapCubeCell(42, 44, 38, 36);
+    swapCubeCell(43, 41, 37, 39);
 };
 
 const arrow40 = () => {
     swapCubeCell(0, 36, 26, 45);
     swapCubeCell(3, 39, 23, 48);
     swapCubeCell(6, 42, 20, 51);
+
+    swapCubeCell(35, 29, 27, 33);
+    swapCubeCell(32, 28, 30, 34);
 };
 
 const arrow41 = () => {
     swapCubeCell(0, 45, 26, 36);
     swapCubeCell(3, 48, 23, 39);
     swapCubeCell(6, 51, 20, 42);
+
+    swapCubeCell(29, 35, 33, 27);
+    swapCubeCell(32, 34, 30, 28);
 };
 
 const arrow50 = () => {
@@ -141,24 +179,36 @@ const arrow60 = () => {
     swapCubeCell(2, 38, 24, 47);
     swapCubeCell(5, 41, 21, 50);
     swapCubeCell(8, 44, 18, 53);
+
+    swapCubeCell(15, 9, 11, 17);
+    swapCubeCell(12, 10, 14, 16);
 };
 
 const arrow61 = () => {
     swapCubeCell(2, 47, 24, 38);
     swapCubeCell(5, 50, 21, 41);
     swapCubeCell(8, 53, 18, 44);
+
+    swapCubeCell(9, 15, 17, 11);
+    swapCubeCell(12, 16, 14, 10);
 };
 
 const arrow70 = () => {
     swapCubeCell(45, 29, 44, 15);
     swapCubeCell(46, 32, 43, 12);
     swapCubeCell(47, 35, 42, 9);
+
+    swapCubeCell(0, 2, 8, 6);
+    swapCubeCell(1, 5, 7, 3);
 };
 
 const arrow71 = () => {
     swapCubeCell(45, 15, 44, 29);
     swapCubeCell(46, 12, 43, 32);
     swapCubeCell(47, 9, 42, 35);
+
+    swapCubeCell(0, 6, 8, 2);
+    swapCubeCell(1, 3, 7, 5);
 };
 
 const arrow80 = () => {
@@ -177,15 +227,58 @@ const arrow90 = () => {
     swapCubeCell(51, 27, 38, 17);
     swapCubeCell(52, 30, 37, 14);
     swapCubeCell(53, 33, 36, 11);
+
+    swapCubeCell(26, 20, 18, 24);
+    swapCubeCell(25, 23, 19, 21);
 };
 
 const arrow91 = () => {
     swapCubeCell(51, 17, 38, 27);
     swapCubeCell(52, 14, 37, 30);
     swapCubeCell(53, 11, 36, 33);
+
+    swapCubeCell(26, 24, 18, 20);
+    swapCubeCell(25, 21, 19, 23);
+};
+
+const arrowX0 = () => {
+    arrow41()
+    arrow51()
+    arrow61()
+};
+
+const arrowX1 = () => {
+    arrow40()
+    arrow50()
+    arrow60()
+};
+
+const arrowY0 = () => {
+    arrow70()
+    arrow80()
+    arrow90()
+};
+
+const arrowY1 = () => {
+    arrow71()
+    arrow81()
+    arrow91()
+};
+
+const arrowZ0 = () => {
+    arrow10()
+    arrow20()
+    arrow30()
+};
+
+const arrowZ1 = () => {
+    arrow11()
+    arrow21()
+    arrow31()
 };
 
 export const isCubeStringCorrect = () => {
+    console.log(currentCubeState)
     const colors = currentCubeState.match(/([A-Z])\1{8}/g); // Match sequences of the same color
 
     if (colors && colors.length === 6) {

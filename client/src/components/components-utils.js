@@ -1,7 +1,9 @@
 import {getMoveStack} from "./Cube/Controls";
+import {changeCubeStringDefinition} from "./Cube/CubeDefinition";
 
 export const CubeShuffle = (level) => {
     let movesArray = getShuffleCubeMoves(level)
+    console.log(movesArray)
     var intr = setInterval(function() {
         let move = movesArray.shift()
         var elements = document.querySelectorAll(`#${move}`);
