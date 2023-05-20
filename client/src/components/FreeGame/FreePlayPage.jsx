@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {CubeShuffle} from "../components-utils"
 import {getMoveStack} from "../Cube/Controls/index"
-import {changeCubeStringDefinition, isCubeStringCorrect} from "../Cube/CubeDefinition";
+import {changeCubeStringDefinition, isCubeStringCorrect, tempFunctionPrintCubeDefinition} from "../Cube/CubeDefinition";
 
 const theme = createTheme();
 
@@ -51,6 +51,7 @@ function FreePlayPage() {
 
     const finishButtonHandler = (response) => {
         console.log(isCubeStringCorrect())
+        tempFunctionPrintCubeDefinition()
         let movesStack = getMoveStack()
         if (movesStack.length == 0 || isCubeStringCorrect()) {
             // fire everything looks good! your done.
@@ -81,7 +82,12 @@ function FreePlayPage() {
                 }
                 move[2] == 1 ? move[2] = 0 : move[2] = 1
                 move[0](move[1], move[2]) // activate spinSlice on slice and forward
-                let arrowWithDirection = "a" + (move[1] + 1).toString() + move[2].toString()
+                let arrowWithDirection;
+                if (move[1] != "x" && move[1] != "y" && move[1] != "z") {
+                    arrowWithDirection = "a" + (move[1] + 1).toString() + move[2].toString()
+                } else {
+                    arrowWithDirection = "a" + move[1].toString() + move[2].toString()
+                }
                 changeCubeStringDefinition(arrowWithDirection)
                 if (movesStack.length == 0) clearInterval(intr)
             }, 1000)

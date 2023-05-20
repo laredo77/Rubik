@@ -278,7 +278,6 @@ const arrowZ1 = () => {
 };
 
 export const isCubeStringCorrect = () => {
-    console.log(currentCubeState)
     const colors = currentCubeState.match(/([A-Z])\1{8}/g); // Match sequences of the same color
 
     if (colors && colors.length === 6) {
@@ -288,4 +287,8 @@ export const isCubeStringCorrect = () => {
     }
     return false;
 };
+
+export const tempFunctionPrintCubeDefinition = () => {
+    console.log(currentCubeState)
+}
 
