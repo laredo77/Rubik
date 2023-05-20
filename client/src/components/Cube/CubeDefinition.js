@@ -2,7 +2,6 @@ let initializeCubeString = "YYYYYYYYYWWWWWWWWWGGGGGGGGGOOOOOOOOORRRRRRRRRBBBBBBB
 let currentCubeState = initializeCubeString;
 
 export const changeCubeStringDefinition = (id) => {
-    console.log(id)
     switch (id) {
         case "a10":
             arrow10();

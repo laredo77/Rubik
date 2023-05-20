@@ -14,6 +14,7 @@ import {useEffect} from "react"
 import Client from "../../services/GameService";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
+import {isCubeStringCorrect} from "../Cube/CubeDefinition";
 
 const theme = createTheme();
 
@@ -101,7 +102,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.disabled = false;
         pauseCheckbox.click();
         pauseCheckbox.disabled = true;
-        if (movesStack.length == 0) {
+        if (movesStack.length == 0 || isCubeStringCorrect()) {
             let end_time = new Date().getTime();
             // fire everything looks good! you are done.
             MySwal.fire({
