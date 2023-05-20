@@ -78,7 +78,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     };
 
     const handleLevelChoose = (argLevel) => {
-        argLevel = 0.25 //*************************************
+        //argLevel = 0.25 //*************************************
         CubeShuffle(argLevel);
         let startCheckbox = document.querySelector('#start');
 
@@ -127,7 +127,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                 }
             });
         } else {
-            console.log(movesStack)
             for (const move of movesStack) {
                 if (move[1] != 'x' && move[1] != 'y' && move[1] != 'z') {
                     MySwal.fire({

@@ -1,4 +1,23 @@
+import {getMoveStack} from "./Cube/Controls";
+
 export const CubeShuffle = (level) => {
+    let movesArray = getShuffleCubeMoves(level)
+    var intr = setInterval(function() {
+        let move = movesArray.shift()
+        var elements = document.querySelectorAll(`#${move}`);
+        elements.forEach(function(element) {
+            const event = new MouseEvent('click', {
+                view: window,
+                bubbles: true,
+                cancelable: true
+            });
+            element.dispatchEvent(event);
+        });
+        if (movesArray.length == 0) clearInterval(intr)
+    }, 500)
+}
+
+export const getShuffleCubeMoves = (level) => {
     let amountOfSteps = 8 * level; // should be depended on level
     let movesArray = []
     let choices = new Array(8).fill(0);
@@ -20,22 +39,8 @@ export const CubeShuffle = (level) => {
         movesArray.push(choice)
     }
 
-    var intr = setInterval(function() {
-        let move = movesArray.shift()
-        var elements = document.querySelectorAll(`#${move}`);
-        elements.forEach(function(element) {
-            const event = new MouseEvent('click', {
-                view: window,
-                bubbles: true,
-                cancelable: true
-            });
-            element.dispatchEvent(event);
-        });
-        if (movesArray.length == 0) clearInterval(intr)
-    }, 500)
+    return movesArray
 }
-
-
 export const cubesImage = [];
 for (let i = 0; i < 900; i++) {
     let new_im = {
