@@ -13,7 +13,6 @@ const joinMultiPlayerGameReducer = (
     state = initialState,
     {type, payload}
 ) => {
-    console.log("reducer:", payload);
     switch (type) {
         case actionTypes.JOIN_GAME_REQUEST: {
             return {...state, isLoading: true};

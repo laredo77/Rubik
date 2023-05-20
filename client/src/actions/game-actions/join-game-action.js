@@ -27,19 +27,15 @@ export const joinGame = (gameId, gamePwd, user) => {
     return async (dispatch) => {
         dispatch(joinGameRequestAction());
         try {
-            console.log("Joining game...", gameId, gamePwd, user);
             const response = await Client.joinGame(gameDetails, user);
-            console.log("Join game response:", response);
             gameDetails = {
                 ...gameDetails,
                 id: response.game_id,
                 password: response.password,
                 level_id: response.level_id,
             };
-            console.log("Join game success. Game details:", gameDetails);
             dispatch(joinGameSuccessAction(gameDetails));
         } catch (e) {
-            console.error("Join game error:", e);
             gameDetails.errorMsg = e;
             dispatch(joinGameFailureAction(gameDetails));
         }

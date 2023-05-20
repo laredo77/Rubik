@@ -30,7 +30,7 @@ function TeamPlayPage({user, joinGame}) {
         if (gameData.level_id) {
             navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
         }
-    }, [gameData]);
+    }, [gameData, navigate]);
 
     const joinGameHandler = (response) => {
         // 1.ask for Code+Password
@@ -65,7 +65,7 @@ function TeamPlayPage({user, joinGame}) {
             if (response.isConfirmed) {
                 try {
                     await joinGame(gameId, gamePwd, user);
-                    console.log("gameData:", gameData, gameData.level_id);
+                    // console.log("gameData:", gameData, gameData.level_id);
                     navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
                     // Now navigate to the game page
                 } catch (error) {
