@@ -101,6 +101,16 @@ export class GameService {
         return response.status
     }
 
+    static async getInitMatchMoves(level) {
+        const response = await axios.get("http://localhost:3001/match/getInitMatchMoves", {
+            params: {
+                level: level,
+            },
+        });
+        if (response.status !== 200) return;
+        return await response.data;
+    }
+
     static async matchStatus(matchDetails) {
         const response = await axios.get("http://localhost:3001/match/matchStatus", {
             params: {

@@ -40,9 +40,9 @@ export const getShuffleCubeMoves = (level) => {
         }
         movesArray.push(choice)
     }
-
     return movesArray
 }
+
 export const cubesImage = [];
 for (let i = 0; i < 900; i++) {
     let new_im = {

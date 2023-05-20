@@ -10,6 +10,18 @@ const setMatch = async (req, res) => {
     }
 };
 
+const getInitMatchMoves = async (req, res) => {
+    const level = req.query.level;
+
+    try {
+        const initMatchMoves = await matchService.getInitMatchState(level);
+        const extractedValues = initMatchMoves.map(obj => obj.initMoves);
+        res.send(extractedValues);
+    } catch (error) {
+        console.log("error: ", error);
+    }
+};
+
 const joinMatch = async (req, res) => {
     try {
         const matchDetails = await matchService.joinMatch(req.body);
@@ -73,4 +85,5 @@ module.exports = {
     applyMove,
     getMatchState,
     quitMatch,
+    getInitMatchMoves,
 };

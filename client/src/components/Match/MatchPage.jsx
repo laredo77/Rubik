@@ -44,9 +44,9 @@ function MatchPage({user2, getMatchStatus}) {
         }
     }, [matchStatus]);
 
-    const initShuffle = () => {
-        let initMoves = getShuffleCubeMoves(level)
-        //let initMoves = ["20", "51", "71", "x0", "31", "10", "y1", "81"]
+    const initShuffle = async () => {
+        let initMoves = await Client.getInitMatchMoves(level)
+        console.log(initMoves)
         var intr = setInterval(function () {
             let move = initMoves.shift()
             var elements = document.querySelectorAll(`#${move}`);

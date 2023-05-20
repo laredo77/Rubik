@@ -62,4 +62,28 @@ const getRowFromCsvFile = (filePath, r) => {
     });
 };
 
-module.exports = {generateStr, findStringInCSV, getRowFromCsvFile};
+const getShuffleCubeMoves = (level) => {
+    let amountOfSteps = 8 * level; // should be depended on level
+    let movesArray = []
+    let choices = new Array(8).fill(0);
+    choices.push(1)
+    choices.push(1)
+    for (let i = 0; i < amountOfSteps; i++) {
+        const randomElement = choices[Math.floor(Math.random() * choices.length)];
+        let random_arrow, random_direction, choice;
+        if (randomElement === 0) {
+            random_arrow = Math.floor(Math.random() * 9) + 1;
+            random_direction = Math.floor(Math.random() * 2);
+            choice = "a" + random_arrow.toString() + random_direction.toString()
+        } else {
+            let rotateArrows = ["ax", "ay", "az"]
+            random_arrow = Math.floor(Math.random() * 3);
+            random_direction = Math.floor(Math.random() * 2);
+            choice = rotateArrows[random_arrow] + random_direction.toString()
+        }
+        movesArray.push(choice)
+    }
+    return movesArray
+}
+
+module.exports = {generateStr, findStringInCSV, getRowFromCsvFile, getShuffleCubeMoves};
