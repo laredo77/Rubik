@@ -43,17 +43,19 @@ export const getShuffleCubeMoves = (level) => {
     return movesArray
 }
 
-export const cubesImage = [];
-for (let i = 0; i < 900; i++) {
-    let new_im = {
-        id: i,
-        solved: false,
-        label: i.toString(),
-        img: "/final-cubes/" + i.toString() + ".png",
-    };
-    cubesImage.push(new_im);
+export function getCubesImages(level) {
+    const cubesImage = [];
+    for (let i = 0; i < 900; i++) {
+        let new_im = {
+            id: i,
+            solved: false,
+            label: i.toString(),
+            img: `/final-cubes-${level}/` + i.toString() + ".png",
+        };
+        cubesImage.push(new_im);
+    }
+    return cubesImage
 }
-
 export function getCubeIdFromImg(img) {
     const src = img.getAttribute("src");
     const cube_Id = src.split("/").pop();
