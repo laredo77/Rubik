@@ -14,6 +14,7 @@ import {useEffect} from "react"
 import Client from "../../services/GameService";
 import MenuList from "@mui/material/MenuList";
 import Typography from "@mui/material/Typography";
+import {isCubeStringCorrect} from "../Cube/CubeDefinition";
 
 const theme = createTheme();
 
@@ -78,7 +79,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
     };
 
     const handleLevelChoose = (argLevel) => {
-        argLevel = 0.25 //*************************************
+        //argLevel = 0.25 //*************************************
         CubeShuffle(argLevel);
         let startCheckbox = document.querySelector('#start');
 
@@ -101,7 +102,7 @@ function SinglePlayerCompMode({user, setGameLevel}) {
         pauseCheckbox.disabled = false;
         pauseCheckbox.click();
         pauseCheckbox.disabled = true;
-        if (movesStack.length == 0) {
+        if (movesStack.length == 0 || isCubeStringCorrect()) {
             let end_time = new Date().getTime();
             // fire everything looks good! you are done.
             MySwal.fire({
@@ -127,7 +128,6 @@ function SinglePlayerCompMode({user, setGameLevel}) {
                 }
             });
         } else {
-            console.log(movesStack)
             for (const move of movesStack) {
                 if (move[1] != 'x' && move[1] != 'y' && move[1] != 'z') {
                     MySwal.fire({

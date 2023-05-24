@@ -1,4 +1,4 @@
-const {generateStr, findStringInCSV, getRowFromCsvFile} = require("../utility/generalUtils");
+const {generateStr, findStringInCSV, getRowFromCsvFile, getShuffleCubeMoves} = require("../utility/generalUtils");
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 const AsyncLock = require('async-lock');
 const lock = new AsyncLock();
@@ -6,6 +6,7 @@ const fs = require('fs');
 const csv = require('csv-parser');
 
 const filePath = './matchData/data.csv';
+const initMovesFilePath = './matchData/initMoves.csv';
 let matchID = ""
 let matchPWD = ""
 let quitStatus
@@ -16,6 +17,7 @@ const setMatch = (matchDetails) => {
         matchID = generateStr(3)
         matchPWD = generateStr(3)
         lock.acquire('myLock', async function () {
+
             const data = [
                 {matchDetails: matchID, p1moves: "", p2moves: ""},
                 {matchDetails: matchPWD, p1moves: "", p2moves: ""},
@@ -32,13 +34,59 @@ const setMatch = (matchDetails) => {
             });
 
             csvWriter.writeRecords(data)
-                .then(() => {
+                .then(async () => {
                     console.log('CSV file created successfully');
+                    await setInitMatchState(md.level)
                     resolve({matchId: matchID, password: matchPWD});
                 })
                 .catch((error) => {
                     console.error(error);
                     reject(error)
+                });
+        });
+    });
+};
+
+const setInitMatchState = async (level) => {
+    lock.acquire('myLock', async function () {
+        const csvWriter = createCsvWriter({
+            path: initMovesFilePath,
+            header: [
+                {id: 'moves', title: 'initMoves'}
+            ]
+        });
+
+        const newData = [];
+        const initMatchState = getShuffleCubeMoves(level)
+        for (let i = 0; i < initMatchState.length; i++) {
+            newData.push({moves: initMatchState[i]})
+        }
+
+        csvWriter.writeRecords(newData)
+            .then(() => {
+                console.log('New data added to the CSV file successfully');
+                return {gameId: matchID, password: matchPWD};
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    });
+}
+
+const getInitMatchState = () => {
+    return new Promise((resolve, reject) => {
+        lock.acquire('myLock', () => {
+            const lines = [];
+            fs.createReadStream(initMovesFilePath)
+                .pipe(csv())
+                .on('data', (data) => {
+                    lines.push(data);
+                })
+                .on('end', () => {
+                    resolve(lines);
+                })
+                .on('error', (error) => {
+                    reject(error);
                 });
         });
     });
@@ -296,4 +344,5 @@ module.exports = {
     matchState,
     applyMove,
     quit,
+    getInitMatchState,
 };
