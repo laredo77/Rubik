@@ -3,7 +3,6 @@ const lock = new AsyncLock();
 const fs = require('fs');
 const csv = require('csv-parser');
 
-
 const generateStr = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

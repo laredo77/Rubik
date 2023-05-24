@@ -6,8 +6,6 @@ const {executePython} = require("../utility/pythonExecuter");
 const {generatePassword} = require("../utility/generate_pass");
 const {executeQuery} = require("../database");
 
-
-
 const getUserAction = async (action) => {
     const scriptFileName = "identify_and_solve.py"
     await executePython(scriptFileName, [action.action]);
@@ -244,7 +242,6 @@ const markSolved = async (cubeGameDetails) => {
         console.log('Error finishing cube')
     }
 }
-
 
 module.exports = {
     getUserAction,

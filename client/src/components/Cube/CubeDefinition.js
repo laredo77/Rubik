@@ -3,7 +3,6 @@ let currentCubeState = initializeCubeString;
 
 export const changeCubeStringDefinition = (id) => {
     if (id.length === 4) id = id.slice(0, -1)
-    console.log(id)
     switch (id) {
         case "a10":
             arrow10();
@@ -288,6 +287,7 @@ export const isCubeStringCorrect = () => {
     return false;
 };
 
+// SHOULD REMOVED***************************************************
 export const tempFunctionPrintCubeDefinition = () => {
     console.log(currentCubeState)
 }
