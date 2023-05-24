@@ -4,7 +4,15 @@ function AlgorithmPage() {
     return (
         <div>
             <h1>Rubik's Cube Solving Algorithms</h1>
+            <h2>Two-Phase Algorithm</h2>
+            <p>The Two-Phase Algorithm solves the Cube in to steps.
 
+                In phase 1, the algorithm looks for maneuvers which will transform a scrambled cube to G1. That is, the
+                orientations of corners and edges have to be constrained and the edges of the UD-slice have to be
+                transferred into that slice. In phase 2 we restore the cube.
+
+                There are many different possibilites for maneuvers in phase 1. The algorithm tries different phase 1
+                maneuvers to find a most possible short overall solution.</p>
             <h2>Friedrich Method</h2>
             <p>The Friedrich Method is one of the most popular methods for solving the Rubik's Cube. It involves solving
                 the cube layer by layer, starting with the cross on the bottom layer, then the corners on the bottom
@@ -25,15 +33,6 @@ function AlgorithmPage() {
             <p>The Zbigniew Method is a newer method for solving the Rubik's Cube. It involves solving the cube using a
                 combination of advanced techniques such as block building, commutators, and conjugates. The advantages
                 of this method are that it can be very fast, and it can be very efficient for some types of cubes.
-                However, it can be very difficult to learn, and it requires a lot of practice and memorization. The time
-                complexity of this method is O(n^2).</p>
-
-            <h2>CFOP Method</h2>
-            <p>The CFOP Method, also known as the Fridrich CFOP Method, is a combination of the Friedrich Method and the
-                Zbigniew Method. It involves solving the cube layer by layer using the Friedrich Method, and then using
-                advanced techniques such as F2L (first two layers), OLL (orientation of the last layer), and PLL
-                (permutation of the last layer) to solve the remaining pieces. The advantages of this method are that it
-                can be very fast and efficient, and it is the most popular method used in speedcubing competitions.
                 However, it can be very difficult to learn, and it requires a lot of practice and memorization. The time
                 complexity of this method is O(n^2).</p>
         </div>

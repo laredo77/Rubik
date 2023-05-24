@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {cubesImage} from "../../../components-utils";
+import {getCubesImages} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -14,13 +14,19 @@ import Client from "../../../../services/GameService"
 import {getCubeIdFromImg} from "../../../components-utils";
 import createMultiplayerGameReducer from "../../../../reducers/CreateMultiplayerGameReducer";
 import {useEffect} from "react";
+import {useLocation} from "react-router-dom";
 
 const theme = createTheme();
+
+const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
 
 function ArtPage({user, uploadImagesFunc, markSolved}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
+    const location = useLocation();
+    let level = location.state.Level;
+    const cubesImage = getCubesImages(level)
 
     useEffect(() => {   //todo take care of useEffect do not call on first render
         // On page load, update all finished cubes images
@@ -180,8 +186,8 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
                         marginLeft: 'auto',
                         marginTop: 'auto',
                         marginBottom: 'auto',
-                        width: 693, // 990 * 0.7
-                        height: 567, // 810 * 0.7
+                        width: dimensions[level][0], // 990 * 0.7 , 693
+                        height: dimensions[level][1], // 810 * 0.7 567
                     }}
                     cols={30}
                     gap={0.5}
