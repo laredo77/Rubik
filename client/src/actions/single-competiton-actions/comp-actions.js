@@ -27,7 +27,7 @@ export const setGameLevel = (userDetails) => {
   return async (dispatch) => {
     dispatch(SetGameLevelRequestAction());
     try {
-      await Client.setCompGameLevel(gameDetails); // should get response code+pwd
+      await Client.setCompGameLevel(gameDetails);
       dispatch(SetGameLevelSuccessAction(gameDetails));
     } catch (e) {
       gameDetails.errorMsg = e;

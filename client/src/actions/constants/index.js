@@ -1,8 +1,14 @@
+/*
+  Constants reducer actions
+ */
+
 const ACTIONS = {
+  // User actions
   ADD_USER_REQUEST: "add_user_request",
   ADD_USER_SUCCESS: "add_user_success",
   ADD_USER_FAILURE: "add_user_failure",
 
+  // Game actions
   GET_GAME_STATE_REQUEST: "get_game_state_request",
   GET_GAME_STATE_SUCCESS: "get_game_state_success",
   GET_GAME_STATE_FAILURE: "get_game_state_failure",
@@ -19,11 +25,6 @@ const ACTIONS = {
   UPLOAD_IMAGE_SUCCESS: "upload_image_success",
   UPLOAD_IMAGE_FAILURE: "upload_image_failure",
 
-  SET_MATCH_REQUEST: "set_match_request",
-  SET_MATCH_SUCCESS: "set_match_success",
-  SET_MATCH_FAILURE: "set_match_failure",
-  IS_MATCH_READY: "is_match_ready",
-
   START_NEW_GAME_REQUEST: "start_new_game_request",
   START_NEW_GAME_SUCCESS: "start_new_game_success",
   START_NEW_GAME_FAILURE: "start_new_game_failure",
@@ -31,6 +32,12 @@ const ACTIONS = {
   MARK_SOLVED_REQUEST: "mark_solved_request",
   MARK_SOLVED_SUCCESS: "mark_solved_success",
   MARK_SOLVED_FAILURE: "mark_solved_failure",
+
+  // Match actions
+  SET_MATCH_REQUEST: "set_match_request",
+  SET_MATCH_SUCCESS: "set_match_success",
+  SET_MATCH_FAILURE: "set_match_failure",
+  IS_MATCH_READY: "is_match_ready",
 
   JOIN_MATCH_REQUEST: "join_match_request",
   JOIN_MATCH_SUCCESS: "join_match_success",

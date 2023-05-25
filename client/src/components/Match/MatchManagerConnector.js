@@ -1,7 +1,7 @@
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {getUser} from "../../selectors/UserSelector";
-import {setMatch, joinMatch} from "../../actions/game-actions/one-vs-one-actions";
+import {setMatch, joinMatch} from "../../actions/game-actions/match-actions";
 import MatchManager from "./MatchManager";
 
 const mapStateToProps = (state) => {
