@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import {useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -15,14 +14,14 @@ const Item = styled(Paper)(({theme}) => ({
     id: "",
 }));
 
-function LevelsPage({user, getGameState, startNewGameFunc}) {
+function LevelsPage({user, getGameState, setMosaicMatch}) {
     const navigate = useNavigate();
 
     const levelChooseHandler = async (response) => {
         let level = response.target.id;
         // check if this user had this level in db if yes return state if not make new instance
         // await getGameState(user, level);
-        await startNewGameFunc(user.email, level);
+        await setMosaicMatch(user.email, level);
         navigate(`/main/game/mosaic/levels/${level}`);
     };
 

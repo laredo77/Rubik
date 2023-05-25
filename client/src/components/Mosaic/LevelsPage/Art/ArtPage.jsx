@@ -11,8 +11,6 @@ import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
-import {getCubeIdFromImg} from "../../../components-utils";
-import createMultiplayerGameReducer from "../../../../reducers/CreateMultiplayerGameReducer";
 import {useEffect} from "react";
 
 const theme = createTheme();
@@ -20,13 +18,14 @@ const theme = createTheme();
 function ArtPage({user, uploadImagesFunc, markSolved}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
-    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
+    const levelDetailsNew = useSelector((state) => state.mosaicReducer);
 
     useEffect(() => {   //todo take care of useEffect do not call on first render
+        console.log("levelDetails:", levelDetailsNew);
         // On page load, update all finished cubes images
-        const cubes = levelDetails.cubes;
+        const cubes = levelDetailsNew.cubes;
+        console.log("cubes finished:", cubes)
         if (cubes) {
-            // console.log(levelDetails);
             cubes.forEach((cube) => {
                 if (cube.is_finished === 1) {
                     const cubeImage = cubesImage.at(cube.cube_id);
@@ -37,8 +36,8 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
             });
         }
 
-    }, [levelDetails]);
-
+    }, [levelDetailsNew]);
+//
 
     const handleSolved = async (selectedImage) => {
         if (selectedImage) {

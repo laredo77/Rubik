@@ -25,11 +25,7 @@ export class GameService {
     }
 
     static async joinGame(gameDetails, player) {
-        //console.log(gameDetails);
-        //console.log(player);
-        // 1. call server with gameDetails, user nickname(player)
-        // 2. add to db the player
-        const details = {gameDetails: gameDetails, player: player};
+        const details = {gameLevel: gameDetails, player: player};
         const response = await axios.post("http://localhost:3001/game/join-game", {},
             {
                 headers: {

@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from "@mui/material/Typography";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import Client from "../../../../services/GameService"
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
@@ -14,7 +13,7 @@ function MenuDetails({gameState}) {
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
+    const levelDetails = useSelector((state) => state.mosaicReducer);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
