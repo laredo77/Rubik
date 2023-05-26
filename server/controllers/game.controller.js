@@ -13,7 +13,10 @@ const uploadImages = async (req, res) => {
 
 const getGameState = async (req, res) => {
     try {
-        const gameState = await gameService.fetchGameState(req.query);
+        const gameDetails = JSON.parse(req.headers.details);
+        // const gameId = gameDetails?.gameDetails?.gameId;
+        // console.log("gameId:", gameId);
+        const gameState = await gameService.fetchGameState(gameDetails.gameDetails);
         res.send(gameState);
     } catch (error) {
         console.log(error);

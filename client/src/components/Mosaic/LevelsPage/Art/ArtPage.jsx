@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {cubesImage} from "../../../components-utils";
+import {cubesImage, getCubeIdFromImg} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -15,37 +15,53 @@ import {useEffect} from "react";
 
 const theme = createTheme();
 
-function ArtPage({user, uploadImagesFunc, markSolved}) {
+function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
-    const levelDetailsNew = useSelector((state) => state.mosaicReducer);
+    const levelDetails = useSelector((state) => state.mosaicReducer);
 
     useEffect(() => {   //todo take care of useEffect do not call on first render
-        console.log("levelDetails:", levelDetailsNew);
+        console.log("levelDetails:", levelDetails);
         // On page load, update all finished cubes images
-        const cubes = levelDetailsNew.cubes;
+        const cubes = levelDetails.cubes;
         console.log("cubes finished:", cubes)
         if (cubes) {
             cubes.forEach((cube) => {
-                if (cube.is_finished === 1) {
-                    const cubeImage = cubesImage.at(cube.cube_id);
-                    if (cubeImage) {
-                        cubeImage.solved = true;
-                    }
+                const cubeImage = cubesImage.at(cube.cube_id);
+                if (cubeImage) {
+                    console.log("marking cube:", cube)
+                    cubeImage.solved = true;
                 }
             });
         }
 
-    }, [levelDetailsNew]);
-//
+    }, [levelDetails]);
+
+    useEffect(() => {
+        let game_id = 88
+
+        const updateGameState = () => {
+            getGameState(game_id)
+        }
+        // Call the function initially
+        updateGameState();
+
+        // Call the function every 5 seconds
+        const interval = setInterval(updateGameState, 5000);
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(interval);
+    }, []);
+
 
     const handleSolved = async (selectedImage) => {
         if (selectedImage) {
-            // let cube_id = getCubeIdFromImg(selectedImage);
+            let cube_id = getCubeIdFromImg(selectedImage);
+            console.log("test:", cube_id)
             try {
-                let cube_id = 3;    //todo get cube,level,game id's for this func
-                let level_id = 3;
-                let game_id = 78;
+                let cube_id = 4;    //todo get cube,level,game id's for this func
+                let level_id = levelDetails.level_id;
+                let game_id = 88;
 
                 await markSolved(user, level_id, cube_id, game_id);
                 //todo update the page to all players in gamecli
@@ -53,6 +69,7 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
                 console.log(error);
                 console.log("Error marking cube as solved");
             }
+            console.log("adding:", selectedImage)
             selectedImage.classList.add("image-solved");
             //todo refresh page
         }

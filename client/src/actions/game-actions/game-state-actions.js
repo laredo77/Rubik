@@ -15,10 +15,9 @@ const GetGameStateFailureAction = (gameDetails) => ({
     payload: gameDetails,
 });
 
-export const getGameState = (user, level) => {
+export const getGameState = (gameId) => {
     let gameDetails = {
-        manager: user.email,
-        level: level,
+        gameId: gameId,
         isLoading: true,
         isError: false,
         errorMsg: "",
@@ -28,9 +27,9 @@ export const getGameState = (user, level) => {
         dispatch(GetGameStateRequestAction());
         try {
             const response = await Client.getGameState(gameDetails); // should get response code+pwd+state of cubes
-            gameDetails = {...gameDetails,
+            gameDetails = {
+                ...gameDetails,
                 gameId: response.gameId,
-                password: response.password,
                 gameState: response.gameState,
             }
             dispatch(GetGameStateSuccessAction(gameDetails));

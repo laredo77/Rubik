@@ -15,13 +15,15 @@ export class GameService {
         // });
         // if (response.status !== 200) return;
         // return await response.data;
-
-        let should_return = {
-            gameId: "gameId123",
-            password: "psw",
-            gameState: "GS",
-        }
-        return should_return
+        console.log("GameService gameDetails:", gameDetails)
+        const details = {gameDetails: gameDetails};
+        const response = await axios.post("http://localhost:3001/game/gameState", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
     }
 
     static async joinGame(gameDetails, player) {

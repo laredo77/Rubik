@@ -14,13 +14,11 @@ const Item = styled(Paper)(({theme}) => ({
     id: "",
 }));
 
-function LevelsPage({user, getGameState, setMosaicMatch}) {
+function LevelsPage({user, setMosaicMatch}) {
     const navigate = useNavigate();
 
     const levelChooseHandler = async (response) => {
         let level = response.target.id;
-        // check if this user had this level in db if yes return state if not make new instance
-        // await getGameState(user, level);
         await setMosaicMatch(user.email, level);
         navigate(`/main/game/mosaic/levels/${level}`);
     };
