@@ -163,7 +163,7 @@ function LoginPage({addNewUser}) {
                 </Grid>
             </Grid>
             <Box sx={{position: "absolute", top: 0, left: 0, m: 2}}>
-                <Button variant="contained" onClick={tempButtonHandler}>
+                <Button variant="contained" onClick={tempButtonHandler} id="temp-button">
                     TEMP BUTTON
                 </Button>
             </Box>

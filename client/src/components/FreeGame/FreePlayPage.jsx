@@ -126,27 +126,27 @@ function FreePlayPage() {
                     width: 640
                 }}>
                     {/* Buttons for different shuffle levels */}
-                    <Button variant="contained" sx={{marginRight: 1}} onClick={easyShuffleHandler}>
+                    <Button variant="contained" sx={{marginRight: 1}} onClick={easyShuffleHandler} id="easy-shuffle-button">
                         Easy Shuffle!
                     </Button>
-                    <Button variant="contained" sx={{marginRight: 1}} onClick={mediumShuffleHandler}>
+                    <Button variant="contained" sx={{marginRight: 1}} onClick={mediumShuffleHandler} id="medium-shuffle-button">
                         Medium Shuffle!
                     </Button>
-                    <Button variant="contained" sx={{marginRight: 1}} onClick={toughShuffleHandler}>
+                    <Button variant="contained" sx={{marginRight: 1}} onClick={toughShuffleHandler} id="tough-shuffle-button">
                         Tough Shuffle!
                     </Button>
                 </Box>
             </Box>
             <Box sx={{display: "flex", justifyContent: "flex-end"}}>
                 {/* Button for hint */}
-                <Button variant="contained" sx={{marginRight: 1, width: 488, marginTop: 2}} onClick={hintButtonHandler}>
+                <Button variant="contained" sx={{marginRight: 1, width: 488, marginTop: 2}} onClick={hintButtonHandler} id="hint-button">
                     Hint
                 </Button>
             </Box>
             <Box sx={{display: "flex", justifyContent: "flex-end"}}>
                 {/* Buttons for finish and solve */}
                 <Button variant="contained" sx={{marginRight: 1, width: 240, marginTop: 2}}
-                        onClick={finishButtonHandler}>
+                        onClick={finishButtonHandler} id="finish-button">
                     Finish
                 </Button>
                 <Button variant="contained" sx={{marginRight: 1, width: 240, marginTop: 2}}
