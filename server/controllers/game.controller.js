@@ -24,7 +24,6 @@ const getGameState = async (req, res) => {
 
 // old singleplayer function
 const chooseLevel = async (req, res) => {
-    // console.log(req)
     try {
         const playerLevel = await gameService.chooseLevel(req.body);
         res.send(playerLevel);

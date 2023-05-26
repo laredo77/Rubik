@@ -19,7 +19,6 @@ const getUserAction = async (action) => {
             console.error(err);
             return;
         }
-        console.log(data)
         return data;
     });
 };

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import React, {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import "./LeaderBoardPage.css";
 import List from "./List";
 import Button from "@mui/material/Button";
 import Client from "../../../services/GeneralServices";
 
+// Create a MUI theme
 const theme = createTheme();
 
 function LeaderBoardPage() {
     const [leaderBoardData, setLeaderBoardData] = useState([]);
     const navigate = useNavigate();
 
+    // Fetch leaderboard data when the component mounts
     useEffect(() => {
         async function fetchData() {
             try {
@@ -25,6 +27,7 @@ function LeaderBoardPage() {
         fetchData();
     }, []);
 
+    // Handle click event to navigate back to the home page
     function handleClick() {
         navigate("/main");
     }
@@ -37,7 +40,7 @@ function LeaderBoardPage() {
                     Back to Home
                 </Button>
                 {leaderBoardData.length > 0 ? (
-                    <List data={leaderBoardData} />
+                    <List data={leaderBoardData}/>
                 ) : (
                     <div>Loading...</div>
                 )}

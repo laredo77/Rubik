@@ -1,16 +1,12 @@
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
-import {getUser} from "../../selectors/UserSelector";
 import {getMatchStatus} from "../../actions/game-actions/match-actions";
 import MatchPage from "./MatchPage";
 
-const mapStateToProps = (state) => {
-    const user = getUser(state);
-    return {user};
-};
-
+// Connect MatchPage component to Redux store and dispatch actions
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({getMatchStatus}, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MatchPage);
+// Connect MatchPage component to Redux store
+export default connect(null, mapDispatchToProps)(MatchPage);

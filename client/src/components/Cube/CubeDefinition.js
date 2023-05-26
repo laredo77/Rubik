@@ -1,3 +1,16 @@
+/**
+ * Cube Manipulation Functions
+ *
+ * This file contains functions for manipulating a Rubik's Cube represented as a string of colors.
+ * It provides functions to change the state of the cube by performing specific arrow moves.
+ * The cube state is stored in the `currentCubeState` variable.
+ *
+ * Functions:
+ * - changeCubeStringDefinition(id): Changes the cube state based on the provided arrow move ID.
+ * - swapCubeCell(indexCellA, indexCellB, indexCellC, indexCellD): Swaps the positions of four cube cells.
+ * - isCubeStringCorrect(): Checks if the current cube state is a valid Rubik's Cube configuration.
+ */
+
 let initializeCubeString = "YYYYYYYYYWWWWWWWWWGGGGGGGGGOOOOOOOOORRRRRRRRRBBBBBBBBB";
 let currentCubeState = initializeCubeString;
 
@@ -286,9 +299,3 @@ export const isCubeStringCorrect = () => {
     }
     return false;
 };
-
-// SHOULD REMOVED***************************************************
-export const tempFunctionPrintCubeDefinition = () => {
-    console.log(currentCubeState)
-}
-

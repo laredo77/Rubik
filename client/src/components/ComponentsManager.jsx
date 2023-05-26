@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {Routes, Route} from "react-router-dom";
 import MainPageConnector from "./MainPage/MainPageConnector";
 import FreePlayPage from "./FreeGame/FreePlayPage";
 import ArtPageConnector from "./Mosaic/LevelsPage/Art/ArtPageConnector";

@@ -3,21 +3,25 @@ const cors = require("cors");
 const router = require("./routes/router");
 const dotenv = require("dotenv");
 const path = require("path");
-const database = require("../server/database")
-// const {connect} = require("react-redux");
+const database = require("../server/database");
 
 dotenv.config();
 process.env.PWD = process.cwd();
 
 const app = express();
 
+// Middleware: JSON parsing and Cross-Origin Resource Sharing (CORS)
 app.use([express.json(), cors()]);
+
+// Serve static files from the client/build directory
 app.use(express.static(path.join(process.env.PWD + "/client/build")));
+
+// Mount the router for handling routes
 app.use("/", router);
 
 const port = process.env.PORT || 3001;
 
-// database.connectToDatabase();
+// Start the server
 app.listen(port, function () {
     console.log(`Server is up and Running on ${port}`);
 });

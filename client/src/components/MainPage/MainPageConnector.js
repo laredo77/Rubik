@@ -1,15 +1,13 @@
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { getUser } from "../../selectors/UserSelector";
+import {connect} from "react-redux";
+import {getUser} from "../../selectors/UserSelector";
 import MainPage from "./MainPage";
 
+// mapStateToProps function
 const mapStateToProps = (state) => {
-  const user = getUser(state);
-  return { user };
+    // Retrieve the user from the state using the UserSelector
+    const user = getUser(state);
+    return {user};
 };
 
-// const mapDispatchToProps = dispatch => {
-//     return bindActionCreators({ func }, dispatch);
-// };
-
+// Connect the MainPage component with the Redux store
 export default connect(mapStateToProps, null)(MainPage);
