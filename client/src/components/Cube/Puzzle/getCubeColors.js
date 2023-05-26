@@ -1,3 +1,4 @@
+// Function to get the color of a face on a specific side
 const getFace = (sideColors, sideName, row, col) => {
     if (sideName === 'bottom' || sideName === 'back') {
         return sideColors[sideName][Math.abs(2 - row)][Math.abs(2 - col)];
@@ -6,7 +7,10 @@ const getFace = (sideColors, sideName, row, col) => {
     }
 };
 
+// Component to determine the colors of the cube sides based on the type, direction, and depth
 export default ({type, dir, depth}, sideColors) => {
+
+    // Function to get the colors of corner sides
     const getCornerSides = () => {
         let sides;
         switch (depth) {
@@ -41,6 +45,8 @@ export default ({type, dir, depth}, sideColors) => {
             return getFace(sideColors, sideName, row, col);
         });
     };
+
+    // Function to get the colors of edge sides
     const getEdgeSides = () => {
         let sides;
         switch (depth) {
@@ -69,11 +75,14 @@ export default ({type, dir, depth}, sideColors) => {
             return getFace(sideColors, sideName, row, col);
         });
     };
+
+    // Function to get the color of the center side
     const getCenterSide = () => {
         if (depth === 0) return [getFace(sideColors, 'front', 1, 1)];
         else return [getFace(sideColors, 'back', 1, 1)];
     };
 
+    // Determine the type of the piece and return the corresponding colors
     switch (type) {
         case 'corner':
             return getCornerSides();

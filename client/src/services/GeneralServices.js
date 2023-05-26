@@ -12,7 +12,6 @@ export class GeneralServices {
 
     static async getLeaderBoard() {
         const response = await axios.get("http://localhost:3001/user/leaderboard", {});
-        //console.log(response)
         if (response.status === 200)
             return response.data;
     }

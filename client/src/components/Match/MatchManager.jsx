@@ -12,6 +12,7 @@ import Box from "@mui/material/Box";
 import {useSelector} from "react-redux";
 import {useEffect} from "react";
 
+// MatchManager component
 function MatchManager({user, setMatch, joinMatch}) {
     const MySwal = withReactContent(Swal);
     let gameId = "";
@@ -21,17 +22,19 @@ function MatchManager({user, setMatch, joinMatch}) {
     const matchStatus = useSelector((state) => state.matchReducer.status);
     const matchDetails = useSelector((state) => state.matchReducer);
 
+    // Handle choosing the game level from the menu
     const handleLevelChoose = (e) => {
         level = +e.target.innerText[6];
     };
 
+    // Effect for redirecting to the match page when the match status changes
     useEffect(() => {
         if (matchStatus) {
             navigate("/main/matchManager/match", {state: {Manager: "", Level: level}});
         }
     }, [matchStatus]);
 
-
+    // Handle creating a new game
     const newGameHandler = (response) => {
         MySwal.fire({
             title: "Choose Level",
@@ -53,26 +56,24 @@ function MatchManager({user, setMatch, joinMatch}) {
             showCancelButton: true,
         }).then(async (response) => {
             if (response.isConfirmed) {
-                //now navigate to game page
+                // Now navigate to game page
                 await setMatch(user, level);
                 navigate("/main/matchManager/match", {
                     state: {
                         Manager: user,
                         Level: level,
                         gameId: matchDetails.gameId,
-                        password: matchDetails.password
-                    }
+                        password: matchDetails.password,
+                    },
                 });
             } else if (response.isDenied) {
-                // do nothing
+                // Do nothing
             }
         });
     };
 
+    // Handle joining a game
     const joinGameHandler = (response) => {
-        // 1.ask for Code+Password
-        // 2.fetch from DB the game state and display
-        // 3.every change of the player will connect the DB and then update in all others players
         MySwal.fire({
             title: "Please Provide Game Details",
             html: (
@@ -100,10 +101,10 @@ function MatchManager({user, setMatch, joinMatch}) {
             showCancelButton: true,
         }).then(async (response) => {
             if (response.isConfirmed) {
-                //now navigate to game page
-                await joinMatch({user: user.email, gameId: gameId, password: gamePwd})
+                // Now navigate to game page
+                await joinMatch({user: user.email, gameId: gameId, password: gamePwd});
             } else if (response.isDenied) {
-                // do nothing
+                // Do nothing
             }
         });
     };

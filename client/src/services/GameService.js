@@ -40,7 +40,6 @@ export class GameService {
     }
 
     static async markSolved(cubeGameDetails) {
-        //console.log(gameDetails);
         const details = {cubeGameDetails: cubeGameDetails};
         const response = await axios.post("http://localhost:3001/game/mark-solved", {},
             {
@@ -76,7 +75,6 @@ export class GameService {
     }
 
     static async postCompScore(scoreDetails) {
-        //console.log(scoreDetails)
         await axios.post("http://localhost:3001/game/compScore", scoreDetails);
     }
 

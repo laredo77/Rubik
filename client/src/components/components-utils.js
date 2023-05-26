@@ -1,51 +1,65 @@
-import {getMoveStack} from "./Cube/Controls";
-import {changeCubeStringDefinition} from "./Cube/CubeDefinition";
+const NUMBER_OF_IMAGES = 900
 
 export const CubeShuffle = (level) => {
-    let movesArray = getShuffleCubeMoves(level)
-    console.log(movesArray)
-    var intr = setInterval(function() {
-        let move = movesArray.shift()
-        var elements = document.querySelectorAll(`#${move}`);
-        elements.forEach(function(element) {
+    const movesArray = getShuffleCubeMoves(level);
+
+    let index = 0;
+    const playMove = () => {
+        const move = movesArray[index];
+        const elements = document.querySelectorAll(`#${move}`);
+        elements.forEach((element) => {
             const event = new MouseEvent('click', {
                 view: window,
                 bubbles: true,
-                cancelable: true
+                cancelable: true,
             });
             element.dispatchEvent(event);
         });
-        if (movesArray.length == 0) clearInterval(intr)
-    }, 500)
-}
+        index++;
+
+        if (index === movesArray.length) {
+            clearInterval(interval);
+        }
+    };
+
+    const interval = setInterval(playMove, 500);
+};
 
 export const getShuffleCubeMoves = (level) => {
-    let amountOfSteps = 8 * level; // should be depended on level
-    let movesArray = []
-    let choices = new Array(8).fill(0);
-    choices.push(1)
-    choices.push(1)
-    for (let i = 0; i < amountOfSteps; i++) {
-        const randomElement = choices[Math.floor(Math.random() * choices.length)];
-        let random_arrow, random_direction, choice;
-        if (randomElement === 0) {
-            random_arrow = Math.floor(Math.random() * 9) + 1;
-            random_direction = Math.floor(Math.random() * 2);
-            choice = "a" + random_arrow.toString() + random_direction.toString()
+    const amountOfSteps = 8 * level;
+    const movesArray = [];
+
+    const randomMove = () => {
+        const choices = [
+            {type: 'arrow', arrows: 9, directions: 2},
+            {type: 'rotate', arrows: ['ax', 'ay', 'az'], directions: 2},
+        ];
+
+        const randomChoice = choices[Math.floor(Math.random() * choices.length)];
+
+        if (randomChoice.type === 'arrow') {
+            const randomArrow = Math.floor(Math.random() * randomChoice.arrows) + 1;
+            const randomDirection = Math.floor(Math.random() * randomChoice.directions);
+            return `a${randomArrow}${randomDirection}`;
         } else {
-            let rotateArrows = ["ax", "ay", "az"]
-            random_arrow = Math.floor(Math.random() * 3);
-            random_direction = Math.floor(Math.random() * 2);
-            choice = rotateArrows[random_arrow] + random_direction.toString()
+            const randomArrow = randomChoice.arrows[Math.floor(Math.random() * randomChoice.arrows.length)];
+            const randomDirection = Math.floor(Math.random() * randomChoice.directions);
+            return `${randomArrow}${randomDirection}`;
         }
-        movesArray.push(choice)
+    };
+
+    for (let i = 0; i < amountOfSteps; i++) {
+        const choice = randomMove();
+        movesArray.push(choice);
     }
-    return movesArray
-}
+
+    return movesArray;
+};
+
 
 export function getCubesImages(level) {
     const cubesImage = [];
-    for (let i = 0; i < 900; i++) {
+    for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
         let new_im = {
             id: i,
             solved: false,
@@ -56,6 +70,7 @@ export function getCubesImages(level) {
     }
     return cubesImage
 }
+
 export function getCubeIdFromImg(img) {
     const src = img.getAttribute("src");
     const cube_Id = src.split("/").pop();

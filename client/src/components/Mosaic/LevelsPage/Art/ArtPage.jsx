@@ -32,7 +32,6 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
         // On page load, update all finished cubes images
         const cubes = levelDetails.cubes;
         if (cubes) {
-            // console.log(levelDetails);
             cubes.forEach((cube) => {
                 if (cube.is_finished === 1) {
                     const cubeImage = cubesImage.at(cube.cube_id);

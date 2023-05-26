@@ -9,19 +9,25 @@ import Client from "../../services/GameService"
 import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
+// GameDetailsMenu component
 function GameDetailsMenu({user}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const matchDetails = useSelector((state) => state.matchReducer);
+
+    // Handle click event of the menu button
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
+    // Handle close event of the menu
     const handleClose = () => {
         setAnchorEl(null);
     };
 
+    // Handle displaying game details using SweetAlert
     const handleGameDetails = () => {
         MySwal.fire({
             title: "Game Details",
@@ -38,6 +44,7 @@ function GameDetailsMenu({user}) {
         setAnchorEl(null);
     };
 
+    // Handle quitting the game and redirecting to the main page
     const handleQuit = async () => {
         const response = await Client.quitMatch(user)
         setAnchorEl(null);

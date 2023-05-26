@@ -6,6 +6,7 @@
         transform: rotateY(690deg) rotateX(-30deg);
     }
 }
+
 @keyframes rotate {
     from {
         transform: rotateY(-30deg) rotateX(-30deg);
@@ -14,6 +15,7 @@
         transform: rotateY(690deg) rotateX(-30deg);
     }
 }
+
 @-webkit-keyframes spinTopRow {
     0% {
         transform: rotateY(0deg);
@@ -31,6 +33,7 @@
         transform: rotateY(360deg);
     }
 }
+
 @keyframes spinTopRow {
     0% {
         transform: rotateY(0deg);
@@ -48,6 +51,7 @@
         transform: rotateY(360deg);
     }
 }
+
 @-webkit-keyframes spinMiddleColumn {
     25% {
         transform: rotateX(0deg);
@@ -65,6 +69,7 @@
         transform: rotateX(360deg);
     }
 }
+
 @keyframes spinMiddleColumn {
     25% {
         transform: rotateX(0deg);
@@ -82,6 +87,7 @@
         transform: rotateX(360deg);
     }
 }
+
 @-webkit-keyframes spinMiddleRow {
     40% {
         transform: rotateY(0deg);
@@ -99,6 +105,7 @@
         transform: rotateY(360deg);
     }
 }
+
 @keyframes spinMiddleRow {
     40% {
         transform: rotateY(0deg);
@@ -116,6 +123,7 @@
         transform: rotateY(360deg);
     }
 }
+
 @-webkit-keyframes makeOpaque1 {
     0% {
         opacity: 1;
@@ -130,6 +138,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque1 {
     0% {
         opacity: 1;
@@ -144,6 +153,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque2 {
     44.99% {
         opacity: 1;
@@ -158,6 +168,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque2 {
     44.99% {
         opacity: 1;
@@ -172,6 +183,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque3 {
     24.99% {
         opacity: 1;
@@ -186,6 +198,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque3 {
     24.99% {
         opacity: 1;
@@ -200,6 +213,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque4 {
     74.99% {
         opacity: 1;
@@ -214,6 +228,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque4 {
     74.99% {
         opacity: 1;
@@ -228,6 +243,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque5 {
     39.99% {
         opacity: 1;
@@ -242,6 +258,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque5 {
     39.99% {
         opacity: 1;
@@ -256,6 +273,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque6 {
     89.99% {
         opacity: 1;
@@ -270,6 +288,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque6 {
     89.99% {
         opacity: 1;
@@ -284,6 +303,7 @@
         opacity: 1;
     }
 }
+
 @-webkit-keyframes makeOpaque7 {
     74.99% {
         opacity: 1;
@@ -298,6 +318,7 @@
         opacity: 1;
     }
 }
+
 @keyframes makeOpaque7 {
     74.99% {
         opacity: 1;
@@ -312,6 +333,7 @@
         opacity: 1;
     }
 }
+
 body {
     height: 100%;
     width: 100%;
@@ -330,6 +352,7 @@ body {
     transform: scale(0.75);
 
 }
+
 .container .rubiks-cube {
     width: 12em;
     height: 12em;
@@ -340,6 +363,7 @@ body {
     transform-style: preserve-3d;
     transform: rotateY(-30deg) rotateX(-30deg) scale3d(0.7, 0.7, 0.7);
 }
+
 .container .top-clone {
     z-index: 100;
     position: absolute;
@@ -349,9 +373,11 @@ body {
     -webkit-animation: spinTopRow 20s infinite linear;
     animation: spinTopRow 20s infinite linear;
 }
+
 .container .top-clone .clone-left {
     left: 0;
 }
+
 .container .top-clone .clone-left .left-one {
     background: #C41E3A;
     position: absolute;
@@ -360,6 +386,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-left .left-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -370,6 +397,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-left .left-three {
     background: #0051BA;
     position: absolute;
@@ -378,11 +406,13 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-middle {
     left: 4em;
     -webkit-animation: makeOpaque7 20s infinite linear;
     animation: makeOpaque7 20s infinite linear;
 }
+
 .container .top-clone .clone-middle .middle-one {
     background: #FFFFFF;
     position: absolute;
@@ -391,6 +421,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-middle .middle-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -401,6 +432,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-middle .middle-three {
     background: #009E60;
     position: absolute;
@@ -409,9 +441,11 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-right {
     left: 8em;
 }
+
 .container .top-clone .clone-right .right-one {
     background: #FF5800;
     position: absolute;
@@ -420,6 +454,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-right .right-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -430,6 +465,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-clone .clone-right .right-three {
     background: #FFFFFF;
     position: absolute;
@@ -438,6 +474,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row, .container .middle-row, .container .bottom-row {
     position: absolute;
     top: 0;
@@ -445,11 +482,13 @@ body {
     height: 4em;
     transform-style: preserve-3d;
 }
+
 .container .top-row {
     top: 0;
     -webkit-animation: spinTopRow 20s infinite linear;
     animation: spinTopRow 20s infinite linear;
 }
+
 .container .top-row .front .front-one {
     background: #009E60;
     position: absolute;
@@ -458,6 +497,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .front .front-two {
     -webkit-animation: makeOpaque4 20s infinite linear;
     animation: makeOpaque4 20s infinite linear;
@@ -468,6 +508,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .front .front-three {
     background: #FF5800;
     position: absolute;
@@ -476,6 +517,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .left .left-one {
     background: #FF5800;
     position: absolute;
@@ -484,6 +526,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .left .left-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -494,6 +537,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .left .left-three {
     background: #C41E3A;
     position: absolute;
@@ -502,6 +546,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .back .back-one {
     background: #C41E3A;
     position: absolute;
@@ -510,6 +555,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .back .back-two {
     -webkit-animation: makeOpaque4 20s infinite linear;
     animation: makeOpaque4 20s infinite linear;
@@ -520,6 +566,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .back .back-three {
     background: #FFD500;
     position: absolute;
@@ -528,6 +575,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .right .right-one {
     background: #FFFFFF;
     position: absolute;
@@ -536,6 +584,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .right .right-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -546,6 +595,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .top-row .right .right-three {
     background: #009E60;
     position: absolute;
@@ -554,11 +604,13 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row {
     top: 4em;
     -webkit-animation: spinMiddleRow 20s infinite linear;
     animation: spinMiddleRow 20s infinite linear;
 }
+
 .container .middle-row .front .front-one {
     background: #FF5800;
     position: absolute;
@@ -567,6 +619,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .front .front-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -577,6 +630,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .front .front-three {
     background: #C41E3A;
     position: absolute;
@@ -585,6 +639,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .left .left-one {
     background: #FFFFFF;
     position: absolute;
@@ -593,6 +648,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .left .left-two {
     -webkit-animation: makeOpaque4 20s infinite linear;
     animation: makeOpaque4 20s infinite linear;
@@ -603,6 +659,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .left .left-three {
     background: #FFD500;
     position: absolute;
@@ -611,6 +668,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .back .back-one {
     background: #C41E3A;
     position: absolute;
@@ -619,6 +677,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .back .back-two {
     -webkit-animation: makeOpaque3 20s infinite linear;
     animation: makeOpaque3 20s infinite linear;
@@ -629,6 +688,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .back .back-three {
     background: #009E60;
     position: absolute;
@@ -637,6 +697,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .right .right-one {
     background: #FFD500;
     position: absolute;
@@ -645,6 +706,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .right .right-two {
     -webkit-animation: makeOpaque4 20s infinite linear;
     animation: makeOpaque4 20s infinite linear;
@@ -655,6 +717,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-row .right .right-three {
     background: #009E60;
     position: absolute;
@@ -663,9 +726,11 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row {
     top: 8em;
 }
+
 .container .bottom-row .left .left-one {
     background: #FFFFFF;
     position: absolute;
@@ -674,6 +739,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row .left .left-two {
     background: #0051BA;
     position: absolute;
@@ -682,6 +748,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row .left .left-three {
     background: #FFD500;
     position: absolute;
@@ -690,6 +757,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row .right .right-one {
     background: #FFD500;
     position: absolute;
@@ -698,6 +766,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row .right .right-two {
     background: #C41E3A;
     position: absolute;
@@ -706,6 +775,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .bottom-row .right .right-three {
     background: #009E60;
     position: absolute;
@@ -714,6 +784,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .row-face {
     position: absolute;
     display: block;
@@ -721,36 +792,44 @@ body {
     height: 4em;
     top: 0;
 }
+
 .container .row-face :nth-child(1) {
     left: 0em;
     top: 50%;
     margin-top: -1.75em;
     margin-left: 0.25em;
 }
+
 .container .row-face :nth-child(2) {
     left: 4em;
     top: 50%;
     margin-top: -1.75em;
     margin-left: 0.25em;
 }
+
 .container .row-face :nth-child(3) {
     left: 8em;
     top: 50%;
     margin-top: -1.75em;
     margin-left: 0.25em;
 }
+
 .container .row-face.front {
     transform: translateZ(6em);
 }
+
 .container .row-face.left {
     transform: rotateY(-90deg) translateZ(6em);
 }
+
 .container .row-face.back {
     transform: rotateY(-180deg) translateZ(6em);
 }
+
 .container .row-face.right {
     transform: rotateY(90deg) translateZ(6em);
 }
+
 .container .left-column, .container .middle-column, .container .right-column {
     position: absolute;
     width: 4em;
@@ -758,9 +837,11 @@ body {
     top: 0;
     transform-style: preserve-3d;
 }
+
 .container .left-column {
     left: 0;
 }
+
 .container .left-column .front .front-three {
     background: #009E60;
     position: absolute;
@@ -769,6 +850,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .left-column .back .back-one {
     background: #FFD500;
     position: absolute;
@@ -777,6 +859,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .left-column .bottom .bottom-one {
     background: #C41E3A;
     position: absolute;
@@ -785,6 +868,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .left-column .bottom .bottom-two {
     background: #FFD500;
     position: absolute;
@@ -793,6 +877,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .left-column .bottom .bottom-three {
     background: #009E60;
     position: absolute;
@@ -801,15 +886,18 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column {
     left: 4em;
     -webkit-animation: spinMiddleColumn 20s infinite linear;
     animation: spinMiddleColumn 20s infinite linear;
 }
+
 .container .middle-column .front {
     -webkit-animation: makeOpaque2 20s infinite linear;
     animation: makeOpaque2 20s infinite linear;
 }
+
 .container .middle-column .front .front-one {
     -webkit-animation: makeOpaque1 20s infinite linear;
     animation: makeOpaque1 20s infinite linear;
@@ -820,6 +908,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .front .front-two {
     -webkit-animation: makeOpaque6 20s infinite linear;
     animation: makeOpaque6 20s infinite linear;
@@ -830,6 +919,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .front .front-three {
     background: #009E60;
     position: absolute;
@@ -838,10 +928,12 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .top {
     -webkit-animation: makeOpaque1 20s infinite linear;
     animation: makeOpaque1 20s infinite linear;
 }
+
 .container .middle-column .top .top-one {
     background: #FFFFFF;
     position: absolute;
@@ -850,6 +942,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .top .top-two {
     -webkit-animation: makeOpaque5 20s infinite linear;
     animation: makeOpaque5 20s infinite linear;
@@ -860,6 +953,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .top .top-three {
     -webkit-animation: makeOpaque2 20s infinite linear;
     animation: makeOpaque2 20s infinite linear;
@@ -870,6 +964,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .back .back-one {
     background: #FF5800;
     position: absolute;
@@ -878,6 +973,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .back .back-two {
     -webkit-animation: makeOpaque6 20s infinite linear;
     animation: makeOpaque6 20s infinite linear;
@@ -888,6 +984,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .back .back-three {
     -webkit-animation: makeOpaque1 20s infinite linear;
     animation: makeOpaque1 20s infinite linear;
@@ -898,6 +995,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .bottom .bottom-one {
     -webkit-animation: makeOpaque2 20s infinite linear;
     animation: makeOpaque2 20s infinite linear;
@@ -908,6 +1006,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .bottom .bottom-two {
     -webkit-animation: makeOpaque5 20s infinite linear;
     animation: makeOpaque5 20s infinite linear;
@@ -918,6 +1017,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .middle-column .bottom .bottom-three {
     background: #009E60;
     position: absolute;
@@ -926,9 +1026,11 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .right-column {
     left: 8em;
 }
+
 .container .right-column .front .front-three {
     background: #0051BA;
     position: absolute;
@@ -937,6 +1039,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .right-column .back .back-one {
     background: #FFD500;
     position: absolute;
@@ -945,6 +1048,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .right-column .bottom .bottom-one {
     background: #FFFFFF;
     position: absolute;
@@ -953,6 +1057,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .right-column .bottom .bottom-two {
     background: #C41E3A;
     position: absolute;
@@ -961,6 +1066,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .right-column .bottom .bottom-three {
     background: #C41E3A;
     position: absolute;
@@ -969,6 +1075,7 @@ body {
     height: 3.6em;
     border-radius: 15%;
 }
+
 .container .column-face {
     position: absolute;
     display: block;
@@ -976,33 +1083,40 @@ body {
     height: 12em;
     left: 0;
 }
+
 .container .column-face :nth-child(1) {
     top: 0em;
     left: 50%;
     margin-left: -1.75em;
     margin-top: 0.25em;
 }
+
 .container .column-face :nth-child(2) {
     top: 4em;
     left: 50%;
     margin-left: -1.75em;
     margin-top: 0.25em;
 }
+
 .container .column-face :nth-child(3) {
     top: 8em;
     left: 50%;
     margin-left: -1.75em;
     margin-top: 0.25em;
 }
+
 .container .column-face.front {
     transform: translateZ(6em);
 }
+
 .container .column-face.top {
     transform: rotateX(90deg) translateZ(6em);
 }
+
 .container .column-face.back {
     transform: rotateX(180deg) translateZ(6em);
 }
+
 .container .column-face.bottom {
     transform: rotateX(-90deg) translateZ(6em);
 }
