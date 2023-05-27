@@ -7,15 +7,6 @@ export class GameService {
         GAME (FREE-PLAY, MOSAIC) SECTION
     */
     static async getGameState(gameDetails) {
-        // const response = await axios.get("http://localhost:3001/game/gameState", {
-        //     params: {
-        //         manager: gameDetails.manager,
-        //         level: gameDetails.level,
-        //     },
-        // });
-        // if (response.status !== 200) return;
-        // return await response.data;
-        console.log("GameService gameDetails:", gameDetails)
         const details = {gameDetails: gameDetails};
         const response = await axios.post("http://localhost:3001/game/gameState", {},
             {

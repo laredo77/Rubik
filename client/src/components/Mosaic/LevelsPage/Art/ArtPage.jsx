@@ -26,33 +26,34 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         const updateGameState = () => {
             getGameState(game_id)
         }
-        // Call the function initially
-        updateGameState();
 
-        // Call the function every 5 seconds
-        // const interval = setInterval(updateGameState, 5000);
-
-        // Clean up the interval on component unmount
-        // return () => clearInterval(interval);
-    }, []);
-
-    useEffect(() => {   //todo take care of useEffect do not call on first render
-        console.log("levelDetails:", levelDetails);
-        // On page load, update all finished cubes images
-        const cubes = levelDetails.cubes;
-        console.log("cubes finished:", cubes)
-        if (cubes) {
-            cubes.forEach((cube) => {
-                const cubeImage = cubesImage.at(cube.cube_id);
-                if (cubeImage) {
-                    console.log("marking cube:", cube)
-                    cubeImage.solved = true;
-                }
-            });
+        const updateImages = () => {
+            const cubes = levelDetails.cubes;
+            console.log("cubes finished:", cubes)
+            if (cubes) {
+                cubes.forEach((cube) => {
+                    const cubeImage = cubesImage.at(cube.cube_id);
+                    if (cubeImage) {
+                        console.log("marking cube:", cube)
+                        cubeImage.solved = true;
+                    }
+                });
+            }
         }
 
-    }, [levelDetails, game_id]);
+        // Call the function initially
+        updateGameState();
+        updateImages();
 
+        // Call the function every 5 seconds
+        const interval = setInterval(() => {
+            updateGameState();
+            updateImages();
+        }, 5000);
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(interval);
+    }, [levelDetails, game_id]);
 
     const handleSolved = async (selectedImage) => {
         if (selectedImage) {

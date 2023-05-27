@@ -103,7 +103,6 @@ const fetchGameState = async (gameDetails) => {
         console.error(error);
         console.log('An error occurred while updating the game state. Transaction rolled back.');
     }
-    console.log("Gamestate updated successfully");
 }
 
 
@@ -322,7 +321,6 @@ const markSolved = async (cubeGameDetails) => {
     try {
         const results = await executeQuery(insertQuery, params);
         console.log(`Marked cube:`, cubeGameDetails.cube_id, `successfully`);
-        console.log(results);
     } catch (error) {
         console.error(error);
         console.log('Error finishing cube')
