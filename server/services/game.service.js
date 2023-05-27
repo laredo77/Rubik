@@ -76,16 +76,22 @@ const fetchGameState = async (gameDetails) => {
 
     // Update each user update missing progress in DB
     const queries = [];
+    const tempParams = [];
     for (const user of userEmails) {
         for (const cube of unifiedProgress) {
-            const selectQuery = `SELECT 1 FROM user_progress WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
+            const selectQuery = `SELECT * FROM user_progress WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
             const selectParams = [user, levelId, cube.cube_id, gameDetails.gameId];
             const insertQuery = `INSERT INTO user_progress (user_email, level_id, cube_id, is_finished, game_id) 
                           VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE is_finished = ?`;
 
+            // Check if user has already finished this cube
             const selectResult = await executeQuery(selectQuery, selectParams);
-            if (selectResult.length === 0) {
+            const selectParamsString = JSON.stringify(selectParams);
+            const isParamExists = tempParams.some(param => JSON.stringify(param) === selectParamsString);
+
+            if (selectResult.length === 0 && !isParamExists) {
                 const insertParams = [user, levelId, cube.cube_id, cube.is_finished, gameDetails.gameId, cube.is_finished];
+                tempParams.push(selectParams);
                 queries.push({query: insertQuery, params: insertParams});
             }
         }

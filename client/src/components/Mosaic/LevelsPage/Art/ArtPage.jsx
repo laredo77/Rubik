@@ -19,6 +19,22 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.mosaicReducer);
+    let game_id = 88
+
+    useEffect(() => {
+
+        const updateGameState = () => {
+            getGameState(game_id)
+        }
+        // Call the function initially
+        updateGameState();
+
+        // Call the function every 5 seconds
+        // const interval = setInterval(updateGameState, 5000);
+
+        // Clean up the interval on component unmount
+        // return () => clearInterval(interval);
+    }, []);
 
     useEffect(() => {   //todo take care of useEffect do not call on first render
         console.log("levelDetails:", levelDetails);
@@ -35,23 +51,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
             });
         }
 
-    }, [levelDetails]);
-
-    useEffect(() => {
-        let game_id = 88
-
-        const updateGameState = () => {
-            getGameState(game_id)
-        }
-        // Call the function initially
-        updateGameState();
-
-        // Call the function every 5 seconds
-        const interval = setInterval(updateGameState, 5000);
-
-        // Clean up the interval on component unmount
-        return () => clearInterval(interval);
-    }, []);
+    }, [levelDetails, game_id]);
 
 
     const handleSolved = async (selectedImage) => {
