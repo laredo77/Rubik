@@ -29,7 +29,6 @@ export const getGameState = (gameId) => {
             const response = await Client.getGameState(gameDetails); // should get response code+pwd+state of cubes
             gameDetails = {
                 ...gameDetails,
-                gameId: response.gameId,
                 gameState: response.gameState,
             }
             dispatch(GetGameStateSuccessAction(gameDetails));

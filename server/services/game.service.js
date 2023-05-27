@@ -103,6 +103,7 @@ const fetchGameState = async (gameDetails) => {
         console.error(error);
         console.log('An error occurred while updating the game state. Transaction rolled back.');
     }
+    return ({gameId: gameDetails.gameId, gameState: unifiedProgress});
 }
 
 
