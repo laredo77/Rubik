@@ -20,7 +20,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const [previousState, setPreviousState] = useState(null);
     const gameState = useSelector((state) => state.gameReducer);//todo check why gameId is undefined
     const levelDetails = useSelector((state) => state.mosaicReducer);
-    let game_id = 88
+    const game_id = levelDetails.game_id;
 
     const prevGameStateRef = useRef(gameState);
 
@@ -56,11 +56,10 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const handleSolved = async (selectedImage, isReceiving) => {
         if (!isReceiving) {
             if (selectedImage) {
-                // let cube_id = getCubeIdFromImg(selectedImage); //todo remove from comment
+
                 try {
-                    let cube_id = 4;    //todo get cube,level,game id's for this func
-                    let level_id = levelDetails.level_id;
-                    let game_id = 88;
+                    let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
+                    const level_id = levelDetails.level_id;
                     await markSolved(user, level_id, cube_id, game_id);
                 } catch (error) {
                     console.log(error);
