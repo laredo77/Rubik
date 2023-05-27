@@ -70,7 +70,6 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         } else {
             selectedImage.className += "image-solved";
         }
-        MySwal.close();
     };
 
     const actionCaptureHandler = async (response) => {
