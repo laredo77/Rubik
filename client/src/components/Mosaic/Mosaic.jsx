@@ -23,7 +23,6 @@ function TeamPlayPage({user, joinMosaicMatch}) {
     };
 
     useEffect(() => {
-        console.log("gameDataUseEffect:", gameData)
         if (isEqual(gameData, prevGameData)) {
             return; // Exit early if the gameData object hasn't changed
         }
