@@ -124,9 +124,9 @@ function SinglePlayerCompMode({user}) {
                 showCloseButton: false,
                 showCancelButton: false,
                 allowOutsideClick: false,
-            }).then((response) => {
+            }).then(async (response) => {
                 if (response.isConfirmed) {
-                    Client.postCompScore({
+                    await Client.postCompScore({
                         user: user.email,
                         level: level,
                         time: (end_time - startTiming) / 1000,

@@ -7,6 +7,7 @@ from colorthief import ColorThief
 from image_slicer import slice, get_basename
 from PIL import Image
 
+# Define color constants
 blue = (61, 129, 246)
 red = (220, 66, 47)
 green = (0, 157, 84)
@@ -14,9 +15,10 @@ orange = (255, 108, 0)
 yellow = (253, 204, 9)
 white = (255, 255, 255)
 
+# Define color options
 colors = [blue, red, green, orange, yellow, white]
 
-
+# Function to create a composite image of cubes
 def create_cubes_image(img_path):
     parent_dir = os.path.dirname(img_path)
     final_cubes_path = os.path.join(parent_dir, "./final-cubes")
@@ -40,7 +42,7 @@ def create_cubes_image(img_path):
         image_name = str(i) + ".png"
         new_im.save(os.path.join(final_cubes_path, image_name))
 
-
+# Function to convert slices of the image into cubes with color representation
 def parse_to_cube_colors(img_path, n_cubes):
     parent_dir = os.path.dirname(img_path)
     inner_cube_path = os.path.join(parent_dir, "./inner-cube")
@@ -57,7 +59,7 @@ def parse_to_cube_colors(img_path, n_cubes):
             cube_colored_img = Image.new('RGB', image.size, closest_color)
             cube_colored_img.save(os.path.join(cube_colors_path, img))
 
-
+# Function to get the closest color from the given dominant color
 def get_closest_color(dc):
     min_distance = float('inf')
     for c in colors:
@@ -73,7 +75,7 @@ def get_closest_color(dc):
             min_c = c
     return min_c
 
-
+# Function to get the dominant color of an image
 def get_dominant_color(img_path):
     color_thief = ColorThief(img_path)
     try:
@@ -82,7 +84,7 @@ def get_dominant_color(img_path):
         dominant_color = white
     return dominant_color
 
-
+# Function to rename the images in a directory to sequential numbers
 def rename_images(dir_n):
     for i, file in enumerate(os.listdir(dir_n)):
         old_filepath = os.path.join(dir_n, file)
@@ -90,7 +92,7 @@ def rename_images(dir_n):
         new_filepath = os.path.join(dir_n, new_name)
         os.rename(old_filepath, new_filepath)
 
-
+# Function to slice the main image into cubes and inner cubes
 def image_slice(img_path, n_cubes, c_size):
     tiles = slice(img_path, n_cubes, save=False)  # slice the image for cubes
     parent_dir = os.path.dirname(img_path)
@@ -115,7 +117,7 @@ def image_slice(img_path, n_cubes, c_size):
         )
         rename_images(inner_cube_path)
 
-
+# Function to delete temporary directories
 def delete_directories():
     shutil.rmtree("./inner-cube", ignore_errors=True)
     shutil.rmtree("./cubes", ignore_errors=True)
@@ -123,13 +125,14 @@ def delete_directories():
 
 
 if __name__ == '__main__':
-    # should get in args
+    # Set the configuration parameters
     num_of_cubes = 840
     num_of_rows = 5
     num_of_cols = 7
     cube_size = 9
     image_path = "bar-ilan.jpg"
 
+    # Perform the image slicing, color parsing, cube image creation, and cleanup
     image_slice(image_path, num_of_cubes, cube_size)
     parse_to_cube_colors(image_path, num_of_cubes)
     create_cubes_image(image_path)
