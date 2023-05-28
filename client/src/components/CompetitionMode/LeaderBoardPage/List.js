@@ -14,7 +14,7 @@ export default function List({data}) {
                 <Item
                     key={index}
                     email={item.Email}
-                    picture={item.User_Picture}
+                    picture="https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png?20200627161017"
                     score={item.Score}
                 />
             ))}

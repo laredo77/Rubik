@@ -34,7 +34,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
             const cubes = gameState.gameState;
             if (cubes) {
                 cubes.forEach((cube) => {
-                    const imageName = createImageObject(cube.cube_id);
+                    const imageName = createImageObject(cube.cube_id, level);
                     const cubeImage = cubesImage.at(cube.cube_id);
                     if (cubeImage) {
                         cubeImage.solved = true;
@@ -63,7 +63,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
 
                 try {
                     let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
-                    await markSolved(user, level_id, cube_id, game_id);
+                    await markSolved(user, level, cube_id, game_id);
                 } catch (error) {
                     console.log(error);
                     console.log("Error marking cube as solved");

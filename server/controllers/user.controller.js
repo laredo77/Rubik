@@ -23,8 +23,8 @@ const getLeaderBoard = async (req, res) => {
         const leaderboard = await userService.buildLeaderboard();
         // Sample leaderboard data
         // const leaderboard = [
-        //   { Email: "first", User_Picture: "https://example.com/user1.jpg", Score: 112 },
-        //   { Email: "second", User_Picture: "https://example.com/user2.jpg", Score: 9 }
+        //   { Email: "first", Score: 112 },
+        //   { Email: "second", Score: 9 }
         // ];
         res.send(leaderboard);
     } catch (error) {

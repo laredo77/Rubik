@@ -82,6 +82,6 @@ export function createImageObject(id, level) {
         id: id,
         solved: true,
         label: id.toString(),
-        img: `/final-cubes-${level}/` + i.toString() + ".png",
+        img: `/final-cubes-${level}/` + id.toString() + ".png",
     };
 }
