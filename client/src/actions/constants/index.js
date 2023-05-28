@@ -13,10 +13,6 @@ const ACTIONS = {
     GET_GAME_STATE_SUCCESS: "get_game_state_success",
     GET_GAME_STATE_FAILURE: "get_game_state_failure",
 
-    JOIN_GAME_REQUEST: "join_game_request",
-    JOIN_GAME_SUCCESS: "join_game_success",
-    JOIN_GAME_FAILURE: "join_game_failure",
-
     SET_GAME_LEVEL_REQUEST: "set_game_level_request",
     SET_GAME_LEVEL_SUCCESS: "set_game_level_success",
     SET_GAME_LEVEL_FAILURE: "set_game_level_failure",
@@ -25,13 +21,18 @@ const ACTIONS = {
     UPLOAD_IMAGE_SUCCESS: "upload_image_success",
     UPLOAD_IMAGE_FAILURE: "upload_image_failure",
 
-    START_NEW_GAME_REQUEST: "start_new_game_request",
-    START_NEW_GAME_SUCCESS: "start_new_game_success",
-    START_NEW_GAME_FAILURE: "start_new_game_failure",
+  MARK_SOLVED_REQUEST: "mark_solved_request",
+  MARK_SOLVED_SUCCESS: "mark_solved_success",
+  MARK_SOLVED_FAILURE: "mark_solved_failure",
 
-    MARK_SOLVED_REQUEST: "mark_solved_request",
-    MARK_SOLVED_SUCCESS: "mark_solved_success",
-    MARK_SOLVED_FAILURE: "mark_solved_failure",
+  SET_MOSAIC_MATCH_REQUEST: "set_mosaic_match_request",
+  SET_MOSAIC_MATCH_SUCCESS: "set_mosaic_match_success",
+  SET_MOSAIC_MATCH_FAILURE: "set_mosaic_match_failure",
+  IS_MOSAIC_MATCH_READY: "is_mosaic_match_ready",
+
+  JOIN_MOSAIC_MATCH_REQUEST: "join_mosaic_match_request",
+  JOIN_MOSAIC_MATCH_SUCCESS: "join_mosaic_match_success",
+  JOIN_MOSAIC_MATCH_FAILURE: "join_mosaic_match_failure",
 
     // Match actions
     SET_MATCH_REQUEST: "set_match_request",

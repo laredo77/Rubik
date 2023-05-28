@@ -7,29 +7,18 @@ export class GameService {
         GAME (FREE-PLAY, MOSAIC) SECTION
     */
     static async getGameState(gameDetails) {
-        // const response = await axios.get("http://localhost:3001/game/gameState", {
-        //     params: {
-        //         manager: gameDetails.manager,
-        //         level: gameDetails.level,
-        //     },
-        // });
-        // if (response.status !== 200) return;
-        // return await response.data;
-
-        let should_return = {
-            gameId: "gameId123",
-            password: "psw",
-            gameState: "GS",
-        }
-        return should_return
+        const details = {gameDetails: gameDetails};
+        const response = await axios.post("http://localhost:3001/game/gameState", {},
+            {
+                headers: {
+                    details: JSON.stringify(details),
+                },
+            });
+        return response.data;
     }
 
     static async joinGame(gameDetails, player) {
-        //console.log(gameDetails);
-        //console.log(player);
-        // 1. call server with gameDetails, user nickname(player)
-        // 2. add to db the player
-        const details = {gameDetails: gameDetails, player: player};
+        const details = {gameLevel: gameDetails, player: player};
         const response = await axios.post("http://localhost:3001/game/join-game", {},
             {
                 headers: {

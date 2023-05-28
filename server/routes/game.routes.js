@@ -12,7 +12,7 @@ const gameRoutes = express.Router();
 
 // game routes
 gameRoutes.post("/upload-images", uploadImages);
-gameRoutes.get("/gameState", getGameState);
+gameRoutes.post("/gameState", getGameState);
 // old singleplayer routes
 gameRoutes.post("/choose-level", chooseLevel);
 gameRoutes.post("/create-game", createGame);

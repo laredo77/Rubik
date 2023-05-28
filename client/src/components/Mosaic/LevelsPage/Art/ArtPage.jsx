@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {getCubesImages} from "../../../components-utils";
+import {getCubesImages, getCubeIdFromImg, createImageObject} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -11,58 +11,68 @@ import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
-import {getCubeIdFromImg} from "../../../components-utils";
-import createMultiplayerGameReducer from "../../../../reducers/CreateMultiplayerGameReducer";
-import {useEffect} from "react";
-import {useLocation} from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
 
 const theme = createTheme();
 
 const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
 
-function ArtPage({user, uploadImagesFunc, markSolved}) {
+function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
-    const gameState = useSelector((state) => state.gameReducer);
-    const levelDetails = useSelector((state) => state.createMultiplayerGameReducer);
-    const location = useLocation();
-    let level = location.state.Level;
+    const [previousState, setPreviousState] = useState(null);
+    const gameState = useSelector((state) => state.gameReducer);//todo check why gameId is undefined
+    const levelDetails = useSelector((state) => state.mosaicReducer);
+    const game_id = levelDetails.game_id;
+    const level = levelDetails.level_id;
     const cubesImage = getCubesImages(level)
 
-    useEffect(() => {   //todo take care of useEffect do not call on first render
-        // On page load, update all finished cubes images
-        const cubes = levelDetails.cubes;
-        if (cubes) {
-            cubes.forEach((cube) => {
-                if (cube.is_finished === 1) {
+    const prevGameStateRef = useRef(gameState);
+
+    useEffect(() => {
+        const updateGameState = async () => {
+            const currentState = await getGameState(game_id)
+            const cubes = gameState.gameState;
+            if (cubes) {
+                cubes.forEach((cube) => {
+                    const imageName = createImageObject(cube.cube_id, level);
                     const cubeImage = cubesImage.at(cube.cube_id);
                     if (cubeImage) {
                         cubeImage.solved = true;
                     }
-                }
-            });
-        }
-
-    }, [levelDetails]);
-
-
-    const handleSolved = async (selectedImage) => {
-        if (selectedImage) {
-            // let cube_id = getCubeIdFromImg(selectedImage);
-            try {
-                let cube_id = 3;    //todo get cube,level,game id's for this func
-                let level_id = 3;
-                let game_id = 78;
-
-                await markSolved(user, level_id, cube_id, game_id);
-                //todo update the page to all players in gamecli
-            } catch (error) {
-                console.log(error);
-                console.log("Error marking cube as solved");
+                    handleSolved(imageName, true).then();
+                });
             }
-            selectedImage.classList.add("image-solved");
-            //todo refresh page
+            prevGameStateRef.current = currentState;
         }
-        MySwal.close();
+
+        // Call the function every 5 seconds
+        const interval = setInterval(() => {
+            if (previousState !== gameState) {
+                updateGameState();
+                setPreviousState(gameState);
+            }
+        }, 1000);
+
+        // Clean up the interval on component unmount
+        return () => clearInterval(interval);
+    }, [gameState, getGameState]);
+
+    const handleSolved = async (selectedImage, isReceiving) => {
+        if (!isReceiving) {
+            if (selectedImage) {
+
+                try {
+                    let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
+                    await markSolved(user, level, cube_id, game_id);
+                } catch (error) {
+                    console.log(error);
+                    console.log("Error marking cube as solved");
+                }
+                selectedImage.className += "image-solved";
+            }
+        } else {
+            selectedImage.className += "image-solved";
+        }
     };
 
     const actionCaptureHandler = async (response) => {
@@ -97,7 +107,7 @@ function ArtPage({user, uploadImagesFunc, markSolved}) {
                     <Box sx={{display: "inline-block"}}>
                         <Button
                             variant="contained"
-                            onClick={() => handleSolved(clickedImage)}
+                            onClick={() => handleSolved(clickedImage, false)}
                         >
                             Mark as solved
                         </Button>

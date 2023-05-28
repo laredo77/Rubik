@@ -76,3 +76,12 @@ export function getCubeIdFromImg(img) {
     const cube_Id = src.split("/").pop();
     return cube_Id.split('.')[0];
 }
+
+export function createImageObject(id, level) {
+    return {
+        id: id,
+        solved: true,
+        label: id.toString(),
+        img: `/final-cubes-${level}/` + id.toString() + ".png",
+    };
+}

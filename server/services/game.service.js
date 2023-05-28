@@ -4,7 +4,8 @@ const {response} = require("express");
 
 const {executePython} = require("../utility/pythonExecuter");
 const {generatePassword} = require("../utility/generate_pass");
-const {executeQuery} = require("../database");
+const {executeQuery, executeTransaction} = require("../database");
+
 
 const getUserAction = async (action) => {
     const scriptFileName = "identify_and_solve.py"
@@ -24,21 +25,84 @@ const getUserAction = async (action) => {
 };
 
 const fetchGameState = async (gameDetails) => {
-    // get the user's progress for the given level from the database
-    console.log(gameDetails.manager, gameDetails.level);
-    const query = `SELECT lc.* FROM level_cube lc INNER JOIN user_progress up ON lc.cube_id = up.cube_id WHERE lc.level_id = '${gameDetails.level}' AND up.user_email = '${gameDetails.manager}'`;
-    database.connection.query(query, (error, results) => {
-        if (error) {
-            console.error(error);
-            console.log('An error occurred while getting the user progress');
-        } else {
-            //todo need to return also cube_picture of each cube
-            const is_competition = false;
-            const levelsString = getLevelString(results, is_competition);
-            console.log("List of level cubes:", levelsString)
-        }
-    });
+    // Find game manager and level id
+    const selectQuery = `SELECT user_email, level_id FROM multiplayer_games WHERE game_id = ?`;
+    const selectParams = [gameDetails.gameId];
+    let selectResult;
+    try {
+        selectResult = await executeQuery(selectQuery, selectParams);
+    } catch (error) {
+        console.error(error);
+        console.log('An error occurred while updating the game state');
+    }
+    const levelId = selectResult[0].level_id;
 
+    // Find all users in game
+    const selectQuery1 = `SELECT user_email FROM user_to_game WHERE game_id = ?`;
+    const selectParams1 = [gameDetails.gameId];
+    try {
+        selectResult = await executeQuery(selectQuery1, selectParams1);
+    } catch (error) {
+        console.error(error);
+        console.log('An error occurred while updating the game state: finding manager');
+    }
+
+    // Extract user_emails from the selectResult
+    const userEmails = selectResult.map(row => row.user_email);
+
+    // Unify all users progress to one
+    let unifiedProgress = []
+    for (const user of userEmails) {
+        // Fetch this user progress in this game and level
+        const selectQuery2 = `SELECT cube_id, is_finished FROM user_progress 
+                                     WHERE user_email = ? AND level_id = ? AND game_id = ?`;
+        const selectParams2 = [user, levelId, gameDetails.gameId];
+        try {
+            selectResult = await executeQuery(selectQuery2, selectParams2);
+        } catch (error) {
+            console.error(error);
+            console.log('An error occurred while updating the game state: fetching', user, 'progress');
+        }
+        const userProgress = selectResult.map(row => {
+            return {
+                cube_id: row.cube_id,
+                is_finished: row.is_finished,
+            }
+        });
+        unifiedProgress = unifiedProgress.concat(userProgress);
+    }
+    unifiedProgress = Array.from(new Set(unifiedProgress));
+
+    // Update each user update missing progress in DB
+    const queries = [];
+    const tempParams = [];
+    for (const user of userEmails) {
+        for (const cube of unifiedProgress) {
+            const selectQuery = `SELECT * FROM user_progress WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
+            const selectParams = [user, levelId, cube.cube_id, gameDetails.gameId];
+            const insertQuery = `INSERT INTO user_progress (user_email, level_id, cube_id, is_finished, game_id) 
+                          VALUES (?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE is_finished = ?`;
+
+            // Check if user has already finished this cube
+            const selectResult = await executeQuery(selectQuery, selectParams);
+            const selectParamsString = JSON.stringify(selectParams);
+            const isParamExists = tempParams.some(param => JSON.stringify(param) === selectParamsString);
+
+            if (selectResult.length === 0 && !isParamExists) {
+                const insertParams = [user, levelId, cube.cube_id, cube.is_finished, gameDetails.gameId, cube.is_finished];
+                tempParams.push(selectParams);
+                queries.push({query: insertQuery, params: insertParams});
+            }
+        }
+    }
+
+    try {
+        await executeTransaction(queries);
+    } catch (error) {
+        console.error(error);
+        console.log('An error occurred while updating the game state. Transaction rolled back.');
+    }
+    return ({gameId: gameDetails.gameId, gameState: unifiedProgress});
 }
 
 
@@ -61,7 +125,7 @@ const chooseLevel = async (playerLevel) => {
 const createGame = async (gameDetails) => {
     return new Promise(async (resolve, reject) => {
         const selectQuery = `SELECT * FROM multiplayer_games WHERE user_email = ? AND level_id = ?`;
-        const selectParams = [gameDetails.user, gameDetails.level];
+        const selectParams = [gameDetails.manager, gameDetails.level_id];
 
         let results;
         try {
@@ -77,14 +141,14 @@ const createGame = async (gameDetails) => {
 
             let password = generatePassword();
             const insertQuery = `INSERT INTO multiplayer_games (level_id, password, user_email) VALUES (?, ?, ?)`;
-            const insertParams = [gameDetails.level, password, gameDetails.user];
+            const insertParams = [gameDetails.level_id, password, gameDetails.manager];
             try {
                 await executeQuery(insertQuery, insertParams);
             } catch (error) {
                 console.error(error);
                 console.log("An error occurred creating new session");
                 const deleteQuery = `DELETE FROM multiplayer_games WHERE level_id = ? AND password = ? AND user_email = ?`;
-                const deleteParams = [gameDetails.level, password, gameDetails.user];
+                const deleteParams = [gameDetails.level_id, password, gameDetails.manager];
 
                 // If there was any error, delete last insert from db
                 try {
@@ -100,7 +164,7 @@ const createGame = async (gameDetails) => {
 
             // Fetch new game id from database
             const selectQuery3 = `SELECT game_id FROM multiplayer_games WHERE user_email = ? AND level_id = ? AND password = ?`;
-            const selectParams3 = [gameDetails.user, gameDetails.level, insertParams[1]];
+            const selectParams3 = [gameDetails.manager, gameDetails.level_id, insertParams[1]];
             let selectResult3;
             try {
                 selectResult3 = await executeQuery(selectQuery3, selectParams3);
@@ -109,7 +173,7 @@ const createGame = async (gameDetails) => {
                 console.log("An error occurred fetching game id from database");
 
                 const deleteQuery = `DELETE FROM multiplayer_games WHERE level_id = ? AND password = ? AND user_email = ?`;
-                const deleteParams = [gameDetails.level, password, gameDetails.user];
+                const deleteParams = [gameDetails.level_id, password, gameDetails.manager];
 
                 // If there was any error, delete last insert from db
                 try {
@@ -127,7 +191,7 @@ const createGame = async (gameDetails) => {
 
             // Insert user to game
             const insertQuery1 = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
-            const insertParams1 = [game_id, gameDetails.user];
+            const insertParams1 = [game_id, gameDetails.manager];
 
 
             const insertResult1 = await executeQuery(insertQuery1, insertParams1);
@@ -143,7 +207,7 @@ const createGame = async (gameDetails) => {
             } else {
                 console.log("An error occurred adding user to game id");
                 const deleteQuery = `DELETE FROM multiplayer_games WHERE level_id = ? AND password = ? AND user_email = ?`;
-                const deleteParams = [gameDetails.level, password, gameDetails.user];
+                const deleteParams = [gameDetails.level_id, password, gameDetails.manager];
 
                 // If there was any error, delete last insert from db
                 try {
@@ -164,7 +228,7 @@ const createGame = async (gameDetails) => {
             let password = results[0].password;
 
             const selectQuery1 = `SELECT * FROM multiplayer_games WHERE user_email = ? AND level_id = ? AND game_id = ? AND password = ?`;
-            const selectParams1 = [gameDetails.user, gameDetails.level, game_id, password];
+            const selectParams1 = [gameDetails.manager, gameDetails.level_id, game_id, password];
             let selectResult1;
             try {
                 selectResult1 = await executeQuery(selectQuery1, selectParams1);
@@ -179,7 +243,7 @@ const createGame = async (gameDetails) => {
             const selectQuery2 = `SELECT cube_id, is_finished FROM user_progress
                                          WHERE game_id = ? AND level_id = ? AND user_email = ?`;
 
-            const selectParams2 = [game_id, level_id, gameDetails.user];
+            const selectParams2 = [game_id, level_id, gameDetails.manager];
             let selectResult2;
             try {
                 selectResult2 = await executeQuery(selectQuery2, selectParams2);
@@ -196,16 +260,34 @@ const createGame = async (gameDetails) => {
 }
 
 const joinGame = async (gameDetails) => {
+    const game_id = gameDetails.game_id
+    const password = gameDetails.password
     const selectQuery = `SELECT * FROM multiplayer_games WHERE game_id = ? AND password = ?`;
-    const params = [gameDetails.id, gameDetails.password];
+    const params = [game_id, password];
     try {
         const results = await executeQuery(selectQuery, params);
         if (results.length > 0) {
             console.log('Found game, joining...');
 
+            const level_id = results[0].level_id
+            const game_manager = results[0].user_email
+
+            // Fetch manager progress
+            const selectQuery1 = `SELECT cube_id, is_finished FROM user_progress WHERE user_email = ? AND level_id = ? AND game_id = ?`;
+            const selectParams1 = [game_manager, level_id, game_id];
+
+            let game_progress = undefined;
+            try {
+                game_progress = await executeQuery(selectQuery1, selectParams1);
+            } catch (error) {
+                console.log("Error fetching game progress");
+                console.error(error);
+                throw error;
+            }
+
             // Insert user to game
             const insertQuery = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
-            const insertParams = [gameDetails.id, gameDetails.user_email];
+            const insertParams = [game_id, gameDetails.user_email];
 
             try {
                 await executeQuery(insertQuery, insertParams);
@@ -215,7 +297,13 @@ const joinGame = async (gameDetails) => {
                 throw error;
             }
             console.log('Success joining game');    //todo take care of duplicated rows - delete user when he leaves game?
-            return results[0];
+            return {
+                cubes: game_progress,
+                game_id: game_id,
+                level_id: level_id,
+                manager: game_manager,
+                password: password
+            }
         } else {
             console.log('Did not find game requested or wrong password');
             throw new Error('Game not found or wrong password');
@@ -228,14 +316,11 @@ const joinGame = async (gameDetails) => {
 };
 
 const markSolved = async (cubeGameDetails) => {
-    const updateQuery = `UPDATE user_progress
-                                SET is_finished = 1
-                                WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
-    const params = [cubeGameDetails.user_email.email, cubeGameDetails.level_id, cubeGameDetails.cube_id, cubeGameDetails.game_id];
+    const insertQuery = `INSERT INTO user_progress (user_email, level_id, cube_id, is_finished, game_id) VALUES (?, ?, ?, ?, ?)`;
+    const params = [cubeGameDetails.user_email.email, cubeGameDetails.level_id, cubeGameDetails.cube_id, 1, cubeGameDetails.game_id];
     try {
-        const results = await executeQuery(updateQuery, params);
-        console.log(`Update query executed successfully`);
-        console.log(results);
+        const results = await executeQuery(insertQuery, params);
+        console.log(`Marked cube:`, cubeGameDetails.cube_id, `successfully`);
     } catch (error) {
         console.error(error);
         console.log('Error finishing cube')

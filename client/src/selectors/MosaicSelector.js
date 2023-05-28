@@ -1,1 +1,1 @@
-export const mosaicDetails = (state) => state.createMultiplayerGameReducer;
+export const mosaicDetails = (state) => state.mosaicReducer;

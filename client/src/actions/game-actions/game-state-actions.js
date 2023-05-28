@@ -19,11 +19,10 @@ const GetGameStateFailureAction = (gameDetails) => ({
 });
 
 // Async function to retrieve game state
-export const getGameState = (user, level) => {
+export const getGameState = (gameId) => {
     // Initialize game details object with initial values
     let gameDetails = {
-        manager: user.email,
-        level: level,
+        gameId: gameId,
         isLoading: true,
         isError: false,
         errorMsg: "",
@@ -34,12 +33,10 @@ export const getGameState = (user, level) => {
         dispatch(GetGameStateRequestAction());
         try {
             // Call the API service to get the game state
-            const response = await Client.getGameState(gameDetails);
+            const response = await Client.getGameState(gameDetails); // should get response code+pwd+state of cubes
             // Update the gameDetails object with the response values
             gameDetails = {
                 ...gameDetails,
-                gameId: response.gameId,
-                password: response.password,
                 gameState: response.gameState,
             };
             // Dispatch the action indicating successful retrieval of game state
@@ -52,4 +49,3 @@ export const getGameState = (user, level) => {
         }
     };
 };
-

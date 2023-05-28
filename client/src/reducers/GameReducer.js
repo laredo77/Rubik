@@ -6,10 +6,7 @@ import actionTypes from "../actions/constants";
 
 // Initial state for the reducer
 const initialState = {
-    manager: undefined,
-    level: undefined,
     gameId: undefined,
-    password: undefined,
     gameState: undefined,
     isLoading: false,
     isError: false,
@@ -25,21 +22,17 @@ const gameReducer = (state = initialState, {type, payload}) => {
         }
 
         case actionTypes.GET_GAME_STATE_SUCCESS: {
-            // When getting the game state is successful, update the state with the manager, level, gameId, password, gameState, and isLoading values
-            return {
+          // When getting the game state is successful, update the state with the gameState, and isLoading values
+          return {
                 ...state,
-                manager: payload.manager,
-                level: payload.level,
-                gameId: payload.gameId,
-                password: payload.password,
                 gameState: payload.gameState,
                 isLoading: false,
             };
         }
 
         case actionTypes.GET_GAME_STATE_FAILURE: {
-            // If there is a failure while getting the game state, set isError to true, isLoading to false, and store the error message
-            return {
+          // If there is a failure while getting the game state, set isError to true, isLoading to false, and store the error message
+          return {
                 ...state,
                 isError: true,
                 isLoading: false,

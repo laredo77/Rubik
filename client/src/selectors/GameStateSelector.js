@@ -1,0 +1,1 @@
+export const gameDetails = (state) => state.gameReducer;

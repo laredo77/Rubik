@@ -8,18 +8,28 @@ import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import {useSelector} from "react-redux";
-import joinMultiPlayerGameReducer from "../../reducers/JoinMultiPlayerGameReducer";
+import {isEqual} from "lodash";
 
-function TeamPlayPage({user, joinGame}) {
+function TeamPlayPage({user, joinMosaicMatch}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
-    const gameData = useSelector((state) => state.joinMultiPlayerGameReducer);
+    const gameData = useSelector((state) => state.mosaicReducer);
+    const [prevGameData, setPrevGameData] = useState(gameData);
     let gameId = "";
     let gamePwd = "";
 
     const newGameHandler = (response) => {
         navigate("/main/game/mosaic/levels");
     };
+
+    useEffect(() => {
+        if (isEqual(gameData, prevGameData)) {
+            return; // Exit early if the gameData object hasn't changed
+        }
+        if (gameData.level_id) {
+            navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
+        }
+    }, [gameData, navigate, prevGameData]);
 
     const joinGameHandler = (response) => {
         // 1.ask for Code+Password
@@ -53,8 +63,8 @@ function TeamPlayPage({user, joinGame}) {
         }).then(async (response) => {
             if (response.isConfirmed) {
                 try {
-                    await joinGame(gameId, gamePwd, user);
-                    navigate(`/main/game/mosaic/levels/${gameData.id}`);//todo Do we want to return to level id or game id?
+                    await joinMosaicMatch(gameId, gamePwd, user);
+                    navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
                     // Now navigate to the game page
                 } catch (error) {
                     console.error(error);
@@ -65,6 +75,7 @@ function TeamPlayPage({user, joinGame}) {
             }
         });
     };
+
     return (
         <Box
             sx={{

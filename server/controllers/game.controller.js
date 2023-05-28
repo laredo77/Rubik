@@ -13,7 +13,8 @@ const uploadImages = async (req, res) => {
 
 const getGameState = async (req, res) => {
     try {
-        const gameState = await gameService.fetchGameState(req.query);
+        const gameDetails = JSON.parse(req.headers.details);
+        const gameState = await gameService.fetchGameState(gameDetails.gameDetails);
         res.send(gameState);
     } catch (error) {
         console.log(error);
@@ -46,10 +47,10 @@ const createGame = async (req, res) => {
 const joinGame = async (req, res) => {
     try {
         const details = JSON.parse(req.headers.details);
-        const id = details.gameDetails.id;
-        const password = details.gameDetails.password;
+        const id = details.gameLevel.game_id;
+        const password = details.gameLevel.password;
         const user_email = details.player.email;
-        const result = await gameService.joinGame({id: id, password: password, user_email: user_email})
+        const result = await gameService.joinGame({game_id: id, password: password, user_email: user_email})
         res.send(result);
     } catch (error) {
         console.log(error);

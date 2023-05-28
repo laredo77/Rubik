@@ -31,8 +31,24 @@ const executeQuery = (query, params) => {
     });
 };
 
+const executeTransaction = async (queries) => {
+    try {
+        await connection.beginTransaction(); // Begin the transaction
+        for (const query of queries) {
+            await executeQuery(query.query, query.params); // Execute each query
+        }
+        await connection.commit(); // Commit the transaction if all queries succeed
+    } catch (error) {
+        await connection.rollback(); // Rollback the transaction if an error occurs
+        console.error('Transaction rolled back:', error);
+        throw error; // Rethrow the error for handling in the calling function
+    }
+};
+
+
 module.exports = {
     connection,
     connectToDatabase,
     executeQuery,
+    executeTransaction,
 };

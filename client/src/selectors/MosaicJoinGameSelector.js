@@ -1,1 +1,0 @@
-export const mosaicJoinDetails = (state) => state.joinMultiPlayerGameReducer;
