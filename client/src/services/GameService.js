@@ -29,7 +29,6 @@ export class GameService {
     }
 
     static async markSolved(cubeGameDetails) {
-        //console.log(gameDetails);
         const details = {cubeGameDetails: cubeGameDetails};
         const response = await axios.post("http://localhost:3001/game/mark-solved", {},
             {
@@ -65,7 +64,6 @@ export class GameService {
     }
 
     static async postCompScore(scoreDetails) {
-        //console.log(scoreDetails)
         await axios.post("http://localhost:3001/game/compScore", scoreDetails);
     }
 
@@ -73,9 +71,13 @@ export class GameService {
     MATCH SECTION
     */
     static async setMatch(matchDetails) {
-        const response = await axios.post("http://localhost:3001/match/setMatch", matchDetails);
-        if (response.status !== 200)
-            return;
+        const response = await axios.post("http://localhost:3001/match/setMatch", {},
+            {
+                headers: {
+                    matchDetails: JSON.stringify(matchDetails),
+                },
+            });
+        if (response.status !== 200) return;
         return response.data
     }
 
@@ -84,6 +86,16 @@ export class GameService {
         if (response.status !== 200)
             return;
         return response.status
+    }
+
+    static async getInitMatchMoves(level) {
+        const response = await axios.get("http://localhost:3001/match/getInitMatchMoves", {
+            params: {
+                level: level,
+            },
+        });
+        if (response.status !== 200) return;
+        return await response.data;
     }
 
     static async matchStatus(matchDetails) {
@@ -107,7 +119,6 @@ export class GameService {
             });
         if (response.status !== 200) return;
     }
-
 
     static async getMatchState(manager) {
         const response = await axios.get("http://localhost:3001/match/getMatchState", {

@@ -1,15 +1,20 @@
 const database = require("../database");
 
+// Function: addUser
+// Description: Adds a user to the database if they don't already exist.
 const addUser = async (user) => {
     return // should remove it
-    const query1 = `SELECT * FROM user where user_email='${user.email}'`
+
+    // Check if the user already exists in the database
+    const query1 = `SELECT * FROM user where user_email='${user.email}'`;
     database.connection.query(query1, (error, results) => {
         if (error) {
             console.error(error);
-            console.log('An error occurred while checking the user')
+            console.log('An error occurred while checking the user');
         } else if (results.length > 0) {
-            console.log('User already exists')
+            console.log('User already exists');
         } else {
+            // If the user does not exist, insert them into the database
             const query2 = `INSERT INTO rubik_cube2.user (user_email) VALUES ('${user.email}')`;
             database.connection.query(query2, function (error, results, fields) {
                 if (error) {
@@ -20,9 +25,10 @@ const addUser = async (user) => {
             });
         }
     });
-
 };
 
+// Function: buildLeaderboard
+// Description: Retrieves user data from the database and builds a leaderboard.
 const buildLeaderboard = async () => {
     // Send a query to retrieve the required data
     const query = `SELECT * FROM user`;
@@ -37,6 +43,7 @@ const buildLeaderboard = async () => {
             }
         });
     });
+
     // Return the formatted data
     return results.map(result => ({
         //todo fix picture rendering
@@ -45,7 +52,6 @@ const buildLeaderboard = async () => {
         Score: result.user_score
     }));
 };
-
 
 module.exports = {
     addUser,

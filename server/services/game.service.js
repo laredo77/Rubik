@@ -20,7 +20,6 @@ const getUserAction = async (action) => {
             console.error(err);
             return;
         }
-        console.log(data)
         return data;
     });
 };
@@ -327,7 +326,6 @@ const markSolved = async (cubeGameDetails) => {
         console.log('Error finishing cube')
     }
 }
-
 
 module.exports = {
     getUserAction,

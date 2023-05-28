@@ -1,4 +1,5 @@
 import React from 'react';
+import {changeCubeStringDefinition} from "../CubeDefinition";
 
 export default ({rotate, recorder, id}) => (
     <svg className='RotateArrows'
@@ -6,6 +7,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('x', false);
             recorder(rotate, 'x', false, "ax0")
+            changeCubeStringDefinition("ax0")
         }} id={`ax0${id}`}>
             <polygon fill='transparent' points='617.417,111.892 655.393,139.9 674.013,186.892 698.393,202.892 719.763,198.831
         719.763,143.892 674.013,107.331 635.393,96.892 			'/>
@@ -15,6 +17,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('x', true);
             recorder(rotate, 'x', true, "ax1")
+            changeCubeStringDefinition("ax1")
         }} id={`ax1${id}`}
         >
             <polygon fill='transparent'
@@ -25,6 +28,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('z', true);
             recorder(rotate, 'z', true, "az1")
+            changeCubeStringDefinition("az1")
         }}
            id={`az1${id}`}>
             <polygon fill='transparent'
@@ -35,6 +39,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('z', false);
             recorder(rotate, 'z', false, "az0")
+            changeCubeStringDefinition("az0")
         }}
            id={`az0${id}`}>
             <polygon fill='transparent'
@@ -45,6 +50,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('y', false);
             recorder(rotate, 'y', false, "ay0")
+            changeCubeStringDefinition("ay0")
         }}
            id={`ay0${id}`}>
             <polygon fill='transparent' points='268.228,576.892 256.393,610.883 268.228,639.892 326.358,643.892 384.489,634.686
@@ -55,6 +61,7 @@ export default ({rotate, recorder, id}) => (
         <g onClick={() => {
             rotate('y', true);
             recorder(rotate, 'y', true, "ay1")
+            changeCubeStringDefinition("ay1")
         }}
            id={`ay1${id}`}>
             <polygon fill='transparent' points='423.393,613.883 423.393,587.079 533.393,547.892 552.393,556.062 545.393,601.892

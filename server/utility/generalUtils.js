@@ -3,7 +3,8 @@ const lock = new AsyncLock();
 const fs = require('fs');
 const csv = require('csv-parser');
 
-
+// Function: generateStr
+// Description: Generates a random string of the specified length.
 const generateStr = (length) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -16,10 +17,11 @@ const generateStr = (length) => {
     return result;
 }
 
-
+// Function: findStringInCSV
+// Description: Searches for a string in a CSV file and returns the row index where it is found.
 const findStringInCSV = async (fileName, str) => {
     return new Promise((resolve, reject) => {
-        lock.acquire('myLock', async function() {
+        lock.acquire('myLock', async function () {
             const rows = [];
 
             // Read the CSV file and store the data in the rows array
@@ -43,6 +45,8 @@ const findStringInCSV = async (fileName, str) => {
     });
 };
 
+// Function: getRowFromCsvFile
+// Description: Retrieves a specific row from a CSV file based on the row index.
 const getRowFromCsvFile = (filePath, r) => {
     return new Promise((resolve, reject) => {
         const rows = [];
@@ -62,4 +66,35 @@ const getRowFromCsvFile = (filePath, r) => {
     });
 };
 
-module.exports = {generateStr, findStringInCSV, getRowFromCsvFile};
+// Function: getShuffleCubeMoves
+// Description: Generates an array of shuffle cube moves based on the specified level.
+const getShuffleCubeMoves = (level) => {
+    let amountOfSteps = 8 * level; // should be dependent on level
+    let movesArray = [];
+    let choices = new Array(8).fill(0);
+    choices.push(1);
+    choices.push(1);
+    for (let i = 0; i < amountOfSteps; i++) {
+        const randomElement = choices[Math.floor(Math.random() * choices.length)];
+        let random_arrow, random_direction, choice;
+        if (randomElement === 0) {
+            random_arrow = Math.floor(Math.random() * 9) + 1;
+            random_direction = Math.floor(Math.random() * 2);
+            choice = "a" + random_arrow.toString() + random_direction.toString();
+        } else {
+            let rotateArrows = ["ax", "ay", "az"];
+            random_arrow = Math.floor(Math.random() * 3);
+            random_direction = Math.floor(Math.random() * 2);
+            choice = rotateArrows[random_arrow] + random_direction.toString();
+        }
+        movesArray.push(choice);
+    }
+    return movesArray;
+}
+
+module.exports = {
+    generateStr,
+    findStringInCSV,
+    getRowFromCsvFile,
+    getShuffleCubeMoves
+};

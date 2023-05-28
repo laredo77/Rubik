@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {createImageObject, cubesImage, getCubeIdFromImg} from "../../../components-utils";
+import {getCubesImages, getCubeIdFromImg, createImageObject} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -15,12 +15,16 @@ import {useEffect, useRef, useState} from "react";
 
 const theme = createTheme();
 
+const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
+
 function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const [previousState, setPreviousState] = useState(null);
     const gameState = useSelector((state) => state.gameReducer);//todo check why gameId is undefined
     const levelDetails = useSelector((state) => state.mosaicReducer);
     const game_id = levelDetails.game_id;
+    const level = levelDetails.level_id;
+    const cubesImage = getCubesImages(level)
 
     const prevGameStateRef = useRef(gameState);
 
@@ -59,7 +63,6 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
 
                 try {
                     let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
-                    const level_id = levelDetails.level_id;
                     await markSolved(user, level_id, cube_id, game_id);
                 } catch (error) {
                     console.log(error);
@@ -192,8 +195,8 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                         marginLeft: 'auto',
                         marginTop: 'auto',
                         marginBottom: 'auto',
-                        width: 693, // 990 * 0.7
-                        height: 567, // 810 * 0.7
+                        width: dimensions[level][0], // 990 * 0.7 , 693
+                        height: dimensions[level][1], // 810 * 0.7 567
                     }}
                     cols={30}
                     gap={0.5}

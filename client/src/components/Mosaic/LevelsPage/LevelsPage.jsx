@@ -18,13 +18,14 @@ function LevelsPage({user, setMosaicMatch}) {
     const navigate = useNavigate();
 
     const levelChooseHandler = async (response) => {
+        // check if this user had this level in db if yes return state if not make new instance
         let level = response.target.id;
         await setMosaicMatch(user.email, level);
         navigate(`/main/game/mosaic/levels/${level}`);
     };
 
     return (
-        <Box sx={{flexGrow: 1, marginTop: 1, maxHeight: "calc(100vh)", overflow: "auto"}}>
+        <Box sx={{flexGrow: 1, marginTop: 1, maxHeight: "calc(100vh)"}}>
             <Grid
                 container
                 spacing={{xs: 2, md: 2}}
@@ -65,8 +66,8 @@ function LevelsPage({user, setMosaicMatch}) {
                     >
                         Level: Easy
                         <img
-                            src="/mosaic/TheRollingStones.png"
-                            alt="The Rolling Stones"
+                            src="/mosaic/barIlanLogo.png"
+                            alt="barIlanLogo"
                             style={{height: "80%", marginLeft: "1rem"}}
                             id={"3"}
                         />
@@ -76,7 +77,8 @@ function LevelsPage({user, setMosaicMatch}) {
                 <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
                     <Item
                         sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
+                            height: 80, textAlign: "left", width: 600, display: "flex",
+                            justifyContent: "space-between", alignItems: "center", fontWeight: "bold",
                             fontSize: "24px",
                             fontFamily: "Arial, sans-serif",
                             transition: "transform 0.2s",
@@ -85,15 +87,23 @@ function LevelsPage({user, setMosaicMatch}) {
                                 transform: "scale(1.05)",
                             },
                         }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
+                        id="2"
+                        onClick={levelChooseHandler}
                     >
                         Level: Medium
+                        <img
+                            src="/mosaic/StatueOfLiberty.png"
+                            alt="StatueOfLiberty"
+                            style={{height: "80%", marginLeft: "1rem"}}
+                            id={"2"}
+                        />
                     </Item>
                 </Grid>
                 <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
                     <Item
                         sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
+                            height: 80, textAlign: "left", width: 600, display: "flex",
+                            justifyContent: "space-between", alignItems: "center", fontWeight: "bold",
                             fontSize: "24px",
                             fontFamily: "Arial, sans-serif",
                             transition: "transform 0.2s",
@@ -102,77 +112,16 @@ function LevelsPage({user, setMosaicMatch}) {
                                 transform: "scale(1.05)",
                             },
                         }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
+                        id="1"
+                        onClick={levelChooseHandler}
                     >
                         Level: Medium
-                    </Item>
-                </Grid>
-                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
-                    <Item
-                        sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
-                            fontSize: "24px",
-                            fontFamily: "Arial, sans-serif",
-                            transition: "transform 0.2s",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-                            ":hover": {
-                                transform: "scale(1.05)",
-                            },
-                        }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
-                    >
-                        Level: Medium
-                    </Item>
-                </Grid>
-                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
-                    <Item
-                        sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
-                            fontSize: "24px",
-                            fontFamily: "Arial, sans-serif",
-                            transition: "transform 0.2s",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-                            ":hover": {
-                                transform: "scale(1.05)",
-                            },
-                        }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
-                    >
-                        Level: Medium
-                    </Item>
-                </Grid>
-                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
-                    <Item
-                        sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
-                            fontSize: "24px",
-                            fontFamily: "Arial, sans-serif",
-                            transition: "transform 0.2s",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-                            ":hover": {
-                                transform: "scale(1.05)",
-                            },
-                        }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
-                    >
-                        Level: Medium
-                    </Item>
-                </Grid>
-                <Grid item xs={2} sm={4} md={12} sx={{display: "flex", justifyContent: "center"}}>
-                    <Item
-                        sx={{
-                            height: 80, textAlign: "left", width: 600, fontWeight: "bold",
-                            fontSize: "24px",
-                            fontFamily: "Arial, sans-serif",
-                            transition: "transform 0.2s",
-                            boxShadow: "0 0 10px rgba(0, 0, 0, 0.5)",
-                            ":hover": {
-                                transform: "scale(1.05)",
-                            },
-                        }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
-                    >
-                        Level: Medium
+                        <img
+                            src="/mosaic/TheRollingStones.png"
+                            alt="The Rolling Stones"
+                            style={{height: "80%", marginLeft: "1rem"}}
+                            id={"1"}
+                        />
                     </Item>
                 </Grid>
             </Grid>
