@@ -131,7 +131,6 @@ export class GameService {
         if (response.status !== 200) return;
     }
 
-
     static async getMatchState(manager) {
         const response = await axios.get("http://localhost:3001/match/getMatchState", {
             params: {
