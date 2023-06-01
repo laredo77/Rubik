@@ -71,7 +71,14 @@ const fetchGameState = async (gameDetails) => {
         });
         unifiedProgress = unifiedProgress.concat(userProgress);
     }
-    unifiedProgress = Array.from(new Set(unifiedProgress));
+    // Remove duplicates based on cube_id and is_finished properties
+    unifiedProgress = unifiedProgress.reduce((accumulator, item) => {
+        const found = accumulator.some(obj => obj.cube_id === item.cube_id && obj.is_finished === item.is_finished);
+        if (!found) {
+            accumulator.push(item);
+        }
+        return accumulator;
+    }, []);
 
     // Update each user update missing progress in DB
     const queries = [];

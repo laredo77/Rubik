@@ -10,7 +10,7 @@
 .zoom:hover {
     -ms-transform: scale(8); /* IE 9 */
     -webkit-transform: scale(8); /* Safari 3-8 */
-    transform: scale(8);
+    transform: scale(2);
     z-index: 6;
 }
 
