@@ -35,10 +35,11 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
             if (cubes) {
                 cubes.forEach((cube) => {
                     const imageName = createImageObject(cube.cube_id, level);
-                    const cubeImage = cubesImage.at(cube.cube_id);
-                    if (cubeImage) {
-                        cubeImage.solved = true;
-                    }
+                    // const cubeImage = cubesImage.at(cube.cube_id);
+                    // if (cubeImage) {
+                    //     console.log(cubeImage)
+                    //     cubeImage.solved = true;
+                    // }
                     handleSolved(imageName, true).then();
                 });
             }
@@ -60,7 +61,6 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const handleSolved = async (selectedImage, isReceiving) => {
         if (!isReceiving) {
             if (selectedImage) {
-
                 try {
                     let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
                     await markSolved(user, level, cube_id, game_id);
