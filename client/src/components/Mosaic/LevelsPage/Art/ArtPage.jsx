@@ -20,7 +20,7 @@ const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
 function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const [previousState, setPreviousState] = useState(null);
-    const gameState = useSelector((state) => state.gameReducer);//todo check why gameId is undefined
+    const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.mosaicReducer);
     const game_id = levelDetails.game_id;
     const level = levelDetails.level_id;
