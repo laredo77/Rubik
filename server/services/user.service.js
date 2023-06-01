@@ -3,7 +3,7 @@ const database = require("../database");
 // Function: addUser
 // Description: Adds a user to the database if they don't already exist.
 const addUser = async (user) => {
-    return // should remove it
+    return // todo: should remove it
 
     // Check if the user already exists in the database
     const query1 = `SELECT * FROM user where user_email='${user.email}'`;
@@ -15,12 +15,13 @@ const addUser = async (user) => {
             console.log('User already exists');
         } else {
             // If the user does not exist, insert them into the database
-            const query2 = `INSERT INTO rubik_cube2.user (user_email) VALUES ('${user.email}')`;
+            const defaultImage = 'https://upload.wikimedia.org/wikipedia/en/a/a6/Pok%C3%A9mon_Pikachu_art.png?20200627161017'
+            const query2 = `INSERT INTO rubik_cube2.user (user_email, user_picture) VALUES ('${user.email}', '${defaultImage}')`;
             database.connection.query(query2, function (error, results, fields) {
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log("User added successfully:", user);
+                    console.log("User added successfully");
                 }
             });
         }
@@ -46,8 +47,6 @@ const buildLeaderboard = async () => {
 
     // Return the formatted data
     return results.map(result => ({
-        //todo fix picture rendering
-        // User_Picture: Buffer.from(result.user_picture).toString("base64"),
         Email: result.user_email,
         Score: result.user_score
     }));
