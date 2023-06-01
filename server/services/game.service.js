@@ -71,7 +71,14 @@ const fetchGameState = async (gameDetails) => {
         });
         unifiedProgress = unifiedProgress.concat(userProgress);
     }
-    unifiedProgress = Array.from(new Set(unifiedProgress));
+    // Remove duplicates based on cube_id and is_finished properties
+    unifiedProgress = unifiedProgress.reduce((accumulator, item) => {
+        const found = accumulator.some(obj => obj.cube_id === item.cube_id && obj.is_finished === item.is_finished);
+        if (!found) {
+            accumulator.push(item);
+        }
+        return accumulator;
+    }, []);
 
     // Update each user update missing progress in DB
     const queries = [];
@@ -260,8 +267,8 @@ const createGame = async (gameDetails) => {
 }
 
 const joinGame = async (gameDetails) => {
-    const game_id = gameDetails.game_id
-    const password = gameDetails.password
+    const game_id = gameDetails.game_id;
+    const password = gameDetails.password;
     const selectQuery = `SELECT * FROM multiplayer_games WHERE game_id = ? AND password = ?`;
     const params = [game_id, password];
     try {
@@ -269,8 +276,8 @@ const joinGame = async (gameDetails) => {
         if (results.length > 0) {
             console.log('Found game, joining...');
 
-            const level_id = results[0].level_id
-            const game_manager = results[0].user_email
+            const level_id = results[0].level_id;
+            const game_manager = results[0].user_email;
 
             // Fetch manager progress
             const selectQuery1 = `SELECT cube_id, is_finished FROM user_progress WHERE user_email = ? AND level_id = ? AND game_id = ?`;
@@ -285,18 +292,36 @@ const joinGame = async (gameDetails) => {
                 throw error;
             }
 
-            // Insert user to game
-            const insertQuery = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
-            const insertParams = [game_id, gameDetails.user_email];
+            // Check if user already exists in user_to_game table
+            const selectQuery2 = `SELECT * FROM user_to_game WHERE game_id = ? AND user_email = ?`;
+            const selectParams2 = [game_id, gameDetails.user_email];
 
+            let userExists = undefined;
             try {
-                await executeQuery(insertQuery, insertParams);
+                userExists = await executeQuery(selectQuery2, selectParams2);
             } catch (error) {
-                console.log("Error joining game");
+                console.log("Error checking user existence");
                 console.error(error);
                 throw error;
             }
-            console.log('Success joining game');    //todo take care of duplicated rows - delete user when he leaves game?
+
+            if (userExists.length === 0) {
+                // Insert user to game
+                const insertQuery = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
+                const insertParams = [game_id, gameDetails.user_email];
+
+                try {
+                    await executeQuery(insertQuery, insertParams);
+                } catch (error) {
+                    console.log("Error joining game");
+                    console.error(error);
+                    throw error;
+                }
+                console.log('Success joining game');
+            } else {
+                console.log('User already exists in the game');
+            }
+
             return {
                 cubes: game_progress,
                 game_id: game_id,
@@ -315,17 +340,39 @@ const joinGame = async (gameDetails) => {
     }
 };
 
+
 const markSolved = async (cubeGameDetails) => {
-    const insertQuery = `INSERT INTO user_progress (user_email, level_id, cube_id, is_finished, game_id) VALUES (?, ?, ?, ?, ?)`;
-    const params = [cubeGameDetails.user_email.email, cubeGameDetails.level_id, cubeGameDetails.cube_id, 1, cubeGameDetails.game_id];
+    const user_email = cubeGameDetails.user_email.email;
+    const level_id = cubeGameDetails.level_id;
+    const cube_id = cubeGameDetails.cube_id;
+    const game_id = cubeGameDetails.game_id;
+
+    // Check if user already exists in user_progress table
+    const selectQuery = `SELECT * FROM user_progress WHERE user_email = ? AND level_id = ? AND cube_id = ? AND game_id = ?`;
+    const selectParams = [user_email, level_id, cube_id, game_id];
+
     try {
-        const results = await executeQuery(insertQuery, params);
-        console.log(`Marked cube:`, cubeGameDetails.cube_id, `successfully`);
+        const userExists = await executeQuery(selectQuery, selectParams);
+        if (userExists.length === 0) {
+            // Insert user into user_progress
+            const insertQuery = `INSERT INTO user_progress (user_email, level_id, cube_id, is_finished, game_id) VALUES (?, ?, ?, ?, ?)`;
+            const insertParams = [user_email, level_id, cube_id, 1, game_id];
+            try {
+                await executeQuery(insertQuery, insertParams);
+                console.log(`Marked cube:`, cube_id, `successfully`);
+            } catch (error) {
+                console.error(error);
+                console.log('Error finishing cube');
+                throw error;
+            }
+        }
     } catch (error) {
         console.error(error);
-        console.log('Error finishing cube')
+        console.log('Error checking user existence');
+        throw error;
     }
-}
+};
+
 
 module.exports = {
     getUserAction,
