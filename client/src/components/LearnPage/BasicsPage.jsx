@@ -2,7 +2,7 @@ import React from 'react';
 
 function BasicsPage() {
     return (
-        <div>
+        <div style={{height: '720px', margin: '0 auto', width: '90%', overflow: 'auto'}}>
             <h1>Terminology</h1>
             <p>
                 <strong>Cell:</strong> One of 54 colored squares that make up a Rubik’s cube. There are a total of nine
@@ -38,62 +38,98 @@ function BasicsPage() {
                 <tr>
                     <td>F</td>
                     <td>Front face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/F.png?t=1504897406" alt="F"/></td>
+                    <td><img
+                        src="/cube-basics/F.png"
+                        alt="F"
+                    /></td>
                 </tr>
                 <tr>
                     <td>F'</td>
                     <td>Front face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/F-.png?t=1504897406" alt="F'"/></td>
+                    <td><img
+                        src="/cube-basics/F'.png"
+                        alt="F'"
+                    /></td>
                 </tr>
                 <tr>
                     <td>B</td>
                     <td>Back face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/B.png?t=1504897406" alt="B"/></td>
+                    <td><img
+                        src="/cube-basics/B.png"
+                        alt="B"
+                    /></td>
                 </tr>
                 <tr>
                     <td>B'</td>
                     <td>Back face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/B-.png?t=1504897406" alt="B'"/></td>
+                    <td><img
+                        src="/cube-basics/B'.png"
+                        alt="B'"
+                    /></td>
                 </tr>
                 <tr>
                     <td>U</td>
                     <td>Top face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/U.png?t=1504897406" alt="U"/></td>
+                    <td><img
+                        src="/cube-basics/U.png"
+                        alt="U"
+                    /></td>
                 </tr>
                 <tr>
                     <td>U'</td>
                     <td>Top face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/U-.png?t=1504897406" alt="U'"/></td>
+                    <td><img
+                        src="/cube-basics/U'.png"
+                        alt="U'"
+                    /></td>
                 </tr>
                 <tr>
                     <td>D</td>
                     <td>Down face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/D.png?t=1504897406" alt="D"/></td>
+                    <td><img
+                        src="/cube-basics/D.png"
+                        alt="D"
+                    /></td>
                 </tr>
                 <tr>
                     <td>D'</td>
                     <td>Down face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/D-.png?t=1504897406" alt="D'"/></td>
+                    <td><img
+                        src="/cube-basics/D'.png"
+                        alt="D'"
+                    /></td>
                 </tr>
                 <tr>
                     <td>L</td>
                     <td>Left face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/L.png?t=1504897406" alt="L"/></td>
+                    <td><img
+                        src="/cube-basics/L.png"
+                        alt="L"
+                    /></td>
                 </tr>
                 <tr>
                     <td>L'</td>
                     <td>Left face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/L-.png?t=1504897406" alt="L'"/></td>
+                    <td><img
+                        src="/cube-basics/L'.png"
+                        alt="L'"
+                    /></td>
                 </tr>
                 <tr>
                     <td>R</td>
                     <td>Right face clockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/R.png?t=1504897406" alt="R"/></td>
+                    <td><img
+                        src="/cube-basics/R.png"
+                        alt="R"
+                    /></td>
                 </tr>
                 <tr>
                     <td>R'</td>
                     <td>Right face counterclockwise 90 degrees</td>
-                    <td><img src="https://www.rubiks.com/images/detailed/6/R-.png?t=1504897406" alt="R'"/></td>
+                    <td><img
+                        src="/cube-basics/R'.png"
+                        alt="R'"
+                    /></td>
                 </tr>
                 </tbody>
             </table>
