@@ -105,6 +105,7 @@ function SinglePlayerCompMode({user}) {
 
     // Function to handle the "Finish" button click
     const handleFinishButtonClick = (event) => {
+        console.log(user)
         let pauseCheckbox = document.querySelector("#pause");
         pauseCheckbox.disabled = false;
         pauseCheckbox.click();

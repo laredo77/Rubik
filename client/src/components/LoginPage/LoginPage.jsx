@@ -25,6 +25,11 @@ function LoginPage({addNewUser}) {
             isError: false,
         };
 
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userImg", user.img);
+        localStorage.setItem("userIsError", user.isError);
+        localStorage.setItem("userIsLoading", user.isLoading);
+
         try {
             await addNewUser(user);
         } catch (e) {
@@ -45,6 +50,10 @@ function LoginPage({addNewUser}) {
             isError: false,
         };
 
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userIsError", user.isError);
+        localStorage.setItem("userIsLoading", user.isLoading);
+
         try {
             await addNewUser(user);
         } catch (e) {
@@ -60,6 +69,10 @@ function LoginPage({addNewUser}) {
             isLoading: false,
             isError: false,
         };
+
+        localStorage.setItem("userEmail", user.email);
+        localStorage.setItem("userIsError", user.isError);
+        localStorage.setItem("userIsLoading", user.isLoading);
 
         try {
             await addNewUser(user);
