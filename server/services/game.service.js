@@ -1,5 +1,5 @@
 const database = require("../database");
-const {getLevelNumber, getLevelString} = require("../utility/levelUtils");
+const {getLevelNumber, getLevelString, calculateScore} = require("../utility/levelUtils");
 const {response} = require("express");
 
 const {executePython} = require("../utility/pythonExecuter");
@@ -373,6 +373,32 @@ const markSolved = async (cubeGameDetails) => {
     }
 };
 
+const postScore = async (competitionDetails) => {
+    const {user, level, time} = competitionDetails;
+    const score = calculateScore(time, level);
+
+    try {
+        // Get the user's current score from the user table
+        const selectQuery = `SELECT user_score FROM user WHERE user_email = ?`;
+        const selectParams = [user];
+        const result = await executeQuery(selectQuery, selectParams);
+        const currentUserScore = result[0].user_score;
+
+        // Update the user's score in the user table
+        const updatedScore = currentUserScore + score;
+        const updateQuery = `UPDATE user SET user_score = ? WHERE user_email = ?`;
+        const updateParams = [updatedScore, user];
+        await executeQuery(updateQuery, updateParams);
+
+        console.log(`Score updated for user: ${user}, New score: ${updatedScore}`);
+        return {score: updatedScore};
+    } catch (error) {
+        console.error(error);
+        console.log('Error updating user score');
+        throw error;
+    }
+};
+
 
 module.exports = {
     getUserAction,
@@ -381,6 +407,7 @@ module.exports = {
     createGame,
     joinGame,
     markSolved,
+    postScore,
 };
 
 

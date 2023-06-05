@@ -79,9 +79,14 @@ const markSolved = async (req, res) => {
 
 // competition-mode controller functions
 const postCompScore = async (req, res) => {
-    console.log(req.body) // { user: 'MyMail@gmail.com', level: 1, time: 4.76 }
-    // todo add to DB the score and rerender the leaderboard
-    // if the score is in the top10 or something
+    try {
+        const competitionDetails = req.body;
+        const updatedScore = await gameService.postScore(competitionDetails);
+        res.send(updatedScore);
+    } catch (error) {
+        console.log(error);
+        res.status(401).send("Error updating score");
+    }
 };
 
 
