@@ -2,7 +2,7 @@ import React from 'react';
 
 function AlgorithmPage() {
     return (
-        <div>
+        <div style={{height: '720px', margin: '0 auto', width: '90%', overflow: 'auto'}}>
             <h1>Rubik's Cube Solving Algorithms</h1>
             <h2>Two-Phase Algorithm</h2>
             <p>The Two-Phase Algorithm solves the Cube in to steps.

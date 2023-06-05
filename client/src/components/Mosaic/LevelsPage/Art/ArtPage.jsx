@@ -3,7 +3,7 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {getCubesImages, getCubeIdFromImg, createImageObject} from "../../../components-utils";
+import {getCubesImages, getCubeIdFromImg} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
 import Client from "../../../../services/GameService"
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 
 const theme = createTheme();
 
@@ -20,29 +20,22 @@ const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
 function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const [previousState, setPreviousState] = useState(null);
-    const gameState = useSelector((state) => state.gameReducer);//todo check why gameId is undefined
+    const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.mosaicReducer);
     const game_id = levelDetails.game_id;
     const level = levelDetails.level_id;
-    const cubesImage = getCubesImages(level)
-
-    const prevGameStateRef = useRef(gameState);
+    const cubesImage = getCubesImages(level);
+    const elements = document.querySelectorAll('img');
 
     useEffect(() => {
         const updateGameState = async () => {
-            const currentState = await getGameState(game_id)
+            await getGameState(game_id);
             const cubes = gameState.gameState;
             if (cubes) {
                 cubes.forEach((cube) => {
-                    const imageName = createImageObject(cube.cube_id, level);
-                    const cubeImage = cubesImage.at(cube.cube_id);
-                    if (cubeImage) {
-                        cubeImage.solved = true;
-                    }
-                    handleSolved(imageName, true).then();
+                    handleSolved(elements[cube.cube_id], true).then();
                 });
             }
-            prevGameStateRef.current = currentState;
         }
 
         // Call the function every 5 seconds
@@ -60,7 +53,6 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const handleSolved = async (selectedImage, isReceiving) => {
         if (!isReceiving) {
             if (selectedImage) {
-
                 try {
                     let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
                     await markSolved(user, level, cube_id, game_id);
@@ -68,10 +60,10 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                     console.log(error);
                     console.log("Error marking cube as solved");
                 }
-                selectedImage.className += "image-solved";
+                selectedImage.className = "image-solved";
             }
         } else {
-            selectedImage.className += "image-solved";
+            selectedImage.className = "image-solved";
         }
     };
 
