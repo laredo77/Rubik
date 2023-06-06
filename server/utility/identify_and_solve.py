@@ -111,7 +111,6 @@ def modify_and_confirm_file(action, kociemba_string):
                 if len(contents) == VALID_STRING_LENGTH:
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
                     write_message(kociemba.solve(contents))
-#                 os.remove(FILE_NAME)
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
@@ -171,7 +170,6 @@ if __name__ == "__main__":
 
 # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[1]
-#     params = sys.argv[3:]
     capture_solve_print(action)
 
 

@@ -78,7 +78,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         MySwal.fire({
             title: "Alert",
             text: result,
-            icon: result.success ? "success" : "error"
+            icon: result.success ? "success" : "warning"
         });
     }
 
