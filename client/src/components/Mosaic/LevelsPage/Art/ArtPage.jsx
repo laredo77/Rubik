@@ -73,12 +73,11 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     }
 
 
-    const showMessage = (result) => {   //todo: take care to show alert window
-        console.log("showmessage:", result)
+    const showMessage = (result) => {
         // show the result message in a popup window using SweetAlert2
         MySwal.fire({
-            title: "Upload Images Result",
-            text: result.message,
+            title: "Alert",
+            text: result,
             icon: result.success ? "success" : "error"
         });
     }
