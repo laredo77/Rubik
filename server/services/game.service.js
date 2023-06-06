@@ -2,14 +2,14 @@ const database = require("../database");
 const {getLevelNumber, getLevelString, calculateScore} = require("../utility/levelUtils");
 const {response} = require("express");
 
-const {executePython} = require("../utility/pythonExecuter");
+const {executePythonFile} = require("../utility/pythonExecuter");
 const {generatePassword} = require("../utility/generate_pass");
 const {executeQuery, executeTransaction} = require("../database");
 
 
 const getUserAction = async (action) => {
     const scriptFileName = "identify_and_solve.py"
-    await executePython(scriptFileName, [action.action]);
+    await executePythonFile(scriptFileName, [action.action]);
 
     // Open and read the error file
     const fs = require('fs');
@@ -20,6 +20,7 @@ const getUserAction = async (action) => {
             console.error(err);
             return;
         }
+        console.log("gameservice:", data)
         return data;
     });
 };

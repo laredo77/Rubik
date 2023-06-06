@@ -1,68 +1,32 @@
-const {PythonShell} = require('python-shell');      // Required for executing python script async from JS
-const path = require('path');                       // Required to construct file paths
-const pythonPath = path.join('C:', 'Users', 'yahav', 'AppData', 'Local', 'Programs', 'Python', 'Python39', 'python.exe');    // Definition of python.exe path
-const scriptPath = path.join('D:', 'Projects', 'RubikCube', 'server', 'utility');          // Definition of the script.py path
+const {execSync} = require('child_process');
+const fs = require('fs');
+const path = require('path'); // Required to construct file paths
+const pythonPath = path.join('C:', 'Users', 'yahav', 'AppData', 'Local', 'Programs', 'Python', 'Python311', 'python.exe');
 
-/**
- * Helper function, used to call a specific function from python script and return its result/prints
- * @param {String} pythonFileName name of the function we want to execute
- * @param {Object} params parameters to be passed into the python function */
-function callPythonFunction(pythonFileName, params) {
+function executePythonFile(pythonFile, argument) {
+    console.log("pythonExec:", argument)
+    // Get the full path to the Python file
+    const fullPath = path.resolve(__dirname, pythonFile);
 
-    // Settings object to be passed to the python script
-    const options = {
-        mode: 'text',
-        pythonPath: pythonPath,    // Changes between diff pc, also make sure python is in PATH and on top priority
-        pythonOptions: ['-u'],
-        scriptPath: scriptPath,         // Changes between diff pc
-        args: [pythonFileName, ...params]
+    // Build the command to execute the Python file with the argument
+    console.log("pythonExec:", argument)
+    
+    // Extract the word after the action
+    const extractedArgument = argument[0].action;
+
+    const command = `"${pythonPath}" "${fullPath}" "${extractedArgument}"`;
+    try {
+        console.log("command", command)
+        execSync(command);
+        console.log('Python file executed successfully.');
+
+        // const fileContent = fs.readFileSync('messages_to_user.txt', 'utf8');
+        // console.log(`Content from file: ${fileContent}`);
+    } catch (error) {
+        console.error(`Error executing Python file: ${error}`);
     }
-
-    // Invokes the python async script using the options object, throws an error if there is an error
-    return new Promise((resolve, reject) => {
-        PythonShell.run(pythonFileName, options, function (err, results) {
-            if (err) {
-                // Check if the error is caused by the file being used by another process
-                if (err.traceback.includes("PermissionError: [WinError 32] The process cannot access the file because it is being used by another process")) {
-                    reject("Error: The file is being used by another process.");
-                } else {
-                    reject(err);
-                }
-            }
-            resolve(results);
-        });
-    });
-}
-
-/**
- * Function used to receive user input and return a parsed array
- */
-function parseTerminalParameters() {
-    let parameters = [];
-
-    // Iterate over given input and insert into array
-    for (let i = 2; i < process.argv.length; i++) {
-        parameters.push(process.argv[i]);
-    }
-
-    // Define function name and parameters and return it as array
-    let pythonFileName = parameters[0];
-    let params = parameters.slice(1)
-    return [pythonFileName, params]
-}
-
-function executePython(pythonFileName, params) {
-    // let [pythonFileName, params] = parseTerminalParameters();          //used for debuging from terminal
-    callPythonFunction(pythonFileName, params)
-        .then((result) => {
-            console.log(result);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
 }
 
 module.exports = {
-    executePython
+    executePythonFile: executePythonFile
 };
-// test in terminal: node .\pythonExecuter.js [python_file_name.py] [params], for example node pythonExecuter.js identify_and_solve.py functionName param_1...param_n

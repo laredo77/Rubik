@@ -169,8 +169,11 @@ if __name__ == "__main__":
     # change the current working directory
     os.chdir('D:\\Projects\\RubikCube\\server\\utility')
 
+    with open('output.txt', 'w') as f:
+            f.write(str(sys.argv))
+
 # Retrieves the command line arguments passed to the script by the JS function
-    action = sys.argv[2]
+    action = sys.argv[1]
 #     params = sys.argv[3:]
     capture_solve_print(action)
 

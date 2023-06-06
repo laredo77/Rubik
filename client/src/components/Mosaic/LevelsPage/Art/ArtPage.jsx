@@ -69,11 +69,12 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
 
     const actionCaptureHandler = async (response) => {
         const result = await Client.uploadImages({action: response.target.id});
-        showMessage(result)
+        showMessage(result);
     }
 
 
     const showMessage = (result) => {   //todo: take care to show alert window
+        console.log("showmessage:", result)
         // show the result message in a popup window using SweetAlert2
         MySwal.fire({
             title: "Upload Images Result",

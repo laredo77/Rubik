@@ -40,7 +40,15 @@ export class GameService {
     }
 
     static async uploadImages(action) {
-        await axios.post("http://localhost:3001/game/upload-images", action);
+        // await axios.post("http://localhost:3001/game/upload-images", action);
+        const response = await axios.post("http://localhost:3001/game/upload-images", {action},
+            {
+                headers: {
+                    message: action,
+                },
+            });
+        console.log("Gameservice:", response)
+        return response.data;
     }
 
     static async newGame(gameLevel) {
