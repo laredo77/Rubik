@@ -24,7 +24,7 @@ def color_to_letter(colors):
     str: A string of letters representing the colors.
     """
     # Define a dictionary to map color names to letters.
-    letter_dict = {'white': 'R', 'yellow': 'U', 'green': 'D', 'blue': 'F', 'red': 'B', 'orange': 'L'}
+    letter_dict = {'white': 'F', 'yellow': 'D', 'green': 'R', 'blue': 'U', 'red': 'B', 'orange': 'L'}
     letters = ''
     # Loop over each row of colors and each color in the row, and append the corresponding letter to the letters string.
     for row in colors:
@@ -122,7 +122,7 @@ def modify_and_confirm_file(action, kociemba_string):
                     write_message("Error: Invalid string length for action")
 
     except Exception as e:
-        write_message("An error occurred" + e)
+        write_message("An error occurred: " + str(e))
 
     return result
 
