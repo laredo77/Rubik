@@ -365,4 +365,4 @@ def grab_colors():
 
 #     print(vision_params.face_col)
 
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
