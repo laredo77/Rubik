@@ -24,7 +24,7 @@ def color_to_letter(colors):
     str: A string of letters representing the colors.
     """
     # Define a dictionary to map color names to letters.
-    letter_dict = {'white': 'R', 'yellow': 'U', 'green': 'D', 'blue': 'F', 'red': 'B', 'orange': 'L'}
+    letter_dict = {'white': 'F', 'yellow': 'D', 'green': 'R', 'blue': 'U', 'red': 'B', 'orange': 'L'}
     letters = ''
     # Loop over each row of colors and each color in the row, and append the corresponding letter to the letters string.
     for row in colors:
@@ -111,7 +111,6 @@ def modify_and_confirm_file(action, kociemba_string):
                 if len(contents) == VALID_STRING_LENGTH:
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
                     write_message(kociemba.solve(contents))
-#                 os.remove(FILE_NAME)
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
@@ -123,7 +122,7 @@ def modify_and_confirm_file(action, kociemba_string):
                     write_message("Error: Invalid string length for action")
 
     except Exception as e:
-        write_message("An error occurred" + e)
+        write_message("An error occurred: " + str(e))
 
     return result
 
@@ -170,8 +169,7 @@ if __name__ == "__main__":
     os.chdir('D:\\Projects\\RubikCube\\server\\utility')
 
 # Retrieves the command line arguments passed to the script by the JS function
-    action = sys.argv[2]
-#     params = sys.argv[3:]
+    action = sys.argv[1]
     capture_solve_print(action)
 
 

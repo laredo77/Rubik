@@ -2,27 +2,32 @@ const database = require("../database");
 const {getLevelNumber, getLevelString, calculateScore} = require("../utility/levelUtils");
 const {response} = require("express");
 
-const {executePython} = require("../utility/pythonExecuter");
+const {executePythonFile} = require("../utility/pythonExecuter");
 const {generatePassword} = require("../utility/generate_pass");
 const {executeQuery, executeTransaction} = require("../database");
 
 
 const getUserAction = async (action) => {
-    const scriptFileName = "identify_and_solve.py"
-    await executePython(scriptFileName, [action.action]);
+    const scriptFileName = "identify_and_solve.py";
+    await executePythonFile(scriptFileName, [action.action]);
 
     // Open and read the error file
     const fs = require('fs');
     const path = require('path');
     const errorFilePath = path.join('utility', 'messages_to_user.txt');
-    fs.readFile(errorFilePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error(err);
-            return;
-        }
-        return data;
+
+    return new Promise((resolve, reject) => {
+        fs.readFile(errorFilePath, 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+                reject(err);
+                return;
+            }
+            resolve(data);
+        });
     });
 };
+
 
 const fetchGameState = async (gameDetails) => {
     // Find game manager and level id
