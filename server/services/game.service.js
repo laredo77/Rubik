@@ -5,6 +5,7 @@ const {response} = require("express");
 const {executePythonFile} = require("../utility/pythonExecuter");
 const {generatePassword} = require("../utility/generate_pass");
 const {executeQuery, executeTransaction} = require("../database");
+const axios = require("axios");
 
 
 const getUserAction = async (action) => {
@@ -404,6 +405,37 @@ const postScore = async (competitionDetails) => {
     }
 };
 
+const getCubeDefinitionFromGPT = async (cubeWig) => {
+    console.log(cubeWig)
+    const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const apiKey = process.env.GPT_API_KEY;
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+    };
+    const message = `According to the Rubik's Cube rules, it is defined by a string of
+         54 letters representing the stickers on the cube. The available colors are R (red),
+          G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side
+           of the cube with the string '${cubeWig}'. Could you provide a valid string definition
+            for the entire Rubik's Cube starting with my side, while leaving the rest open?
+            your answer should be just the string you configure. not any word more then just the string in response.
+             Your assistance in generating a valid configuration would be greatly appreciated`
+    const payload = {
+        'model': 'gpt-3.5-turbo',
+        'messages': [{'role': 'system', 'content': message}]
+    };
+
+    try {
+        const response = await axios.post(apiUrl, payload, { headers });
+        const reply = response.data.choices[0].message.content;
+        console.log('ChatGPT reply:', reply);
+        return reply;
+    } catch (error) {
+        console.error('Error:', error.response);
+        return null;
+    }
+}
+
 
 module.exports = {
     getUserAction,
@@ -413,6 +445,7 @@ module.exports = {
     joinGame,
     markSolved,
     postScore,
+    getCubeDefinitionFromGPT,
 };
 
 

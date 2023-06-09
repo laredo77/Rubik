@@ -76,7 +76,6 @@ const markSolved = async (req, res) => {
     }
 }
 
-
 // competition-mode controller functions
 const postCompScore = async (req, res) => {
     try {
@@ -88,7 +87,6 @@ const postCompScore = async (req, res) => {
         res.status(401).send("Error updating score");
     }
 };
-
 
 module.exports = {
     uploadImages,
