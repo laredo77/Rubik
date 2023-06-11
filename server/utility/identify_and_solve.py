@@ -318,9 +318,9 @@ async def capture_solve_print(action, image_path):
 
 # When this python file invoked, it starts main
 if __name__ == "__main__":
-
-    # change the current working directory
-    os.chdir('D:\\Projects\\RubikCube\\server\\utility')
+    # Change the current working directory to the location of the script
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_dir)
 
 # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[1]
