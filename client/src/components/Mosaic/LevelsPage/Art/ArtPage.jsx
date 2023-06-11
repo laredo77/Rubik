@@ -67,13 +67,16 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         }
     };
 
-    const actionCaptureHandler = async (response) => {
-        const result = await Client.uploadImages({action: response.target.id});
+    const actionCaptureHandler = async (response, clickedImage) => {
+        const result = await Client.uploadImages({action: response.target.id, clickedImage});
         document.getElementById("result").innerHTML = result;
-    }
+    };
 
     const handleImageClick = (response) => {
         const clickedImage = response.target;
+        const test = response.target.src;
+        const srcUrl = new URL(clickedImage.src);
+        const relativePath = srcUrl.pathname;
         MySwal.fire({
             title: "Solver",
             html: (
@@ -81,7 +84,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                     <Box sx={{display: "inline-block", marginBottom: "10px"}}>
                         <Button
                             variant="contained"
-                            onClick={handleUploadImageClick}
+                            onClick={() => handleUploadImageClick(test)}
                         >
                             Upload cube images to solve
                         </Button>
@@ -106,49 +109,57 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     };
 
     // Define a function that will handle the upload image button click event
-    const handleUploadImageClick = () => {
+    const handleUploadImageClick = (clickedImage) => {
         // Show a popup dialog using SweetAlert2 library
         MySwal.fire({
             title: "Upload cube images to solve",
             // HTML content to be displayed inside the dialog
             html: (
                 <div>
-                    <Button id="top" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="top" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Top
                     </Button>
                     <br/>
-                    <Button id="bottom" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="bottom" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Bottom
                     </Button>
                     <br/>
-                    <Button id="front" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="front" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Front
                     </Button>
                     <br/>
-                    <Button id="back" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="back" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Back
                     </Button>
                     <br/>
-                    <Button id="left" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="left" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Left
                     </Button>
                     <br/>
-                    <Button id="right" variant="contained" size="small" onClick={actionCaptureHandler}
+                    <Button id="right" variant="contained" size="small"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
                             style={{marginBottom: '5px'}}>
                         Right
                     </Button>
                     <br/>
                     <div style={{display: "flex", justifyContent: "center", marginBottom: '5px'}}>
-                        <Button id="clear" variant="contained" onClick={actionCaptureHandler}>
+                        <Button id="clear" variant="contained"
+                                onClick={(event) => actionCaptureHandler(event, clickedImage)}>
                             Clear
                         </Button>
                         <span style={{width: '5px'}}></span>
-                        <Button id="confirm" variant="contained" onClick={actionCaptureHandler}>
+                        <Button id="confirm" variant="contained"
+                                onClick={(event) => actionCaptureHandler(event, clickedImage)}>
                             Confirm
                         </Button>
                     </div>
