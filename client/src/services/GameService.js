@@ -39,13 +39,16 @@ export class GameService {
         return response.data;
     }
 
-    static async uploadImages(action) {
-        const response = await axios.post("http://localhost:3001/game/upload-images", {action},
+    static async uploadImages({action, clickedImage}) {
+        const response = await axios.post(
+            "http://localhost:3001/game/upload-images",
+            {action, clickedImage},
             {
                 headers: {
                     message: action,
                 },
-            });
+            }
+        );
         return response.data;
     }
 
@@ -80,7 +83,7 @@ export class GameService {
         };
 
         try {
-            const response = await axios.post(apiUrl, payload, { headers });
+            const response = await axios.post(apiUrl, payload, {headers});
             const reply = response.data.choices[0].message.content;
             console.log('ChatGPT reply:', reply);
             return reply;

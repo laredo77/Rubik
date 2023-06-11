@@ -7,9 +7,9 @@ const {generatePassword} = require("../utility/generate_pass");
 const {executeQuery, executeTransaction} = require("../database");
 
 
-const getUserAction = async (action) => {
+const getUserAction = async ({action, clickedImage}) => {
     const scriptFileName = "identify_and_solve.py";
-    await executePythonFile(scriptFileName, [action.action]);
+    await executePythonFile(scriptFileName, [action, clickedImage]);
 
     // Open and read the error file
     const fs = require('fs');

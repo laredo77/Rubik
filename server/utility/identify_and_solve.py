@@ -7,11 +7,155 @@ import tkinter as tk
 import threading
 import kociemba
 import os
+import urllib.request
+from scipy.stats import mode
 
 VALID_STRING_LENGTH = 54
 FILE_NAME = 'current_state_string.txt'
 CLEAR_STRING_LENGTH = 80
 
+#######complete rubik str to 54 chars#######
+
+def getCubeDefinitionFromGPT(cubeWig):
+    print(cubeWig)
+    apiUrl = 'https://api.openai.com/v1/chat/completions'
+    apiKey = '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'
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {apiKey}'
+    }
+    message = "According to the Rubik's Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string '{cubeWig}'. Could you provide a valid string definition for the entire Rubik's Cube starting with my side, while leaving the rest open? Your answer should be just the string you configure, not any word more than just the string in response. Your assistance in generating a valid configuration would be greatly appreciated."
+
+    payload = {
+        'model': 'gpt-3.5-turbo',
+        'messages': [{'role': 'system', 'content': message}]
+    }
+
+    try:
+        response = requests.post(apiUrl, json=payload, headers=headers)
+        write_message(response)
+        reply = response.json()['choices'][0]['message']['content']
+        print('ChatGPT reply:', reply)
+        return reply
+    except Exception as error:
+        print('Error:', error)
+        return None
+
+#######create_rubik_str_from_img#######
+
+def identify_cube_colors(image_path):
+    # Load image
+#     image = cv2.imread(image_path)
+    # Download the image from the URL
+    #TODO: ADD TRY CATCH
+    req = urllib.request.urlopen(image_path)
+    arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
+
+    # Read the image using cv2.imdecode()
+    image = cv2.imdecode(arr, -1)
+
+
+    # Get the dimensions of the image
+    height, width, _ = image.shape
+
+    # Divide the height into three rows
+    row_height = height // 3
+
+    # Divide the width into thirds (1/3)
+    third_width = width // 3
+
+    # Define the ROI coordinates based on the divided width and height
+    roi_coordinates = []
+    for i in range(3):
+        y = i * row_height  # Calculate the y-coordinate for the current row
+
+        for j in range(3):
+            x = j * third_width  # Calculate the x-coordinate for the current column
+
+            # Append ROI coordinates for the current cube
+            roi_coordinates.append((x, y, third_width, row_height))
+
+    # Create a zoomed-in version of the image
+    zoom_factor = 10  # Increase this value to zoom in further
+    zoomed_image = cv2.resize(image, None, fx=zoom_factor, fy=zoom_factor)
+
+    # Scale the ROI coordinates based on the zoom factor
+    scaled_roi_coordinates = [(int(x * zoom_factor), int(y * zoom_factor),
+                               int(width * zoom_factor), int(height * zoom_factor))
+                              for (x, y, width, height) in roi_coordinates]
+
+    # Draw the ROIs on the zoomed-in image
+    for (x, y, width, height) in scaled_roi_coordinates:
+        cv2.rectangle(zoomed_image, (x, y), (x + width, y + height), (0, 255, 0), 2)
+
+    # Show the zoomed-in image with ROIs
+    # cv2.imshow("Zoomed Image with ROIs", zoomed_image)
+    # cv2.waitKey(0)
+    # cv2.destroyAllWindows()
+
+    # Extract each cube from the image based on the defined ROIs
+    cubes = [image[y:y + height, x:x + width] for (x, y, width, height) in roi_coordinates]
+
+    # Store the color labels for each cube
+    color_labels = []
+
+    # Loop through each cube
+    for cube in cubes:
+        # Extract color information from the cube region
+        cube_color = extract_color(cube)
+
+        # Assign a color label based on the extracted color
+        color_label = assign_color_label(cube_color)
+
+        # Store the color label for each cube
+        color_labels.append(color_label)
+
+    # Create a string representation of the colors
+    color_string = ''.join(color_labels)
+
+    # Return the color string
+    return color_string
+
+
+def extract_color(cube):
+    # Extract color information from the cube region
+    # Calculate the most common color of the cube
+
+    # Reshape the cube to a 2D array of pixels
+    pixels = cube.reshape(-1, 3)
+
+    # Compute the mode of the pixels
+    mode_color = mode(pixels, axis=0).mode[0]
+
+    return mode_color
+
+
+def assign_color_label(cube_color):
+    # Assign a color label based on the extracted color
+    # Use specific color values to determine the label
+
+    # Define specific color values for each color label
+    # {'white': 'F', 'yellow': 'D', 'green': 'R', 'blue': 'U', 'red': 'B', 'orange': 'L'}
+    color_values = {
+        (255, 255, 255): 'F',   #BGR
+        (246, 129, 61): 'U',
+        (9, 204, 253): 'D',
+        (84, 157, 0): 'R',
+        (47, 66, 220): 'B',
+        (0, 108, 255): 'L'
+    }
+
+    # Convert cube_color to a tuple
+    cube_color_tuple = tuple(cube_color)
+
+    # Check if the cube color matches any specific color values
+    if cube_color_tuple in color_values:
+        return color_values[cube_color_tuple]
+
+    # Return 'unknown' if no matching color label is found
+    return '?'
+
+#######identify_and_solve#######
 
 def color_to_letter(colors):
     """
@@ -66,7 +210,7 @@ def write_message(message):
         f.write(message)
 
 
-def modify_and_confirm_file(action, kociemba_string):
+def modify_and_confirm_file(action, kociemba_string, image_path):
     """
     This function takes an action and a string, modifies the Rubik's cube state file accordingly, and returns the
     solution string if the action is 'confirm'.
@@ -108,9 +252,13 @@ def modify_and_confirm_file(action, kociemba_string):
                 f.write(" " * VALID_STRING_LENGTH)
                 write_message("File cleared!")
             elif action == "confirm":
+                # Create Rubik's cube string from img
+                face_str = identify_cube_colors(image_path)
                 if len(contents) == VALID_STRING_LENGTH:
+                    full_str = getCubeDefinitionFromGPT(face_str)
+                    write_message(str(full_str))
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-                    write_message(kociemba.solve(contents))
+#                     write_message(kociemba.solve(contents))
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
@@ -127,7 +275,7 @@ def modify_and_confirm_file(action, kociemba_string):
     return result
 
 
-def capture_solve_print(action):
+def capture_solve_print(action, image_path):
     """
     Captures a picture of the Rubik's cube face, converts the colors to a string of letters, and
     modifies the specified character range in a text file containing the state of the Rubik's cube.
@@ -154,7 +302,7 @@ def capture_solve_print(action):
         kociemba_string = color_to_letter(colors)
 
     # Modify the file and confirm the Rubik's cube state if the action is not "clear"
-    result = modify_and_confirm_file(action, kociemba_string)
+    result = modify_and_confirm_file(action, kociemba_string, image_path)
 
     # Return the solution to the Rubik's cube if the action is "confirm"
     if result is not None:
@@ -170,7 +318,12 @@ if __name__ == "__main__":
 
 # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[1]
-    capture_solve_print(action)
+    imgPath = sys.argv[2]
+#     # Write action and imgPath to output.txt
+#     with open("output.txt", "w") as file:
+#         file.write(f"Action: {action}\n")
+#         file.write(f"Image Path: {imgPath}\n")
+    capture_solve_print(action, imgPath)
 
 
 # test in terminal: node .\pythonExecuter.js [python_file_name.py] [action], for example node pythonExecuter.js identify_and_solve.py top
