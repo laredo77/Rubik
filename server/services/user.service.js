@@ -3,7 +3,6 @@ const database = require("../database");
 // Function: addUser
 // Description: Adds a user to the database if they don't already exist.
 const addUser = async (user) => {
-    return // todo: should remove it
 
     // Check if the user already exists in the database
     const query1 = `SELECT * FROM user where user_email='${user.email}'`;
