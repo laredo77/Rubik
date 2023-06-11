@@ -264,6 +264,22 @@ async def modify_and_confirm_file(action, kociemba_string, image_path):
                     full_target_str = await getCubeDefinitionFromGPT(face_str)
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
                     write_message(kociemba.solve(contents, full_target_str))
+#                    #########################
+#                   USE WITH CAUTION - THIS CODE KEEP ASKING GPT FOR STRING UNTIL FOUND VALID ONE
+#                     solution = None
+#                     while True:
+#                         try:
+#                             write_message("Attempting to solve...")
+#                             full_target_str = await getCubeDefinitionFromGPT(face_str)
+#                             # Attempt to solve the Rubik's cube using the Kociemba algorithm and return the solution
+#                             solution = kociemba.solve(contents, full_target_str)
+#                             break
+#                         except ValueError:
+#                             # The input string is invalid, so continue to ask the GPT for a new string
+#                             pass
+#                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
+#                     write_message(solution)
+#                    #########################
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
