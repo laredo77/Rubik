@@ -4,6 +4,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import {useNavigate} from "react-router-dom";
+import Client from "../../../services/GameService";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -16,13 +19,26 @@ const Item = styled(Paper)(({theme}) => ({
 
 function LevelsPage({user, setMosaicMatch}) {
     const navigate = useNavigate();
-
+    const MySwal = withReactContent(Swal);
     const levelChooseHandler = async (response) => {
         // check if this user had this level in db if yes return state if not make new instance
         let level = response.target.id;
         await setMosaicMatch(user.email, level);
         navigate(`/main/game/mosaic/levels/${level}`);
     };
+
+    const createYourOwnMosaicHandler = () => {
+        MySwal.fire({
+            title: "Constructions",
+            text: "We're excited to let you know that this functionality is part of our future plans. Our team is actively working on it to bring this feature to you soon. Stay tuned for updates and enhancements to our app as we continue to improve your experience. We appreciate your patience and support!",
+            icon: "info",
+            confirmButtonColor: "#50b7f5",
+            showCloseButton: false,
+            showCancelButton: false,
+            allowOutsideClick: false
+        });
+
+    }
 
     return (
         <Box sx={{flexGrow: 1, marginTop: 1, maxHeight: "calc(100vh)"}}>
@@ -43,7 +59,7 @@ function LevelsPage({user, setMosaicMatch}) {
                                 transform: "scale(1.05)",
                             },
                         }}
-                        onClick={() => navigate("/main/singlePlayer/art")}
+                        onClick={createYourOwnMosaicHandler}
                     >
                         Create your own mosaic
                     </Item>

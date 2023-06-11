@@ -26,7 +26,6 @@ function SinglePlayerCompMode({user}) {
     let digit_level = 0;
 
     useEffect(() => {
-        Client.getFullStringFromGPT("RRGROYWWB")
         let startCheckbox = document.querySelector("#start");
         startCheckbox.disabled = true;
         let pauseCheckbox = document.querySelector("#pause");
