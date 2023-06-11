@@ -54,7 +54,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         if (!isReceiving) {
             if (selectedImage) {
                 try {
-                    let cube_id = getCubeIdFromImg(selectedImage); //todo: if it crashed, this cube not exist in DB!
+                    let cube_id = getCubeIdFromImg(selectedImage);
                     await markSolved(user, level, cube_id, game_id);
                 } catch (error) {
                     console.log(error);
