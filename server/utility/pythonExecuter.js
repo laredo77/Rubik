@@ -1,11 +1,20 @@
 const {execSync} = require('child_process');
 const fs = require('fs');
 const path = require('path'); // Required to construct file paths
-const pythonPath = path.join('C:', 'Users', 'yahav', 'AppData', 'Local', 'Programs', 'Python', 'Python311', 'python.exe');
 
 function executePythonFile(pythonFile, arguments) {
     // Get the full path to the Python file
     const fullPath = path.resolve(__dirname, pythonFile);
+
+    // Try to locate the Python executable path dynamically
+    let pythonPath;
+    if (process.platform === 'win32') {
+        // For Windows, use the default installation path
+        pythonPath = 'python';
+    } else {
+        // For other platforms, assume 'python3' is available in the system path
+        pythonPath = 'python3';
+    }
 
     // Build the command to execute the Python file with the argument
     // Extract the word after the action

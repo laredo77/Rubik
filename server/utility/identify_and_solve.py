@@ -24,7 +24,7 @@ def getCubeDefinitionFromGPT(cubeWig):
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {apiKey}'
     }
-    message = "According to the Rubik's Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string '{cubeWig}'. Could you provide a valid string definition for the entire Rubik's Cube starting with my side, while leaving the rest open? Your answer should be just the string you configure, not any word more than just the string in response. Your assistance in generating a valid configuration would be greatly appreciated."
+    message = f'According to the Rubik\'s Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string '{cubeWig}'. Could you provide a valid string definition for the entire Rubik\'s Cube starting with my side, while leaving the rest open? Your answer should be just the string you configure, not any word more than just the string in response. Your assistance in generating a valid configuration would be greatly appreciated.'
 
     payload = {
         'model': 'gpt-3.5-turbo',
@@ -255,10 +255,10 @@ def modify_and_confirm_file(action, kociemba_string, image_path):
                 # Create Rubik's cube string from img
                 face_str = identify_cube_colors(image_path)
                 if len(contents) == VALID_STRING_LENGTH:
-                    full_str = getCubeDefinitionFromGPT(face_str)
-                    write_message(str(full_str))
+                    full_target_str = getCubeDefinitionFromGPT(face_str)
+                    write_message(str(full_target_str))
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-#                     write_message(kociemba.solve(contents))
+#                     write_message(kociemba.solve(contents, full_target_str))
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:
