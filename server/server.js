@@ -4,7 +4,6 @@ const router = require("./routes/router");
 const dotenv = require("dotenv");
 const path = require("path");
 const database = require("../server/database");
-const {getCubeDefinitionFromGPT} = require("./services/game.service");
 
 dotenv.config();
 process.env.PWD = process.cwd();
