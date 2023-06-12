@@ -19,8 +19,11 @@ function MatchPage({getMatchStatus}) {
 
     // Extracting data from location state
     let level = location.state.Level;
-    let gameId = location.state.gameId;
-    let gamePwd = location.state.password;
+    console.log(location.state)
+    let matchID = location.state.MatchID;
+    let matchPWD = location.state.MatchPWD;
+    console.log("FROM MATCHPAGE:")
+    console.log("matchID: ", matchID, " matchPWD: ", matchPWD)
 
     // Custom Swal instance for SweetAlert2
     const MySwal = withReactContent(Swal);
@@ -32,8 +35,6 @@ function MatchPage({getMatchStatus}) {
     // Array to store opponent moves
     let opponentMovesArray = [];
 
-    // Quit status
-    let quitStatus = false;
 
     // Effect to fetch match status
     useEffect(() => {
@@ -79,6 +80,7 @@ function MatchPage({getMatchStatus}) {
     // Function to re-render opponent cube
     const reRenderOppCube = async () => {
         let response = await Client.getMatchState(user.email);
+        console.log(response)
         if (response.quitStatus != -1) {
             MySwal.fire({
                 title: "The second player left the match.",
@@ -114,7 +116,7 @@ function MatchPage({getMatchStatus}) {
             {/* Render the match details menu and user's cube when match status is true */}
             {matchStatus ? (
                 <div className="split lefti">
-                    <MatchDetailsMenu user={user}></MatchDetailsMenu>
+                    <MatchDetailsMenu user={user} matchID={matchID} matchPWD={matchPWD}></MatchDetailsMenu>
                     <CubeManager
                         controlsStatus={false}
                         isMatch={false}

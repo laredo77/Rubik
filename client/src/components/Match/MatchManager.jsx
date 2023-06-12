@@ -30,7 +30,7 @@ function MatchManager({user, setMatch, joinMatch}) {
     // Effect for redirecting to the match page when the match status changes
     useEffect(() => {
         if (matchStatus) {
-            navigate("/main/matchManager/match", {state: {Manager: "", Level: level}});
+            navigate("/main/matchManager/match", {state: {Manager: "", Level: level, MatchID: gameId, MatchPWD: gamePwd}});
         }
     }, [matchStatus]);
 

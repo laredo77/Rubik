@@ -65,7 +65,7 @@ function LoginPage({addNewUser}) {
     // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
     const tempButtonHandler2 = async (response) => {
         const user = {
-            email: "TempUser2@gmail.com",
+            email: "TempUser15@gmail.com",
             isLoading: false,
             isError: false,
         };

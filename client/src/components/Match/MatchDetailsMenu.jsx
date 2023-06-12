@@ -10,13 +10,14 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 
 // GameDetailsMenu component
-function GameDetailsMenu({user}) {
+function MatchDetailsMenu({user, matchID, matchPWD}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const matchDetails = useSelector((state) => state.matchReducer);
-
+    console.log("FROM GameDetailsMenu:")
+    console.log("matchID: ", matchID, " matchPWD: ", matchPWD)
     // Handle click event of the menu button
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -30,11 +31,11 @@ function GameDetailsMenu({user}) {
     // Handle displaying game details using SweetAlert
     const handleGameDetails = () => {
         MySwal.fire({
-            title: "Game Details",
+            title: "Match Details",
             html: (
                 <>
-                    <Typography variant="inherit">Game ID: {matchDetails.gameId}</Typography>
-                    <Typography variant="inherit">Password: {matchDetails.password}</Typography>
+                    <Typography variant="inherit">Match ID: {matchID}</Typography>
+                    <Typography variant="inherit">Password: {matchPWD}</Typography>
                 </>
             ),
             confirmButtonColor: "#50b7f5",
@@ -85,4 +86,4 @@ function GameDetailsMenu({user}) {
     );
 }
 
-export default GameDetailsMenu;
+export default MatchDetailsMenu;
