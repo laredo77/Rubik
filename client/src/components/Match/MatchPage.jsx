@@ -19,6 +19,11 @@ function MatchPage({getMatchStatus}) {
 
     // Extracting data from location state
     let level = location.state.Level;
+    console.log(location.state)
+    let matchID = location.state.MatchID;
+    let matchPWD = location.state.MatchPWD;
+    console.log("FROM MATCHPAGE:")
+    console.log("matchID: ", matchID, " matchPWD: ", matchPWD)
 
     // Custom Swal instance for SweetAlert2
     const MySwal = withReactContent(Swal);
@@ -111,7 +116,7 @@ function MatchPage({getMatchStatus}) {
             {/* Render the match details menu and user's cube when match status is true */}
             {matchStatus ? (
                 <div className="split lefti">
-                    <MatchDetailsMenu user={user}></MatchDetailsMenu>
+                    <MatchDetailsMenu user={user} matchID={matchID} matchPWD={matchPWD}></MatchDetailsMenu>
                     <CubeManager
                         controlsStatus={false}
                         isMatch={false}
