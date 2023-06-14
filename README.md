@@ -11,21 +11,21 @@ Furthermore, you can test your speed and strategic skills in our competitive mod
 ### Usage
 The application offers multiple modes of play:
 
->* FreePlay
+>* FreePlay:
 In Freeplay mode, you, as the player, can focus on honing your skills. You can interact with a virtual Rubik's cube within the app, manipulate the pieces, receive assistance from the system, and verify your solution.
 There are three levels of difficulty: easy, medium, and hard. Each level presents a unique Rubik's cube challenge, enabling you to enhance your capabilities and tackle increasingly complex puzzles.
 
->* Mosaic
+>* Mosaic:
 In this game mode, the player creates an artistic image using several Rubik's cubes. Players can choose to play solo, join a game with other participants, or initiate a new game. When a game is created, the creator's details and the chosen stage are stored in the database. Anyone wishing to join the game will need to provide the game ID and password, which are cross-referenced with the stored data in the database.
 This mode utilizes real Rubik's cubes. Players receive an image, select a cube to solve, and mark it as solved once completed. If the player encounters difficulty solving the cube, they can upload images of their physical Rubik's cube to the system. The system, using machine learning and computer vision technology, will provide steps to reach the desired state.
 When multiple players are on the same stage, the system ensures all actions run in parallel and are synchronized. If one player completes a cube, the system updates this information for all other players. There's no limit to the number of players in this mode.
 
->* Competition
+>* Competition:
 In this mode, players compete against each other within the app. Upon logging in, players first select the stage they wish to play. The difficulty rises with each level, depending on the number of times the app shuffles the cube.
 During the game, players race against the clock to solve the Rubik's cube as quickly as possible. The points a player earns are based on the chosen stage and the time taken to solve the cube.
 At the end of the game, the player's points are saved in the database and added to the leaderboard, which displays the top-ranking players.
 
->* Match
+>* Match:\n
 In this game mode, two players face each other in a live match. The initiator of the game receives a game number and password from the system. The second player can join the game using these credentials.
 Both players' Rubik's cubes are scrambled in an identical manner, ensuring they both start from the same position.
 Each player's screen is split into two: on the right, they see their own cube, and on the left, they can view their opponent's cube. As the player tries to solve their cube, they can simultaneously observe their opponent's cube and the moves they choose to make.
