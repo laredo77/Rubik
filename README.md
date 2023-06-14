@@ -25,8 +25,21 @@ In this mode, players compete against each other within the app. Upon logging in
 During the game, players race against the clock to solve the Rubik's cube as quickly as possible. The points a player earns are based on the chosen stage and the time taken to solve the cube.
 At the end of the game, the player's points are saved in the database and added to the leaderboard, which displays the top-ranking players.
 
->* Match:\n
+>* Match:
 In this game mode, two players face each other in a live match. The initiator of the game receives a game number and password from the system. The second player can join the game using these credentials.
 Both players' Rubik's cubes are scrambled in an identical manner, ensuring they both start from the same position.
 Each player's screen is split into two: on the right, they see their own cube, and on the left, they can view their opponent's cube. As the player tries to solve their cube, they can simultaneously observe their opponent's cube and the moves they choose to make.
 All game information is synced in real time with the server. Each player's moves are saved and displayed to their opponent, fostering a truly immersive competitive environment.
+
+### Credit
+Projects we used in our project and deserve credit:
+>* [Two Phase Solver](https://github.com/hkociemba/RubiksCube-TwophaseSolver)
+>* [kociemba](https://github.com/muodov/kociemba)
+>* [rubix](https://github.com/Zacqary/rubix)
+
+### Dependency
+React Js, Redux, express, node.js, MySQL
+
+### Info
+This application was developed as a part of the final project for a Computer Science degree at Bar-Ilan University. 
+All rights are reserved by Yahav Zarfati and Itamar Laredo.
