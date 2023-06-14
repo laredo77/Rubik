@@ -1,5 +1,6 @@
 # Rubik
 A network application for playing virtual and physical rubik cube.
+
 <img width="943" alt="mainpage" src="https://github.com/laredo77/sms/assets/60240620/13b95ee9-ab41-4ba7-b55a-70e46a5426e6">
 
 ### Description
@@ -29,10 +30,14 @@ In this game mode, the player creates an artistic image using several Rubik's cu
 This mode utilizes real Rubik's cubes. Players receive an image, select a cube to solve, and mark it as solved once completed. If the player encounters difficulty solving the cube, they can upload images of their physical Rubik's cube to the system. The system, using machine learning and computer vision technology, will provide steps to reach the desired state.
 When multiple players are on the same stage, the system ensures all actions run in parallel and are synchronized. If one player completes a cube, the system updates this information for all other players. There's no limit to the number of players in this mode.
 
+<img width="563" alt="liberty" src="https://github.com/laredo77/sms/assets/60240620/f5e2fa39-7c8e-4d38-840b-2c0bbe7459a3">
+
 >* Competition:
 In this mode, players compete against each other within the app. Upon logging in, players first select the stage they wish to play. The difficulty rises with each level, depending on the number of times the app shuffles the cube.
 During the game, players race against the clock to solve the Rubik's cube as quickly as possible. The points a player earns are based on the chosen stage and the time taken to solve the cube.
 At the end of the game, the player's points are saved in the database and added to the leaderboard, which displays the top-ranking players.
+
+<img width="865" alt="comppage" src="https://github.com/laredo77/sms/assets/60240620/e69629df-979a-4820-88ad-fb31d3819972">
 
 >* Match:
 In this game mode, two players face each other in a live match. The initiator of the game receives a game number and password from the system. The second player can join the game using these credentials.
