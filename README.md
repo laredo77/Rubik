@@ -51,7 +51,7 @@ Projects we used in our project and deserve credit:
 >* [kociemba](https://github.com/muodov/kociemba)
 >* [rubix](https://github.com/Zacqary/rubix)
 
-### Dependency
+### Dependencies
 React Js, Redux, express, node.js, MySQL
 
 ### Info
