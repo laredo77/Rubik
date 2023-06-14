@@ -19,11 +19,8 @@ function MatchPage({getMatchStatus}) {
 
     // Extracting data from location state
     let level = location.state.Level;
-    console.log(location.state)
     let matchID = location.state.MatchID;
     let matchPWD = location.state.MatchPWD;
-    console.log("FROM MATCHPAGE:")
-    console.log("matchID: ", matchID, " matchPWD: ", matchPWD)
 
     // Custom Swal instance for SweetAlert2
     const MySwal = withReactContent(Swal);
@@ -80,7 +77,6 @@ function MatchPage({getMatchStatus}) {
     // Function to re-render opponent cube
     const reRenderOppCube = async () => {
         let response = await Client.getMatchState(user.email);
-        console.log(response)
         if (response.quitStatus != -1) {
             MySwal.fire({
                 title: "The second player left the match.",

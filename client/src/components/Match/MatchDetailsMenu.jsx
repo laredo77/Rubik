@@ -16,8 +16,7 @@ function MatchDetailsMenu({user, matchID, matchPWD}) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const matchDetails = useSelector((state) => state.matchReducer);
-    console.log("FROM GameDetailsMenu:")
-    console.log("matchID: ", matchID, " matchPWD: ", matchPWD)
+
     // Handle click event of the menu button
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
