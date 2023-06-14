@@ -1,5 +1,6 @@
 # Rubik
 A network application for playing virtual and physical rubik cube.
+<img width="943" alt="mainpage" src="https://github.com/laredo77/sms/assets/60240620/13b95ee9-ab41-4ba7-b55a-70e46a5426e6">
 
 ### Description
 The Rubik's cube, invented in 1974, has been a widely enjoyed game across the world. We've developed an app where you can engage with a virtual version of this iconic Hungarian cube - allowing you to play, learn, and practice.
