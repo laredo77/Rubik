@@ -8,6 +8,14 @@ Furthermore, you can test your speed and strategic skills in our competitive mod
 
 ### Installation
 
+In order to run the application, you'll first need to install the dependencies (please refer to the 'Dependencies' section).
+Afterward, you'll have to install the various libraries utilized in the project by executing npm i --force.
+To initiate the application, follow these steps:
+
+1. Open a terminal, navigate to the server directory, and execute `node server.js`.
+2. Open a second terminal, navigate to the client directory, and execute `npm start`.
+Now, navigate to 'localhost:3000' in your browser and start exploring the application! Enjoy!
+
 ### Usage
 The application offers multiple modes of play:
 
