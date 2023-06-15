@@ -1,4 +1,4 @@
-# Rubik
+# Rubi
 A network application for playing virtual and physical rubik cube.
 
 <img width="943" alt="mainpage" src="https://github.com/laredo77/sms/assets/60240620/13b95ee9-ab41-4ba7-b55a-70e46a5426e6">
