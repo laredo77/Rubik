@@ -20,13 +20,11 @@ function LoginPage({addNewUser}) {
     const handleLogin = async (response) => {
         const user = {
             email: response.profileObj.email,
-            img: response.profileObj.imageUrl,
             isLoading: false,
             isError: false,
         };
 
         localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userImg", user.img);
         localStorage.setItem("userIsError", user.isError);
         localStorage.setItem("userIsLoading", user.isLoading);
 
@@ -43,44 +41,44 @@ function LoginPage({addNewUser}) {
     };
 
     // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
-    const tempButtonHandler = async (response) => {
-        const user = {
-            email: "MyUser@gmail.com",
-            isLoading: false,
-            isError: false,
-        };
-
-        localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userIsError", user.isError);
-        localStorage.setItem("userIsLoading", user.isLoading);
-
-        try {
-            await addNewUser(user);
-        } catch (e) {
-
-        }
-        navigate("./main");
-    };
-
-    // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
-    const tempButtonHandler2 = async (response) => {
-        const user = {
-            email: "TempUser15@gmail.com",
-            isLoading: false,
-            isError: false,
-        };
-
-        localStorage.setItem("userEmail", user.email);
-        localStorage.setItem("userIsError", user.isError);
-        localStorage.setItem("userIsLoading", user.isLoading);
-
-        try {
-            await addNewUser(user);
-        } catch (e) {
-
-        }
-        navigate("./main");
-    };
+    // const tempButtonHandler = async (response) => {
+    //     const user = {
+    //         email: "MyUser@gmail.com",
+    //         isLoading: false,
+    //         isError: false,
+    //     };
+    //
+    //     localStorage.setItem("userEmail", user.email);
+    //     localStorage.setItem("userIsError", user.isError);
+    //     localStorage.setItem("userIsLoading", user.isLoading);
+    //
+    //     try {
+    //         await addNewUser(user);
+    //     } catch (e) {
+    //
+    //     }
+    //     navigate("./main");
+    // };
+    //
+    // // TEMP BUTTON AND THIS FUNCTION SHOULD BE REMOVED WHEN FINISH
+    // const tempButtonHandler2 = async (response) => {
+    //     const user = {
+    //         email: "TempUser15@gmail.com",
+    //         isLoading: false,
+    //         isError: false,
+    //     };
+    //
+    //     localStorage.setItem("userEmail", user.email);
+    //     localStorage.setItem("userIsError", user.isError);
+    //     localStorage.setItem("userIsLoading", user.isLoading);
+    //
+    //     try {
+    //         await addNewUser(user);
+    //     } catch (e) {
+    //
+    //     }
+    //     navigate("./main");
+    // };
 
     return (
         <ThemeProvider theme={theme}>
@@ -175,16 +173,16 @@ function LoginPage({addNewUser}) {
                     </Box>
                 </Grid>
             </Grid>
-            <Box sx={{position: "absolute", top: 0, left: 0, m: 2}}>
-                <Button variant="contained" onClick={tempButtonHandler} id="temp-button">
-                    TEMP BUTTON
-                </Button>
-            </Box>
-            <Box sx={{position: "absolute", top: 0, left: 150, m: 2}}>
-                <Button variant="contained" onClick={tempButtonHandler2}>
-                    TEMP BUTTON 2
-                </Button>
-            </Box>
+            {/*<Box sx={{position: "absolute", top: 0, left: 0, m: 2}}>*/}
+            {/*    <Button variant="contained" onClick={tempButtonHandler} id="temp-button">*/}
+            {/*        TEMP BUTTON*/}
+            {/*    </Button>*/}
+            {/*</Box>*/}
+            {/*<Box sx={{position: "absolute", top: 0, left: 150, m: 2}}>*/}
+            {/*    <Button variant="contained" onClick={tempButtonHandler2}>*/}
+            {/*        TEMP BUTTON 2*/}
+            {/*    </Button>*/}
+            {/*</Box>*/}
 
         </ThemeProvider>
     );
