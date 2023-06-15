@@ -32,9 +32,6 @@ function TeamPlayPage({user, joinMosaicMatch}) {
     }, [gameData, navigate, prevGameData]);
 
     const joinGameHandler = (response) => {
-        // 1.ask for Code+Password
-        // 2.fetch from DB the game state and display
-        // 3.every change of the player will connect the DB and then update in all others players
         MySwal.fire({
             title: "Please Provide Game Details",
             html: (
@@ -63,12 +60,14 @@ function TeamPlayPage({user, joinMosaicMatch}) {
         }).then(async (response) => {
             if (response.isConfirmed) {
                 try {
-                    await joinMosaicMatch(gameId, gamePwd, user);
-                    navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
-                    // Now navigate to the game page
+                    const result = await joinMosaicMatch(gameId, gamePwd, user);
+                    if (result) {
+                        navigate(`/main/game/mosaic/levels/${result.level_id}`);
+                    } else {
+                        navigate("/main/game/mosaic");
+                    }
                 } catch (error) {
                     console.error(error);
-                    // Handle the error
                 }
             } else if (response.isDenied) {
                 // Do nothing
