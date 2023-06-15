@@ -11,6 +11,7 @@ import urllib.request
 import asyncio
 import aiohttp
 from scipy.stats import mode
+from dotenv import load_dotenv
 
 VALID_STRING_LENGTH = 54
 FILE_NAME = 'current_state_string.txt'
@@ -20,7 +21,7 @@ CLEAR_STRING_LENGTH = 80
 
 async def getCubeDefinitionFromGPT(cubeWig):
     apiUrl = 'https://api.openai.com/v1/chat/completions'
-    apiKey = ''
+    apiKey = os.getenv('API_KEY')
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {apiKey}'
