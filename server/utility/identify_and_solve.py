@@ -25,7 +25,7 @@ async def getCubeDefinitionFromGPT(cubeWig):
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {apiKey}'
     }
-    message = f'According to the Rubik Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string "{cubeWig}". Could you provide a valid string definition for the entire Rubik Cube starting with my side, while leaving the rest open? Your assistance in generating a valid configuration would be greatly appreciated'
+    message = f'According to the Rubik\'s Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string '{cubeWig}'. Could you provide a valid string definition for the entire Rubik\'s Cube starting with my side, while leaving the rest open? Your answer should be just the string you configure, not any word more than just the string in response. Your assistance in generating a valid configuration would be greatly appreciated.'
 
     payload = {
         'model': 'gpt-3.5-turbo',
@@ -265,28 +265,10 @@ async def modify_and_confirm_file(action, kociemba_string, image_path):
                 # Create Rubik's cube string from img
                 face_str = identify_cube_colors(image_path)
                 if len(contents) == VALID_STRING_LENGTH:
-                    full_target_str = await getCubeDefinitionFromGPT(face_str)
-                    if full_target_str == contents:
-                        write_message("The cube is solved, well done!")
-                    else:
-                        # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-                        write_message(kociemba.solve(contents, full_target_str))
-    #                    #########################
-    #                   USE WITH CAUTION - THIS CODE KEEP ASKING GPT FOR STRING UNTIL FOUND VALID ONE
-    #                     solution = None
-    #                     while True:
-    #                         try:
-    #                             write_message("Attempting to solve...")
-    #                             full_target_str = await getCubeDefinitionFromGPT(face_str)
-    #                             # Attempt to solve the Rubik's cube using the Kociemba algorithm and return the solution
-    #                             solution = kociemba.solve(contents, full_target_str)
-    #                             break
-    #                         except ValueError:
-    #                             # The input string is invalid, so continue to ask the GPT for a new string
-    #                             pass
-    #                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-    #                     write_message(solution)
-    #                    #########################
+                    full_target_str = getCubeDefinitionFromGPT(face_str)
+                    write_message(str(full_target_str))
+                    # Solve the Rubik's cube using the Kociemba algorithm and return the solution
+#                     write_message(kociemba.solve(contents, full_target_str))
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:

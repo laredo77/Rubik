@@ -287,41 +287,19 @@ const joinGame = async (gameDetails) => {
             // Fetch manager progress
             const selectQuery1 = `SELECT cube_id, is_finished FROM user_progress WHERE user_email = ? AND level_id = ? AND game_id = ?`;
             const selectParams1 = [game_manager, level_id, game_id];
+            const game_progress = await executeQuery(selectQuery1, selectParams1);
 
-            let game_progress = undefined;
-            try {
-                game_progress = await executeQuery(selectQuery1, selectParams1);
-            } catch (error) {
-                console.log("Error fetching game progress");
-                console.error(error);
-                throw error;
-            }
 
             // Check if user already exists in user_to_game table
             const selectQuery2 = `SELECT * FROM user_to_game WHERE game_id = ? AND user_email = ?`;
             const selectParams2 = [game_id, gameDetails.user_email];
-
-            let userExists = undefined;
-            try {
-                userExists = await executeQuery(selectQuery2, selectParams2);
-            } catch (error) {
-                console.log("Error checking user existence");
-                console.error(error);
-                throw error;
-            }
+            const userExists = await executeQuery(selectQuery2, selectParams2);
 
             if (userExists.length === 0) {
                 // Insert user to game
                 const insertQuery = `INSERT INTO user_to_game (game_id, user_email) VALUES (?, ?)`;
                 const insertParams = [game_id, gameDetails.user_email];
-
-                try {
-                    await executeQuery(insertQuery, insertParams);
-                } catch (error) {
-                    console.log("Error joining game");
-                    console.error(error);
-                    throw error;
-                }
+                await executeQuery(insertQuery, insertParams);
                 console.log('Success joining game');
             } else {
                 console.log('User already exists in the game');
@@ -336,12 +314,11 @@ const joinGame = async (gameDetails) => {
             }
         } else {
             console.log('Did not find game requested or wrong password');
-            throw new Error('Game not found or wrong password');
+            throw new Error('Did not find game requested or wrong password');
         }
     } catch (error) {
         console.error(error);
-        console.log('Error while joining game');
-        throw error;
+        throw new Error('Error joining game');
     }
 };
 

@@ -314,8 +314,9 @@ const applyMove = async (move) => {
 // Description: Handles the quitting of a player from the match.
 const quit = async (user) => {
     // Check in DB if the user is the manager. If yes, close the game.
-    const line = await findStringInCSV(filePath, user);
-    if (line === 3) {
+    let userWithoutQoutes = user.substring(1, user.length-1);
+    const line = await findStringInCSV(filePath, userWithoutQoutes);
+    if (line === 3 || line === 2) {
         lock.acquire('myLock', async function () {
             const rows = [];
             // Read the CSV file and store the data in the rows array
