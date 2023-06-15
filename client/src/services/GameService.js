@@ -23,6 +23,7 @@ export class GameService {
                     details: JSON.stringify(details),
                 },
             });
+        if (response.status !== 200) return;
         return response.data;
     }
 
