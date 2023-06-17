@@ -92,9 +92,22 @@ const getShuffleCubeMoves = (level) => {
     return movesArray;
 }
 
+function calculateScore(time, level) {
+    // Define the weights for time and level
+    const timeWeight = 0.6; // Adjust this value to set the importance of time in the score
+    const levelWeight = 0.4; // Adjust this value to set the importance of level in the score
+
+    // Calculate the score based on time and level
+    const timeScore = 1 / time; // Inverse of time, so smaller time gives a higher score
+
+    // Combine the scores using the defined weights
+    return Math.round((timeScore * timeWeight + level * levelWeight) * 100);
+}
+
 module.exports = {
     generateStr,
     findStringInCSV,
     getRowFromCsvFile,
-    getShuffleCubeMoves
+    getShuffleCubeMoves,
+    calculateScore,
 };

@@ -1,7 +1,6 @@
 const express = require("express");
 const {
     uploadImages,
-    chooseLevel,
     getGameState,
     postCompScore,
     createGame,
@@ -10,16 +9,14 @@ const {
 } = require("../controllers/game.controller");
 const gameRoutes = express.Router();
 
-// game routes
+// Routes for Mosaic functionality
 gameRoutes.post("/upload-images", uploadImages);
 gameRoutes.post("/gameState", getGameState);
-// old singleplayer routes
-gameRoutes.post("/choose-level", chooseLevel);
 gameRoutes.post("/create-game", createGame);
 gameRoutes.post("/join-game", joinGame);
 gameRoutes.post("/mark-solved", markSolved);
-// competition routes
-gameRoutes.post("/compScore", postCompScore);
 
+// Routes for competition functionality
+gameRoutes.post("/compScore", postCompScore);
 
 module.exports = gameRoutes;

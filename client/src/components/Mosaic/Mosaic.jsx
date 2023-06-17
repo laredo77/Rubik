@@ -1,13 +1,12 @@
-import * as React from "react";
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {useNavigate} from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import {useSelector} from "react-redux";
 import {isEqual} from "lodash";
 
 function TeamPlayPage({user, joinMosaicMatch}) {
@@ -18,20 +17,25 @@ function TeamPlayPage({user, joinMosaicMatch}) {
     let gameId = "";
     let gamePwd = "";
 
-    const newGameHandler = (response) => {
+    // Handler for starting a new game
+    const newGameHandler = () => {
         navigate("/main/game/mosaic/levels");
     };
 
     useEffect(() => {
+        // Check if gameData object has changed
         if (isEqual(gameData, prevGameData)) {
             return; // Exit early if the gameData object hasn't changed
         }
+
+        // Check if level_id is available in the gameData
         if (gameData.level_id) {
             navigate(`/main/game/mosaic/levels/${gameData.level_id}`);
         }
     }, [gameData, navigate, prevGameData]);
 
-    const joinGameHandler = (response) => {
+    // Handler for joining a game
+    const joinGameHandler = () => {
         MySwal.fire({
             title: "Please Provide Game Details",
             html: (

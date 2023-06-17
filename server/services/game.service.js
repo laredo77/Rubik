@@ -1,9 +1,5 @@
-const database = require("../database");
-const {getLevelNumber, getLevelString, calculateScore} = require("../utility/levelUtils");
-const {response} = require("express");
-
 const {executePythonFile} = require("../utility/pythonExecuter");
-const {generatePassword} = require("../utility/generate_pass");
+const {generateStr, calculateScore} = require("../utility/generalUtils");
 const {executeQuery, executeTransaction} = require("../database");
 
 
@@ -117,23 +113,6 @@ const fetchGameState = async (gameDetails) => {
     return ({gameId: gameDetails.gameId, gameState: unifiedProgress});
 }
 
-
-const chooseLevel = async (playerLevel) => {
-    const levelNumber = getLevelNumber(playerLevel.level);
-    const query = `SELECT cube_string FROM level_cube WHERE level_id = (SELECT level_id FROM level WHERE level_id='${levelNumber}' AND is_competition=1)`
-    database.connection.query(query, (error, results) => {
-        if (error) {
-            console.error(error);
-            console.log('An error occurred while selecting level')
-        } else {
-            const is_competition = true;
-            const levelString = getLevelString(results, is_competition);
-            console.log("Change level, cube state:", levelString)
-            return levelString;
-        }
-    });
-};
-
 const createGame = async (gameDetails) => {
     return new Promise(async (resolve, reject) => {
         const selectQuery = `SELECT * FROM multiplayer_games WHERE user_email = ? AND level_id = ?`;
@@ -151,7 +130,8 @@ const createGame = async (gameDetails) => {
             // If game doesn't exist, create a new game
             console.log("Game was not found, creating a new session");
 
-            let password = generatePassword();
+            const passLength = 6;
+            let password = generateStr(passLength);
             const insertQuery = `INSERT INTO multiplayer_games (level_id, password, user_email) VALUES (?, ?, ?)`;
             const insertParams = [gameDetails.level_id, password, gameDetails.manager];
             try {
@@ -384,7 +364,6 @@ const postScore = async (competitionDetails) => {
 
 module.exports = {
     getUserAction,
-    chooseLevel,
     fetchGameState,
     createGame,
     joinGame,

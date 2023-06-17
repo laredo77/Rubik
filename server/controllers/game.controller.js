@@ -1,16 +1,27 @@
 const gameService = require("../services/game.service.js");
 
-// game functions
+/**
+ * Uploads images for the game.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const uploadImages = async (req, res) => {
     try {
         const action = await gameService.getUserAction(req.body);
         res.send(action);
     } catch (error) {
         console.log(error);
-        res.status(401).send("images not uploaded");
+        res.status(401).send("Images could not be uploaded");
     }
 };
 
+/**
+ * Retrieves the game state.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const getGameState = async (req, res) => {
     try {
         const gameDetails = JSON.parse(req.headers.details);
@@ -18,65 +29,74 @@ const getGameState = async (req, res) => {
         res.send(gameState);
     } catch (error) {
         console.log(error);
-        res.status(401).send("couldn't fetch game state from DB");
+        res.status(401).send("Failed to fetch game state from the database");
     }
 };
 
-
-// old singleplayer function
-const chooseLevel = async (req, res) => {
-    try {
-        const playerLevel = await gameService.chooseLevel(req.body);
-        res.send(playerLevel);
-    } catch (error) {
-        console.log(error);
-        res.status(401).send("level not chosen");
-    }
-};
-
+/**
+ * Creates a new game.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const createGame = async (req, res) => {
     try {
-        const details = await gameService.createGame(req.body.gameLevel)
+        const details = await gameService.createGame(req.body.gameLevel);
         res.send(details);
     } catch (error) {
         console.log(error);
-        res.status(401).send("Game not created");
+        res.status(401).send("Game creation failed");
     }
-}
+};
 
+/**
+ * Joins an existing game.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const joinGame = async (req, res) => {
     try {
         const details = JSON.parse(req.headers.details);
-        const id = details.gameLevel.game_id;
-        const password = details.gameLevel.password;
-        const user_email = details.player.email;
-        const result = await gameService.joinGame({game_id: id, password: password, user_email: user_email})
+        const {game_id, password} = details.gameLevel;
+        const {email: user_email} = details.player;
+        const result = await gameService.joinGame({game_id, password, user_email});
         res.send(result);
     } catch (error) {
         console.log(error);
-        res.status(401).send("Error joining to game");
+        res.status(401).send("Failed to join the game");
     }
-}
+};
 
+/**
+ * Marks a cube as solved in the game.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const markSolved = async (req, res) => {
     try {
         const details = JSON.parse(req.headers.details);
-        const user_email = details.cubeGameDetails.user_email;
-        const level_id = details.cubeGameDetails.level_id;
-        const cube_id = details.cubeGameDetails.cube_id;
-        const game_id = details.cubeGameDetails.game_id;
+        const {user_email, level_id, cube_id, game_id} = details.cubeGameDetails;
         const result = await gameService.markSolved({
-            user_email: user_email, level_id: level_id,
-            cube_id: cube_id, game_id: game_id
-        })
+            user_email,
+            level_id,
+            cube_id,
+            game_id
+        });
         res.send(result);
     } catch (error) {
         console.log(error);
-        res.status(401).send("Error marking solved");
+        res.status(401).send("Failed to mark as solved");
     }
-}
+};
 
-// competition-mode controller functions
+/**
+ * Updates the competition score.
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<void>}
+ */
 const postCompScore = async (req, res) => {
     try {
         const competitionDetails = req.body;
@@ -84,17 +104,15 @@ const postCompScore = async (req, res) => {
         res.send(updatedScore);
     } catch (error) {
         console.log(error);
-        res.status(401).send("Error updating score");
+        res.status(401).send("Failed to update the score");
     }
 };
 
 module.exports = {
     uploadImages,
     postCompScore,
-    chooseLevel,
     getGameState,
     createGame,
     joinGame,
     markSolved,
 };
-
