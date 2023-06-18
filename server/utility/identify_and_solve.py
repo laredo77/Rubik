@@ -17,7 +17,6 @@ VALID_STRING_LENGTH = 54
 FILE_NAME = 'current_state_string.txt'
 CLEAR_STRING_LENGTH = 80
 
-#######complete rubik str to 54 chars#######
 
 async def getCubeDefinitionFromGPT(cubeWig):
     apiUrl = 'https://api.openai.com/v1/chat/completions'
@@ -52,8 +51,6 @@ async def getCubeDefinitionFromGPT(cubeWig):
     except Exception as e:
         write_message("An error occurred: " + str(e))
 
-
-#######create_rubik_str_from_img#######
 
 def identify_cube_colors(image_path):
 
@@ -146,13 +143,13 @@ def assign_color_label(cube_color):
 
     # Define specific color values for each color label
     # {'white': 'F', 'yellow': 'D', 'green': 'R', 'blue': 'U', 'red': 'B', 'orange': 'L'}
-    color_values = {
-        (255, 255, 255): 'F',   #BGR
-        (246, 129, 61): 'U',
-        (9, 204, 253): 'D',
-        (84, 157, 0): 'R',
-        (47, 66, 220): 'B',
-        (0, 108, 255): 'L'
+    color_values = {            #BGR
+        (255, 255, 255): 'F',   # White
+        (246, 129, 61): 'U',    # Orange
+        (9, 204, 253): 'D',     # Cyan
+        (84, 157, 0): 'R',      # Green
+        (47, 66, 220): 'B',     # Blue
+        (0, 108, 255): 'L'      # Yellow
     }
 
     # Convert cube_color to a tuple
@@ -162,10 +159,9 @@ def assign_color_label(cube_color):
     if cube_color_tuple in color_values:
         return color_values[cube_color_tuple]
 
-    # Return 'unknown' if no matching color label is found
+    # Return '?' if no matching color label is found
     return '?'
 
-#######identify_and_solve#######
 
 def color_to_letter(colors):
     """
@@ -213,15 +209,11 @@ def capture_rubik_face():
     # The loop in `grab_colors` function will stop when the stop_button is clicked.
 
 
-# def write_message_with_type(message):
-#     message_type = type(message).__name__
-#     write_message(f"Message: {message}, Type: {message_type}")
-
 def write_message(message):
     with open("messages_to_user.txt", "w") as f:
-        f.write(" " * CLEAR_STRING_LENGTH)
+        f.write(" " * CLEAR_STRING_LENGTH)  # Clear the file contents
         f.seek(0)
-        f.write(message)
+        f.write(message)  # Write the message to the file
 
 
 async def modify_and_confirm_file(action, kociemba_string, image_path):
@@ -269,22 +261,6 @@ async def modify_and_confirm_file(action, kociemba_string, image_path):
                     full_target_str = await getCubeDefinitionFromGPT(face_str)
                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
                     write_message(kociemba.solve(contents, full_target_str))
-    #                    #########################
-    #                   USE WITH CAUTION - THIS CODE KEEP ASKING GPT FOR STRING UNTIL FOUND VALID ONE
-    #                     solution = None
-    #                     while True:
-    #                         try:
-    #                             write_message("Attempting to solve...")
-    #                             full_target_str = await getCubeDefinitionFromGPT(face_str)
-    #                             # Attempt to solve the Rubik's cube using the Kociemba algorithm and return the solution
-    #                             solution = kociemba.solve(contents, full_target_str)
-    #                             break
-    #                         except ValueError:
-    #                             # The input string is invalid, so continue to ask the GPT for a new string
-    #                             pass
-    #                     # Solve the Rubik's cube using the Kociemba algorithm and return the solution
-    #                     write_message(solution)
-    #                    #########################
             else:
                 # Modify the specified character range
                 if len(kociemba_string) == end_index - start_index + 1:

@@ -1,25 +1,28 @@
-import * as React from "react";
+import React, {useEffect, useState} from "react";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import ImageList from "@mui/material/ImageList";
 import Box from "@mui/material/Box";
 import ImageListItem from "@mui/material/ImageListItem";
-import {getCubesImages, getCubeIdFromImg} from "../../../components-utils";
+import {getCubeIdFromImg, getCubesImages} from "../../../components-utils";
 import "./ArtPage.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Button from "@mui/material/Button";
 import MenuDetails from "./MenuDetails";
 import {useSelector} from "react-redux";
-import Client from "../../../../services/GameService"
-import {useEffect, useState} from "react";
+import Client from "../../../../services/GameService";
 
+// Create the theme for MUI components
 const theme = createTheme();
 
-const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]}
+// Define the dimensions for different levels
+const dimensions = {1: [693, 567], 2: [990, 720], 3: [990, 810]};
 
-function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
+function ArtPage({user, markSolved, getGameState}) {
     const MySwal = withReactContent(Swal);
     const [previousState, setPreviousState] = useState(null);
+
+    // Get the game state and level details from Redux store
     const gameState = useSelector((state) => state.gameReducer);
     const levelDetails = useSelector((state) => state.mosaicReducer);
     const game_id = levelDetails.game_id;
@@ -28,6 +31,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
     const elements = document.querySelectorAll('img');
 
     useEffect(() => {
+        // Update the game state periodically
         const updateGameState = async () => {
             await getGameState(game_id);
             const cubes = gameState.gameState;
@@ -36,7 +40,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                     handleSolved(elements[cube.cube_id], true).then();
                 });
             }
-        }
+        };
 
         // Call the function every 5 seconds
         const interval = setInterval(() => {
@@ -50,6 +54,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         return () => clearInterval(interval);
     }, [gameState, getGameState]);
 
+    // Handle the cube image solved event
     const handleSolved = async (selectedImage, isReceiving) => {
         if (!isReceiving) {
             if (selectedImage) {
@@ -67,38 +72,41 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         }
     };
 
+    // Handle the action capture event
     const actionCaptureHandler = async (response, clickedImage) => {
-        const result = await Client.uploadImages({action: response.target.id, clickedImage});
-        document.getElementById("result").innerHTML = result;
+        document.getElementById("result").innerHTML = await Client.uploadImages({
+            action: response.target.id,
+            clickedImage,
+        });
     };
 
+    // Handle the image click event
     const handleImageClick = (response) => {
         const clickedImage = response.target;
-        const test = response.target.src;
-        const srcUrl = new URL(clickedImage.src);
-        const relativePath = srcUrl.pathname;
+        const imgPath = response.target.src;
         MySwal.fire({
             title: "Solver",
             html: (
-                <Box sx={{display: "flex", flexDirection: "column"}}>
-                    <Box sx={{display: "inline-block", marginBottom: "10px"}}>
-                        <Button
-                            variant="contained"
-                            onClick={() => handleUploadImageClick(test)}
-                        >
-                            Upload cube images to solve
-                        </Button>
+                <>
+                    <Box sx={{display: "flex", flexDirection: "column"}}>
+                        <Box sx={{display: "inline-block", marginBottom: "10px"}}>
+                            <Button
+                                variant="contained"
+                                onClick={() => handleUploadImageClick(imgPath)}
+                            >
+                                Upload cube images to solve
+                            </Button>
+                        </Box>
+                        <Box sx={{display: "inline-block"}}>
+                            <Button
+                                variant="contained"
+                                onClick={() => handleSolved(clickedImage, false)}
+                            >
+                                Mark as solved
+                            </Button>
+                        </Box>
                     </Box>
-                    <Box sx={{display: "inline-block"}}>
-                        <Button
-                            variant="contained"
-                            onClick={() => handleSolved(clickedImage, false)}
-                        >
-                            Mark as solved
-                        </Button>
-                    </Box>
-                </Box>
-
+                </>
             ),
             imageUrl: response.target.src,
             imageHeight: 90,
@@ -108,64 +116,100 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
         });
     };
 
-    // Define a function that will handle the upload image button click event
+    // Handle the upload image button click event
     const handleUploadImageClick = (clickedImage) => {
         // Show a popup dialog using SweetAlert2 library
         MySwal.fire({
             title: "Upload cube images to solve",
             // HTML content to be displayed inside the dialog
             html: (
-                <div>
-                    <Button id="top" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                <>
+                    <Button
+                        id="top"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Top
                     </Button>
                     <br/>
-                    <Button id="bottom" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                    <Button
+                        id="bottom"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Bottom
                     </Button>
                     <br/>
-                    <Button id="front" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                    <Button
+                        id="front"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Front
                     </Button>
                     <br/>
-                    <Button id="back" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                    <Button
+                        id="back"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Back
                     </Button>
                     <br/>
-                    <Button id="left" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                    <Button
+                        id="left"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Left
                     </Button>
                     <br/>
-                    <Button id="right" variant="contained" size="small"
-                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
-                            style={{marginBottom: '5px'}}>
+                    <Button
+                        id="right"
+                        variant="contained"
+                        size="small"
+                        onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        style={{marginBottom: "5px"}}
+                    >
                         Right
                     </Button>
                     <br/>
-                    <div style={{display: "flex", justifyContent: "center", marginBottom: '5px'}}>
-                        <Button id="clear" variant="contained"
-                                onClick={(event) => actionCaptureHandler(event, clickedImage)}>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "center",
+                            marginBottom: "5px",
+                        }}
+                    >
+                        <Button
+                            id="clear"
+                            variant="contained"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        >
                             Clear
                         </Button>
-                        <span style={{width: '5px'}}></span>
-                        <Button id="confirm" variant="contained"
-                                onClick={(event) => actionCaptureHandler(event, clickedImage)}>
+                        <span style={{width: "5px"}}></span>
+                        <Button
+                            id="confirm"
+                            variant="contained"
+                            onClick={(event) => actionCaptureHandler(event, clickedImage)}
+                        >
                             Confirm
                         </Button>
                     </div>
                     <br/>
                     <div id="result"></div>
-                </div>
+                </>
             ),
 
             // Button color for the confirmation button
@@ -185,10 +229,10 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                 <MenuDetails gameState={gameState}/>
                 <ImageList
                     sx={{
-                        marginRight: 'auto',
-                        marginLeft: 'auto',
-                        marginTop: 'auto',
-                        marginBottom: 'auto',
+                        marginRight: "auto",
+                        marginLeft: "auto",
+                        marginTop: "auto",
+                        marginBottom: "auto",
                         width: dimensions[level][0], // 990 * 0.7 , 693
                         height: dimensions[level][1], // 810 * 0.7 567
                     }}
@@ -202,7 +246,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                                     src={item.img}
                                     alt={item.title}
                                     loading="lazy"
-                                    className={'image-solved'}
+                                    className={"image-solved"}
                                     onClick={handleImageClick}
                                 />
                             </ImageListItem>
@@ -212,7 +256,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                                 src={item.img}
                                 alt={item.title}
                                 loading="lazy"
-                                className={'zoom'}
+                                className={"zoom"}
                                 onClick={handleImageClick}
                             />
                         )
@@ -220,7 +264,7 @@ function ArtPage({user, uploadImagesFunc, markSolved, getGameState}) {
                 </ImageList>
             </Box>
         </ThemeProvider>
-    )
+    );
 }
 
 export default ArtPage;
