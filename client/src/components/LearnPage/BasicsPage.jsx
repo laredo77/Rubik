@@ -137,8 +137,8 @@ const tableStyle = {
 };
 
 const imageStyle = {
-    width: '70px',
-    height: '70px'
+    width: '90px',
+    height: '90px'
 };
 
 export default BasicsPage;

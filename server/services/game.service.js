@@ -2,7 +2,7 @@ const {executePythonFile} = require("../utility/pythonExecuter");
 const {generateStr, calculateScore} = require("../utility/generalUtils");
 const {executeQuery, executeTransaction} = require("../database");
 
-
+// Function executes a Python script and returns the contents of a file
 const getUserAction = async ({action, clickedImage}) => {
     const scriptFileName = "identify_and_solve.py";
     await executePythonFile(scriptFileName, [action, clickedImage]);
@@ -24,7 +24,7 @@ const getUserAction = async ({action, clickedImage}) => {
     });
 };
 
-
+//Function fetches the game state for a given game.
 const fetchGameState = async (gameDetails) => {
     // Find game manager and level id
     const selectQuery = `SELECT user_email, level_id FROM multiplayer_games WHERE game_id = ?`;
@@ -113,8 +113,9 @@ const fetchGameState = async (gameDetails) => {
     return ({gameId: gameDetails.gameId, gameState: unifiedProgress});
 }
 
+// Function to create a new game session
 const createGame = async (gameDetails) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
         const selectQuery = `SELECT * FROM multiplayer_games WHERE user_email = ? AND level_id = ?`;
         const selectParams = [gameDetails.manager, gameDetails.level_id];
 
@@ -251,6 +252,7 @@ const createGame = async (gameDetails) => {
     });
 }
 
+// Function to join an existing game
 const joinGame = async (gameDetails) => {
     const game_id = gameDetails.game_id;
     const password = gameDetails.password;
@@ -294,7 +296,6 @@ const joinGame = async (gameDetails) => {
             }
         } else {
             console.log('Did not find game requested or wrong password');
-            throw new Error('Did not find game requested or wrong password');
         }
     } catch (error) {
         console.error(error);
@@ -302,7 +303,7 @@ const joinGame = async (gameDetails) => {
     }
 };
 
-
+// Function to mark a cube as solved in a game
 const markSolved = async (cubeGameDetails) => {
     const user_email = cubeGameDetails.user_email.email;
     const level_id = cubeGameDetails.level_id;
@@ -325,7 +326,6 @@ const markSolved = async (cubeGameDetails) => {
             } catch (error) {
                 console.error(error);
                 console.log('Error finishing cube');
-                throw error;
             }
         }
     } catch (error) {
@@ -335,6 +335,7 @@ const markSolved = async (cubeGameDetails) => {
     }
 };
 
+// Function to post the score when a user finishes a competition level
 const postScore = async (competitionDetails) => {
     const {user, level, time} = competitionDetails;
     const score = calculateScore(time, level);

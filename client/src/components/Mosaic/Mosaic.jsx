@@ -13,7 +13,7 @@ function TeamPlayPage({user, joinMosaicMatch}) {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
     const gameData = useSelector((state) => state.mosaicReducer);
-    const [prevGameData, setPrevGameData] = useState(gameData);
+    const [prevGameData] = useState(gameData);
     let gameId = "";
     let gamePwd = "";
 

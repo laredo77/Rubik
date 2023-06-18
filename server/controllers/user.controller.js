@@ -21,11 +21,6 @@ const addUser = async (req, res) => {
 const getLeaderBoard = async (req, res) => {
     try {
         const leaderboard = await userService.buildLeaderboard();
-        // Sample leaderboard data
-        // const leaderboard = [
-        //   { Email: "first", Score: 112 },
-        //   { Email: "second", Score: 9 }
-        // ];
         res.send(leaderboard);
     } catch (error) {
         console.log(error);

@@ -2,9 +2,6 @@ const gameService = require("../services/game.service.js");
 
 /**
  * Uploads images for the game.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const uploadImages = async (req, res) => {
     try {
@@ -18,9 +15,6 @@ const uploadImages = async (req, res) => {
 
 /**
  * Retrieves the game state.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const getGameState = async (req, res) => {
     try {
@@ -35,9 +29,6 @@ const getGameState = async (req, res) => {
 
 /**
  * Creates a new game.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const createGame = async (req, res) => {
     try {
@@ -51,9 +42,6 @@ const createGame = async (req, res) => {
 
 /**
  * Joins an existing game.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const joinGame = async (req, res) => {
     try {
@@ -70,9 +58,6 @@ const joinGame = async (req, res) => {
 
 /**
  * Marks a cube as solved in the game.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const markSolved = async (req, res) => {
     try {
@@ -93,9 +78,6 @@ const markSolved = async (req, res) => {
 
 /**
  * Updates the competition score.
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {Promise<void>}
  */
 const postCompScore = async (req, res) => {
     try {
