@@ -13,19 +13,57 @@ import aiohttp
 from scipy.stats import mode
 from dotenv import load_dotenv
 
+# Constants
 VALID_STRING_LENGTH = 54
 FILE_NAME = 'current_state_string.txt'
 CLEAR_STRING_LENGTH = 80
 
 
 async def getCubeDefinitionFromGPT(cubeWig):
+    """
+    Retrieves the cube definition string for the entire Rubik's Cube using GPT-3.5 Turbo model.
+
+    Args:
+        cubeWig (str): Single side of the cube represented by a string.
+
+    Returns:
+        str: Cube definition string for the entire Rubik's Cube starting with the provided side.
+    """
+
     apiUrl = 'https://api.openai.com/v1/chat/completions'
-    apiKey = os.getenv('API_KEY')
+    apiKey = ''
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {apiKey}'
     }
-    message = f'According to the Rubik Cube rules, it is defined by a string of 54 letters representing the stickers on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). I have a single side of the cube with the string "{cubeWig}". Could you provide a valid string definition for the entire Rubik Cube starting with my side, while leaving the rest open? Your assistance in generating a valid configuration would be greatly appreciated'
+    message = (
+            f'According to the Rubik Cube rules, it is defined by a string of 54 letters representing the stickers '
+            f'on the cube. The available colors are R (red), G (green), B (blue), O (orange), W (white), and Y (yellow). '
+            f'I have a single side of the cube with the string "{cubeWig}". Could you provide a valid string definition '
+            f'for the entire Rubik Cube starting with my side, while leaving the rest open? Your assistance in '
+            f'generating a valid configuration would be greatly appreciated\n\n'
+            f'          |*********|\n'
+            f'          |*U1**U2**U3*|\n'
+            f'          |*********|\n'
+            f'          |*U4**U5**U6*|\n'
+            f'          |*********|\n'
+            f'          |*U7**U8**U9*|\n'
+            f'          |*********|\n'
+            f'*********|*********|*********|*********\n'
+            f'*L1**L2**L3*|*F1**F2**F3*|*R1**R2**R3*|*B1**B2**B3*\n'
+            f'*********|*********|*********|*********\n'
+            f'*L4**L5**L6*|*F4**F5**F6*|*R4**R5**R6*|*B4**B5**B6*\n'
+            f'*********|*********|*********|*********\n'
+            f'*L7**L8**L9*|*F7**F8**F9*|*R7**R8**R9*|*B7**B8**B9*\n'
+            f'*********|*********|*********|*********\n'
+            f'          |*********|\n'
+            f'          |*D1**D2**D3*|\n'
+            f'          |*********|\n'
+            f'          |*D4**D5**D6*|\n'
+            f'          |*********|\n'
+            f'          |*D7**D8**D9*|\n'
+            f'          |*********|\n'
+        )
 
     payload = {
         'model': 'gpt-3.5-turbo',
@@ -43,6 +81,7 @@ async def getCubeDefinitionFromGPT(cubeWig):
             async with session.post(apiUrl, json=payload, headers=headers) as response:
                 response_data = await response.json()
                 content = response_data['choices'][0]['message']['content']
+                write_message(content)
                 full_str = content.split('\n\n')[1]
 
         converted_str = ''.join(color_conversion.get(c, c) for c in full_str)
@@ -53,15 +92,20 @@ async def getCubeDefinitionFromGPT(cubeWig):
 
 
 def identify_cube_colors(image_path):
+    """
+    Identify the colors of a Rubik's Cube from an image.
 
-    req = None  # Initialize req with None
+    Args:
+        image_path (str): The path or URL of the image.
+
+    Returns:
+        str: A string representation of the colors of the Rubik's Cube.
+    """
+
     try:
         # Download the image from the URL
         req = urllib.request.urlopen(image_path)
-    except urllib.error.URLError as e:
-        write_message("An error occurred: " + str(e))
 
-    if req is not None:
         arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
 
         # Read the image using cv2.imdecode()
@@ -70,25 +114,16 @@ def identify_cube_colors(image_path):
         # Get the dimensions of the image
         height, width, _ = image.shape
 
-        # Divide the height into three rows
+        # Divide the image into nine regions (3x3 grid)
         row_height = height // 3
-
-        # Divide the width into thirds (1/3)
         third_width = width // 3
 
         # Define the ROI coordinates based on the divided width and height
-        roi_coordinates = []
-        for i in range(3):
-            y = i * row_height  # Calculate the y-coordinate for the current row
-
-            for j in range(3):
-                x = j * third_width  # Calculate the x-coordinate for the current column
-
-                # Append ROI coordinates for the current cube
-                roi_coordinates.append((x, y, third_width, row_height))
+        roi_coordinates = [(j * third_width, i * row_height, third_width, row_height)
+                           for i in range(3) for j in range(3)]
 
         # Create a zoomed-in version of the image
-        zoom_factor = 10  # Increase this value to zoom in further
+        zoom_factor = 10
         zoomed_image = cv2.resize(image, None, fx=zoom_factor, fy=zoom_factor)
 
         # Scale the ROI coordinates based on the zoom factor
@@ -123,10 +158,21 @@ def identify_cube_colors(image_path):
         # Return the color string
         return color_string
 
+    except urllib.error.URLError as e:
+        write_message("An error occurred: " + str(e))
+
 
 def extract_color(cube):
-    # Extract color information from the cube region
-    # Calculate the most common color of the cube
+    """
+    Extract the color information from a cube region.
+    Calculates the most common color of the cube.
+
+    Args:
+        cube (ndarray): The image region representing a cube.
+
+    Returns:
+        str: The color information of the cube.
+    """
 
     # Reshape the cube to a 2D array of pixels
     pixels = cube.reshape(-1, 3)
@@ -138,8 +184,15 @@ def extract_color(cube):
 
 
 def assign_color_label(cube_color):
-    # Assign a color label based on the extracted color
-    # Use specific color values to determine the label
+    """
+        Assign a color label based on the extracted color.
+
+        Args:
+            cube_color (tuple): The color information of a cube as a BGR tuple.
+
+        Returns:
+            str: The color label corresponding to the cube color.
+    """
 
     # Define specific color values for each color label
     # {'white': 'F', 'yellow': 'D', 'green': 'R', 'blue': 'U', 'red': 'B', 'orange': 'L'}
@@ -210,10 +263,19 @@ def capture_rubik_face():
 
 
 def write_message(message):
-    with open("messages_to_user.txt", "w") as f:
-        f.write(" " * CLEAR_STRING_LENGTH)  # Clear the file contents
-        f.seek(0)
-        f.write(message)  # Write the message to the file
+    """
+    Write a message to the 'messages_to_user.txt' file.
+
+    Args:
+        message (str): The message to be written.
+
+    Returns:
+        None
+    """
+    with open("messages_to_user.txt", "w") as file:
+        file.write(" " * CLEAR_STRING_LENGTH)  # Clear the file contents
+        file.seek(0)
+        file.write(message)  # Write the message to the file
 
 
 async def modify_and_confirm_file(action, kociemba_string, image_path):
@@ -297,18 +359,26 @@ async def capture_solve_print(action, image_path):
     await modify_and_confirm_file(action, kociemba_string, image_path)
 
 
-# When this python file invoked, it starts main
-if __name__ == "__main__":
+def main():
+    """
+    Main entry point of the script.
+    Retrieves the command line arguments passed to the script by the JS function,
+    and runs the 'capture_solve_print' function asynchronously.
+    """
     # Change the current working directory to the location of the script
     script_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(script_dir)
 
-# Retrieves the command line arguments passed to the script by the JS function
+    # Retrieves the command line arguments passed to the script by the JS function
     action = sys.argv[1]
     imgPath = sys.argv[2]
+
     loop = asyncio.get_event_loop()
     loop.run_until_complete(capture_solve_print(action, imgPath))
     loop.close()
+
+if __name__ == "__main__":
+    main()
 
 
 
